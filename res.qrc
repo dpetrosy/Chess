@@ -4,5 +4,7 @@
         <file>images/quit.png</file>
         <file>images/application_logo.png</file>
         <file>images/logo.png</file>
+        <file>images/board.jpg</file>
+        <file>images/pieces/pawn.png</file>
     </qresource>
 </RCC>

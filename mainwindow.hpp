@@ -5,6 +5,9 @@
 #include <QPalette>
 #include <QStackedWidget>
 #include <QWidget>
+#include <QPixmap>
+#include <QLabel>
+#include <QImage>
 
 #include "quitdialog.hpp"
 
@@ -33,12 +36,22 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_playButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    QPixmap backgroundImage;
+    QPalette palette;
     QuitDialog quitDialog;
     QStackedWidget stackedWidgetPVP;
     QWidget *mainMenu;
     QWidget *PVPMenu;
+    QWidget *PVPChess;
+    QImage *boardImage;
+    QLabel *boardLabel;
+
+    QImage *pawnImage;
+    QLabel *pawnLabel;
 };
 
 #endif // MAINWINDOW_HPP
