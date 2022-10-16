@@ -9,14 +9,10 @@ QuitDialog::QuitDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
-QuitDialog::~QuitDialog()
-{
-    delete ui;
-}
+QuitDialog::~QuitDialog() {}
 
 void QuitDialog::on_quit_dialog_option_accepted()
 {
-    delete this;
     exit(0);
 }
 

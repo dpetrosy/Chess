@@ -1,71 +1,81 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
-#include "ui_quitdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    // set MainWindow size
     this->setFixedSize((int)MainWindowSizes::windowSizeHorizontal, (int)MainWindowSizes::windowSizeVerticale);
     ui->setupUi(this);
 
-    // Background image
-    backgroundImage.load(":/images/images/background.jpg");
+    setup();
+    setBackgroundImage("background.jpg");
+
+    makeStackedWidgetPVP();
+    ui->stackedWidgetPVP->setCurrentIndex(0);
+}
+
+MainWindow::~MainWindow() {}
+
+void MainWindow::setup()
+{
+    // images
+    imagesPath = ":/images/images/";
+    piecesPath = imagesPath + "pieces/";
+    logosPath = imagesPath + "logos/";
+    backgroundsPath = imagesPath + "backgrounds/";
+
+    // Main menu attributes
+    mainMenu = new QWidget();
+    quitDialog = new QuitDialog();
+
+    // PVP menu attributes
+    stackedWidgetPVP = new QStackedWidget();
+    PVPMenu = new QWidget();
+
+    // Chess game attributes
+    gameWidget = new GameWidget();
+}
+
+void MainWindow::setBackgroundImage(const QString& image)
+{
+    backgroundImage.load(backgroundsPath + image);
     backgroundImage = backgroundImage.scaled(this->size(), Qt::IgnoreAspectRatio);
     palette.setBrush(QPalette::Window, backgroundImage);
     this->setPalette(palette);
-
-    mainMenu = new QWidget;
-    PVPMenu = new QWidget;
-    PVPChess = new QWidget;
-    stackedWidgetPVP.addWidget(mainMenu);
-    stackedWidgetPVP.addWidget(PVPMenu);
-    stackedWidgetPVP.addWidget(PVPChess);
-    ui->stackedWidgetPVP->setCurrentIndex(0);
-
-    QImage *pawnImage = new QImage;
-    QLabel *pawnLabel = new QLabel;
 }
 
-MainWindow::~MainWindow()
+void MainWindow::makeStackedWidgetPVP()
 {
-    delete ui;
+    ui->stackedWidgetPVP->addWidget(mainMenu);
+    ui->stackedWidgetPVP->addWidget(PVPMenu);
 }
 
-void MainWindow::on_quit_button_clicked()
-{
-    quitDialog.setWindowIcon(QIcon(":/images/images/logo.png"));
-    quitDialog.setModal(true);
-    quitDialog.show();
-}
-
-void MainWindow::on_player_vs_player_button_clicked()
+// Main menu buttons
+void MainWindow::on_PVPbutton_clicked()
 {
     ui->stackedWidgetPVP->setCurrentIndex(1);
 }
 
-void MainWindow::on_player_vs_computer_button_clicked()
+void MainWindow::on_quitButton_clicked()
 {
-
+    quitDialog->setWindowIcon(QIcon(imagesPath + "logo.png"));
+    quitDialog->setModal(true);
+    quitDialog->show();
 }
 
-void MainWindow::on_pushButton_2_clicked()
-{
-    ui->stackedWidgetPVP->setCurrentIndex(0);
-}
-
-void MainWindow::on_playButton_clicked()
+// PVP menu buttons
+void MainWindow::on_PVPMenuPlayButton_clicked()
 {
     ui->stackedWidgetPVP->hide();
+    setBackgroundImage("board.png");
 
-    // Background image
-    backgroundImage.load(":/images/images/board.jpg");
-    backgroundImage = backgroundImage.scaled(this->size(), Qt::IgnoreAspectRatio);
-    palette.setBrush(QPalette::Window, backgroundImage);
-    this->setPalette(palette);
+    setCentralWidget(gameWidget);
+    gameWidget->show();
+}
 
-    pawnImage->load(":/images/images/pieces/pawn.png");
-    pawnLabel->setPixmap(QPixmap::fromImage(*boardImage));
-    pawnLabel->setGeometry(10,10,30,80);
-    pawnLabel->show();
+void MainWindow::on_PVPMenuReturnButton_clicked()
+{
+    ui->stackedWidgetPVP->setCurrentIndex(0);
 }

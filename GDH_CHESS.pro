@@ -9,12 +9,21 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    boardwidget.cpp \
+    gamewidget.cpp \
     main.cpp \
     mainwindow.cpp \
+    pawn.cpp \
+    piece.cpp \
     quitdialog.cpp
 
 HEADERS += \
+    boardwidget.hpp \
+    cordsandsizes.hpp \
+    gamewidget.hpp \
     mainwindow.hpp \
+    pawn.hpp \
+    piece.hpp \
     quitdialog.hpp
 
 FORMS += \
@@ -28,4 +37,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     res.qrc \
-    res.qrc

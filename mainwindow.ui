@@ -28,7 +28,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="mainMenu">
      <property name="enabled">
@@ -45,7 +45,7 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="instructions_button">
+        <widget class="QPushButton" name="optionsButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -63,7 +63,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="quit_button">
+        <widget class="QPushButton" name="quitButton">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -105,7 +105,7 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QPushButton" name="player_vs_player_button">
+        <widget class="QPushButton" name="PVPbutton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -127,7 +127,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="player_vs_computer_button">
+        <widget class="QPushButton" name="PVCbutton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -148,7 +148,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="settings_button">
+        <widget class="QPushButton" name="instructionsButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -183,14 +183,14 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QPushButton" name="playButton">
+        <widget class="QPushButton" name="PVPMenuPlayButton">
          <property name="text">
           <string>Play</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="PVPMenuReturnButton">
          <property name="text">
           <string>Return</string>
          </property>

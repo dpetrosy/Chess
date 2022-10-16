@@ -19,7 +19,7 @@ class QuitDialog : public QDialog
 
 public:
     explicit QuitDialog(QWidget *parent = nullptr);
-    ~QuitDialog();
+    virtual ~QuitDialog();
 
 private slots:
     void on_quit_dialog_option_accepted();

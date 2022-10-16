@@ -1,10 +1,14 @@
 <RCC>
     <qresource prefix="/images">
-        <file>images/background.jpg</file>
         <file>images/quit.png</file>
-        <file>images/application_logo.png</file>
-        <file>images/logo.png</file>
-        <file>images/board.jpg</file>
-        <file>images/pieces/pawn.png</file>
+        <file>images/backgrounds/background.jpg</file>
+        <file>images/logos/logo.png</file>
+        <file>images/backgrounds/board.png</file>
+        <file>images/pieces/black_bishop.png</file>
+        <file>images/pieces/black_king.png</file>
+        <file>images/pieces/black_knight.png</file>
+        <file>images/pieces/black_pawn.png</file>
+        <file>images/pieces/black_queen.png</file>
+        <file>images/pieces/black_rook.png</file>
     </qresource>
 </RCC>
