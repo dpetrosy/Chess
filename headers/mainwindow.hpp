@@ -9,7 +9,7 @@
 #include <QLabel>
 #include <QImage>
 
-#include "cordsandsizes.hpp"
+#include "helpers.hpp"
 #include "quitdialog.hpp"
 #include "boardwidget.hpp"
 #include "gamewidget.hpp"
@@ -27,9 +27,9 @@ public:
     virtual ~MainWindow();
 
 private slots:
+    // Member functions
     void setup();
     void setBackgroundImage(const QString& image);
-    void makeStackedWidgetPVP();
 
     // Main menu buttons
     void on_PVPbutton_clicked();
@@ -38,6 +38,21 @@ private slots:
     // PVP menu buttons
     void on_PVPMenuPlayButton_clicked();
     void on_PVPMenuReturnButton_clicked();
+
+    // StackedWidget maker
+    template <typename T, typename... Types>
+    void makeStackedWidget(QStackedWidget *stackedWidget, T widget, Types... arg2)
+    {
+        stackedWidget->addWidget(widget);
+
+        return makeStackedWidget(stackedWidget, arg2...);
+    }
+
+    void makeStackedWidget(QStackedWidget *stackedWidget)
+    {
+        (void) stackedWidget;
+        return;
+    }
 
 private:
     Ui::MainWindow *ui;
@@ -60,6 +75,13 @@ private:
 
     // Chess game attributes
     GameWidget *gameWidget;
+
+
+
+
+
+    QWidget *wid;
+    QStackedWidget *widget;
 };
 
 #endif // MAINWINDOW_HPP

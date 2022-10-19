@@ -9,22 +9,28 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    boardwidget.cpp \
-    gamewidget.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    pawn.cpp \
-    piece.cpp \
-    quitdialog.cpp
+    sources/boardwidget.cpp \
+    sources/gamewidget.cpp \
+    sources/main.cpp \
+    sources/mainwindow.cpp \
+    sources/pieces_sources/factory.cpp \
+    sources/pieces_sources/pawn.cpp \
+    sources/pieces_sources/piece.cpp \
+    sources/quitdialog.cpp
 
 HEADERS += \
-    boardwidget.hpp \
-    cordsandsizes.hpp \
-    gamewidget.hpp \
-    mainwindow.hpp \
-    pawn.hpp \
-    piece.hpp \
-    quitdialog.hpp
+    headers/boardwidget.hpp \
+    headers/gamewidget.hpp \
+    headers/helpers.hpp \
+    headers/mainwindow.hpp \
+    headers/pieces_headers/factory.hpp \
+    headers/pieces_headers/pawn.hpp \
+    headers/pieces_headers/piece.hpp \
+    headers/quitdialog.hpp \
+
+INCLUDEPATH += \
+    headers/ \
+    headers/pieces_headers \
 
 FORMS += \
     mainwindow.ui \

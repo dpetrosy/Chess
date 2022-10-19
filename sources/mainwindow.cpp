@@ -14,6 +14,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     makeStackedWidgetPVP();
     ui->stackedWidgetPVP->setCurrentIndex(0);
+
+
+
+    //ui->stackedWidgetPVP->hide();
+    wid = new QWidget;
+    QPushButton *button = new QPushButton(wid);
+    button->setGeometry(15, 15, 15, 15);
+    widget = new QStackedWidget();
+    widget->addWidget(wid);
+    //setCentralWidget(widget);
 }
 
 MainWindow::~MainWindow() {}
@@ -35,7 +45,7 @@ void MainWindow::setup()
     PVPMenu = new QWidget();
 
     // Chess game attributes
-    gameWidget = new GameWidget();
+    gameWidget = GameWidget::GetInstance(this);
 }
 
 void MainWindow::setBackgroundImage(const QString& image)
@@ -55,7 +65,10 @@ void MainWindow::makeStackedWidgetPVP()
 // Main menu buttons
 void MainWindow::on_PVPbutton_clicked()
 {
-    ui->stackedWidgetPVP->setCurrentIndex(1);
+    setCentralWidget(widget);
+
+
+    //ui->stackedWidgetPVP->setCurrentIndex(1);
 }
 
 void MainWindow::on_quitButton_clicked()

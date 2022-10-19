@@ -8,6 +8,7 @@ class Pawn : public Piece
 public:
     Pawn();
     virtual ~Pawn();
+    Pawn *Clone() const override;
 
 private:
 
