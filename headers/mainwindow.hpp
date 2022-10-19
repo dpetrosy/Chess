@@ -3,16 +3,22 @@
 
 #include <QMainWindow>
 #include <QStackedWidget>
+#include <QPushButton>
 #include <QPalette>
 #include <QWidget>
 #include <QPixmap>
 #include <QLabel>
 #include <QImage>
+#include <QRect>
 
+#include "menus.hpp"
 #include "helpers.hpp"
-#include "quitdialog.hpp"
-#include "boardwidget.hpp"
-#include "gamewidget.hpp"
+#include "utils.hpp"
+
+
+//#include "quitdialog.hpp"
+//#include "boardwidget.hpp"
+//#include "gamewidget.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,30 +30,32 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    virtual ~MainWindow();
+    ~MainWindow();
 
-private slots:
-    // Member functions
+private:
+    // Setups
     void setup();
+    void setupMainMenuStruct();
+
+    // Utils functions
     void setBackgroundImage(const QString& image);
 
-    // Main menu buttons
-    void on_PVPbutton_clicked();
-    void on_quitButton_clicked();
+    // Make menus
+    void makeMenus();
+    void makeMainMenu();
 
-    // PVP menu buttons
-    void on_PVPMenuPlayButton_clicked();
-    void on_PVPMenuReturnButton_clicked();
+    // Make stackedWidgets
+    void makeStackedWidgets();
 
     // StackedWidget maker
     template <typename T, typename... Types>
     void makeStackedWidget(QStackedWidget *stackedWidget, T widget, Types... arg2)
     {
         stackedWidget->addWidget(widget);
-
         return makeStackedWidget(stackedWidget, arg2...);
     }
 
+    // Template Specialization
     void makeStackedWidget(QStackedWidget *stackedWidget)
     {
         (void) stackedWidget;
@@ -65,23 +73,36 @@ private:
     QPixmap backgroundImage;
     QPalette palette;
 
-    // Main menu attributes
-    QWidget *mainMenu;
-    QuitDialog *quitDialog;
+    // Menus Structs
+    MainMenu *mainMenuStruct;
 
-    // PVP StackedWidget attributes
+    // Menus Widgets
+    QWidget *mainMenuWidget;
+
+    // StackedWidgets
     QStackedWidget *stackedWidgetPVP;
-    QWidget *PVPMenu;
-
-    // Chess game attributes
-    GameWidget *gameWidget;
-
-
-
-
-
-    QWidget *wid;
-    QStackedWidget *widget;
 };
 
 #endif // MAINWINDOW_HPP
+
+
+
+
+
+
+//    // Main menu buttons
+//    void on_PVPbutton_clicked();
+//    void on_quitButton_clicked();
+
+//    // PVP menu buttons
+//    void on_PVPMenuPlayButton_clicked();
+//    void on_PVPMenuReturnButton_clicked();
+
+
+
+// Quit attributes
+//QuitDialog *quitDialog;
+
+//    // Chess game attributes
+//    GameWidget *gameWidget;
+

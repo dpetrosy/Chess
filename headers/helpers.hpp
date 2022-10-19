@@ -1,26 +1,36 @@
 #ifndef HELPERS_HPP
 #define HELPERS_HPP
 
-enum class MainWindowProp
+enum class MainWindowProps
 {
     windowSizeW = 1000,
     windowSizeH = 600,
-    verLayoutX = 200,
-    verLayoutY = 200,
-    verLayoutW = 200,
-    verLayoutH = 100,
+};
+
+enum class MainMenuProps
+{
+    verLayoutX = (int)MainWindowProps::windowSizeW / 2 - 165,
+    verLayoutY = (int)MainWindowProps::windowSizeH / 2 - 150,
+    verLayoutW = (int)MainWindowProps::windowSizeW / 3,
+    verLayoutH = (int)MainWindowProps::windowSizeH / 4,
     horLayoutX = 450,
     horLayoutY = 450,
     horLayoutW = 100,
     horLayoutH = 100,
 };
 
-enum class GameWidgetProp
-{
-    BoardLeftUpCornerX = 10,
-    BoardLeftUpCornerY = 7,
-    BoardSizeHorizontal = 650,
-    BoardSizeVertical = 157
-};
+//enum class QuitDialogProps
+//{
+//    windowSizeW = 444,
+//    windowSizeH = 130
+//};
+
+//enum class GameWidgetProps
+//{
+//    BoardLeftUpCornerX = 10,
+//    BoardLeftUpCornerY = 7,
+//    BoardSizeHorizontal = 650,
+//    BoardSizeVertical = 157
+//};
 
 #endif // HELPERS_HPP
