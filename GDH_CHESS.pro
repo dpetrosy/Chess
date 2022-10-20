@@ -11,12 +11,14 @@ CONFIG += c++17
 SOURCES += \
     sources/main.cpp \
     sources/mainwindow.cpp \
+    sources/quitdialog.cpp \
     sources/utils.cpp
 
 HEADERS += \
     headers/helpers.hpp \
     headers/mainwindow.hpp \
     headers/menus.hpp \
+    headers/quitdialog.hpp \
     headers/utils.hpp
 
 INCLUDEPATH += \

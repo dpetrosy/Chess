@@ -5,6 +5,13 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
+enum class Menus : int
+{
+    QuitMenu = -1,
+    MainMenu = 0,
+    PVPMenu = 1,
+};
+
 struct MainMenu
 {
     // Widgets
@@ -21,6 +28,13 @@ struct MainMenu
     QPushButton *Instructions;
     QPushButton *Options;
     QPushButton *Quit;
+};
+
+struct PVPMenu
+{
+    // PushButtons
+    QPushButton *Play;
+    QPushButton *Return;
 };
 
 #endif // MENUS_HPP

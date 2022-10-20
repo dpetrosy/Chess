@@ -43,6 +43,19 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() {}
 
+// Slots
+void MainWindow::switchMenu(QStackedWidget *stackedWidget, Menus toMenu)
+{
+    setCentralWidget(stackedWidget);
+    stackedWidget->setCurrentIndex((int)toMenu);
+}
+
+void MainWindow::showQuitDialog()
+{
+    quitDialog->setModal(true);
+    quitDialog->show();
+}
+
 // Setups
 void MainWindow::setup()
 {
@@ -54,15 +67,21 @@ void MainWindow::setup()
 
     // Menus Structs
     mainMenuStruct = new MainMenu();
+    PVPMenuStruct = new PVPMenu();
 
     // Menus Widgets
     mainMenuWidget = new QWidget();
+    PVPMenuWidget = new QWidget();
 
     // StackedWidgets
     stackedWidgetPVP = new QStackedWidget();
 
     // Setup Menus Structs
     setupMainMenuStruct();
+    setupPVPMenuStruct();
+
+    // do setup inside QuilDialog class
+    quitDialog = new QuitDialog();
 
 
 
@@ -93,6 +112,13 @@ void MainWindow::setupMainMenuStruct()
     mainMenuStruct->Quit = new QPushButton("Quit");
 }
 
+void MainWindow::setupPVPMenuStruct()
+{
+    // Push Buttons
+    PVPMenuStruct->Play = new QPushButton("Play");
+    PVPMenuStruct->Return = new QPushButton("Return");
+}
+
 // Utils functions
 void MainWindow::setBackgroundImage(const QString& image)
 {
@@ -102,43 +128,81 @@ void MainWindow::setBackgroundImage(const QString& image)
     this->setPalette(palette);
 }
 
+void MainWindow::showGame(QStackedWidget *stackedWidget)
+{
+    stackedWidget->hide();
+    //setCentralWidget(gameWidget);
+}
+
 // Make menus
 void MainWindow::makeMenus()
 {
     makeMainMenu();
+    makePVPMenu();
 }
 
 void MainWindow::makeMainMenu()
 {
-    int buttonsWidth = 0;
-    int buttonsHeight = 40;
-    int buttonsFont = 15;
-
     // Set buttons sizes
-    setPushButtonSize(mainMenuStruct->PVP, buttonsWidth, buttonsHeight);
-    setPushButtonSize(mainMenuStruct->PVC, buttonsWidth, buttonsHeight);
-    setPushButtonSize(mainMenuStruct->Instructions, buttonsWidth, buttonsHeight);
+    setPushButtonSize(mainMenuStruct->PVP, (int)MainMenuProps::verLayoutButtonsW, (int)MainMenuProps::verLayoutButtonsH);
+    setPushButtonSize(mainMenuStruct->PVC, (int)MainMenuProps::verLayoutButtonsW, (int)MainMenuProps::verLayoutButtonsH);
+    setPushButtonSize(mainMenuStruct->Instructions, (int)MainMenuProps::verLayoutButtonsW, (int)MainMenuProps::verLayoutButtonsH);
+    setPushButtonSize(mainMenuStruct->Options, (int)MainMenuProps::horLayoutButtonsW, (int)MainMenuProps::horLayoutButtonsH);
+    setPushButtonSize(mainMenuStruct->Quit, (int)MainMenuProps::horLayoutButtonsW, (int)MainMenuProps::horLayoutButtonsH);
 
     // Set buttons fonts
-    setPushButtonFont(mainMenuStruct->PVP, buttonsFont);
-    setPushButtonFont(mainMenuStruct->PVC, buttonsFont);
-    setPushButtonFont(mainMenuStruct->Instructions, buttonsFont);
+    setPushButtonFont(mainMenuStruct->PVP, (int)MainMenuProps::verLayoutButtonsFont);
+    setPushButtonFont(mainMenuStruct->PVC, (int)MainMenuProps::verLayoutButtonsFont);
+    setPushButtonFont(mainMenuStruct->Instructions, (int)MainMenuProps::verLayoutButtonsFont);
+    setPushButtonFont(mainMenuStruct->Options, (int)MainMenuProps::horLayoutButtonsFont);
+    setPushButtonFont(mainMenuStruct->Quit, (int)MainMenuProps::horLayoutButtonsFont);
+
+    // Connections
+    connect(mainMenuStruct->PVP, &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, stackedWidgetPVP, Menus::PVPMenu));
+    connect(mainMenuStruct->Quit, &QPushButton::clicked, this, std::bind(&MainWindow::showQuitDialog, this));
 
     // Add buttons to layouts
     mainMenuStruct->verLayout->addWidget(mainMenuStruct->PVP);
     mainMenuStruct->verLayout->addWidget(mainMenuStruct->PVC);
     mainMenuStruct->verLayout->addWidget(mainMenuStruct->Instructions);
+    mainMenuStruct->horLayout->addWidget(mainMenuStruct->Options);
+    mainMenuStruct->horLayout->addWidget(mainMenuStruct->Quit);
 
     // Set geometry for layouts
     QRect rect((int)MainMenuProps::verLayoutX, (int)MainMenuProps::verLayoutY, (int)MainMenuProps::verLayoutW, (int)MainMenuProps::verLayoutH);
     mainMenuStruct->widgetForVerLayout->setGeometry(rect);
+    rect.setRect((int)MainMenuProps::horLayoutX, (int)MainMenuProps::horLayoutY, (int)MainMenuProps::horLayoutW, (int)MainMenuProps::horLayoutH);
+    mainMenuStruct->widgetForHorLayout->setGeometry(rect);
+}
+
+void MainWindow::makePVPMenu()
+{
+    // Set buttons sizes
+    setPushButtonSize(PVPMenuStruct->Play, (int)PVPMenuProps::PlayButtonW, (int)PVPMenuProps::PlayButtonH);
+    setPushButtonSize(PVPMenuStruct->Return, (int)PVPMenuProps::ReturnButtonW, (int)PVPMenuProps::ReturnButtonH);
+
+    // Set buttons positions
+    PVPMenuStruct->Play->move((int)PVPMenuProps::PlayButtonX, (int)PVPMenuProps::PlayButtonY);
+    PVPMenuStruct->Return->move((int)PVPMenuProps::ReturnButtonX, (int)PVPMenuProps::ReturnButtonY);
+
+    // Set buttons fonts
+    setPushButtonFont(PVPMenuStruct->Play, (int)PVPMenuProps::PlayButtonFont);
+    setPushButtonFont(PVPMenuStruct->Return, (int)PVPMenuProps::ReturnButtonFont);
+
+    // Connections
+    connect(PVPMenuStruct->Play, &QPushButton::clicked, this, std::bind(&MainWindow::showGame, this, stackedWidgetPVP));
+    connect(PVPMenuStruct->Return, &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, stackedWidgetPVP, Menus::MainMenu));
+
+    // Set parents
+    PVPMenuStruct->Play->setParent(PVPMenuWidget);
+    PVPMenuStruct->Return->setParent(PVPMenuWidget);
 }
 
 // Make stackedWidgets
 void MainWindow::makeStackedWidgets()
 {
     // PVP StackedWidget
-    makeStackedWidget(stackedWidgetPVP, mainMenuWidget);
+    makeStackedWidget(stackedWidgetPVP, mainMenuWidget, PVPMenuWidget);
 }
 
 

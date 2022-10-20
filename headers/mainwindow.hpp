@@ -14,9 +14,9 @@
 #include "menus.hpp"
 #include "helpers.hpp"
 #include "utils.hpp"
+#include "quitdialog.hpp"
 
 
-//#include "quitdialog.hpp"
 //#include "boardwidget.hpp"
 //#include "gamewidget.hpp"
 
@@ -32,17 +32,24 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void switchMenu(QStackedWidget *stackedWidget, Menus toMenu);
+    void showQuitDialog();
+
 private:
     // Setups
     void setup();
     void setupMainMenuStruct();
+    void setupPVPMenuStruct();
 
     // Utils functions
     void setBackgroundImage(const QString& image);
+    void showGame(QStackedWidget *stackedWidget);
 
     // Make menus
     void makeMenus();
     void makeMainMenu();
+    void makePVPMenu();
 
     // Make stackedWidgets
     void makeStackedWidgets();
@@ -75,12 +82,17 @@ private:
 
     // Menus Structs
     MainMenu *mainMenuStruct;
+    PVPMenu *PVPMenuStruct;
 
     // Menus Widgets
     QWidget *mainMenuWidget;
+    QWidget *PVPMenuWidget;
 
     // StackedWidgets
     QStackedWidget *stackedWidgetPVP;
+
+    // Quit attributes
+    QuitDialog *quitDialog;
 };
 
 #endif // MAINWINDOW_HPP
