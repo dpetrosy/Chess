@@ -7,15 +7,20 @@
 #include <QPalette>
 #include <QWidget>
 #include <QPixmap>
+#include <QObject>
+#include <QDebug>
 #include <QLabel>
 #include <QImage>
 #include <QRect>
 
-#include "menus.hpp"
 #include "helpers.hpp"
-#include "utils.hpp"
+#include "menus_helpers.hpp"
+#include "mainmenu.hpp"
+#include "pvpmenu.hpp"
 #include "quitdialog.hpp"
 
+
+//#include "utils.hpp"
 
 //#include "boardwidget.hpp"
 //#include "gamewidget.hpp"
@@ -39,19 +44,11 @@ private slots:
 private:
     // Setups
     void setup();
-    void setupMainMenuStruct();
-    void setupPVPMenuStruct();
 
     // Utils functions
     void setBackgroundImage(const QString& image);
     void showGame(QStackedWidget *stackedWidget);
-
-    // Make menus
-    void makeMenus();
-    void makeMainMenu();
-    void makePVPMenu();
-
-    // Make stackedWidgets
+    void makeConnections();
     void makeStackedWidgets();
 
     // StackedWidget maker
@@ -73,48 +70,16 @@ private:
     Ui::MainWindow *ui;
 
     // images
-    QString imagesPath;
-    QString piecesPath;
-    QString logosPath;
-    QString backgroundsPath;
     QPixmap backgroundImage;
     QPalette palette;
 
-    // Menus Structs
-    MainMenu *mainMenuStruct;
-    PVPMenu *PVPMenuStruct;
-
     // Menus Widgets
-    QWidget *mainMenuWidget;
-    QWidget *PVPMenuWidget;
+    MainMenu *mainMenuWidget;
+    PVPMenu *PVPMenuWidget;
+    QuitDialog *quitDialog;
 
     // StackedWidgets
-    QStackedWidget *stackedWidgetPVP;
-
-    // Quit attributes
-    QuitDialog *quitDialog;
+    QStackedWidget *stackedWidgetPVP;    
 };
 
 #endif // MAINWINDOW_HPP
-
-
-
-
-
-
-//    // Main menu buttons
-//    void on_PVPbutton_clicked();
-//    void on_quitButton_clicked();
-
-//    // PVP menu buttons
-//    void on_PVPMenuPlayButton_clicked();
-//    void on_PVPMenuReturnButton_clicked();
-
-
-
-// Quit attributes
-//QuitDialog *quitDialog;
-
-//    // Chess game attributes
-//    GameWidget *gameWidget;
-

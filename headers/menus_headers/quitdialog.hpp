@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 
-#include "helpers.hpp"
+#include "menus_helpers.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class QuitDialog; }
@@ -16,19 +16,20 @@ class QuitDialog : public QDialog
 
 public:
     explicit QuitDialog(QWidget *parent = nullptr);
-    ~QuitDialog();
-
-private slots:
+    virtual ~QuitDialog();
 
 private:
     // Setups
     void setup();
 
+    // Utils functions
+    void makeQuitDialog();
+
 private:
     Ui::QuitDialog *ui;
 
     // QuitDialog attrbutes
-    QDialogButtonBox *quitButtonBox;
+    //QDialogButtonBox *quitButtonBox;
 };
 
 #endif // QUITDIALOG_HPP

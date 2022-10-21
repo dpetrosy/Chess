@@ -11,6 +11,15 @@ QuitDialog::QuitDialog(QWidget *parent) :
 
     // Setup class members
     setup();
+
+    // Make QuitDialog
+    makeQuitDialog();
+
+    // Set title
+    setWindowTitle("Quit");
+
+    // Set Icon
+    setWindowIcon(QIcon(ImagesPaths::logosPath + "logo.png"));
 }
 
 QuitDialog::~QuitDialog() {}
@@ -19,15 +28,12 @@ QuitDialog::~QuitDialog() {}
 void QuitDialog::setup()
 {
     // QuitDialog attrbutes
-    quitButtonBox = new QDialogButtonBox(this);
-    quitButtonBox->setGeometry(10, 10, 50, 50);
+    //quitButtonBox = new QDialogButtonBox(this);
+    //quitButtonBox->setGeometry(10, 10, 50, 50);
 }
 
+// Utils functions
+void QuitDialog::makeQuitDialog()
+{
 
-
-
-//void QuitDialog::on_quit_dialog_option_accepted()
-//{
-//    exit(0);
-//}
-
+}
