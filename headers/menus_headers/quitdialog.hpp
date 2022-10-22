@@ -2,9 +2,11 @@
 #define QUITDIALOG_HPP
 
 #include <QDialog>
+#include <QLabel>
 #include <QDialogButtonBox>
 
 #include "menus_helpers.hpp"
+#include "utils.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class QuitDialog; }
@@ -28,8 +30,10 @@ private:
 private:
     Ui::QuitDialog *ui;
 
-    // QuitDialog attrbutes
-    //QDialogButtonBox *quitButtonBox;
+    // QuitDialog objects
+    QLabel *quitText;
+    QLabel *quitImage;
+    QDialogButtonBox *quitButtonBox;
 };
 
 #endif // QUITDIALOG_HPP

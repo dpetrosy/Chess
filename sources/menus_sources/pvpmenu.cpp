@@ -16,8 +16,8 @@ PVPMenu::~PVPMenu() {}
 void PVPMenu::setup()
 {
     // Push Buttons
-    PlayButton = new QPushButton("Play");
-    ReturnButton = new QPushButton("Return");
+    PlayButton = new QPushButton("Play", this);
+    ReturnButton = new QPushButton("Return", this);
 }
 
 // Utils functions
@@ -33,19 +33,11 @@ QPushButton *PVPMenu::getPushButton(PVPMenuPushButtons button)
 
 void PVPMenu::makePVPMenu()
 {
-    // Set buttons sizes
-    setPushButtonSize(PlayButton, (int)PVPMenuProps::PlayButtonW, (int)PVPMenuProps::PlayButtonH);
-    setPushButtonSize(ReturnButton, (int)PVPMenuProps::ReturnButtonW, (int)PVPMenuProps::ReturnButtonH);
-
-    // Set buttons positions
-    PlayButton->move((int)PVPMenuProps::PlayButtonX, (int)PVPMenuProps::PlayButtonY);
-    ReturnButton->move((int)PVPMenuProps::ReturnButtonX, (int)PVPMenuProps::ReturnButtonY);
+    // Set buttons geometry
+    PlayButton->setGeometry((int)PVPMenuProps::PlayButtonX, (int)PVPMenuProps::PlayButtonY, (int)PVPMenuProps::ReturnButtonW, (int)PVPMenuProps::ReturnButtonH);
+    ReturnButton->setGeometry((int)PVPMenuProps::ReturnButtonX, (int)PVPMenuProps::ReturnButtonY, (int)PVPMenuProps::ReturnButtonW, (int)PVPMenuProps::ReturnButtonH);
 
     // Set buttons fonts
     setPushButtonFont(PlayButton, (int)PVPMenuProps::PlayButtonFont);
     setPushButtonFont(ReturnButton, (int)PVPMenuProps::ReturnButtonFont);
-
-    // Set parents
-    PlayButton->setParent(this);
-    ReturnButton->setParent(this);
 }
