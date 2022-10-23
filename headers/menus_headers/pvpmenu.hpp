@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QWidget>
+#include <QDebug>
 #include <QPushButton>
 
 #include "menus_helpers.hpp"

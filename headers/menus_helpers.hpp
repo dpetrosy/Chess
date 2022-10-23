@@ -66,22 +66,18 @@ enum class PVPMenuPushButtons
 // QuitDialog
 enum class QuitDialogProps
 {
-    windowSizeW = 450,
-    windowSizeH = 160,
-    //quitTextX
-    //quitTextY
-    //quitTextXW
-    //quitTextH
-    quitImageX = (int)windowSizeW - 400,
-    quitImageY = (int)windowSizeH - 120,
-    quitImageW = (int)windowSizeW / 6,
-    quitImageH = (int)windowSizeH / 2
-    //quitButtonBoxX
-    //quitButtonBoxY
-    //quitButtonBoxW
-    //quitButtonBoxH
+    windowSizeW = 430,
+    windowSizeH = 130,
+    quitImageX = (int)windowSizeW - 410,
+    quitImageY = (int)windowSizeH - 106,
+    quitTextX = quitImageX + 122,
+    quitTextY = quitImageY,
+    quitTextW = windowSizeW - 150,
+    quitTextH = 30,
+    quitButtonBoxX = quitTextX + 52,
+    quitButtonBoxY = quitTextY + 55,
+    quitButtonBoxW = windowSizeW / 2,
+    quitButtonBoxH = windowSizeH / 4
 };
-
-
 
 #endif // MENUS_HELPERS_HPP

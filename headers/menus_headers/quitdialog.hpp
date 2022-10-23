@@ -3,7 +3,9 @@
 
 #include <QDialog>
 #include <QLabel>
+#include <QDebug>
 #include <QDialogButtonBox>
+#include <QMessageBox>
 
 #include "menus_helpers.hpp"
 #include "utils.hpp"
@@ -20,6 +22,9 @@ public:
     explicit QuitDialog(QWidget *parent = nullptr);
     virtual ~QuitDialog();
 
+    // Utils functions
+    QDialogButtonBox *getQDialogButtonBox();
+
 private:
     // Setups
     void setup();
@@ -31,8 +36,8 @@ private:
     Ui::QuitDialog *ui;
 
     // QuitDialog objects
-    QLabel *quitText;
     QLabel *quitImage;
+    QLabel *quitText;
     QDialogButtonBox *quitButtonBox;
 };
 

@@ -40,6 +40,7 @@ public:
 private slots:
     void switchMenu(QStackedWidget *stackedWidget, Menus toMenu);
     void showQuitDialog();
+    void exitFromProgram();
 
 private:
     // Setups

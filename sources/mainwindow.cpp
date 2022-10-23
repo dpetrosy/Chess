@@ -39,6 +39,12 @@ void MainWindow::showQuitDialog()
     quitDialog->show();
 }
 
+void MainWindow::exitFromProgram()
+{
+    /*******************//*    MUST CHANGE    *//*************************/
+    exit(EXIT_SUCCESS);
+}
+
 // Setups
 void MainWindow::setup()
 {
@@ -76,6 +82,9 @@ void MainWindow::makeConnections()
     //connect(PVPMenuWidget->getPushButton(PVPMenuPushButtons::PlayButton), &QPushButton::clicked, this, std::bind(&MainWindow::showGame, this, stackedWidgetPVP));
     connect(PVPMenuWidget->getPushButton(PVPMenuPushButtons::ReturnButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, stackedWidgetPVP, Menus::MainMenu));
 
+    // QuitDialog connects
+    connect(quitDialog->getQDialogButtonBox(), &QDialogButtonBox::accepted, this, std::bind(&MainWindow::exitFromProgram, this));
+    connect(quitDialog->getQDialogButtonBox(), &QDialogButtonBox::rejected, this, std::bind(&QuitDialog::reject, quitDialog));
 }
 
 //void MainWindow::showGame(QStackedWidget *stackedWidget)

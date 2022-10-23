@@ -11,19 +11,19 @@ CONFIG += c++17
 SOURCES += \
     sources/main.cpp \
     sources/mainwindow.cpp \
-    sources/menus_sources/pvpmenu.cpp \
     sources/namespaces.cpp \
     sources/utils.cpp \
     sources/menus_sources/mainmenu.cpp \
+    sources/menus_sources/pvpmenu.cpp \
     sources/menus_sources/quitdialog.cpp
 
 HEADERS += \
     headers/helpers.hpp \
     headers/mainwindow.hpp \
-    headers/menus_headers/pvpmenu.hpp \
     headers/menus_helpers.hpp \
     headers/utils.hpp \
     headers/menus_headers/mainmenu.hpp \
+    headers/menus_headers/pvpmenu.hpp \
     headers/menus_headers/quitdialog.hpp
 
 INCLUDEPATH += \

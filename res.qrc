@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/images">
-        <file>images/quit.png</file>
         <file>images/backgrounds/background.jpg</file>
         <file>images/logos/logo.png</file>
         <file>images/backgrounds/board.png</file>
@@ -10,5 +9,6 @@
         <file>images/pieces/black_pawn.png</file>
         <file>images/pieces/black_queen.png</file>
         <file>images/pieces/black_rook.png</file>
+        <file>images/quit.png</file>
     </qresource>
 </RCC>

@@ -28,32 +28,29 @@ QuitDialog::~QuitDialog() {}
 void QuitDialog::setup()
 {
     // QuitDialog attrbutes
+    quitImage = new QLabel(this);
     quitText = new QLabel("Are you sure you want to exit?", this);
-    //quitText->setAlignment(Qt::AlignCenter);
-    //quitImage = new QLabel(this);
-    //quitImage->setStyleSheet(ImagesPaths::imagesPath + "quit.png");
-    //quitButtonBox = new QDialogButtonBox(QDialogButtonBox::Yes | QDialogButtonBox::Cancel, this);
+    quitButtonBox = new QDialogButtonBox(QDialogButtonBox::Yes | QDialogButtonBox::Cancel, this);
 }
 
 // Utils functions
 void QuitDialog::makeQuitDialog()
 {
     // Set quitImage props
-    quitImage->setGeometry((int)QuitDialogProps::quitImageX, (int)QuitDialogProps::quitImageY, (int)QuitDialogProps::quitImageW, (int)QuitDialogProps::quitImageH);
+    QPixmap image(QPixmap(ImagesPaths::imagesPath + "quit.png"));
+    quitImage->setPixmap(image);
+    quitImage->setGeometry((int)QuitDialogProps::quitImageX, (int)QuitDialogProps::quitImageY, image.rect().width(), image.rect().height());
+
 
     // Set quitText props
-    //quitText->setGeometry((int)QuitDialogProps::quitTextX, (int)QuitDialogProps::quitTextY, (int)QuitDialogProps::quitTextW, (int)QuitDialogProps::quitTextH);
+    quitText->setGeometry((int)QuitDialogProps::quitTextX, (int)QuitDialogProps::quitTextY, (int)QuitDialogProps::quitTextW, (int)QuitDialogProps::quitTextH);
+    quitText->setStyleSheet("font: 16pt 'Sylfaen';");
 
+    // Set quitButtonBox props
+    quitButtonBox->setGeometry((int)QuitDialogProps::quitButtonBoxX, (int)QuitDialogProps::quitButtonBoxY, (int)QuitDialogProps::quitButtonBoxW, (int)QuitDialogProps::quitButtonBoxH);
+}
 
-
-//    setPushButtonSize(PlayButton, (int)PVPMenuProps::PlayButtonW, (int)PVPMenuProps::PlayButtonH);
-//    setPushButtonSize(ReturnButton, (int)PVPMenuProps::ReturnButtonW, (int)PVPMenuProps::ReturnButtonH);
-
-//    // Set buttons positions
-//    PlayButton->move((int)PVPMenuProps::PlayButtonX, (int)PVPMenuProps::PlayButtonY);
-//    ReturnButton->move((int)PVPMenuProps::ReturnButtonX, (int)PVPMenuProps::ReturnButtonY);
-
-//    // Set buttons fonts
-//    setPushButtonFont(PlayButton, (int)PVPMenuProps::PlayButtonFont);
-//    setPushButtonFont(ReturnButton, (int)PVPMenuProps::ReturnButtonFont);
+QDialogButtonBox *QuitDialog::getQDialogButtonBox()
+{
+    return quitButtonBox;
 }
