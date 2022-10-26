@@ -9,7 +9,6 @@
 #include <QPushButton>
 
 #include "menus_helpers.hpp"
-#include "utils.hpp"
 
 class MainMenu : public QWidget
 {
@@ -19,14 +18,14 @@ public:
     explicit MainMenu(QWidget *parent = nullptr);
     virtual ~MainMenu();
 
-    // Utils functions
+    // Public util functions
     QPushButton *getPushButton(MainMenuPushButtons button);
 
 private:
-    // Setups
+    // Setup
     void setup();
 
-    // Utils functions
+    // Private util functions
     void makeMainMenu();
 
 private:

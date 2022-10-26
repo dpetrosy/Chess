@@ -1,4 +1,5 @@
 #include "pvpmenu.hpp"
+#include "utils.hpp"
 
 PVPMenu::PVPMenu(QWidget *parent) :
     QWidget(parent)
@@ -12,7 +13,7 @@ PVPMenu::PVPMenu(QWidget *parent) :
 
 PVPMenu::~PVPMenu() {}
 
-// Setups
+// Setup
 void PVPMenu::setup()
 {
     // Push Buttons
@@ -20,7 +21,7 @@ void PVPMenu::setup()
     ReturnButton = new QPushButton("Return", this);
 }
 
-// Utils functions
+// Public util functions
 QPushButton *PVPMenu::getPushButton(PVPMenuPushButtons button)
 {
     switch (button)
@@ -31,6 +32,7 @@ QPushButton *PVPMenu::getPushButton(PVPMenuPushButtons button)
     }
 }
 
+// Private util functions
 void PVPMenu::makePVPMenu()
 {
     // Set buttons geometry

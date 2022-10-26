@@ -1,5 +1,6 @@
 #include "quitdialog.hpp"
 #include "ui_quitdialog.h"
+#include "menus_helpers.hpp"
 
 QuitDialog::QuitDialog(QWidget *parent) :
     QDialog(parent),
@@ -24,7 +25,7 @@ QuitDialog::QuitDialog(QWidget *parent) :
 
 QuitDialog::~QuitDialog() {}
 
-// Setups
+// Setup
 void QuitDialog::setup()
 {
     // QuitDialog attrbutes
@@ -33,7 +34,13 @@ void QuitDialog::setup()
     quitButtonBox = new QDialogButtonBox(QDialogButtonBox::Yes | QDialogButtonBox::Cancel, this);
 }
 
-// Utils functions
+// Public util functions
+QDialogButtonBox *QuitDialog::getQDialogButtonBox()
+{
+    return quitButtonBox;
+}
+
+// Private util functions
 void QuitDialog::makeQuitDialog()
 {
     // Set quitImage props
@@ -41,16 +48,10 @@ void QuitDialog::makeQuitDialog()
     quitImage->setPixmap(image);
     quitImage->setGeometry((int)QuitDialogProps::quitImageX, (int)QuitDialogProps::quitImageY, image.rect().width(), image.rect().height());
 
-
     // Set quitText props
     quitText->setGeometry((int)QuitDialogProps::quitTextX, (int)QuitDialogProps::quitTextY, (int)QuitDialogProps::quitTextW, (int)QuitDialogProps::quitTextH);
     quitText->setStyleSheet("font: 16pt 'Sylfaen';");
 
     // Set quitButtonBox props
     quitButtonBox->setGeometry((int)QuitDialogProps::quitButtonBoxX, (int)QuitDialogProps::quitButtonBoxY, (int)QuitDialogProps::quitButtonBoxW, (int)QuitDialogProps::quitButtonBoxH);
-}
-
-QDialogButtonBox *QuitDialog::getQDialogButtonBox()
-{
-    return quitButtonBox;
 }

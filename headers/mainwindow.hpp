@@ -13,44 +13,44 @@
 #include <QImage>
 #include <QRect>
 
-#include "helpers.hpp"
 #include "menus_helpers.hpp"
-#include "mainmenu.hpp"
-#include "pvpmenu.hpp"
-#include "quitdialog.hpp"
-
-
-//#include "utils.hpp"
-
-//#include "boardwidget.hpp"
-//#include "gamewidget.hpp"
+#include "game_helpers.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+// Singlton pattern used
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    // Singlton realization
+    MainWindow(MainWindow &other) = delete;
+    MainWindow& operator=(const MainWindow&) = delete;
+    static MainWindow *GetInstance(QWidget *parent = nullptr);
+    virtual ~MainWindow();
 
-private slots:
+    // Public util functions
+    void setBackgroundImage(const QString& image);
+    QStackedWidget *getStackedWidget(MainMenuStackedWidgets stackedWidget);
+
+public slots:
     void switchMenu(QStackedWidget *stackedWidget, Menus toMenu);
+    void showGame(QStackedWidget *stackedWidget);
     void showQuitDialog();
     void exitFromProgram();
 
 private:
-    // Setups
+    explicit MainWindow(QWidget *parent = nullptr);
+
+    // Setup
     void setup();
 
-    // Utils functions
-    void setBackgroundImage(const QString& image);
-    void showGame(QStackedWidget *stackedWidget);
-    void makeConnections();
+    // Private util functions
     void makeStackedWidgets();
+    void makeConnects();
 
     // StackedWidget maker
     template <typename T, typename... Types>
@@ -68,9 +68,10 @@ private:
     }
 
 private:
-    Ui::MainWindow *ui;
+    // Singltone realization
+    static MainWindow *_mainWindow;
 
-    // images
+    // Images
     QPixmap backgroundImage;
     QPalette palette;
 
@@ -80,7 +81,10 @@ private:
     QuitDialog *quitDialog;
 
     // StackedWidgets
-    QStackedWidget *stackedWidgetPVP;    
+    QStackedWidget *PVPStackedWidget;
+
+    // Chess game Widgets
+    GameWidget *_gameWidget;
 };
 
 #endif // MAINWINDOW_HPP

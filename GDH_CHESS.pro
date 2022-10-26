@@ -15,20 +15,29 @@ SOURCES += \
     sources/utils.cpp \
     sources/menus_sources/mainmenu.cpp \
     sources/menus_sources/pvpmenu.cpp \
-    sources/menus_sources/quitdialog.cpp
+    sources/menus_sources/quitdialog.cpp \
+    sources/game_sources/gamewidget.cpp \
+    sources/game_sources/boardwidget.cpp \
 
 HEADERS += \
     headers/helpers.hpp \
     headers/mainwindow.hpp \
-    headers/menus_helpers.hpp \
     headers/utils.hpp \
+    headers/menus_headers/menus_helpers.hpp \
     headers/menus_headers/mainmenu.hpp \
     headers/menus_headers/pvpmenu.hpp \
-    headers/menus_headers/quitdialog.hpp
+    headers/menus_headers/quitdialog.hpp \
+    headers/menus_headers/predefined_menu_classes.hpp \
+    headers/game_headers/gamewidget.hpp \
+    headers/game_headers/boardwidget.hpp \
+    headers/game_headers/game_helpers.hpp \
+    headers/game_headers/predefined_game_classes.hpp \
+
 
 INCLUDEPATH += \
     headers/ \
-    headers/menus_headers/
+    headers/menus_headers/ \
+    headers/game_headers/ \
 
 FORMS += \
     mainwindow.ui \

@@ -7,7 +7,6 @@
 #include <QPushButton>
 
 #include "menus_helpers.hpp"
-#include "utils.hpp"
 
 class PVPMenu : public QWidget
 {
@@ -17,14 +16,14 @@ public:
     explicit PVPMenu(QWidget *parent = nullptr);
     virtual ~PVPMenu();
 
-    // Utils functions
+    // Public util functions
     QPushButton *getPushButton(PVPMenuPushButtons button);
 
 private:
-    // Setups
+    // Setup
     void setup();
 
-    // Utils functions
+    // Private til functions
     void makePVPMenu();
 
 private:

@@ -7,9 +7,6 @@
 #include <QDialogButtonBox>
 #include <QMessageBox>
 
-#include "menus_helpers.hpp"
-#include "utils.hpp"
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class QuitDialog; }
 QT_END_NAMESPACE
@@ -22,14 +19,14 @@ public:
     explicit QuitDialog(QWidget *parent = nullptr);
     virtual ~QuitDialog();
 
-    // Utils functions
+    // Public util functions
     QDialogButtonBox *getQDialogButtonBox();
 
 private:
-    // Setups
+    // Setup
     void setup();
 
-    // Utils functions
+    // Private util functions
     void makeQuitDialog();
 
 private:

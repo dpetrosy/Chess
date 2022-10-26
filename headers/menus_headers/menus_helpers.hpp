@@ -2,6 +2,7 @@
 #define MENUS_HELPERS_HPP
 
 #include "helpers.hpp"
+#include "predefined_menu_classes.hpp"
 
 enum class Menus : int
 {
@@ -39,6 +40,14 @@ enum class MainMenuPushButtons
     InstrButton = 3,
     OptionsButton = 4,
     QuitButton = 5
+};
+
+enum class MainMenuStackedWidgets
+{
+    PVPStackedWidget = 1,
+    PVCStackedWidget = 2,
+    InstrStackedWidget = 3,
+    OptionsStackedWidget = 4
 };
 
 // PVPMenu

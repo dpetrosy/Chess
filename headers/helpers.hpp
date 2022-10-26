@@ -17,12 +17,4 @@ namespace ImagesPaths
     extern QString backgroundsPath;
 }
 
-//enum class GameWidgetProps
-//{
-//    BoardLeftUpCornerX = 10,
-//    BoardLeftUpCornerY = 7,
-//    BoardSizeHorizontal = 650,
-//    BoardSizeVertical = 157
-//};
-
 #endif // HELPERS_HPP

@@ -1,4 +1,6 @@
 #include "mainmenu.hpp"
+#include "mainwindow.hpp"
+#include "utils.hpp"
 
 MainMenu::MainMenu(QWidget *parent) :
     QWidget(parent)
@@ -12,7 +14,7 @@ MainMenu::MainMenu(QWidget *parent) :
 
 MainMenu::~MainMenu() {}
 
-// Setups
+// Setup
 void MainMenu::setup()
 {
     // Widgets
@@ -31,7 +33,7 @@ void MainMenu::setup()
     QuitButton = new QPushButton("Quit");
 }
 
-// Utils functions
+// Private util functions
 QPushButton *MainMenu::getPushButton(MainMenuPushButtons button)
 {
     switch (button)
@@ -47,6 +49,7 @@ QPushButton *MainMenu::getPushButton(MainMenuPushButtons button)
 
 void MainMenu::makeMainMenu()
 {
+
     // Set buttons sizes
     setPushButtonSize(PVPButton, (int)MainMenuProps::verLayoutButtonsW, (int)MainMenuProps::verLayoutButtonsH);
     setPushButtonSize(PVCButton, (int)MainMenuProps::verLayoutButtonsW, (int)MainMenuProps::verLayoutButtonsH);
@@ -72,5 +75,5 @@ void MainMenu::makeMainMenu()
     QRect rect((int)MainMenuProps::verLayoutX, (int)MainMenuProps::verLayoutY, (int)MainMenuProps::verLayoutW, (int)MainMenuProps::verLayoutH);
     widgetForVerLayout->setGeometry(rect);
     rect.setRect((int)MainMenuProps::horLayoutX, (int)MainMenuProps::horLayoutY, (int)MainMenuProps::horLayoutW, (int)MainMenuProps::horLayoutH);
-    widgetForHorLayout->setGeometry(rect);
+    widgetForHorLayout->setGeometry(rect);    
 }
