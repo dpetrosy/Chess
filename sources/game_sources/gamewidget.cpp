@@ -16,7 +16,7 @@ GameWidget::GameWidget(QWidget *parent)
 
 GameWidget::~GameWidget() {}
 
-// Singltone realization
+// Singlton pattern realization
 GameWidget *GameWidget::_gameWidget = nullptr;
 
 GameWidget *GameWidget::GetInstance(QWidget *parent)

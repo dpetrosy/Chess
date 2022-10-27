@@ -1,4 +1,11 @@
 #include "boardwidget.hpp"
+#include "pieces_helpers.hpp"
+#include "factory.hpp"
+
+
+/////////////////////////////////////////////////// NEPONYATNO
+#include "piece.hpp"
+
 
 BoardWidget::BoardWidget(QWidget *parent)
     : QWidget{parent}
@@ -12,7 +19,7 @@ BoardWidget::BoardWidget(QWidget *parent)
 
 BoardWidget::~BoardWidget() {}
 
-// Singltone realization
+// Singlton pattern realization
 BoardWidget* BoardWidget::_boardWidget = nullptr;
 
 BoardWidget *BoardWidget::GetInstance(QWidget *parent)
@@ -69,6 +76,13 @@ void BoardWidget::setup()
         }
     }
 
+
+
+
+
+
+
+    Factory *factory = new Factory();
     // Setup piecesVector2D              /******* NOT COMPLETED *******/
     _piecesVector2D.reserve(_boardSize);
 
@@ -86,6 +100,7 @@ void BoardWidget::setup()
             case (char)PiecesSymbols::WhitePawn:
                 break;
             case (char)PiecesSymbols::BlackPawn:
+                _piecesVector2D[i][j] = factory->CreatePiece(Pieces::Pawn);
                 break;
             case (char)PiecesSymbols::WhiteRook:
                 break;
@@ -114,15 +129,16 @@ void BoardWidget::setup()
     }
 
 
-//    QDebug deb = qDebug();
-//    for (unsigned i = 0; i < _boardSize; ++i)
-//    {
-//        for (unsigned j = 0; j < _boardSize; ++j)
-//        {
-//            deb.nospace() << _symbolsVector2D[i][j] << " ";
-//        }
-//        deb.nospace() << "\n";
-//    }
+    QDebug deb = qDebug();
+    for (unsigned i = 0; i < _boardSize; ++i)
+    {
+        for (unsigned j = 0; j < _boardSize; ++j)
+        {
+            if (_piecesVector2D[i][j] != nullptr)
+                deb.nospace() << _piecesVector2D[i][j]->_name << " ";
+        }
+        deb.nospace() << "\n";
+    }
 }
 
 // Public util functions

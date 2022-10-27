@@ -2,21 +2,14 @@
 #define BOARDWIDGET_HPP
 
 #include <QWidget>
+#include <QObject>
 #include <QDebug>
-#include <QLabel>
-#include <QLayout>
 #include <QGridLayout>
-#include <QHBoxLayout>
 #include <QVector>
 #include <QVectorIterator>
 
 #include "game_helpers.hpp"
-
-
-///////////////////////////////// DELETE ///////////////////////////////////////////////////////
-class Piece;
-///////////////////////////////// DELETE ///////////////////////////////////////////////////////
-
+#include "pieces_helpers.hpp"
 
 // Singltone pattern used
 class BoardWidget : public QWidget
@@ -24,7 +17,7 @@ class BoardWidget : public QWidget
     Q_OBJECT
 
 public:
-    // Singltone realization
+    // Singlton pattern realization
     BoardWidget(BoardWidget &other) = delete;
     BoardWidget& operator=(const BoardWidget&) = delete;
     static BoardWidget *GetInstance(QWidget *parent = nullptr);
@@ -39,11 +32,13 @@ private:
     // Setup
     void setup();
 
+    ////////////////////////////////// NOT COMPLETED ////////////////////////////////
     // Private util functions
     void makeBoardWidget();
+    ////////////////////////////////// NOT COMPLETED ////////////////////////////////
 
 private:
-    // Singleton realization
+    // Singleton pattern realization
     static BoardWidget* _boardWidget;
 
     // Board attributes

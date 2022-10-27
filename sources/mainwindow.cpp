@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() {}
 
-// Singltone realization
+// Singlton pattern realization
 MainWindow *MainWindow::_mainWindow = nullptr;
 
 MainWindow *MainWindow::GetInstance(QWidget *parent)

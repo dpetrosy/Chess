@@ -7,13 +7,13 @@
 
 #include "game_helpers.hpp"
 
-// Singltone pattern used
+// Singlton pattern used
 class GameWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    // Singltone realization
+    // Singlton pattern realization
     GameWidget(GameWidget &other) = delete;
     GameWidget& operator=(const GameWidget&) = delete;
     static GameWidget *GetInstance(QWidget *parent = nullptr);
@@ -50,7 +50,7 @@ private:
     void makeGameWidget();
 
 private:
-    // Singltone realization
+    // Singlton pattern realization
     static GameWidget *_gameWidget;
 
     // Game elements

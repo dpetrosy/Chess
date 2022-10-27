@@ -26,7 +26,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    // Singlton realization
+    // Singlton pattern realization
     MainWindow(MainWindow &other) = delete;
     MainWindow& operator=(const MainWindow&) = delete;
     static MainWindow *GetInstance(QWidget *parent = nullptr);
@@ -68,7 +68,7 @@ private:
     }
 
 private:
-    // Singltone realization
+    // Singlton pattern realization
     static MainWindow *_mainWindow;
 
     // Images
