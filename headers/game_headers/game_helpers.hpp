@@ -37,7 +37,7 @@ enum class BoardWidgetProps
 
 enum class PiecesSymbols
 {
-    Emptiness = 0,
+    Empty = '0',
     WhitePawn = 'P',
     WhiteKnight = 'N',
     WhiteBishop = 'B',
