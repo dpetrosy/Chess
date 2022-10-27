@@ -11,6 +11,7 @@ enum class Menus : int
     PVPMenu = 1,
 };
 
+
 // MainMenu
 enum class MainMenuProps
 {
@@ -50,6 +51,7 @@ enum class MainMenuStackedWidgets
     OptionsStackedWidget = 4
 };
 
+
 // PVPMenu
 enum class PVPMenuProps
 {
@@ -71,6 +73,7 @@ enum class PVPMenuPushButtons
     PlayButton = 1,
     ReturnButton = 2
 };
+
 
 // QuitDialog
 enum class QuitDialogProps

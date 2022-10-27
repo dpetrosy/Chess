@@ -7,9 +7,14 @@
 #include <QLayout>
 #include <QGridLayout>
 #include <QHBoxLayout>
-#include <QVector2D>
+#include <QVector>
+#include <QVectorIterator>
 
 #include "game_helpers.hpp"
+
+
+
+class Piece;
 
 // Singltone pattern used
 class BoardWidget : public QWidget
@@ -41,8 +46,7 @@ private:
 
     // Board attributes
     QGridLayout *_boardLayout;
-
-
+    QVector<QVector<Piece *>> _piecesVector2D;
 };
 
 #endif // BOARDWIDGET_HPP

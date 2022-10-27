@@ -26,7 +26,15 @@ BoardWidget *BoardWidget::GetInstance(QWidget *parent)
 // Setup
 void BoardWidget::setup()
 {
+    // Board attributes
     _boardLayout = new QGridLayout(this);
+
+    // Setup piecesVector2D
+    std::fill(_piecesVector2D.begin(), _piecesVector2D.end(), QVector<Piece *>(9));
+
+
+
+    //QVectorIterator<>
 
 }
 

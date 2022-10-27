@@ -22,6 +22,24 @@ public:
     // Public util functions
     void showGameElements();
 
+    // Getters
+    GameData *getGameData() const;
+    GameVariants getGameVariant() const;
+    bool getIsTimeAvailable() const;
+    unsigned getGameMinutes() const;
+    unsigned getIncremetSeconds() const;
+    bool getIsWhite() const;
+    QuickGames getQuickGame() const;
+
+    // Setters
+    void setGameData(GameData *gameData);
+    void setGameVariant(GameVariants gameVariant);
+    void setIsTimeAvailable(bool isTimeAvailable);
+    void setGameMinutes(unsigned gameMinutes);
+    void setIncremetSeconds(unsigned incremetSeconds);
+    void setIsWhite(bool isWhite);
+    void setQuickGame(QuickGames quickGame);
+
 private:
     explicit GameWidget(QWidget *parent = nullptr);
 
@@ -35,7 +53,8 @@ private:
     // Singltone realization
     static GameWidget *_gameWidget;
 
-    // Game Widget elements
+    // Game elements
+    GameData *_gameData;
     BoardWidget *_boardWidget;
 };
 

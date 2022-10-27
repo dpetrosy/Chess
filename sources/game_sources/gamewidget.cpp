@@ -1,5 +1,6 @@
 #include "gamewidget.hpp"
 #include "boardwidget.hpp"
+
 #include "mainwindow.hpp"
 #include "helpers.hpp"
 
@@ -29,6 +30,8 @@ GameWidget *GameWidget::GetInstance(QWidget *parent)
 // Setup
 void GameWidget::setup()
 {
+    // Game elements
+    _gameData = new GameData();
     _boardWidget = BoardWidget::GetInstance(this);
 }
 
@@ -47,3 +50,26 @@ void GameWidget::makeGameWidget()
     // Set BoardWidget geometry
     _boardWidget->setGeometry((int)BoardWidgetProps::BoardX, (int)BoardWidgetProps::BoardY, (int)BoardWidgetProps::BoardW, (int)BoardWidgetProps::BoardH);
 }
+
+// Getters
+GameData *getGameData() const
+{
+    return _gameData;
+
+}
+
+GameVariants getGameVariant() const;
+bool getIsTimeAvailable() const;
+unsigned getGameMinutes() const;
+unsigned getIncremetSeconds() const;
+bool getIsWhite() const;
+QuickGames getQuickGame() const;
+
+// Setters
+void setGameData(GameData *gameData);
+void setGameVariant(GameVariants gameVariant);
+void setIsTimeAvailable(bool isTimeAvailable);
+void setGameMinutes(unsigned gameMinutes);
+void setIncremetSeconds(unsigned incremetSeconds);
+void setIsWhite(bool isWhite);
+void setQuickGame(QuickGames quickGame);
