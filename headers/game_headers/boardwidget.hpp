@@ -13,7 +13,7 @@
 #include "game_helpers.hpp"
 
 
-
+///////////////////////////////// DELETE
 class Piece;
 
 // Singltone pattern used

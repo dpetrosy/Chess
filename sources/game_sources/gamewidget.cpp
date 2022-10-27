@@ -52,24 +52,73 @@ void GameWidget::makeGameWidget()
 }
 
 // Getters
-GameData *getGameData() const
+GameData *GameWidget::getGameData() const
 {
     return _gameData;
-
 }
 
-GameVariants getGameVariant() const;
-bool getIsTimeAvailable() const;
-unsigned getGameMinutes() const;
-unsigned getIncremetSeconds() const;
-bool getIsWhite() const;
-QuickGames getQuickGame() const;
+GameVariants GameWidget::getGameVariant() const
+{
+    return _gameData->gameVariant;
+}
+
+bool GameWidget::getIsTimeAvailable() const
+{
+    return _gameData->isTimeAvailable;
+}
+
+unsigned GameWidget::getGameMinutes() const
+{
+    return _gameData->gameMinutes;
+}
+
+unsigned GameWidget::getIncremetSeconds() const
+{
+    return _gameData->incremetSeconds;
+}
+
+bool GameWidget::getIsWhite() const
+{
+    return _gameData->isWhite;
+}
+
+QuickGames GameWidget::getQuickGame() const
+{
+    return _gameData->quickGame;
+}
 
 // Setters
-void setGameData(GameData *gameData);
-void setGameVariant(GameVariants gameVariant);
-void setIsTimeAvailable(bool isTimeAvailable);
-void setGameMinutes(unsigned gameMinutes);
-void setIncremetSeconds(unsigned incremetSeconds);
-void setIsWhite(bool isWhite);
-void setQuickGame(QuickGames quickGame);
+void GameWidget::setGameData(GameData *gameData)
+{
+    _gameData = gameData;
+}
+
+void GameWidget::setGameVariant(GameVariants gameVariant)
+{
+    _gameData->gameVariant = gameVariant;
+}
+
+void GameWidget::setIsTimeAvailable(bool isTimeAvailable)
+{
+    _gameData->isTimeAvailable = isTimeAvailable;
+}
+
+void GameWidget::setGameMinutes(unsigned gameMinutes)
+{
+    _gameData->gameMinutes = gameMinutes;
+}
+
+void GameWidget::setIncremetSeconds(unsigned incremetSeconds)
+{
+    _gameData->incremetSeconds = incremetSeconds;
+}
+
+void GameWidget::setIsWhite(bool isWhite)
+{
+    _gameData->isWhite = isWhite;
+}
+
+void GameWidget::setQuickGame(QuickGames quickGame)
+{
+    _gameData->quickGame = quickGame;
+}
