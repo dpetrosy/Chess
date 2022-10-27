@@ -72,19 +72,19 @@ private:
     static MainWindow *_mainWindow;
 
     // Images
-    QPixmap backgroundImage;
-    QPalette palette;
+    QPixmap _backgroundImage;
+    QPalette _palette;
 
     // Menus Widgets
-    MainMenu *mainMenuWidget;
-    PVPMenu *PVPMenuWidget;
-    QuitDialog *quitDialog;
+    MainMenu* _mainMenuWidget;
+    PVPMenu* _PVPMenuWidget;
+    QuitDialog* _quitDialog;
 
     // StackedWidgets
-    QStackedWidget *PVPStackedWidget;
+    QStackedWidget* _PVPStackedWidget;
 
     // Chess game Widgets
-    GameWidget *_gameWidget;
+    GameWidget* _gameWidget;
 };
 
 #endif // MAINWINDOW_HPP

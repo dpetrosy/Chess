@@ -30,19 +30,19 @@ private:
 
 private:
     // Widgets
-    QWidget *widgetForVerLayout;
-    QWidget *widgetForHorLayout;
+    QWidget* _widgetForVerLayout;
+    QWidget* _widgetForHorLayout;
 
     // Layouts
-    QVBoxLayout *verLayout;
-    QHBoxLayout *horLayout;
+    QVBoxLayout* _verLayout;
+    QHBoxLayout* _horLayout;
 
     // PushButtons
-    QPushButton *PVPButton;
-    QPushButton *PVCButton;
-    QPushButton *InstrButton;
-    QPushButton *OptionsButton;
-    QPushButton *QuitButton;
+    QPushButton* _PVPButton;
+    QPushButton* _PVCButton;
+    QPushButton* _InstrButton;
+    QPushButton* _OptionsButton;
+    QPushButton* _QuitButton;
 };
 
 #endif // MAINMENU_HPP

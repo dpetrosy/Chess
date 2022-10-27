@@ -54,8 +54,8 @@ private:
     static GameWidget *_gameWidget;
 
     // Game elements
-    GameData *_gameData;
-    BoardWidget *_boardWidget;
+    GameData* _gameData;
+    BoardWidget* _boardWidget;
 };
 
 #endif // GAMEWIDGET_HPP

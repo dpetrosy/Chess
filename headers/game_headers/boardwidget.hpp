@@ -43,14 +43,14 @@ private:
     void makeBoardWidget();
 
 private:
-    // Singltone realization
-    static BoardWidget *_boardWidget;
+    // Singleton realization
+    static BoardWidget* _boardWidget;
 
     // Board attributes
-    QGridLayout *_boardLayout;
+    QGridLayout* _boardLayout;
     QVector<QVector<Piece *>> _piecesVector2D;
     QVector<QVector<char>> _symbolsVector2D;
-    unsigned boardSize;
+    unsigned _boardSize;
 };
 
 #endif // BOARDWIDGET_HPP

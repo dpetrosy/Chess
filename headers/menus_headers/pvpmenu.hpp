@@ -28,8 +28,8 @@ private:
 
 private:
     // PushButtons
-    QPushButton *PlayButton;
-    QPushButton *ReturnButton;
+    QPushButton* _PlayButton;
+    QPushButton* _ReturnButton;
 };
 
 #endif // PVPMENU_HPP

@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     makeConnects();
 
     // Set MainMenu when program start
-    switchMenu(PVPStackedWidget, Menus::MainMenu);
+    switchMenu(_PVPStackedWidget, Menus::MainMenu);
 }
 
 MainWindow::~MainWindow() {}
@@ -43,12 +43,12 @@ MainWindow *MainWindow::GetInstance(QWidget *parent)
 void MainWindow::setup()
 {
     // Menus Widgets
-    mainMenuWidget = new MainMenu();
-    PVPMenuWidget = new PVPMenu();
-    quitDialog = new QuitDialog();
+    _mainMenuWidget = new MainMenu();
+    _PVPMenuWidget = new PVPMenu();
+    _quitDialog = new QuitDialog();
 
     // StackedWidgets
-    PVPStackedWidget = new QStackedWidget();
+    _PVPStackedWidget = new QStackedWidget();
 
     // Chess game attributes
     _gameWidget = GameWidget::GetInstance(this);
@@ -82,8 +82,8 @@ void MainWindow::showGame(QStackedWidget *stackedWidget)
 
 void MainWindow::showQuitDialog()
 {
-    quitDialog->setModal(true);
-    quitDialog->show();
+    _quitDialog->setModal(true);
+    _quitDialog->show();
 }
 
 void MainWindow::exitFromProgram()
@@ -95,18 +95,18 @@ void MainWindow::exitFromProgram()
 // Public util functions
 void MainWindow::setBackgroundImage(const QString& image)
 {
-    backgroundImage.load(ImagesPaths::backgroundsPath + image);
-    backgroundImage = backgroundImage.scaled(this->size(), Qt::IgnoreAspectRatio);
-    palette.setBrush(QPalette::Window, backgroundImage);
-    this->setPalette(palette);
+    _backgroundImage.load(ImagesPaths::backgroundsPath + image);
+    _backgroundImage = _backgroundImage.scaled(this->size(), Qt::IgnoreAspectRatio);
+    _palette.setBrush(QPalette::Window, _backgroundImage);
+    this->setPalette(_palette);
 }
 
 QStackedWidget *MainWindow::getStackedWidget(MainMenuStackedWidgets stackedWidget)
 {
     switch (stackedWidget)
     {
-        case MainMenuStackedWidgets::PVPStackedWidget: return PVPStackedWidget;
-        default: return PVPStackedWidget;
+        case MainMenuStackedWidgets::PVPStackedWidget: return _PVPStackedWidget;
+        default: return _PVPStackedWidget;
     }
 }
 
@@ -114,20 +114,20 @@ QStackedWidget *MainWindow::getStackedWidget(MainMenuStackedWidgets stackedWidge
 void MainWindow::makeStackedWidgets()
 {
     // PVP StackedWidget
-    makeStackedWidget(PVPStackedWidget, mainMenuWidget, PVPMenuWidget);
+    makeStackedWidget(_PVPStackedWidget, _mainMenuWidget, _PVPMenuWidget);
 }
 
 void MainWindow::makeConnects()
 {
     // MainMenu connects
-    connect(mainMenuWidget->getPushButton(MainMenuPushButtons::PVPButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, PVPStackedWidget, Menus::PVPMenu));
-    connect(mainMenuWidget->getPushButton(MainMenuPushButtons::QuitButton), &QPushButton::clicked, this, std::bind(&MainWindow::showQuitDialog, this));
+    connect(_mainMenuWidget->getPushButton(MainMenuPushButtons::PVPButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this,_PVPStackedWidget, Menus::PVPMenu));
+    connect(_mainMenuWidget->getPushButton(MainMenuPushButtons::QuitButton), &QPushButton::clicked, this, std::bind(&MainWindow::showQuitDialog, this));
 
     // PVPMenu connects
-    connect(PVPMenuWidget->getPushButton(PVPMenuPushButtons::PlayButton), &QPushButton::clicked, this, std::bind(&MainWindow::showGame, this, PVPStackedWidget));
-    connect(PVPMenuWidget->getPushButton(PVPMenuPushButtons::ReturnButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, PVPStackedWidget, Menus::MainMenu));
+    connect(_PVPMenuWidget->getPushButton(PVPMenuPushButtons::PlayButton), &QPushButton::clicked, this, std::bind(&MainWindow::showGame, this,_PVPStackedWidget));
+    connect(_PVPMenuWidget->getPushButton(PVPMenuPushButtons::ReturnButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this,_PVPStackedWidget, Menus::MainMenu));
 
     // QuitDialog connects
-    connect(quitDialog->getQDialogButtonBox(), &QDialogButtonBox::accepted, this, std::bind(&MainWindow::exitFromProgram, this));
-    connect(quitDialog->getQDialogButtonBox(), &QDialogButtonBox::rejected, this, std::bind(&QuitDialog::reject, quitDialog));
+    connect(_quitDialog->getQDialogButtonBox(), &QDialogButtonBox::accepted, this, std::bind(&MainWindow::exitFromProgram, this));
+    connect(_quitDialog->getQDialogButtonBox(), &QDialogButtonBox::rejected, this, std::bind(&QuitDialog::reject, _quitDialog));
 }

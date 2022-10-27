@@ -33,9 +33,9 @@ private:
     Ui::QuitDialog *ui;
 
     // QuitDialog objects
-    QLabel *quitImage;
-    QLabel *quitText;
-    QDialogButtonBox *quitButtonBox;
+    QLabel* _quitImage;
+    QLabel* _quitText;
+    QDialogButtonBox* _quitButtonBox;
 };
 
 #endif // QUITDIALOG_HPP

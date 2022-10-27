@@ -28,10 +28,10 @@ void BoardWidget::setup()
 {
     // Board attributes
     _boardLayout = new QGridLayout(this);
-    boardSize = (int)BoardWidgetProps::BoardSquaresCount;
+    _boardSize = (int)BoardWidgetProps::BoardSquaresCount;
 
     // Setup piecesVector2D              /******* NOT COMPLETED *******/
-    std::fill(_piecesVector2D.begin(), _piecesVector2D.end(), QVector<Piece *>(boardSize + 1));
+    std::fill(_piecesVector2D.begin(), _piecesVector2D.end(), QVector<Piece *>(_boardSize + 1));
 
     /*
     // Setup symbolsVector2D
