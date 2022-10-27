@@ -13,8 +13,10 @@
 #include "game_helpers.hpp"
 
 
-///////////////////////////////// DELETE
+///////////////////////////////// DELETE ///////////////////////////////////////////////////////
 class Piece;
+///////////////////////////////// DELETE ///////////////////////////////////////////////////////
+
 
 // Singltone pattern used
 class BoardWidget : public QWidget
@@ -47,6 +49,8 @@ private:
     // Board attributes
     QGridLayout *_boardLayout;
     QVector<QVector<Piece *>> _piecesVector2D;
+    QVector<QVector<char>> _symbolsVector2D;
+    unsigned boardSize;
 };
 
 #endif // BOARDWIDGET_HPP

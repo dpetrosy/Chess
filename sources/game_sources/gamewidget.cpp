@@ -72,9 +72,9 @@ unsigned GameWidget::getGameMinutes() const
     return _gameData->gameMinutes;
 }
 
-unsigned GameWidget::getIncremetSeconds() const
+unsigned GameWidget::getIncrementSeconds() const
 {
-    return _gameData->incremetSeconds;
+    return _gameData->incrementSeconds;
 }
 
 bool GameWidget::getIsWhite() const
@@ -108,9 +108,9 @@ void GameWidget::setGameMinutes(unsigned gameMinutes)
     _gameData->gameMinutes = gameMinutes;
 }
 
-void GameWidget::setIncremetSeconds(unsigned incremetSeconds)
+void GameWidget::setIncrementSeconds(unsigned incrementSeconds)
 {
-    _gameData->incremetSeconds = incremetSeconds;
+    _gameData->incrementSeconds = incrementSeconds;
 }
 
 void GameWidget::setIsWhite(bool isWhite)

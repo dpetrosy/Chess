@@ -27,7 +27,7 @@ public:
     GameVariants getGameVariant() const;
     bool getIsTimeAvailable() const;
     unsigned getGameMinutes() const;
-    unsigned getIncremetSeconds() const;
+    unsigned getIncrementSeconds() const;
     bool getIsWhite() const;
     QuickGames getQuickGame() const;
 
@@ -36,7 +36,7 @@ public:
     void setGameVariant(GameVariants gameVariant);
     void setIsTimeAvailable(bool isTimeAvailable);
     void setGameMinutes(unsigned gameMinutes);
-    void setIncremetSeconds(unsigned incremetSeconds);
+    void setIncrementSeconds(unsigned incremetSeconds);
     void setIsWhite(bool isWhite);
     void setQuickGame(QuickGames quickGame);
 

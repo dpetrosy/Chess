@@ -65,6 +65,18 @@ void MainWindow::showGame(QStackedWidget *stackedWidget)
 {
     stackedWidget->hide();
     setCentralWidget(_gameWidget);
+
+
+    /***************** Test until make PVP menu *****************/
+    _gameWidget->setGameVariant(GameVariants::Standart);
+    _gameWidget->setIsTimeAvailable(false);
+    _gameWidget->setGameMinutes(0);
+    _gameWidget->setIncrementSeconds(0);
+    _gameWidget->setIsWhite(true);
+    _gameWidget->setQuickGame(QuickGames::NoSelected);
+    /************************************************************/
+
+
     _gameWidget->showGameElements();
 }
 
