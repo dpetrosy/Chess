@@ -1,14 +1,11 @@
 #include "quitdialog.hpp"
-#include "ui_quitdialog.h"
 #include "menus_helpers.hpp"
 
 QuitDialog::QuitDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::QuitDialog)
+    QDialog(parent)
 {
     // Set QuitDialog size
     this->setFixedSize((int)QuitDialogProps::windowSizeW, (int)QuitDialogProps::windowSizeH);
-    ui->setupUi(this);
 
     // Setup class members
     setup();

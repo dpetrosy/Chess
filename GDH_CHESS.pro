@@ -39,9 +39,7 @@ INCLUDEPATH += \
     headers/menus_headers/ \
     headers/game_headers/ \
 
-FORMS += \
-    mainwindow.ui \
-    quitdialog.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

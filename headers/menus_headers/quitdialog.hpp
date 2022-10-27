@@ -30,8 +30,6 @@ private:
     void makeQuitDialog();
 
 private:
-    Ui::QuitDialog *ui;
-
     // QuitDialog objects
     QLabel* _quitImage;
     QLabel* _quitText;
