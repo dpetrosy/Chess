@@ -4,22 +4,31 @@ Pawn::Pawn()
 {
     // Setup
     setup();
+    makeColored(PiecesColors::White);
+    _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
+}
+
+Pawn::Pawn(const Pawn& other, PiecesColors pieceColor)
+{
+    Q_UNUSED(other)
+
+    // Do setup, for prototype pattern
+    setup();
+    makeColored(pieceColor);
+    _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
 }
 
 Pawn::~Pawn() {}
 
 // Prototype pattern realization
-Pawn *Pawn::Clone() const
+Pawn *Pawn::Clone(PiecesColors pieceColor) const
 {
-   return new Pawn(*this);
+   return new Pawn(*this, pieceColor);
 }
 
 // Setup
 void Pawn::setup()
 {
     _pieceLabel = new QLabel();
-    _image = "black_pawn.png";
-    _name = "black_pawn";
-    _rowInGridLayout = 0;
-    _columnInGridLayout = 0;
+    _pieceName = "pawn";
 }

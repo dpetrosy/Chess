@@ -45,6 +45,7 @@ private:
     QGridLayout* _boardLayout;
     QVector<QVector<Piece *>> _piecesVector2D;
     QVector<QVector<char>> _symbolsVector2D;
+    Factory* _piecesFactory;
     unsigned _boardSize;
 };
 

@@ -5,16 +5,17 @@
 #include <QHash>
 
 #include "pieces_helpers.hpp"
+#include "gamewidget.hpp"
 
 // Prototype pattern used
 class Factory
-{
+{   
 public:
     Factory();
     virtual ~Factory();
 
     // Prototype pattern realization
-    Piece *CreatePiece(Pieces piece);
+    Piece *CreatePiece(Pieces piece, PiecesColors pieceColor);
 
 private:
     // Prototype pattern realization

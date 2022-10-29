@@ -16,7 +16,15 @@ public:
     virtual ~Piece();
 
     // Prototype pattern realization
-    virtual Piece *Clone() const = 0;
+    virtual Piece *Clone(PiecesColors pieceColor) const = 0;
+
+//    // Setters
+//    void setPieceLabel(QLabel* pieceLabel);
+//    void setRowInGridLayout(unsigned rowInGridLayout);
+//    void setColumnInGridLayout(unsigned columnInGridLayout);
+//    void setPieceColor(PiecesColors pieceColor);
+
+//    // Getters
 
 protected:
     Piece();
@@ -24,15 +32,23 @@ protected:
     // Setup
     void setup();
 
+    // Protected util functions
+    void makeColored(PiecesColors pieceColor);
 
-// ************************************ Poxel -> protected, just for test
+// **************************************** MUST BE PROTECTED, JUST FOR TEST ************************************** //
 public:
     QLabel* _pieceLabel;
     QString _piecesPath;
-    QString _image;
-    QString _name;
     unsigned _rowInGridLayout;
     unsigned _columnInGridLayout;
+    QString _pieceName;
+    QString _extension;
+
+    // Piece color attributes
+    PiecesColors _pieceColor;
+    QString _colorString;
+    QString _coloredName;
+    QString _image;
 };
 
 #endif // PIECE_HPP

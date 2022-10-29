@@ -1,11 +1,7 @@
 #include "boardwidget.hpp"
 #include "pieces_helpers.hpp"
 #include "factory.hpp"
-
-
-/////////////////////////////////////////////////// NEPONYATNO
 #include "piece.hpp"
-
 
 BoardWidget::BoardWidget(QWidget *parent)
     : QWidget{parent}
@@ -35,6 +31,7 @@ void BoardWidget::setup()
 {
     // Board attributes
     _boardLayout = new QGridLayout(this);
+    _piecesFactory = new Factory();
     _boardSize = (int)BoardWidgetProps::BoardSquaresCount + 1;
 
     // Setup symbolsVector2D
@@ -76,16 +73,11 @@ void BoardWidget::setup()
         }
     }
 
-
-
-
-
-
-
-    Factory *factory = new Factory();
     // Setup piecesVector2D              /******* NOT COMPLETED *******/
-    _piecesVector2D.reserve(_boardSize);
+    PiecesColors white = PiecesColors::White;
+    PiecesColors black = PiecesColors::Black;
 
+    _piecesVector2D.reserve(_boardSize);
     for (unsigned i = 0; i < _boardSize; ++i)
         _piecesVector2D.push_back(QVector<Piece *>(_boardSize, nullptr));
 
@@ -96,31 +88,43 @@ void BoardWidget::setup()
             switch (_symbolsVector2D[i][j])
             {
             case (char)PiecesSymbols::Empty:
+                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Empty);
                 break;
             case (char)PiecesSymbols::WhitePawn:
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, white);
                 break;
             case (char)PiecesSymbols::BlackPawn:
-                _piecesVector2D[i][j] = factory->CreatePiece(Pieces::Pawn);
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, black);
                 break;
             case (char)PiecesSymbols::WhiteRook:
+                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook);
                 break;
             case (char)PiecesSymbols::WhiteKnight:
+                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight);
                 break;
             case (char)PiecesSymbols::WhiteBishop:
+                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop);
                 break;
             case (char)PiecesSymbols::WhiteQueen:
+                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen);
                 break;
             case (char)PiecesSymbols::WhiteKing:
+                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::King);
                 break;
             case (char)PiecesSymbols::BlackRook:
+                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook);
                 break;
             case (char)PiecesSymbols::BlackKnight:
+                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight);
                 break;
             case (char)PiecesSymbols::BlackBishop:
+                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop);
                 break;
             case (char)PiecesSymbols::BlackQueen:
+                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen);
                 break;
             case (char)PiecesSymbols::BlackKing:
+                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::King);
                 break;
             default:
                 break;
@@ -129,16 +133,19 @@ void BoardWidget::setup()
     }
 
 
+
+    // ************************************************ TESTING ************************************* //
     QDebug deb = qDebug();
     for (unsigned i = 0; i < _boardSize; ++i)
     {
         for (unsigned j = 0; j < _boardSize; ++j)
         {
             if (_piecesVector2D[i][j] != nullptr)
-                deb.nospace() << _piecesVector2D[i][j]->_name << " ";
+                deb.nospace() << _piecesVector2D[i][j]->_image << " ";
         }
         deb.nospace() << "\n";
     }
+    // ************************************************ TESTING ************************************* //
 }
 
 // Public util functions

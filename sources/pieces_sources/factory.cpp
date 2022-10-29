@@ -11,9 +11,9 @@ Factory::Factory()
 Factory::~Factory() {}
 
 // Prototype pattern realization
-Piece *Factory::CreatePiece(Pieces piece)
+Piece *Factory::CreatePiece(Pieces piece, PiecesColors pieceColor)
 {
-   return _piecesMap[piece]->Clone();
+   return _piecesMap[piece]->Clone(pieceColor);
 }
 
 // Setup

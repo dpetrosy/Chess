@@ -1,6 +1,8 @@
 #ifndef PREDEFINED_PIECES_CLASSES_HPP
 #define PREDEFINED_PIECES_CLASSES_HPP
 
+class Factory;
 class Piece;
+class Pawn;
 
 #endif // PREDEFINED_PIECES_CLASSES_HPP

@@ -1,4 +1,6 @@
 #include "utils.hpp"
+#include "piece.hpp"
+#include "pieces_helpers.hpp"
 
 void setPushButtonSize(QPushButton *button, int width, int height)
 {
