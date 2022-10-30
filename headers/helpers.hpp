@@ -5,8 +5,8 @@
 
 enum class MainWindowProps
 {
-    windowSizeW = 1000,
-    windowSizeH = 600,
+    windowSizeW = 1005,
+    windowSizeH = 587,
 };
 
 namespace ImagesPaths

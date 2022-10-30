@@ -15,7 +15,7 @@ public:
     virtual ~Factory();
 
     // Prototype pattern realization
-    Piece *CreatePiece(Pieces piece, PiecesColors pieceColor);
+    Piece *CreatePiece(Pieces piece, PiecesColors pieceColor, int i, int j);
 
 private:
     // Prototype pattern realization

@@ -16,15 +16,15 @@ public:
     virtual ~Piece();
 
     // Prototype pattern realization
-    virtual Piece *Clone(PiecesColors pieceColor) const = 0;
+    virtual Piece *Clone(PiecesColors pieceColor, int i, int j) const = 0;
 
-//    // Setters
-//    void setPieceLabel(QLabel* pieceLabel);
-//    void setRowInGridLayout(unsigned rowInGridLayout);
-//    void setColumnInGridLayout(unsigned columnInGridLayout);
-//    void setPieceColor(PiecesColors pieceColor);
+    // Getters
+    QLabel* getPieceLabel() const;
 
-//    // Getters
+    // Setters
+    void setPieceLabel(QLabel* pieceLabel);
+    void setPosition(int i, int j);
+    void setPieceColor(PiecesColors pieceColor);
 
 protected:
     Piece();
@@ -39,8 +39,7 @@ protected:
 public:
     QLabel* _pieceLabel;
     QString _piecesPath;
-    unsigned _rowInGridLayout;
-    unsigned _columnInGridLayout;
+    Position _position;
     QString _pieceName;
     QString _extension;
 

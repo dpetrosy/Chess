@@ -29,10 +29,17 @@ struct GameData
 enum class BoardWidgetProps
 {
     BoardSquaresCount = 8,
-    BoardX = 10,
-    BoardY = 7,
-    BoardW = 650,
-    BoardH = 157
+    BoardX = 7,
+    BoardY = BoardX,
+    BoardW = 574,
+    BoardH = BoardW,
+    PieceW = BoardW / 8,
+    PieceH = PieceW
 };
+
+//BoardX = 12,
+//BoardY = 9,
+//BoardW = 650,
+//BoardH = 580
 
 #endif // GAME_HELPERS_HPP

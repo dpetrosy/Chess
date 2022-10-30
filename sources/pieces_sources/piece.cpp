@@ -15,8 +15,8 @@ void Piece::setup()
 {
     _pieceLabel = nullptr;
     _piecesPath = ImagesPaths::piecesPath;
-    _rowInGridLayout = 0;
-    _columnInGridLayout = 0;
+    _position.row = 0;
+    _position.column = 0;
     _pieceName = "piece";
     _extension = ".png";
 }
@@ -31,4 +31,17 @@ void Piece::makeColored(PiecesColors pieceColor)
         _colorString = "black";
     _coloredName = _colorString + "_" + _pieceName;
     _image = _coloredName + _extension;
+}
+
+// Getters
+QLabel* Piece::getPieceLabel() const
+{
+    return _pieceLabel;
+}
+
+// Setters
+void Piece::setPosition(int i, int j)
+{
+    _position.row = i;
+    _position.column = j;
 }

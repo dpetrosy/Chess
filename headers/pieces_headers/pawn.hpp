@@ -15,11 +15,11 @@ class Pawn : public Piece
 
 public:
     Pawn();
-    Pawn(const Pawn& other, PiecesColors pieceColor);
+    Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j);
     virtual ~Pawn();
 
     // Prototype pattern realization
-    Pawn *Clone(PiecesColors pieceColor) const override;
+    Pawn *Clone(PiecesColors pieceColor, int i, int j) const override;
 
 private:
     // Setup

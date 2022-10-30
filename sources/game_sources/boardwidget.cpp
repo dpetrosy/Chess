@@ -30,7 +30,7 @@ BoardWidget *BoardWidget::GetInstance(QWidget *parent)
 void BoardWidget::setup()
 {
     // Board attributes
-    _boardLayout = new QGridLayout(this);
+    _boardLayout = new QGridLayout();
     _piecesFactory = new Factory();
     _boardSize = (int)BoardWidgetProps::BoardSquaresCount + 1;
 
@@ -44,6 +44,13 @@ void BoardWidget::setup()
     {
         for (unsigned j = 1; j < _boardSize; ++j)
         {
+            if (true)
+             {
+                _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackPawn;
+                continue;
+               }
+
+
             if (i == 3 || i == 4 || i == 5 || i == 6)
                 _symbolsVector2D[i][j] = (char)PiecesSymbols::Empty;
             else if (i == 7)
@@ -73,7 +80,7 @@ void BoardWidget::setup()
         }
     }
 
-    // Setup piecesVector2D              /******* NOT COMPLETED *******/
+    // Setup piecesVector2D                          /******* NOT COMPLETED *******/
     PiecesColors white = PiecesColors::White;
     PiecesColors black = PiecesColors::Black;
 
@@ -91,10 +98,10 @@ void BoardWidget::setup()
                 //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Empty);
                 break;
             case (char)PiecesSymbols::WhitePawn:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, white);
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, white, i, j);
                 break;
             case (char)PiecesSymbols::BlackPawn:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, black);
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, black, i, j);
                 break;
             case (char)PiecesSymbols::WhiteRook:
                 //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook);
@@ -134,7 +141,7 @@ void BoardWidget::setup()
 
 
 
-    // ************************************************ TESTING ************************************* //
+    //************************************************ TESTING ************************************* //
     QDebug deb = qDebug();
     for (unsigned i = 0; i < _boardSize; ++i)
     {
@@ -145,17 +152,46 @@ void BoardWidget::setup()
         }
         deb.nospace() << "\n";
     }
-    // ************************************************ TESTING ************************************* //
+    //************************************************ TESTING ************************************* //
 }
 
 // Public util functions
 void BoardWidget::showBoard()
 {
-    //setLayout(_board);
+
 }
 
 // Private util functions
 void BoardWidget::makeBoardWidget()
 {
+    for (unsigned i = 0; i < _boardSize - 1; ++i)
+    {
+        for (unsigned j = 0; j < _boardSize - 1; ++j)
+        {
+//            if (i == 0 || j == 0)
+//                ;
+//                //_boardLayout->addWidget(nullptr, i, j);
+//            else
+//            {
+                _piecesVector2D[i + 1][j + 1]->getPieceLabel()->setParent(this);
 
+                _boardLayout->addWidget(_piecesVector2D[i + 1][j + 1]->getPieceLabel(), i + 1, j + 1);
+//            }
+        }
+    }
+
+//    QLabel* label = new QLabel(this);
+//    label->setPixmap(QPixmap(":/images/images/pieces/black_pawn.png"));
+//    QGridLayout* grid = new QGridLayout();
+//    grid->addWidget(label);
+        qDebug() << _boardLayout->minimumSize();
+        //qDebug() << _boardLayout->
+//    _boardLayout->setColumnMinimumWidth(0, 400);
+//    _boardLayout->setColumnStretch(0, 10);
+    _boardLayout->setVerticalSpacing(0);
+    _boardLayout->setHorizontalSpacing(0);
+//    _boardLayout->setColumnMinimumWidth(1, 85);
+//    _boardLayout->setColumnMinimumWidth(2, 85);
+//    _boardLayout->setColumnMinimumWidth(3, 85);
+    setLayout(_boardLayout);
 }

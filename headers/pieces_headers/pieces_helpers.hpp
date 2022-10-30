@@ -40,4 +40,10 @@ enum class PiecesColors
     White = 1
 };
 
+struct Position
+{
+    int row = 0;
+    int column = 0;
+};
+
 #endif // PIECES_HELPERS_HPP
