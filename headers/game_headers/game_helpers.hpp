@@ -17,11 +17,11 @@ enum class QuickGames
 struct GameData
 {
     GameVariants gameVariant = GameVariants::Standart;
+    QuickGames quickGame = QuickGames::NoSelected;
     bool isTimeAvailable = false;
     unsigned gameMinutes = 0;
     unsigned incrementSeconds = 0;
     bool isWhite = true;
-    QuickGames quickGame = QuickGames::NoSelected;
 };
 
 
@@ -36,10 +36,5 @@ enum class BoardWidgetProps
     PieceW = BoardW / 8,
     PieceH = PieceW
 };
-
-//BoardX = 12,
-//BoardY = 9,
-//BoardW = 650,
-//BoardH = 580
 
 #endif // GAME_HELPERS_HPP

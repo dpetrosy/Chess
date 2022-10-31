@@ -5,6 +5,7 @@ Piece::Piece()
 {   
     // Setup
     setup();
+    setPosition(0, 0);
     makeColored(PiecesColors::White);
 }
 
@@ -15,8 +16,6 @@ void Piece::setup()
 {
     _pieceLabel = nullptr;
     _piecesPath = ImagesPaths::piecesPath;
-    _position.row = 0;
-    _position.column = 0;
     _pieceName = "piece";
     _extension = ".png";
 }

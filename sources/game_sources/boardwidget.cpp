@@ -36,7 +36,6 @@ void BoardWidget::setup()
 
     // Setup symbolsVector2D
     _symbolsVector2D.reserve(_boardSize);
-
     for (unsigned i = 0; i < _boardSize; ++i)
         _symbolsVector2D.push_back(QVector<char>(_boardSize, (char)PiecesSymbols::Placeholder));
 
@@ -44,13 +43,6 @@ void BoardWidget::setup()
     {
         for (unsigned j = 1; j < _boardSize; ++j)
         {
-            if (true)
-             {
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackPawn;
-                continue;
-               }
-
-
             if (i == 3 || i == 4 || i == 5 || i == 6)
                 _symbolsVector2D[i][j] = (char)PiecesSymbols::Empty;
             else if (i == 7)
@@ -61,7 +53,7 @@ void BoardWidget::setup()
                 _symbolsVector2D[i][j] = (char)PiecesSymbols::WhiteRook;
             else if ((i == 8 && j == 2) || (i == 8 && j == 7))
                 _symbolsVector2D[i][j] = (char)PiecesSymbols::WhiteKnight;
-            else if ((i == 8 && j == 3) || (8 == 8 && j == 6))
+            else if ((i == 8 && j == 3) || (i == 8 && j == 6))
                 _symbolsVector2D[i][j] = (char)PiecesSymbols::WhiteBishop;
             else if (i == 8 && j == 4)
                 _symbolsVector2D[i][j] = (char)PiecesSymbols::WhiteQueen;
@@ -71,7 +63,7 @@ void BoardWidget::setup()
                 _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackRook;
             else if ((i == 1 && j == 2) || (i == 1 && j == 7))
                 _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackKnight;
-            else if ((i == 1 && j == 3) || (8 == 1 && j == 6))
+            else if ((i == 1 && j == 3) || (i == 1 && j == 6))
                 _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackBishop;
             else if (i == 1 && j == 4)
                 _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackQueen;
@@ -142,16 +134,16 @@ void BoardWidget::setup()
 
 
     //************************************************ TESTING ************************************* //
-    QDebug deb = qDebug();
-    for (unsigned i = 0; i < _boardSize; ++i)
-    {
-        for (unsigned j = 0; j < _boardSize; ++j)
-        {
-            if (_piecesVector2D[i][j] != nullptr)
-                deb.nospace() << _piecesVector2D[i][j]->_image << " ";
-        }
-        deb.nospace() << "\n";
-    }
+//    QDebug deb = qDebug();
+//    for (unsigned i = 0; i < _boardSize; ++i)
+//    {
+//        for (unsigned j = 0; j < _boardSize; ++j)
+//        {
+//            if (_piecesVector2D[i][j] != nullptr)
+//                deb.nospace() << _piecesVector2D[i][j]->_image << " ";
+//        }
+//        deb.nospace() << "\n";
+//    }
     //************************************************ TESTING ************************************* //
 }
 
@@ -164,34 +156,16 @@ void BoardWidget::showBoard()
 // Private util functions
 void BoardWidget::makeBoardWidget()
 {
-    for (unsigned i = 0; i < _boardSize - 1; ++i)
-    {
-        for (unsigned j = 0; j < _boardSize - 1; ++j)
-        {
-//            if (i == 0 || j == 0)
-//                ;
-//                //_boardLayout->addWidget(nullptr, i, j);
-//            else
-//            {
-                _piecesVector2D[i + 1][j + 1]->getPieceLabel()->setParent(this);
+//    for (unsigned i = 0; i < _boardSize - 1; ++i)
+//    {
+//        for (unsigned j = 0; j < _boardSize - 1; ++j)
+//        {
+//            _piecesVector2D[i + 1][j + 1]->getPieceLabel()->setParent(this);
+//            _boardLayout->addWidget(_piecesVector2D[i + 1][j + 1]->getPieceLabel(), i + 1, j + 1);
+//        }
+//    }
 
-                _boardLayout->addWidget(_piecesVector2D[i + 1][j + 1]->getPieceLabel(), i + 1, j + 1);
-//            }
-        }
-    }
-
-//    QLabel* label = new QLabel(this);
-//    label->setPixmap(QPixmap(":/images/images/pieces/black_pawn.png"));
-//    QGridLayout* grid = new QGridLayout();
-//    grid->addWidget(label);
-        qDebug() << _boardLayout->minimumSize();
-        //qDebug() << _boardLayout->
-//    _boardLayout->setColumnMinimumWidth(0, 400);
-//    _boardLayout->setColumnStretch(0, 10);
-    _boardLayout->setVerticalSpacing(0);
-    _boardLayout->setHorizontalSpacing(0);
-//    _boardLayout->setColumnMinimumWidth(1, 85);
-//    _boardLayout->setColumnMinimumWidth(2, 85);
-//    _boardLayout->setColumnMinimumWidth(3, 85);
-    setLayout(_boardLayout);
+//    _boardLayout->setVerticalSpacing(0);
+//    _boardLayout->setHorizontalSpacing(0);
+//    setLayout(_boardLayout);
 }
