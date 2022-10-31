@@ -75,6 +75,7 @@ void BoardWidget::setup()
     // Setup piecesVector2D                          /******* NOT COMPLETED *******/
     PiecesColors white = PiecesColors::White;
     PiecesColors black = PiecesColors::Black;
+    PiecesColors noColored = PiecesColors::NoColored;
 
     _piecesVector2D.reserve(_boardSize);
     for (unsigned i = 0; i < _boardSize; ++i)
@@ -87,43 +88,43 @@ void BoardWidget::setup()
             switch (_symbolsVector2D[i][j])
             {
             case (char)PiecesSymbols::Empty:
-                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Empty);
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Empty, noColored, i, j);
                 break;
             case (char)PiecesSymbols::WhitePawn:
                 _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, white, i, j);
                 break;
+            case (char)PiecesSymbols::WhiteKnight:
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight, white, i, j);
+                break;
+            case (char)PiecesSymbols::WhiteBishop:
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop, white, i, j);
+                break;
+            case (char)PiecesSymbols::WhiteRook:
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook, white, i, j);
+                break;
+            case (char)PiecesSymbols::WhiteQueen:
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, white, i, j);
+                break;
+            case (char)PiecesSymbols::WhiteKing:
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::King, white, i, j);
+                break;
             case (char)PiecesSymbols::BlackPawn:
                 _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, black, i, j);
                 break;
-            case (char)PiecesSymbols::WhiteRook:
-                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook);
-                break;
-            case (char)PiecesSymbols::WhiteKnight:
-                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight);
-                break;
-            case (char)PiecesSymbols::WhiteBishop:
-                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop);
-                break;
-            case (char)PiecesSymbols::WhiteQueen:
-                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen);
-                break;
-            case (char)PiecesSymbols::WhiteKing:
-                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::King);
-                break;
-            case (char)PiecesSymbols::BlackRook:
-                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook);
-                break;
             case (char)PiecesSymbols::BlackKnight:
-                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight);
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight, black, i, j);
                 break;
             case (char)PiecesSymbols::BlackBishop:
-                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop);
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop, black, i, j);
+                break;
+            case (char)PiecesSymbols::BlackRook:
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook, black, i, j);
                 break;
             case (char)PiecesSymbols::BlackQueen:
-                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen);
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, black, i, j);
                 break;
             case (char)PiecesSymbols::BlackKing:
-                //_piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::King);
+                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::King, black, i, j);
                 break;
             default:
                 break;
@@ -140,11 +141,22 @@ void BoardWidget::setup()
 //        for (unsigned j = 0; j < _boardSize; ++j)
 //        {
 //            if (_piecesVector2D[i][j] != nullptr)
-//                deb.nospace() << _piecesVector2D[i][j]->_image << " ";
+//                deb.nospace() << _piecesVector2D[i][j]->_coloredName << " ";
 //        }
 //        deb.nospace() << "\n";
 //    }
     //************************************************ TESTING ************************************* //
+
+
+//        QDebug deb = qDebug();
+//        for (unsigned i = 0; i < _boardSize; ++i)
+//        {
+//            for (unsigned j = 0; j < _boardSize; ++j)
+//            {
+//                deb.nospace() << _symbolsVector2D[i][j] << " ";
+//            }
+//            deb.nospace() << "\n";
+//        }
 }
 
 // Public util functions
@@ -156,16 +168,16 @@ void BoardWidget::showBoard()
 // Private util functions
 void BoardWidget::makeBoardWidget()
 {
-//    for (unsigned i = 0; i < _boardSize - 1; ++i)
-//    {
-//        for (unsigned j = 0; j < _boardSize - 1; ++j)
-//        {
-//            _piecesVector2D[i + 1][j + 1]->getPieceLabel()->setParent(this);
-//            _boardLayout->addWidget(_piecesVector2D[i + 1][j + 1]->getPieceLabel(), i + 1, j + 1);
-//        }
-//    }
+    for (unsigned i = 0; i < _boardSize - 1; ++i)
+    {
+        for (unsigned j = 0; j < _boardSize - 1; ++j)
+        {
+            _piecesVector2D[i + 1][j + 1]->getPieceLabel()->setParent(this);
+            _boardLayout->addWidget(_piecesVector2D[i + 1][j + 1]->getPieceLabel(), i + 1, j + 1);
+        }
+    }
 
-//    _boardLayout->setVerticalSpacing(0);
-//    _boardLayout->setHorizontalSpacing(0);
-//    setLayout(_boardLayout);
+    _boardLayout->setVerticalSpacing(0);
+    _boardLayout->setHorizontalSpacing(0);
+    setLayout(_boardLayout);
 }

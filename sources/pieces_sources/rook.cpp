@@ -1,6 +1,6 @@
-#include "pawn.hpp"
+#include "rook.hpp"
 
-Pawn::Pawn()
+Rook::Rook()
 {
     // Setup
     setup();
@@ -9,7 +9,7 @@ Pawn::Pawn()
     _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
 }
 
-Pawn::Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j)
+Rook::Rook(const Rook& other, PiecesColors pieceColor, int i, int j)
 {
     Q_UNUSED(other)
 
@@ -20,17 +20,17 @@ Pawn::Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j)
     _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
 }
 
-Pawn::~Pawn() {}
+Rook::~Rook() {}
 
 // Prototype pattern realization
-Pawn *Pawn::Clone(PiecesColors pieceColor, int i, int j) const
+Rook *Rook::Clone(PiecesColors pieceColor, int i, int j) const
 {
-   return new Pawn(*this, pieceColor, i, j);
+   return new Rook(*this, pieceColor, i, j);
 }
 
 // Setup
-void Pawn::setup()
+void Rook::setup()
 {
     _pieceLabel = new QLabel();
-    _pieceName = "pawn";
+    _pieceName = "rook";
 }

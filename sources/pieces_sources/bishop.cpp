@@ -1,6 +1,6 @@
-#include "pawn.hpp"
+#include "bishop.hpp"
 
-Pawn::Pawn()
+Bishop::Bishop()
 {
     // Setup
     setup();
@@ -9,7 +9,7 @@ Pawn::Pawn()
     _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
 }
 
-Pawn::Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j)
+Bishop::Bishop(const Bishop& other, PiecesColors pieceColor, int i, int j)
 {
     Q_UNUSED(other)
 
@@ -20,17 +20,17 @@ Pawn::Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j)
     _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
 }
 
-Pawn::~Pawn() {}
+Bishop::~Bishop() {}
 
 // Prototype pattern realization
-Pawn *Pawn::Clone(PiecesColors pieceColor, int i, int j) const
+Bishop *Bishop::Clone(PiecesColors pieceColor, int i, int j) const
 {
-   return new Pawn(*this, pieceColor, i, j);
+   return new Bishop(*this, pieceColor, i, j);
 }
 
 // Setup
-void Pawn::setup()
+void Bishop::setup()
 {
     _pieceLabel = new QLabel();
-    _pieceName = "pawn";
+    _pieceName = "bishop";
 }

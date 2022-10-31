@@ -13,6 +13,12 @@ SOURCES += \
     sources/main.cpp \
     sources/mainwindow.cpp \
     sources/namespaces.cpp \
+    sources/pieces_sources/bishop.cpp \
+    sources/pieces_sources/empty.cpp \
+    sources/pieces_sources/king.cpp \
+    sources/pieces_sources/knight.cpp \
+    sources/pieces_sources/queen.cpp \
+    sources/pieces_sources/rook.cpp \
     sources/utils.cpp \
     sources/menus_sources/mainmenu.cpp \
     sources/menus_sources/pvpmenu.cpp \
@@ -27,7 +33,13 @@ SOURCES += \
 HEADERS += \
     headers/helpers.hpp \
     headers/mainwindow.hpp \
+    headers/pieces_headers/bishop.hpp \
+    headers/pieces_headers/empty.hpp \
+    headers/pieces_headers/king.hpp \
+    headers/pieces_headers/knight.hpp \
     headers/pieces_headers/predefined_pieces_classes.hpp \
+    headers/pieces_headers/queen.hpp \
+    headers/pieces_headers/rook.hpp \
     headers/utils.hpp \
     headers/menus_headers/menus_helpers.hpp \
     headers/menus_headers/mainmenu.hpp \

@@ -36,8 +36,9 @@ enum class PiecesSymbols
 
 enum class PiecesColors
 {
-    Black = 0,
-    White = 1
+    NoColored = 0,
+    Black = 1,
+    White = 2
 };
 
 struct Position

@@ -26,10 +26,21 @@ void Piece::makeColored(PiecesColors pieceColor)
     _pieceColor = pieceColor;
     if (_pieceColor == PiecesColors::White)
         _colorString = "white";
-    else
+    else if (_pieceColor == PiecesColors::Black)
         _colorString = "black";
-    _coloredName = _colorString + "_" + _pieceName;
-    _image = _coloredName + _extension;
+    else
+        _colorString = "";
+
+    if (_colorString != "")
+    {
+        _coloredName = _colorString + "_" + _pieceName;
+        _image = _coloredName + _extension;
+    }
+    else
+    {
+        _coloredName = _pieceName;
+        _image = _coloredName;
+    }
 }
 
 // Getters

@@ -1,6 +1,6 @@
-#include "pawn.hpp"
+#include "knight.hpp"
 
-Pawn::Pawn()
+Knight::Knight()
 {
     // Setup
     setup();
@@ -9,7 +9,7 @@ Pawn::Pawn()
     _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
 }
 
-Pawn::Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j)
+Knight::Knight(const Knight& other, PiecesColors pieceColor, int i, int j)
 {
     Q_UNUSED(other)
 
@@ -20,17 +20,17 @@ Pawn::Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j)
     _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
 }
 
-Pawn::~Pawn() {}
+Knight::~Knight() {}
 
 // Prototype pattern realization
-Pawn *Pawn::Clone(PiecesColors pieceColor, int i, int j) const
+Knight *Knight::Clone(PiecesColors pieceColor, int i, int j) const
 {
-   return new Pawn(*this, pieceColor, i, j);
+   return new Knight(*this, pieceColor, i, j);
 }
 
 // Setup
-void Pawn::setup()
+void Knight::setup()
 {
     _pieceLabel = new QLabel();
-    _pieceName = "pawn";
+    _pieceName = "knight";
 }
