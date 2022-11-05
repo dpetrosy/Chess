@@ -11,7 +11,7 @@
 // Prototype pattern used
 class King : public Piece
 {
-    //Q_OBJECT
+    Q_OBJECT
 
 public:
     King();

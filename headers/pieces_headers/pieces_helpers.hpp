@@ -1,7 +1,13 @@
 #ifndef PIECES_HELPERS_HPP
 #define PIECES_HELPERS_HPP
 
+#include <QVector>
+
 #include "predefined_pieces_classes.hpp"
+
+// Typedefs
+typedef QVector<QVector<char>> charVector2D;
+typedef QVector<QVector<Piece *>> pieceVector2D;
 
 enum class Pieces
 {
@@ -14,7 +20,7 @@ enum class Pieces
     King = 100
 };
 
-enum class PiecesSymbols
+enum class PiecesSymbols : char
 {
     Empty = '0',
     WhitePawn = 'P',
@@ -34,6 +40,17 @@ enum class PiecesSymbols
     Placeholder = '*'
 };
 
+enum class PiecesTypes : char
+{
+    Empty = '0',
+    Pawn = 'p',
+    Knight = 'n',
+    Bishop = 'b',
+    Rook = 'r',
+    Queen = 'q',
+    King = 'k',
+};
+
 enum class PiecesColors
 {
     NoColored = 0,
@@ -46,5 +63,26 @@ struct Position
     int row = 0;
     int column = 0;
 };
+
+enum class PossibleSteps : char
+{
+    Empty = '0',
+    CanGo = '*',
+    CanBeat = 'x',
+    CurrentPiece = '#',
+    LastStepFrom = '1',
+    LastStepTo = '2',
+    LastStepFromAndCanGo = '$',
+    LastStepToAndCanBeat = '%'
+};
+
+namespace StepsImages
+{
+    extern QString CanGo;
+    extern QString CanBeat;
+    extern QString CurrentPiece;
+    extern QString LastStepFrom;
+    extern QString LastStepTo;
+}
 
 #endif // PIECES_HELPERS_HPP

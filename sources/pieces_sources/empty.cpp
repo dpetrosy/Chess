@@ -1,4 +1,5 @@
 #include "empty.hpp"
+#include "clickablelabel.hpp"
 
 Empty::Empty()
 {
@@ -29,6 +30,7 @@ Empty *Empty::Clone(PiecesColors pieceColor, int i, int j) const
 // Setup
 void Empty::setup()
 {
-    _pieceLabel = new QLabel();
+    _pieceLabel = new ClickableLabel();
     _pieceName = "empty";
+    _pieceType = PiecesTypes::Empty;
 }

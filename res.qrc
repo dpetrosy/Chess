@@ -16,5 +16,8 @@
         <file>images/pieces/white_pawn.png</file>
         <file>images/pieces/white_queen.png</file>
         <file>images/pieces/white_rook.png</file>
+        <file>images/pieces/black.png</file>
+        <file>images/pieces/can_go.png</file>
+        <file>images/pieces/current_piece.png</file>
     </qresource>
 </RCC>

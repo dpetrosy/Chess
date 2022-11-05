@@ -1,4 +1,5 @@
 #include "king.hpp"
+#include "clickablelabel.hpp"
 
 King::King()
 {
@@ -31,6 +32,7 @@ King *King::Clone(PiecesColors pieceColor, int i, int j) const
 // Setup
 void King::setup()
 {
-    _pieceLabel = new QLabel();
+    _pieceLabel = new ClickableLabel();
     _pieceName = "king";
+    _pieceType = PiecesTypes::King;
 }

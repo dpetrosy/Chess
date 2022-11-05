@@ -1,4 +1,5 @@
 #include "bishop.hpp"
+#include "clickablelabel.hpp"
 
 Bishop::Bishop()
 {
@@ -31,6 +32,7 @@ Bishop *Bishop::Clone(PiecesColors pieceColor, int i, int j) const
 // Setup
 void Bishop::setup()
 {
-    _pieceLabel = new QLabel();
+    _pieceLabel = new ClickableLabel();
     _pieceName = "bishop";
+    _pieceType = PiecesTypes::Bishop;
 }

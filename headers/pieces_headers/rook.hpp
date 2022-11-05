@@ -11,7 +11,7 @@
 // Prototype pattern used
 class Rook : public Piece
 {
-    //Q_OBJECT
+    Q_OBJECT
 
 public:
     Rook();

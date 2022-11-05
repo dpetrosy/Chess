@@ -1,4 +1,5 @@
 #include "queen.hpp"
+#include "clickablelabel.hpp"
 
 Queen::Queen()
 {
@@ -31,6 +32,7 @@ Queen *Queen::Clone(PiecesColors pieceColor, int i, int j) const
 // Setup
 void Queen::setup()
 {
-    _pieceLabel = new QLabel();
+    _pieceLabel = new ClickableLabel();
     _pieceName = "queen";
+    _pieceType = PiecesTypes::Queen;
 }

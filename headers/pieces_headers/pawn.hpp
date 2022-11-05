@@ -11,7 +11,7 @@
 // Prototype pattern used
 class Pawn : public Piece
 {
-    //Q_OBJECT
+    Q_OBJECT
 
 public:
     Pawn();
@@ -20,6 +20,9 @@ public:
 
     // Prototype pattern realization
     Pawn *Clone(PiecesColors pieceColor, int i, int j) const override;
+
+    // Public game functions
+    void findAvailableSteps(charVector2D& stepsVector2D, charVector2D& symbolsVector2D) override;
 
 private:
     // Setup

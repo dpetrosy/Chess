@@ -40,8 +40,6 @@ void GameWidget::showGameElements()
 {
     // Set board as background image
     MainWindow::GetInstance()->setBackgroundImage("board.jpg");
-
-    _boardWidget->showBoard();
 }
 
 // Private util functions
@@ -49,7 +47,6 @@ void GameWidget::makeGameWidget()
 {
     // Set BoardWidget geometry
     _boardWidget->setGeometry((int)BoardWidgetProps::BoardX, (int)BoardWidgetProps::BoardY, (int)BoardWidgetProps::BoardW, (int)BoardWidgetProps::BoardH);
-    qDebug() << _boardWidget->size();
 }
 
 // Getters

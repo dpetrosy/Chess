@@ -1,4 +1,5 @@
 #include "pawn.hpp"
+#include "clickablelabel.hpp"
 
 Pawn::Pawn()
 {
@@ -31,6 +32,64 @@ Pawn *Pawn::Clone(PiecesColors pieceColor, int i, int j) const
 // Setup
 void Pawn::setup()
 {
-    _pieceLabel = new QLabel();
+    _pieceLabel = new ClickableLabel();
     _pieceName = "pawn";
+    _pieceType = PiecesTypes::Pawn;
+}
+
+// Public game functions
+void Pawn::findAvailableSteps(charVector2D& stepsVector2D, charVector2D& symbolsVector2D)
+{
+    int i = _position.row;
+    int j = _position.column;
+    char empty = (char)PossibleSteps::Empty;
+    char canGo = (char)PossibleSteps::CanGo;
+    char canBeat = (char)PossibleSteps::CanBeat;
+    char symbolEmpty = (char)PiecesSymbols::Empty;
+
+    // For white pawn
+    if (_pieceColor == PiecesColors::White)
+    {
+        if (symbolsVector2D[i - 1][j] == symbolEmpty)
+        {
+            stepsVector2D[i - 1][j] = canGo;
+            if (i == 6)
+                if (symbolsVector2D[i - 2][j] == symbolEmpty)
+                stepsVector2D[i - 2][j] = canGo;
+        }
+
+
+        if (j != 7)
+        {
+            if (symbolsVector2D[i - 1][j + 1] != symbolEmpty)
+                stepsVector2D[i - 1][j + 1] = canBeat;
+        }
+        if (j != 0)
+        {
+            if (symbolsVector2D[i - 1][j - 1] != symbolEmpty)
+                stepsVector2D[i - 1][j - 1] = canBeat;
+        }
+    }
+
+    // For black pawn
+    if (_pieceColor == PiecesColors::Black)
+    {
+        if (symbolsVector2D[i + 1][j] == symbolEmpty)
+            stepsVector2D[i + 1][j] = canGo;
+
+        if (i == 1)
+            if (symbolsVector2D[i + 2][j] == symbolEmpty)
+            stepsVector2D[i + 2][j] = canGo;
+
+        if (j != 7)
+        {
+            if (symbolsVector2D[i + 1][j + 1] != symbolEmpty)
+                stepsVector2D[i + 1][j + 1] = canBeat;
+        }
+        if (j != 0)
+        {
+            if (symbolsVector2D[i + 1][j - 1] != symbolEmpty)
+                stepsVector2D[i + 1][j - 1] = canBeat;
+        }
+    }
 }

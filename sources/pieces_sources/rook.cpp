@@ -1,4 +1,5 @@
 #include "rook.hpp"
+#include "clickablelabel.hpp"
 
 Rook::Rook()
 {
@@ -31,6 +32,7 @@ Rook *Rook::Clone(PiecesColors pieceColor, int i, int j) const
 // Setup
 void Rook::setup()
 {
-    _pieceLabel = new QLabel();
+    _pieceLabel = new ClickableLabel();
     _pieceName = "rook";
+    _pieceType = PiecesTypes::Rook;
 }

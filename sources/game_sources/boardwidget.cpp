@@ -1,7 +1,9 @@
 #include "boardwidget.hpp"
+#include "helpers.hpp"
 #include "pieces_helpers.hpp"
 #include "factory.hpp"
 #include "piece.hpp"
+#include "clickablelabel.hpp"
 
 BoardWidget::BoardWidget(QWidget *parent)
     : QWidget{parent}
@@ -15,7 +17,7 @@ BoardWidget::BoardWidget(QWidget *parent)
 
 BoardWidget::~BoardWidget() {}
 
-// Singlton pattern realization
+// Singleton pattern realization
 BoardWidget* BoardWidget::_boardWidget = nullptr;
 
 BoardWidget *BoardWidget::GetInstance(QWidget *parent)
@@ -29,63 +31,85 @@ BoardWidget *BoardWidget::GetInstance(QWidget *parent)
 // Setup
 void BoardWidget::setup()
 {
-    // Board attributes
-    _boardLayout = new QGridLayout();
+    // Prototype pattern factory
     _piecesFactory = new Factory();
-    _boardSize = (int)BoardWidgetProps::BoardSquaresCount + 1;
+
+    // Board widget attributes
+    _boardSize = (int)BoardWidgetProps::BoardSquaresCount;
+    _selectedPiece = nullptr;
+    _piecesPath = ImagesPaths::piecesPath;
+
+    // Setup under layer attributes
+    PiecesColors noColored = PiecesColors::NoColored;
+    _underLayerWidget = new QWidget(this);
+    _underLayerLayout = new QGridLayout(_underLayerWidget);
+
+    // Setup possibleStepsVector2D
+    _possibleStepsVector2D.reserve(_boardSize);
+    for (unsigned i = 0; i < _boardSize; ++i)
+        _possibleStepsVector2D.push_back(QVector<char>(_boardSize, (char)PossibleSteps::Empty));
+
+    // Setup underLayerVector2D
+    _underLayerVector2D.reserve(_boardSize);
+    for (unsigned i = 0; i < _boardSize; ++i)
+        _underLayerVector2D.push_back(QVector<Piece *>(_boardSize, nullptr));
+
+    for (unsigned i = 0; i < _boardSize ; ++i)
+        for (unsigned j = 0; j < _boardSize; ++j)
+            _underLayerVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Empty, noColored, i, j);
 
     // Setup symbolsVector2D
-    _symbolsVector2D.reserve(_boardSize);
+    _piecesSymbolsVector2D.reserve(_boardSize);
     for (unsigned i = 0; i < _boardSize; ++i)
-        _symbolsVector2D.push_back(QVector<char>(_boardSize, (char)PiecesSymbols::Placeholder));
+        _piecesSymbolsVector2D.push_back(QVector<char>(_boardSize, (char)PiecesSymbols::Placeholder));
 
-    for (unsigned i = 1; i < _boardSize ; ++i)
+    for (unsigned i = 0; i < _boardSize ; ++i)
     {
-        for (unsigned j = 1; j < _boardSize; ++j)
+        for (unsigned j = 0; j < _boardSize; ++j)
         {
-            if (i == 3 || i == 4 || i == 5 || i == 6)
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::Empty;
-            else if (i == 7)
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::WhitePawn;
-            else if (i == 2)
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackPawn;
-            else if ((i == 8 && j == 1) || (i == 8 && j == 8))
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::WhiteRook;
-            else if ((i == 8 && j == 2) || (i == 8 && j == 7))
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::WhiteKnight;
-            else if ((i == 8 && j == 3) || (i == 8 && j == 6))
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::WhiteBishop;
-            else if (i == 8 && j == 4)
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::WhiteQueen;
-            else if (i == 8 && j == 5)
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::WhiteKing;
-            else if ((i == 1 && j == 1) || (i == 1 && j == 8))
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackRook;
-            else if ((i == 1 && j == 2) || (i == 1 && j == 7))
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackKnight;
-            else if ((i == 1 && j == 3) || (i == 1 && j == 6))
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackBishop;
-            else if (i == 1 && j == 4)
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackQueen;
-            else if (i == 1 && j == 5)
-                _symbolsVector2D[i][j] = (char)PiecesSymbols::BlackKing;
+            if (i == 2 || i == 3 || i == 4 || i == 5)
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::Empty;
+            else if (i == 6)
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::WhitePawn;
+            else if (i == 1)
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::BlackPawn;
+            else if ((i == 7 && j == 0) || (i == 7 && j == 7))
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::WhiteRook;
+            else if ((i == 7 && j == 1) || (i == 7 && j == 6))
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::WhiteKnight;
+            else if ((i == 7 && j == 2) || (i == 7 && j == 5))
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::WhiteBishop;
+            else if (i == 7 && j == 3)
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::WhiteQueen;
+            else if (i == 7 && j == 4)
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::WhiteKing;
+            else if ((i == 0 && j == 0) || (i == 0 && j == 7))
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::BlackRook;
+            else if ((i == 0 && j == 1) || (i == 0 && j == 6))
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::BlackKnight;
+            else if ((i == 0 && j == 2) || (i == 0 && j == 5))
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::BlackBishop;
+            else if (i == 0 && j == 3)
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::BlackQueen;
+            else if (i == 0 && j == 4)
+                _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::BlackKing;
         }
     }
 
-    // Setup piecesVector2D                          /******* NOT COMPLETED *******/
+    // Setup piecesVector2D
+        _boardLayout = new QGridLayout();
     PiecesColors white = PiecesColors::White;
     PiecesColors black = PiecesColors::Black;
-    PiecesColors noColored = PiecesColors::NoColored;
 
     _piecesVector2D.reserve(_boardSize);
     for (unsigned i = 0; i < _boardSize; ++i)
         _piecesVector2D.push_back(QVector<Piece *>(_boardSize, nullptr));
 
-    for (unsigned i = 1; i < _boardSize ; ++i)
+    for (unsigned i = 0; i < _boardSize ; ++i)
     {
-        for (unsigned j = 1; j < _boardSize; ++j)
+        for (unsigned j = 0; j < _boardSize; ++j)
         {
-            switch (_symbolsVector2D[i][j])
+            switch (_piecesSymbolsVector2D[i][j])
             {
             case (char)PiecesSymbols::Empty:
                 _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Empty, noColored, i, j);
@@ -133,7 +157,7 @@ void BoardWidget::setup()
     }
 
 
-
+    {
     //************************************************ TESTING ************************************* //
 //    QDebug deb = qDebug();
 //    for (unsigned i = 0; i < _boardSize; ++i)
@@ -141,7 +165,7 @@ void BoardWidget::setup()
 //        for (unsigned j = 0; j < _boardSize; ++j)
 //        {
 //            if (_piecesVector2D[i][j] != nullptr)
-//                deb.nospace() << _piecesVector2D[i][j]->_coloredName << " ";
+//                deb.nospace() << (char)_piecesVector2D[i][j]->getPieceType() << " ";
 //        }
 //        deb.nospace() << "\n";
 //    }
@@ -153,31 +177,211 @@ void BoardWidget::setup()
 //        {
 //            for (unsigned j = 0; j < _boardSize; ++j)
 //            {
-//                deb.nospace() << _symbolsVector2D[i][j] << " ";
+//                deb.nospace() << _possibleStepsVector2D[i][j] << " ";
 //            }
 //            deb.nospace() << "\n";
 //        }
-}
 
-// Public util functions
-void BoardWidget::showBoard()
-{
-
+    }
 }
 
 // Private util functions
 void BoardWidget::makeBoardWidget()
 {
-    for (unsigned i = 0; i < _boardSize - 1; ++i)
+    // Set under layer geometry
+    _underLayerWidget->setGeometry(0, 0, (int)BoardWidgetProps::BoardW, (int)BoardWidgetProps::BoardH);
+
+    // Make layouts
+    for (unsigned i = 0; i < _boardSize; ++i)
     {
-        for (unsigned j = 0; j < _boardSize - 1; ++j)
+        for (unsigned j = 0; j < _boardSize; ++j)
         {
-            _piecesVector2D[i + 1][j + 1]->getPieceLabel()->setParent(this);
-            _boardLayout->addWidget(_piecesVector2D[i + 1][j + 1]->getPieceLabel(), i + 1, j + 1);
+            // Make board layout
+            connect(_piecesVector2D[i][j]->getPieceLabel(), &ClickableLabel::clickedLeftButton, this,
+                    std::bind(&BoardWidget::processLeftButtonClick, this, _piecesVector2D[i][j]));
+            _boardLayout->addWidget(_piecesVector2D[i][j]->getPieceLabel(), i, j);
+
+            // Make under layer layout
+            _underLayerLayout->addWidget(_underLayerVector2D[i][j]->getPieceLabel(), i, j);
         }
     }
+
+    _underLayerLayout->setVerticalSpacing(0);
+    _underLayerLayout->setHorizontalSpacing(0);
 
     _boardLayout->setVerticalSpacing(0);
     _boardLayout->setHorizontalSpacing(0);
     setLayout(_boardLayout);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Public slots
+void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
+{   
+    static PiecesColors turn = PiecesColors::White;
+    //static PiecesColors turn = PiecesColors::White;
+
+
+    if (!isPieceSelected())
+    {
+        if (isCorrectColoredPieceClicked(clickedPiece, turn))
+            makeUnderLayerForSelectedPiece(clickedPiece, turn);
+    }
+    else
+    {
+        if (isCorrectColoredPieceClicked(clickedPiece, turn))
+            makeUnderLayerForSelectedPiece(clickedPiece, turn);
+        else if (!isAvailableStepClicked(clickedPiece->getPositionRow(), clickedPiece->getPositionColumn()))
+        {
+            _selectedPiece = nullptr;
+            resetUnderLayer();
+        }
+        //else if ()
+    }
+
+    drawUnderLayer();
+}
+
+// Private game functions
+void BoardWidget::makeUnderLayerForSelectedPiece(Piece* clickedPiece, PiecesColors turn)
+{
+    clearStepsVector2D();
+    _selectedPiece = clickedPiece;
+
+
+
+    _selectedPiece->findAvailableSteps(_possibleStepsVector2D, _piecesSymbolsVector2D);
+    markSelectedPieceSquare();
+    //drawPreviousStep();
+
+    //************************************************************************
+    QDebug deb = qDebug();
+    for (unsigned i = 0; i < _boardSize; ++i)
+    {
+        for (unsigned j = 0; j < _boardSize; ++j)
+        {
+            deb.nospace() << _possibleStepsVector2D[i][j] << " ";
+        }
+        deb.nospace() << "\n";
+    }
+    //**************************************************************************
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+void BoardWidget::drawUnderLayer()
+{
+    QPixmap temp;
+    for (unsigned i = 0; i < _boardSize; ++i)
+    {
+        for (unsigned j = 0; j < _boardSize; ++j)
+        {
+            switch (_possibleStepsVector2D[i][j])
+            {
+            case (char)PossibleSteps::Empty: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(temp); break;
+            case (char)PossibleSteps::CanGo: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::CanGo)); break;
+            case (char)PossibleSteps::CanBeat: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::CanBeat)); break;
+            case (char)PossibleSteps::CurrentPiece: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::CurrentPiece)); break;
+            case (char)PossibleSteps::LastStepFrom: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::LastStepFrom)); break;
+            case (char)PossibleSteps::LastStepTo: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::LastStepTo)); break;
+            default: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(temp); break;
+            }
+        }
+    }
+}
+
+void BoardWidget::clearStepsVector2D()
+{
+    for (unsigned i = 0; i < _boardSize; ++i)
+        for (unsigned j = 0; j < _boardSize; ++j)
+            _possibleStepsVector2D[i][j] = (char)PiecesTypes::Empty;
+}
+
+bool BoardWidget::isPieceSelected()
+{
+    return (_selectedPiece != nullptr);
+}
+
+bool BoardWidget::isEmptyClicked(Piece *clickedPiece)
+{
+    return (clickedPiece->getPieceType() == PiecesTypes::Empty);
+}
+
+bool BoardWidget::isOppositePieceClicked(Piece *clickedPiece, PiecesColors turn)
+{
+    return (clickedPiece->getPieceColor() != turn);
+}
+
+bool BoardWidget::isCorrectColoredPieceClicked(Piece *clickedPiece, PiecesColors turn)
+{
+    return (!isEmptyClicked(clickedPiece) && !isOppositePieceClicked(clickedPiece, turn));
+}
+
+bool BoardWidget::isAvailableStepClicked(int i, int j)
+{
+    char symbol = _possibleStepsVector2D[i][j];
+    return (symbol == (char)PossibleSteps::CanGo || symbol == (char)PossibleSteps::CanBeat ||
+            symbol == (char)PossibleSteps::LastStepFromAndCanGo || symbol == (char)PossibleSteps::LastStepToAndCanBeat);
+}
+
+void BoardWidget::markSelectedPieceSquare()
+{
+    _possibleStepsVector2D[_selectedPiece->getPositionRow()][_selectedPiece->getPositionColumn()] = (char)PossibleSteps::CurrentPiece;
+}
+
+//void BoardWidget::is
+
+void BoardWidget::resetUnderLayer()
+{
+    clearStepsVector2D();
+    //drawPreviousStep();
 }

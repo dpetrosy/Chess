@@ -18,6 +18,7 @@ void Piece::setup()
     _piecesPath = ImagesPaths::piecesPath;
     _pieceName = "piece";
     _extension = ".png";
+    _pieceType = PiecesTypes::Empty;
 }
 
 // Protected util functions
@@ -44,14 +45,132 @@ void Piece::makeColored(PiecesColors pieceColor)
 }
 
 // Getters
-QLabel* Piece::getPieceLabel() const
+ClickableLabel* Piece::getPieceLabel() const
 {
     return _pieceLabel;
 }
 
-// Setters
-void Piece::setPosition(int i, int j)
+QString Piece::getPiecePath() const
 {
-    _position.row = i;
-    _position.column = j;
+    return _piecesPath;
 }
+
+Position Piece::getPosition() const
+{
+    return _position;
+}
+
+int Piece::getPositionRow() const
+{
+    return _position.row;
+}
+
+int Piece::getPositionColumn() const
+{
+    return _position.column;
+}
+
+QString Piece::getPieceName() const
+{
+    return _pieceName;
+}
+
+QString Piece::getExtension() const
+{
+    return _extension;
+}
+
+PiecesTypes Piece::getPieceType() const
+{
+    return _pieceType;
+}
+
+PiecesColors Piece::getPieceColor() const
+{
+    return _pieceColor;
+}
+
+QString Piece::getColorString() const
+{
+    return _colorString;
+}
+
+QString Piece::getColoredName() const
+{
+    return _coloredName;
+}
+
+QString Piece::getImage() const
+{
+    return _image;
+}
+
+// Setters
+void Piece::setPieceLabel(ClickableLabel* pieceLabel)
+{
+    _pieceLabel = pieceLabel;
+}
+
+void Piece::setPiecePath(QString piecePath)
+{
+    _piecesPath = piecePath;
+}
+
+void Piece::setPosition(int row, int column)
+{
+    _position.row = row;
+    _position.column = column;
+}
+
+void Piece::setPositionRow(int row)
+{
+    _position.row = row;
+}
+
+void Piece::setPositionColumn(int column)
+{
+    _position.column = column;
+}
+
+void Piece::setPieceName(QString pieceName)
+{
+    _pieceName = pieceName;
+}
+
+void Piece::setExtension(QString extension)
+{
+    _extension = extension;
+}
+
+void Piece::setPieceType(PiecesTypes pieceType)
+{
+    _pieceType = pieceType;
+}
+
+void Piece::setPieceColor(PiecesColors piecesColor)
+{
+    _pieceColor = piecesColor;
+}
+
+void Piece::setColorString(QString colorString)
+{
+    _colorString = colorString;
+}
+
+void Piece::setColoredName(QString coloredName)
+{
+    _coloredName = coloredName;
+}
+
+void Piece::setImage(QString image)
+{
+    _image = image;
+}
+
+
+
+
+
+// Delete
+void Piece::findAvailableSteps(charVector2D& stepsVector2D, charVector2D& symbolsVector2D)
+{}

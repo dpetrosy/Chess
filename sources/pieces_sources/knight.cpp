@@ -1,4 +1,5 @@
 #include "knight.hpp"
+#include "clickablelabel.hpp"
 
 Knight::Knight()
 {
@@ -31,6 +32,7 @@ Knight *Knight::Clone(PiecesColors pieceColor, int i, int j) const
 // Setup
 void Knight::setup()
 {
-    _pieceLabel = new QLabel();
+    _pieceLabel = new ClickableLabel();
     _pieceName = "knight";
+    _pieceType = PiecesTypes::Knight;
 }

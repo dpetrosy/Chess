@@ -11,7 +11,7 @@
 // Prototype pattern used
 class Queen : public Piece
 {
-    //Q_OBJECT
+    Q_OBJECT
 
 public:
     Queen();
