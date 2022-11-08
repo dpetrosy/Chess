@@ -1,5 +1,6 @@
 #include "gamewidget.hpp"
 #include "boardwidget.hpp"
+#include "moveswidget.hpp"
 
 #include "mainwindow.hpp"
 #include "helpers.hpp"
@@ -17,9 +18,9 @@ GameWidget::GameWidget(QWidget *parent)
 GameWidget::~GameWidget() {}
 
 // Singlton pattern realization
-GameWidget *GameWidget::_gameWidget = nullptr;
+GameWidget* GameWidget::_gameWidget = nullptr;
 
-GameWidget *GameWidget::GetInstance(QWidget *parent)
+GameWidget* GameWidget::GetInstance(QWidget *parent)
 {
     if(_gameWidget == nullptr)
         _gameWidget = new GameWidget(parent);
@@ -33,6 +34,7 @@ void GameWidget::setup()
     // Game elements
     _gameData = new GameData();
     _boardWidget = BoardWidget::GetInstance(this);
+    _movesWidget = MovesWidget::GetInstance(this);
 }
 
 // Public util functions

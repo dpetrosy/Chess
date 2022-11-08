@@ -1,4 +1,6 @@
 #include "factory.hpp"
+#include "boardwidget.hpp"
+#include "clickablelabel.hpp"
 #include "piece.hpp"
 #include "empty.hpp"
 #include "pawn.hpp"
@@ -17,9 +19,16 @@ Factory::Factory()
 Factory::~Factory() {}
 
 // Prototype pattern realization
-Piece *Factory::CreatePiece(Pieces piece, PiecesColors pieceColor, int i, int j)
+Piece *Factory::CreatePiece(Pieces piece, PiecesColors pieceColor, int i, int j, BoardWidget* boardWidget)
 {
-   return _piecesMap[piece]->Clone(pieceColor, i, j);
+   auto temp = _piecesMap[piece]->Clone(pieceColor, i, j);
+   if (boardWidget != nullptr)
+   {
+       QAction::connect(temp->getPieceLabel(), &ClickableLabel::clickedLeftButton, boardWidget,
+               std::bind(&BoardWidget::processLeftButtonClick, boardWidget, temp));
+   }
+
+   return temp;
 }
 
 // Setup

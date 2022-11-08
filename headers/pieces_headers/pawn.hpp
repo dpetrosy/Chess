@@ -22,7 +22,7 @@ public:
     Pawn *Clone(PiecesColors pieceColor, int i, int j) const override;
 
     // Public game functions
-    void findAvailableSteps(charVector2D& stepsVector2D, charVector2D& symbolsVector2D) override;
+    void findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D) override;
 
 private:
     // Setup

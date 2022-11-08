@@ -20,7 +20,7 @@ public:
     virtual Piece *Clone(PiecesColors pieceColor, int i, int j) const = 0;
 
     // Public game functions
-    virtual void findAvailableSteps(charVector2D& stepsVector2D, charVector2D& symbolsVector2D);
+    virtual void findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D);
 
     // Getters
     ClickableLabel* getPieceLabel() const;

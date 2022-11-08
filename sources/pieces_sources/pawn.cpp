@@ -38,7 +38,7 @@ void Pawn::setup()
 }
 
 // Public game functions
-void Pawn::findAvailableSteps(charVector2D& stepsVector2D, charVector2D& symbolsVector2D)
+void Pawn::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D)
 {
     int i = _position.row;
     int j = _position.column;
@@ -75,11 +75,12 @@ void Pawn::findAvailableSteps(charVector2D& stepsVector2D, charVector2D& symbols
     if (_pieceColor == PiecesColors::Black)
     {
         if (symbolsVector2D[i + 1][j] == symbolEmpty)
+        {
             stepsVector2D[i + 1][j] = canGo;
-
-        if (i == 1)
-            if (symbolsVector2D[i + 2][j] == symbolEmpty)
-            stepsVector2D[i + 2][j] = canGo;
+            if (i == 1)
+                if (symbolsVector2D[i + 2][j] == symbolEmpty)
+                    stepsVector2D[i + 2][j] = canGo;
+        }
 
         if (j != 7)
         {

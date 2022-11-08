@@ -1,4 +1,5 @@
 #include "piece.hpp"
+#include "clickablelabel.hpp"
 #include "helpers.hpp"
 
 Piece::Piece()
@@ -9,7 +10,10 @@ Piece::Piece()
     makeColored(PiecesColors::White);
 }
 
-Piece::~Piece() {}
+Piece::~Piece()
+{
+    delete _pieceLabel;
+}
 
 // Setup
 void Piece::setup()
@@ -172,5 +176,5 @@ void Piece::setImage(QString image)
 
 
 // Delete
-void Piece::findAvailableSteps(charVector2D& stepsVector2D, charVector2D& symbolsVector2D)
+void Piece::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D)
 {}

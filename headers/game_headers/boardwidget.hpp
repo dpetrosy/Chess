@@ -37,16 +37,22 @@ private:
     void makeBoardWidget();
 
     // Private game functions
-    void makeUnderLayerForSelectedPiece(Piece* clickedPiece, PiecesColors turn);
+    void pieceSelected(Piece* clickedPiece);
+    void doStep(Piece* clickedPiece);
     void drawUnderLayer();
     void clearStepsVector2D();
     bool isPieceSelected();
     bool isEmptyClicked(Piece *clickedPiece);
-    bool isOppositePieceClicked(Piece *clickedPiece, PiecesColors turn);
-    bool isCorrectColoredPieceClicked(Piece *clickedPiece, PiecesColors turn);
+    bool isSelectedPieceClicked(Piece *clickedPiece);
+    bool isOppositePieceClicked(Piece *clickedPiece);
+    bool isCorrectColoredPieceClicked(Piece *clickedPiece);
     bool isAvailableStepClicked(int i, int j);
     void markSelectedPieceSquare();
-    void resetUnderLayer();
+    void doStepInSymbolsVector(int iSelected, int jSelected, int iClicked, int jClicked);
+    void doStepInPiecesVector(int iSelected, int jSelected, int iClicked, int jClicked);
+    void clearBoardLayout();
+    void resetBoardLayout();
+    void switchTurn();
 
 private:
     // Singleton pattern realization
@@ -62,13 +68,14 @@ private:
     // Under layer attributes
     QWidget* _underLayerWidget;
     QGridLayout* _underLayerLayout;
-    pieceVector2D _underLayerVector2D;
-    charVector2D _possibleStepsVector2D;
+    PieceVector2D _underLayerVector2D;
+    CharVector2D _possibleStepsVector2D;
 
     // Board attributes
     QGridLayout* _boardLayout;
-    charVector2D _piecesSymbolsVector2D;
-    pieceVector2D _piecesVector2D;
+    CharVector2D _piecesSymbolsVector2D;
+    PieceVector2D _piecesVector2D;
+    PiecesColors _turn;
     QString _piecesPath;
 };
 

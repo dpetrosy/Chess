@@ -10,6 +10,7 @@ CONFIG += c++17
 
 
 SOURCES += \
+    sources/game_sources/moveswidget.cpp \
     sources/main.cpp \
     sources/utils.cpp \
     sources/mainwindow.cpp \
@@ -42,6 +43,7 @@ HEADERS += \
     headers/menus_headers/quitdialog.hpp \
     headers/game_headers/gamewidget.hpp \
     headers/game_headers/boardwidget.hpp \
+    headers/game_headers/moveswidget.hpp \
     headers/game_headers/clickablelabel.hpp \
     headers/game_headers/game_helpers.hpp \
     headers/game_headers/predefined_game_classes.hpp \
@@ -72,3 +74,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     res.qrc \
+
+DISTFILES += \
+    headers/notREADME.txt

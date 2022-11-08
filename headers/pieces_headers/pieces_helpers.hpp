@@ -2,12 +2,16 @@
 #define PIECES_HELPERS_HPP
 
 #include <QVector>
+#include <QString>
+#include <QPair>
 
 #include "predefined_pieces_classes.hpp"
 
 // Typedefs
-typedef QVector<QVector<char>> charVector2D;
-typedef QVector<QVector<Piece *>> pieceVector2D;
+typedef QVector<QVector<char>> CharVector2D;
+typedef QVector<QVector<Piece *>> PieceVector2D;
+typedef QVector<QPair<QString, QString>> MovesVector;
+typedef QPair<QString, QString> MovePair;
 
 enum class Pieces
 {
@@ -72,8 +76,7 @@ enum class PossibleSteps : char
     CurrentPiece = '#',
     LastStepFrom = '1',
     LastStepTo = '2',
-    LastStepFromAndCanGo = '$',
-    LastStepToAndCanBeat = '%'
+    LastStepFromAndCanGo = '$'
 };
 
 namespace StepsImages
@@ -83,6 +86,7 @@ namespace StepsImages
     extern QString CurrentPiece;
     extern QString LastStepFrom;
     extern QString LastStepTo;
+    extern QString LastStepFromAndCanGo;
 }
 
 #endif // PIECES_HELPERS_HPP

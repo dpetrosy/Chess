@@ -4,6 +4,7 @@
 class MainWindow;
 class GameWidget;
 class BoardWidget;
+class MovesWidget;
 class ClickableLabel;
 
 #endif // PREDEFINED_GAME_CLASSES_HPP

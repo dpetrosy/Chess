@@ -1,5 +1,6 @@
 #include "boardwidget.hpp"
 #include "helpers.hpp"
+#include "moveswidget.hpp"
 #include "pieces_helpers.hpp"
 #include "factory.hpp"
 #include "piece.hpp"
@@ -37,6 +38,7 @@ void BoardWidget::setup()
     // Board widget attributes
     _boardSize = (int)BoardWidgetProps::BoardSquaresCount;
     _selectedPiece = nullptr;
+    _turn = PiecesColors::White;
     _piecesPath = ImagesPaths::piecesPath;
 
     // Setup under layer attributes
@@ -155,34 +157,6 @@ void BoardWidget::setup()
             }
         }
     }
-
-
-    {
-    //************************************************ TESTING ************************************* //
-//    QDebug deb = qDebug();
-//    for (unsigned i = 0; i < _boardSize; ++i)
-//    {
-//        for (unsigned j = 0; j < _boardSize; ++j)
-//        {
-//            if (_piecesVector2D[i][j] != nullptr)
-//                deb.nospace() << (char)_piecesVector2D[i][j]->getPieceType() << " ";
-//        }
-//        deb.nospace() << "\n";
-//    }
-    //************************************************ TESTING ************************************* //
-
-
-//        QDebug deb = qDebug();
-//        for (unsigned i = 0; i < _boardSize; ++i)
-//        {
-//            for (unsigned j = 0; j < _boardSize; ++j)
-//            {
-//                deb.nospace() << _possibleStepsVector2D[i][j] << " ";
-//            }
-//            deb.nospace() << "\n";
-//        }
-
-    }
 }
 
 // Private util functions
@@ -256,54 +230,61 @@ void BoardWidget::makeBoardWidget()
 
 // Public slots
 void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
-{   
-    static PiecesColors turn = PiecesColors::White;
-    //static PiecesColors turn = PiecesColors::White;
-
-
+{
+    // No piece selected
     if (!isPieceSelected())
     {
-        if (isCorrectColoredPieceClicked(clickedPiece, turn))
-            makeUnderLayerForSelectedPiece(clickedPiece, turn);
+        // if clicked right color piece
+        if (isCorrectColoredPieceClicked(clickedPiece))
+            pieceSelected(clickedPiece);
     }
     else
     {
-        if (isCorrectColoredPieceClicked(clickedPiece, turn))
-            makeUnderLayerForSelectedPiece(clickedPiece, turn);
+        // if click other piece with same color
+        if (isCorrectColoredPieceClicked(clickedPiece) && !isSelectedPieceClicked(clickedPiece))
+            pieceSelected(clickedPiece);
+        // if clicked not available steps
         else if (!isAvailableStepClicked(clickedPiece->getPositionRow(), clickedPiece->getPositionColumn()))
         {
             _selectedPiece = nullptr;
-            resetUnderLayer();
+            clearStepsVector2D();
         }
-        //else if ()
+        else // Clicked available step
+        {
+            doStep(clickedPiece);
+            _selectedPiece = nullptr;
+            clearStepsVector2D();
+            switchTurn();
+        }
     }
 
+    //if (!isFirstStep)
+        //drawPreviousStep();
     drawUnderLayer();
 }
 
 // Private game functions
-void BoardWidget::makeUnderLayerForSelectedPiece(Piece* clickedPiece, PiecesColors turn)
+void BoardWidget::pieceSelected(Piece* clickedPiece)
 {
     clearStepsVector2D();
     _selectedPiece = clickedPiece;
-
-
-
     _selectedPiece->findAvailableSteps(_possibleStepsVector2D, _piecesSymbolsVector2D);
     markSelectedPieceSquare();
-    //drawPreviousStep();
+}
 
-    //************************************************************************
-    QDebug deb = qDebug();
-    for (unsigned i = 0; i < _boardSize; ++i)
-    {
-        for (unsigned j = 0; j < _boardSize; ++j)
-        {
-            deb.nospace() << _possibleStepsVector2D[i][j] << " ";
-        }
-        deb.nospace() << "\n";
-    }
-    //**************************************************************************
+void BoardWidget::doStep(Piece* clickedPiece)
+{
+    //MovesWidget::GetInstance()->setLastMove("alo1", "alo2");
+
+    int iSelected = _selectedPiece->getPositionRow();
+    int jSelected = _selectedPiece->getPositionColumn();
+    int iClicked = clickedPiece->getPositionRow();
+    int jClicked = clickedPiece->getPositionColumn();
+
+    clearBoardLayout();
+    doStepInSymbolsVector(iSelected, jSelected, iClicked, jClicked);
+    doStepInPiecesVector(iSelected, jSelected, iClicked, jClicked);
+    resetBoardLayout();
 }
 
 
@@ -317,6 +298,75 @@ void BoardWidget::makeUnderLayerForSelectedPiece(Piece* clickedPiece, PiecesColo
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void BoardWidget::doStepInSymbolsVector(int iSelected, int jSelected, int iClicked, int jClicked)
+{
+    auto temp = _piecesSymbolsVector2D[iSelected][jSelected];
+    _piecesSymbolsVector2D[iSelected][jSelected] = (char)PiecesSymbols::Empty;
+    _piecesSymbolsVector2D[iClicked][jClicked] = temp;
+}
+
+void BoardWidget::doStepInPiecesVector(int iSelected, int jSelected, int iClicked, int jClicked)
+{
+    delete _piecesVector2D[iClicked][jClicked];
+    _piecesVector2D[iClicked][jClicked] = _piecesVector2D[iSelected][jSelected];
+    _piecesVector2D[iClicked][jClicked]->setPosition(iClicked, jClicked);
+
+    _piecesVector2D[iSelected][jSelected] = _piecesFactory->CreatePiece(Pieces::Empty, PiecesColors::NoColored, iSelected, jSelected, this);
+
+    // delete in future
+    //connect(_piecesVector2D[iSelected][jSelected]->getPieceLabel(), &ClickableLabel::clickedLeftButton, this,
+     //       std::bind(&BoardWidget::processLeftButtonClick, this, _piecesVector2D[iSelected][jSelected]));
+}
+
+void BoardWidget::switchTurn()
+{
+    if (_turn == PiecesColors::White)
+        _turn = PiecesColors::Black;
+    else
+        _turn = PiecesColors::White;
+}
+
+void BoardWidget::clearBoardLayout()
+{
+    for (unsigned i = 0; i < _boardSize; ++i)
+        for (unsigned j = 0; j < _boardSize; ++j)
+            _boardLayout->removeWidget(_piecesVector2D[i][j]->getPieceLabel());
+}
+
+void BoardWidget::resetBoardLayout()
+{
+    for (unsigned i = 0; i < _boardSize; ++i)
+        for (unsigned j = 0; j < _boardSize; ++j)
+            _boardLayout->addWidget(_piecesVector2D[i][j]->getPieceLabel(), i, j);
+}
+
+void BoardWidget::clearStepsVector2D()
+{
+    for (unsigned i = 0; i < _boardSize; ++i)
+        for (unsigned j = 0; j < _boardSize; ++j)
+            _possibleStepsVector2D[i][j] = (char)PiecesTypes::Empty;
+}
+
+void BoardWidget::markSelectedPieceSquare()
+{
+    _possibleStepsVector2D[_selectedPiece->getPositionRow()][_selectedPiece->getPositionColumn()] = (char)PossibleSteps::CurrentPiece;
+}
 
 void BoardWidget::drawUnderLayer()
 {
@@ -333,17 +383,11 @@ void BoardWidget::drawUnderLayer()
             case (char)PossibleSteps::CurrentPiece: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::CurrentPiece)); break;
             case (char)PossibleSteps::LastStepFrom: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::LastStepFrom)); break;
             case (char)PossibleSteps::LastStepTo: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::LastStepTo)); break;
+            case (char)PossibleSteps::LastStepFromAndCanGo: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::LastStepFromAndCanGo)); break;
             default: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(temp); break;
             }
         }
     }
-}
-
-void BoardWidget::clearStepsVector2D()
-{
-    for (unsigned i = 0; i < _boardSize; ++i)
-        for (unsigned j = 0; j < _boardSize; ++j)
-            _possibleStepsVector2D[i][j] = (char)PiecesTypes::Empty;
 }
 
 bool BoardWidget::isPieceSelected()
@@ -351,37 +395,31 @@ bool BoardWidget::isPieceSelected()
     return (_selectedPiece != nullptr);
 }
 
+bool BoardWidget::isSelectedPieceClicked(Piece *clickedPiece)
+{
+    int i = clickedPiece->getPositionRow();
+    int j = clickedPiece->getPositionColumn();
+    return (_possibleStepsVector2D[i][j] == (char)PossibleSteps::CurrentPiece);
+}
+
 bool BoardWidget::isEmptyClicked(Piece *clickedPiece)
 {
     return (clickedPiece->getPieceType() == PiecesTypes::Empty);
 }
 
-bool BoardWidget::isOppositePieceClicked(Piece *clickedPiece, PiecesColors turn)
+bool BoardWidget::isOppositePieceClicked(Piece *clickedPiece)
 {
-    return (clickedPiece->getPieceColor() != turn);
+    return (clickedPiece->getPieceColor() != _turn);
 }
 
-bool BoardWidget::isCorrectColoredPieceClicked(Piece *clickedPiece, PiecesColors turn)
+bool BoardWidget::isCorrectColoredPieceClicked(Piece *clickedPiece)
 {
-    return (!isEmptyClicked(clickedPiece) && !isOppositePieceClicked(clickedPiece, turn));
+    return (!isEmptyClicked(clickedPiece) && !isOppositePieceClicked(clickedPiece));
 }
 
 bool BoardWidget::isAvailableStepClicked(int i, int j)
 {
     char symbol = _possibleStepsVector2D[i][j];
-    return (symbol == (char)PossibleSteps::CanGo || symbol == (char)PossibleSteps::CanBeat ||
-            symbol == (char)PossibleSteps::LastStepFromAndCanGo || symbol == (char)PossibleSteps::LastStepToAndCanBeat);
-}
-
-void BoardWidget::markSelectedPieceSquare()
-{
-    _possibleStepsVector2D[_selectedPiece->getPositionRow()][_selectedPiece->getPositionColumn()] = (char)PossibleSteps::CurrentPiece;
-}
-
-//void BoardWidget::is
-
-void BoardWidget::resetUnderLayer()
-{
-    clearStepsVector2D();
-    //drawPreviousStep();
+    return (symbol == (char)PossibleSteps::CanGo || symbol == (char)PossibleSteps::CanBeat
+            || symbol == (char)PossibleSteps::LastStepFromAndCanGo);
 }

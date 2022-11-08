@@ -19,5 +19,6 @@
         <file>images/pieces/black.png</file>
         <file>images/pieces/can_go.png</file>
         <file>images/pieces/current_piece.png</file>
+        <file>images/pieces/can_beat.png</file>
     </qresource>
 </RCC>

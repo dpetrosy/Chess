@@ -5,7 +5,7 @@
 #include <QHash>
 
 #include "pieces_helpers.hpp"
-#include "gamewidget.hpp"
+#include "game_helpers.hpp"
 
 // Prototype pattern used
 class Factory
@@ -15,7 +15,7 @@ public:
     virtual ~Factory();
 
     // Prototype pattern realization
-    Piece *CreatePiece(Pieces piece, PiecesColors pieceColor, int i, int j);
+    Piece *CreatePiece(Pieces piece, PiecesColors pieceColor, int i, int j, BoardWidget* boardWidget = nullptr);
 
 private:
     // Prototype pattern realization
