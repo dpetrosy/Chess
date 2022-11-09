@@ -1,4 +1,6 @@
 #include "pawn.hpp"
+#include "boardwidget.hpp"
+#include "gamewidget.hpp"
 #include "clickablelabel.hpp"
 
 Pawn::Pawn()
@@ -38,59 +40,63 @@ void Pawn::setup()
 }
 
 // Public game functions
-void Pawn::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D)
+void Pawn::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor)
 {
     int i = _position.row;
     int j = _position.column;
-    char empty = (char)PossibleSteps::Empty;
     char canGo = (char)PossibleSteps::CanGo;
     char canBeat = (char)PossibleSteps::CanBeat;
-    char symbolEmpty = (char)PiecesSymbols::Empty;
 
-    // For white pawn
-    if (_pieceColor == PiecesColors::White)
+    if (turn == belowPlayerColor)
     {
-        if (symbolsVector2D[i - 1][j] == symbolEmpty)
+        if (isCanGo(symbolsVector2D, i - 1, j))
         {
             stepsVector2D[i - 1][j] = canGo;
-            if (i == 6)
-                if (symbolsVector2D[i - 2][j] == symbolEmpty)
+            if (i == 6 && isCanGo(symbolsVector2D, i - 2, j))
                 stepsVector2D[i - 2][j] = canGo;
         }
 
-
         if (j != 7)
-        {
-            if (symbolsVector2D[i - 1][j + 1] != symbolEmpty)
+            if(isCanBeat(symbolsVector2D, i - 1, j + 1, turn))
                 stepsVector2D[i - 1][j + 1] = canBeat;
-        }
-        if (j != 0)
-        {
-            if (symbolsVector2D[i - 1][j - 1] != symbolEmpty)
-                stepsVector2D[i - 1][j - 1] = canBeat;
-        }
-    }
 
-    // For black pawn
-    if (_pieceColor == PiecesColors::Black)
+        if (j != 0)
+            if(isCanBeat(symbolsVector2D, i - 1, j - 1, turn))
+                stepsVector2D[i - 1][j - 1] = canBeat;
+    }
+    else
     {
-        if (symbolsVector2D[i + 1][j] == symbolEmpty)
+        if (isCanGo(symbolsVector2D, i + 1, j))
         {
             stepsVector2D[i + 1][j] = canGo;
-            if (i == 1)
-                if (symbolsVector2D[i + 2][j] == symbolEmpty)
-                    stepsVector2D[i + 2][j] = canGo;
+            if (i == 1 && isCanGo(symbolsVector2D, i + 2, j))
+                stepsVector2D[i + 2][j] = canGo;
         }
 
         if (j != 7)
-        {
-            if (symbolsVector2D[i + 1][j + 1] != symbolEmpty)
+            if(isCanBeat(symbolsVector2D, i + 1, j + 1, turn))
                 stepsVector2D[i + 1][j + 1] = canBeat;
-        }
+
         if (j != 0)
-        {
-            if (symbolsVector2D[i + 1][j - 1] != symbolEmpty)
+            if(isCanBeat(symbolsVector2D, i + 1, j - 1, turn))
                 stepsVector2D[i + 1][j - 1] = canBeat;
-        }
     }
+
+
+
+    //************************************************************************
+//        QDebug deb = qDebug();
+//        for (unsigned i = 0; i < 8; ++i)
+//        {
+//            for (unsigned j = 0; j < 8; ++j)
+//            {
+//                deb.nospace() << stepsVector2D[i][j] << " ";
+//            }
+//            deb.nospace() << "\n";
+//        }
+    //**************************************************************************
+
+    // figura darnal@ piti avelacvi, erb hasav 8rd tox
+
+    // shax@ piti avelacvi
 }

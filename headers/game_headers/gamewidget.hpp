@@ -28,7 +28,7 @@ public:
     bool getIsTimeAvailable() const;
     unsigned getGameMinutes() const;
     unsigned getIncrementSeconds() const;
-    bool getIsWhite() const;
+    PiecesColors getBelowPlayerColor() const;
     QuickGames getQuickGame() const;
 
     // Setters
@@ -37,7 +37,7 @@ public:
     void setIsTimeAvailable(bool isTimeAvailable);
     void setGameMinutes(unsigned gameMinutes);
     void setIncrementSeconds(unsigned incremetSeconds);
-    void setIsWhite(bool isWhite);
+    void setBelowPlayerColor(PiecesColors color);
     void setQuickGame(QuickGames quickGame);
 
 private:

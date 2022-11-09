@@ -72,7 +72,7 @@ void MainWindow::showGame(QStackedWidget *stackedWidget)
     _gameWidget->setIsTimeAvailable(false);
     _gameWidget->setGameMinutes(0);
     _gameWidget->setIncrementSeconds(0);
-    _gameWidget->setIsWhite(true);
+    _gameWidget->setBelowPlayerColor(PiecesColors::White);
     _gameWidget->setQuickGame(QuickGames::NoSelected);
     /************************************************************/
 

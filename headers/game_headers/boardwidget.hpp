@@ -24,6 +24,19 @@ public:
     static BoardWidget *GetInstance(QWidget *parent = nullptr);
     virtual ~BoardWidget();
 
+    // Getters
+    Piece*          getSelectedPiece() const;
+    unsigned        getBoardSize() const;
+    QWidget*        getUnderLayerWidget() const;
+    QGridLayout*    getUnderLayerLayout() const;
+    PieceVector2D&  getUnderLayerVector2D();
+    CharVector2D&   getPossibleStepsVector2D();
+    QGridLayout*    getBoardLayout() const;
+    CharVector2D&   getPiecesSymbolsVector2D();
+    PieceVector2D&  getPiecesVector2D();
+    PiecesColors    getTurn() const;
+    QString         getPiecesPath() const;
+
 public slots:
     void processLeftButtonClick(Piece *clickedPiece);
 

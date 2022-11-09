@@ -1,4 +1,5 @@
 #include "piece.hpp"
+#include "boardwidget.hpp"
 #include "clickablelabel.hpp"
 #include "helpers.hpp"
 
@@ -175,6 +176,51 @@ void Piece::setImage(QString image)
 
 
 
+
+// Public game functions
+bool Piece::isCanGo(CharVector2D& symbolsVector2D, int i, int j)
+{
+    return (symbolsVector2D[i][j] == (char)PiecesSymbols::Empty);
+}
+
+bool Piece::isCanBeat(CharVector2D& symbolsVector2D, int i, int j, PiecesColors turn)
+{
+    return (!isCanGo(symbolsVector2D, i, j) && !isSameColoredPiece(symbolsVector2D, i, j, turn));
+}
+
+bool Piece::isSameColoredPiece(CharVector2D& symbolsVector2D, int i, int j, PiecesColors turn)
+{
+    bool isPieceWhite = isupper(symbolsVector2D[i][j]);
+
+    if (turn == PiecesColors::White && isPieceWhite)
+        return true;
+    if (turn == PiecesColors::Black && !isPieceWhite)
+        return true;
+    return false;
+}
+
+bool Piece::isKing(CharVector2D& symbolsVector2D, int i, int j)
+{
+    return (symbolsVector2D[i][j] == (char)PiecesSymbols::WhiteKing || symbolsVector2D[i][j] == (char)PiecesSymbols::BlackKing);
+}
+
+
+bool Piece::isGivingCheck(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn)
+{
+    auto boardSize = BoardWidget::GetInstance()->getBoardSize();
+    for (unsigned i = 0; i < boardSize; ++i)
+        for (unsigned j = 0; j < boardSize; ++j)
+            if ((stepsVector2D[i][j] == (char)PossibleSteps::CanBeat) && isKing(symbolsVector2D, i, j) && !isSameColoredPiece(symbolsVector2D, i, j, turn))
+            {
+                stepsVector2D[i][j] = (char)PossibleSteps::Check;
+                return true;
+            }
+    return false;
+}
+
+
+
+
 // Delete
-void Piece::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D)
+void Piece::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor)
 {}

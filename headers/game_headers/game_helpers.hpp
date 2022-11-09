@@ -1,6 +1,7 @@
 #ifndef GAME_HELPERS_HPP
 #define GAME_HELPERS_HPP
 
+#include "pieces_helpers.hpp"
 #include "predefined_game_classes.hpp"
 
 // Game data
@@ -21,7 +22,7 @@ struct GameData
     bool isTimeAvailable = false;
     unsigned gameMinutes = 0;
     unsigned incrementSeconds = 0;
-    bool isWhite = true;
+    PiecesColors belowPlayerColor = PiecesColors::White;
 };
 
 

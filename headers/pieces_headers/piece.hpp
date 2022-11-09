@@ -20,7 +20,12 @@ public:
     virtual Piece *Clone(PiecesColors pieceColor, int i, int j) const = 0;
 
     // Public game functions
-    virtual void findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D);
+    virtual void findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor = PiecesColors::White);
+    bool isCanGo(CharVector2D& symbolsVector2D, int i, int j);
+    bool isCanBeat(CharVector2D& symbolsVector2D, int i, int j, PiecesColors turn);
+    bool isSameColoredPiece(CharVector2D& symbolsVector2D, int i, int j, PiecesColors turn);
+    bool isKing(CharVector2D& symbolsVector2D, int i, int j);
+    bool isGivingCheck(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn);
 
     // Getters
     ClickableLabel* getPieceLabel() const;

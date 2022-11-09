@@ -76,7 +76,8 @@ enum class PossibleSteps : char
     CurrentPiece = '#',
     LastStepFrom = '1',
     LastStepTo = '2',
-    LastStepFromAndCanGo = '$'
+    LastStepFromAndCanGo = '$',
+    Check = '%'
 };
 
 namespace StepsImages
@@ -87,6 +88,7 @@ namespace StepsImages
     extern QString LastStepFrom;
     extern QString LastStepTo;
     extern QString LastStepFromAndCanGo;
+    extern QString Check;
 }
 
 #endif // PIECES_HELPERS_HPP

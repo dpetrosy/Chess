@@ -77,9 +77,9 @@ unsigned GameWidget::getIncrementSeconds() const
     return _gameData->incrementSeconds;
 }
 
-bool GameWidget::getIsWhite() const
+PiecesColors GameWidget::getBelowPlayerColor() const
 {
-    return _gameData->isWhite;
+    return _gameData->belowPlayerColor;
 }
 
 QuickGames GameWidget::getQuickGame() const
@@ -113,9 +113,9 @@ void GameWidget::setIncrementSeconds(unsigned incrementSeconds)
     _gameData->incrementSeconds = incrementSeconds;
 }
 
-void GameWidget::setIsWhite(bool isWhite)
+void GameWidget::setBelowPlayerColor(PiecesColors color)
 {
-    _gameData->isWhite = isWhite;
+    _gameData->belowPlayerColor = color;
 }
 
 void GameWidget::setQuickGame(QuickGames quickGame)

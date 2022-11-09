@@ -77,3 +77,5 @@ RESOURCES += \
 
 DISTFILES += \
     headers/notREADME.txt
+
+#define QT_AUTO_SCREEN_SCALE_FACTOR 1

@@ -1,6 +1,7 @@
 #include "boardwidget.hpp"
 #include "helpers.hpp"
 #include "moveswidget.hpp"
+#include "gamewidget.hpp"
 #include "pieces_helpers.hpp"
 #include "factory.hpp"
 #include "piece.hpp"
@@ -21,7 +22,7 @@ BoardWidget::~BoardWidget() {}
 // Singleton pattern realization
 BoardWidget* BoardWidget::_boardWidget = nullptr;
 
-BoardWidget *BoardWidget::GetInstance(QWidget *parent)
+BoardWidget* BoardWidget::GetInstance(QWidget *parent)
 {
     if(_boardWidget == nullptr)
         _boardWidget = new BoardWidget(parent);
@@ -159,6 +160,63 @@ void BoardWidget::setup()
     }
 }
 
+// Getters
+Piece* BoardWidget::getSelectedPiece() const
+{
+    return _selectedPiece;
+}
+
+unsigned BoardWidget::getBoardSize() const
+{
+    return _boardSize;
+}
+
+QWidget* BoardWidget::getUnderLayerWidget() const
+{
+    return _underLayerWidget;
+}
+
+QGridLayout* BoardWidget::getUnderLayerLayout() const
+{
+    return _underLayerLayout;
+}
+
+PieceVector2D& BoardWidget::getUnderLayerVector2D()
+{
+    return _underLayerVector2D;
+}
+
+CharVector2D& BoardWidget::getPossibleStepsVector2D()
+{
+    return _possibleStepsVector2D;
+}
+
+QGridLayout* BoardWidget::getBoardLayout() const
+{
+    return _boardLayout;
+}
+
+CharVector2D& BoardWidget::getPiecesSymbolsVector2D()
+{
+    return _piecesSymbolsVector2D;
+}
+
+PieceVector2D& BoardWidget::getPiecesVector2D()
+{
+    return _piecesVector2D;
+}
+
+PiecesColors BoardWidget::getTurn() const
+{
+    return _turn;
+}
+
+QString BoardWidget::getPiecesPath() const
+{
+    return _piecesPath;
+}
+
+
 // Private util functions
 void BoardWidget::makeBoardWidget()
 {
@@ -253,7 +311,7 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
         {
             doStep(clickedPiece);
             _selectedPiece = nullptr;
-            clearStepsVector2D();
+            //clearStepsVector2D();
             switchTurn();
         }
     }
@@ -268,8 +326,9 @@ void BoardWidget::pieceSelected(Piece* clickedPiece)
 {
     clearStepsVector2D();
     _selectedPiece = clickedPiece;
-    _selectedPiece->findAvailableSteps(_possibleStepsVector2D, _piecesSymbolsVector2D);
     markSelectedPieceSquare();
+    auto belowPlayerColor = GameWidget::GetInstance()->getBelowPlayerColor();
+    _selectedPiece->findAvailableSteps(_possibleStepsVector2D, _piecesSymbolsVector2D, _turn, belowPlayerColor);
 }
 
 void BoardWidget::doStep(Piece* clickedPiece)
@@ -285,6 +344,23 @@ void BoardWidget::doStep(Piece* clickedPiece)
     doStepInSymbolsVector(iSelected, jSelected, iClicked, jClicked);
     doStepInPiecesVector(iSelected, jSelected, iClicked, jClicked);
     resetBoardLayout();
+
+    pieceSelected(_selectedPiece);
+    if(_selectedPiece->isGivingCheck(_possibleStepsVector2D, _piecesSymbolsVector2D, _turn))
+    {
+        qDebug() << "asdasd";
+
+            QDebug deb = qDebug();
+            for (unsigned i = 0; i < _boardSize; ++i)
+            {
+                for (unsigned j = 0; j < _boardSize; ++j)
+                {
+                    deb.nospace() << _possibleStepsVector2D[i][j] << " ";
+                }
+                deb.nospace() << "\n";
+            }
+
+    }
 }
 
 
@@ -384,6 +460,7 @@ void BoardWidget::drawUnderLayer()
             case (char)PossibleSteps::LastStepFrom: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::LastStepFrom)); break;
             case (char)PossibleSteps::LastStepTo: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::LastStepTo)); break;
             case (char)PossibleSteps::LastStepFromAndCanGo: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::LastStepFromAndCanGo)); break;
+            case (char)PossibleSteps::Check: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(QPixmap(StepsImages::Check)); break;
             default: _underLayerVector2D[i][j]->getPieceLabel()->setPixmap(temp); break;
             }
         }

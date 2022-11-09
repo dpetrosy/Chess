@@ -16,4 +16,5 @@ namespace StepsImages
     QString LastStepFrom = ImagesPaths::piecesPath + "last_step_from.png";
     QString LastStepTo = ImagesPaths::piecesPath + "last_step_to.png";
     QString LastStepFromAndCanGo = ImagesPaths::piecesPath + "last_step_from_can_go.png";
+    QString Check = ImagesPaths::piecesPath + "check.png";
 }
