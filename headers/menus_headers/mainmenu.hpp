@@ -19,30 +19,30 @@ public:
     virtual ~MainMenu();
 
     // Public util functions
-    QPushButton *getPushButton(MainMenuPushButtons button);
+    QPushButton*    getPushButton(MainMenuPushButtons button);
 
 private:
-    // Setup
-    void setup();
+    // Init
+    void        init();
 
     // Private util functions
-    void makeMainMenu();
+    void        makeMainMenu();
 
 private:
     // Widgets
-    QWidget* _widgetForVerLayout;
-    QWidget* _widgetForHorLayout;
+    QWidget*        _widgetForVerLayout;
+    QWidget*        _widgetForHorLayout;
 
     // Layouts
-    QVBoxLayout* _verLayout;
-    QHBoxLayout* _horLayout;
+    QVBoxLayout*    _verLayout;
+    QHBoxLayout*    _horLayout;
 
     // PushButtons
-    QPushButton* _PVPButton;
-    QPushButton* _PVCButton;
-    QPushButton* _InstrButton;
-    QPushButton* _OptionsButton;
-    QPushButton* _QuitButton;
+    QPushButton*    _PVPButton;
+    QPushButton*    _PVCButton;
+    QPushButton*    _InstrButton;
+    QPushButton*    _OptionsButton;
+    QPushButton*    _QuitButton;
 };
 
 #endif // MAINMENU_HPP

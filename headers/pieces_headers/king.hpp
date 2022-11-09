@@ -18,12 +18,13 @@ public:
     King(const King& other, PiecesColors pieceColor, int i, int j);
     virtual ~King();
 
+public:
     // Prototype pattern realization
-    King *Clone(PiecesColors pieceColor, int i, int j) const override;
+    King*   Clone(PiecesColors pieceColor, int i, int j) const override;
 
 private:
-    // Setup
-    void setup();
+    // Init
+    void init();
 };
 
 #endif // KING_HPP

@@ -4,7 +4,7 @@
 Empty::Empty()
 {
     // Setup
-    setup();
+    init();
     makeColored(PiecesColors::NoColored);
     setPosition(0, 0);
 }
@@ -14,7 +14,7 @@ Empty::Empty(const Empty& other, PiecesColors pieceColor, int i, int j)
     Q_UNUSED(other)
 
     // Do setup, for prototype pattern
-    setup();
+    init();
     makeColored(pieceColor);
     setPosition(i, j);
 }
@@ -28,7 +28,7 @@ Empty *Empty::Clone(PiecesColors pieceColor, int i, int j) const
 }
 
 // Setup
-void Empty::setup()
+void Empty::init()
 {
     _pieceLabel = new ClickableLabel();
     _pieceName = "empty";

@@ -8,7 +8,7 @@ QuitDialog::QuitDialog(QWidget *parent) :
     this->setFixedSize((int)QuitDialogProps::windowSizeW, (int)QuitDialogProps::windowSizeH);
 
     // Setup class members
-    setup();
+    init();
 
     // Make QuitDialog
     makeQuitDialog();
@@ -23,7 +23,7 @@ QuitDialog::QuitDialog(QWidget *parent) :
 QuitDialog::~QuitDialog() {}
 
 // Setup
-void QuitDialog::setup()
+void QuitDialog::init()
 {
     // QuitDialog attrbutes
     _quitImage = new QLabel(this);

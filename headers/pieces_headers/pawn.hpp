@@ -18,15 +18,17 @@ public:
     Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j);
     virtual ~Pawn();
 
+public:
     // Prototype pattern realization
-    Pawn *Clone(PiecesColors pieceColor, int i, int j) const override;
+    Pawn*   Clone(PiecesColors pieceColor, int i, int j) const override;
 
+public:
     // Public game functions
-    void findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor = PiecesColors::White) override;
+    void    findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor = PiecesColors::White) override;
 
 private:
-    // Setup
-    void setup();
+    // Init
+    void init();
 };
 
 #endif // PAWN_HPP

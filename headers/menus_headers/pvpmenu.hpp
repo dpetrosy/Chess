@@ -17,19 +17,19 @@ public:
     virtual ~PVPMenu();
 
     // Public util functions
-    QPushButton *getPushButton(PVPMenuPushButtons button);
+    QPushButton*    getPushButton(PVPMenuPushButtons button);
 
 private:
-    // Setup
-    void setup();
+    // Init
+    void    init();
 
     // Private til functions
-    void makePVPMenu();
+    void    makePVPMenu();
 
 private:
     // PushButtons
-    QPushButton* _PlayButton;
-    QPushButton* _ReturnButton;
+    QPushButton*    _PlayButton;
+    QPushButton*    _ReturnButton;
 };
 
 #endif // PVPMENU_HPP

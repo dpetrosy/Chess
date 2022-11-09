@@ -4,7 +4,7 @@ MovesWidget::MovesWidget(QWidget *parent)
     : QWidget{parent}
 {
     // Setup
-    setup();
+    init();
 
     // Make MovesWidget
     //makeMovesWidget();
@@ -24,7 +24,7 @@ MovesWidget* MovesWidget::GetInstance(QWidget *parent)
 }
 
 // Setup
-void MovesWidget::setup()
+void MovesWidget::init()
 {
     // Moves widget attributes
     _movesVector.push_back(qMakePair("placeholder", "placeholder"));

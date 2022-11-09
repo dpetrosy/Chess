@@ -18,12 +18,13 @@ public:
     Bishop(const Bishop& other, PiecesColors pieceColor, int i, int j);
     virtual ~Bishop();
 
+public:
     // Prototype pattern realization
-    Bishop *Clone(PiecesColors pieceColor, int i, int j) const override;
+    Bishop*     Clone(PiecesColors pieceColor, int i, int j) const override;
 
 private:
-    // Setup
-    void setup();
+    // Init
+    void        init();
 };
 
 #endif // BISHOP_HPP

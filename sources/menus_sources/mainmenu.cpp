@@ -6,7 +6,7 @@ MainMenu::MainMenu(QWidget *parent) :
     QWidget(parent)
 {
     // Setup class members
-    setup();
+    init();
 
     // Make MainMenu
     makeMainMenu();
@@ -15,7 +15,7 @@ MainMenu::MainMenu(QWidget *parent) :
 MainMenu::~MainMenu() {}
 
 // Setup
-void MainMenu::setup()
+void MainMenu::init()
 {
     // Widgets
     _widgetForVerLayout = new QWidget(this);

@@ -11,7 +11,7 @@ BoardWidget::BoardWidget(QWidget *parent)
     : QWidget{parent}
 {
     // Setup
-    setup();
+    init();
 
     // Make BoardWidget
     makeBoardWidget();
@@ -31,7 +31,7 @@ BoardWidget* BoardWidget::GetInstance(QWidget *parent)
 }
 
 // Setup
-void BoardWidget::setup()
+void BoardWidget::init()
 {
     // Prototype pattern factory
     _piecesFactory = new Factory();

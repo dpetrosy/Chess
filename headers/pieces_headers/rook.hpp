@@ -18,12 +18,13 @@ public:
     Rook(const Rook& other, PiecesColors pieceColor, int i, int j);
     virtual ~Rook();
 
+public:
     // Prototype pattern realization
-    Rook *Clone(PiecesColors pieceColor, int i, int j) const override;
+    Rook*   Clone(PiecesColors pieceColor, int i, int j) const override;
 
 private:
-    // Setup
-    void setup();
+    // Init
+    void init();
 };
 
 #endif // ROOK_HPP

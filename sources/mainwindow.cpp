@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->setFixedSize((int)MainWindowProps::windowSizeW, (int)MainWindowProps::windowSizeH);
 
     // Setup class members
-    setup();
+    init();
 
     setBackgroundImage("background.jpg");
 
@@ -40,7 +40,7 @@ MainWindow *MainWindow::GetInstance(QWidget *parent)
 }
 
 // Setup
-void MainWindow::setup()
+void MainWindow::init()
 {
     // Menus Widgets
     _mainMenuWidget = new MainMenu();

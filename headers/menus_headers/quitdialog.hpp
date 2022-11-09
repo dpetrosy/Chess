@@ -20,20 +20,20 @@ public:
     virtual ~QuitDialog();
 
     // Public util functions
-    QDialogButtonBox *getQDialogButtonBox();
+    QDialogButtonBox*   getQDialogButtonBox();
 
 private:
-    // Setup
-    void setup();
+    // Init
+    void    init();
 
     // Private util functions
-    void makeQuitDialog();
+    void    makeQuitDialog();
 
 private:
     // QuitDialog objects
-    QLabel* _quitImage;
-    QLabel* _quitText;
-    QDialogButtonBox* _quitButtonBox;
+    QLabel*             _quitImage;
+    QLabel*             _quitText;
+    QDialogButtonBox*   _quitButtonBox;
 };
 
 #endif // QUITDIALOG_HPP

@@ -18,12 +18,13 @@ public:
     Knight(const Knight& other, PiecesColors pieceColor, int i, int j);
     virtual ~Knight();
 
+public:
     // Prototype pattern realization
-    Knight *Clone(PiecesColors pieceColor, int i, int j) const override;
+    Knight* Clone(PiecesColors pieceColor, int i, int j) const override;
 
 private:
-    // Setup
-    void setup();
+    // Init
+    void init();
 };
 
 #endif // KNIGHT_HPP

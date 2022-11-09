@@ -17,31 +17,32 @@ class MovesWidget : public QWidget
     Q_OBJECT
 
 public:
-    // Singlton pattern realization
+    // Singleton pattern realization
     MovesWidget(MovesWidget &other) = delete;
     MovesWidget& operator=(const MovesWidget&) = delete;
     static MovesWidget *GetInstance(QWidget *parent = nullptr);
     virtual ~MovesWidget();
 
+public:
     // Getters
-    const MovesVector& getMovesVector() const;
-    const MovePair& getLastMove() const;
-    const MovePair& getMove(int index) const;
-    const QString& getWhitePlayerLastMove() const;
-    const QString& getBlackPlayerLastMove() const;
+    const MovesVector&  getMovesVector() const;
+    const MovePair&     getLastMove() const;
+    const MovePair&     getMove(int index) const;
+    const QString&      getWhitePlayerLastMove() const;
+    const QString&      getBlackPlayerLastMove() const;
 
     // Setters
-    void setLastMove(MovePair movePair);
-    void setLastMove(const QString& whiteMove, const QString& blackMove);
-    void setMove(int index, MovePair movePair);
-    void setWhitePlayerLastMove(const QString& move);
-    void setBlackPlayerLastMove(const QString& move);
+    void                setLastMove(MovePair movePair);
+    void                setLastMove(const QString& whiteMove, const QString& blackMove);
+    void                setMove(int index, MovePair movePair);
+    void                setWhitePlayerLastMove(const QString& move);
+    void                setBlackPlayerLastMove(const QString& move);
 
 private:
     explicit MovesWidget(QWidget *parent = nullptr);
 
-    // Setup
-    void setup();
+    // Init
+    void        init();
 
     // Private util functions
     //void makeMovesWidget();
@@ -51,7 +52,7 @@ private:
     static MovesWidget* _movesWidget;
 
     // Moves widget attributes
-    MovesVector _movesVector;
+    MovesVector         _movesVector;
 };
 
 #endif // MOVESWIDGET_HPP

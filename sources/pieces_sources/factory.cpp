@@ -13,7 +13,7 @@
 Factory::Factory()
 {
     // Setup
-    setup();
+    init();
 }
 
 Factory::~Factory() {}
@@ -32,7 +32,7 @@ Piece *Factory::CreatePiece(Pieces piece, PiecesColors pieceColor, int i, int j,
 }
 
 // Setup
-void Factory::setup()
+void Factory::init()
 {
     _piecesMap[Pieces::Empty] = new Empty();
     _piecesMap[Pieces::Pawn] = new Pawn();

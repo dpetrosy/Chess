@@ -21,8 +21,8 @@ private:
     // Prototype pattern realization
     QHash<Pieces, Piece *> _piecesMap;
 
-    // Setup
-    void setup();
+    // Init
+    void init();
 };
 
 #endif // FACTORY_HPP

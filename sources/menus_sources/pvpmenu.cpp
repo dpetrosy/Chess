@@ -5,7 +5,7 @@ PVPMenu::PVPMenu(QWidget *parent) :
     QWidget(parent)
 {
     // Setup class members
-    setup();
+    init();
 
     // Make PVPMenu
     makePVPMenu();
@@ -14,7 +14,7 @@ PVPMenu::PVPMenu(QWidget *parent) :
 PVPMenu::~PVPMenu() {}
 
 // Setup
-void PVPMenu::setup()
+void PVPMenu::init()
 {
     // Push Buttons
     _PlayButton = new QPushButton("Play", this);

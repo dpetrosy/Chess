@@ -9,7 +9,7 @@ GameWidget::GameWidget(QWidget *parent)
     : QWidget{parent}
 {
     // Setup
-    setup();
+    init();
 
     // Make GameWidget
     makeGameWidget();
@@ -29,7 +29,7 @@ GameWidget* GameWidget::GetInstance(QWidget *parent)
 }
 
 // Setup
-void GameWidget::setup()
+void GameWidget::init()
 {
     // Game elements
     _gameData = new GameData();

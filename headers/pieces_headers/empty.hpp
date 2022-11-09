@@ -18,12 +18,13 @@ public:
     Empty(const Empty& other, PiecesColors pieceColor, int i, int j);
     virtual ~Empty();
 
+public:
     // Prototype pattern realization
-    Empty *Clone(PiecesColors pieceColor, int i, int j) const override;
+    Empty*  Clone(PiecesColors pieceColor, int i, int j) const override;
 
 private:
-    // Setup
-    void setup();
+    // Init
+    void    init();
 };
 
 #endif // EMPTY_HPP

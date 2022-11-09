@@ -18,12 +18,13 @@ public:
     Queen(const Queen& other, PiecesColors pieceColor, int i, int j);
     virtual ~Queen();
 
+public:
     // Prototype pattern realization
-    Queen *Clone(PiecesColors pieceColor, int i, int j) const override;
+    Queen*  Clone(PiecesColors pieceColor, int i, int j) const override;
 
 private:
-    // Setup
-    void setup();
+    // Init
+    void init();
 };
 
 #endif // QUEEN_HPP

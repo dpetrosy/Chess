@@ -6,7 +6,7 @@
 Piece::Piece()
 {   
     // Setup
-    setup();
+    init();
     setPosition(0, 0);
     makeColored(PiecesColors::White);
 }
@@ -17,7 +17,7 @@ Piece::~Piece()
 }
 
 // Setup
-void Piece::setup()
+void Piece::init()
 {
     _pieceLabel = nullptr;
     _piecesPath = ImagesPaths::piecesPath;
