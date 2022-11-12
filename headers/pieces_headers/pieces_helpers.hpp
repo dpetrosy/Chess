@@ -64,8 +64,8 @@ enum class PiecesColors
 
 struct Position
 {
-    int row = 0;
-    int column = 0;
+    int row = -1;
+    int column = -1;
 };
 
 enum class PossibleSteps : char
@@ -77,6 +77,7 @@ enum class PossibleSteps : char
     LastStepFrom = '1',
     LastStepTo = '2',
     LastStepFromAndCanGo = '$',
+    CurrentPieceAndCheck = '&',
     Check = '%'
 };
 
@@ -89,6 +90,7 @@ namespace StepsImages
     extern QString LastStepTo;
     extern QString LastStepFromAndCanGo;
     extern QString Check;
+    extern QString CurrentPieceAndChecked;
 }
 
 #endif // PIECES_HELPERS_HPP

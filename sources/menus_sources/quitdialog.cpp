@@ -7,7 +7,7 @@ QuitDialog::QuitDialog(QWidget *parent) :
     // Set QuitDialog size
     this->setFixedSize((int)QuitDialogProps::windowSizeW, (int)QuitDialogProps::windowSizeH);
 
-    // Setup class members
+    // Init class members
     init();
 
     // Make QuitDialog
@@ -22,7 +22,7 @@ QuitDialog::QuitDialog(QWidget *parent) :
 
 QuitDialog::~QuitDialog() {}
 
-// Setup
+// Init
 void QuitDialog::init()
 {
     // QuitDialog attrbutes

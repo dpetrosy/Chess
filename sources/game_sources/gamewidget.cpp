@@ -8,7 +8,7 @@
 GameWidget::GameWidget(QWidget *parent)
     : QWidget{parent}
 {
-    // Setup
+    // Init
     init();
 
     // Make GameWidget
@@ -28,7 +28,7 @@ GameWidget* GameWidget::GetInstance(QWidget *parent)
     return _gameWidget;
 }
 
-// Setup
+// Init
 void GameWidget::init()
 {
     // Game elements

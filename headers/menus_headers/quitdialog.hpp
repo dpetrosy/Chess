@@ -20,14 +20,14 @@ public:
     virtual ~QuitDialog();
 
     // Public util functions
-    QDialogButtonBox*   getQDialogButtonBox();
+    QDialogButtonBox* getQDialogButtonBox();
 
 private:
     // Init
-    void    init();
+    void init();
 
     // Private util functions
-    void    makeQuitDialog();
+    void makeQuitDialog();
 
 private:
     // QuitDialog objects

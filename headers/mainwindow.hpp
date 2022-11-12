@@ -34,58 +34,58 @@ public:
 
 public:
     // Public util functions
-    void                setBackgroundImage(const QString& image);
-    QStackedWidget*     getStackedWidget(MainMenuStackedWidgets stackedWidget);
+    void             setBackgroundImage(const QString& image);
+    QStackedWidget*  getStackedWidget(MainMenuStackedWidgets stackedWidget);
 
 public slots:
-    void                switchMenu(QStackedWidget *stackedWidget, Menus toMenu);
-    void                showGame(QStackedWidget *stackedWidget);
-    void                showQuitDialog();
-    void                exitFromProgram();
+    void switchMenu(QStackedWidget *stackedWidget, Menus toMenu);
+    void showGame(QStackedWidget *stackedWidget);
+    void showQuitDialog();
+    void exitFromProgram();
 
 private:
     explicit MainWindow(QWidget *parent = nullptr);
 
     // Init
-    void    init();
+    void init();
 
     // Private util functions
-    void    makeStackedWidgets();
-    void    makeConnects();
+    void makeStackedWidgets();
+    void makeConnects();
 
     // StackedWidget maker
     template <typename T, typename... Types>
-    void    makeStackedWidget(QStackedWidget *stackedWidget, T widget, Types... arg2)
+    void makeStackedWidget(QStackedWidget *stackedWidget, T widget, Types... arg2)
     {
         stackedWidget->addWidget(widget);
         return makeStackedWidget(stackedWidget, arg2...);
     }
 
     // Template Specialization
-    void    makeStackedWidget(QStackedWidget *stackedWidget)
+    void makeStackedWidget(QStackedWidget *stackedWidget)
     {
-        (void) stackedWidget;
+        Q_UNUSED(stackedWidget)
         return;
     }
 
 private:
     // Singleton pattern realization
-    static MainWindow*  _mainWindow;
+    static MainWindow* _mainWindow;
 
     // Images
-    QPixmap         _backgroundImage;
-    QPalette        _palette;
+    QPixmap  _backgroundImage;
+    QPalette _palette;
 
     // Menus Widgets
-    MainMenu*       _mainMenuWidget;
-    PVPMenu*        _PVPMenuWidget;
-    QuitDialog*     _quitDialog;
+    MainMenu*    _mainMenuWidget;
+    PVPMenu*     _PVPMenuWidget;
+    QuitDialog*  _quitDialog;
 
     // StackedWidgets
     QStackedWidget* _PVPStackedWidget;
 
     // Chess game Widgets
-    GameWidget*     _gameWidget;
+    GameWidget* _gameWidget;
 };
 
 #endif // MAINWINDOW_HPP

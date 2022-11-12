@@ -12,10 +12,3 @@ void ClickableLabel::mousePressEvent(QMouseEvent* event)
     if(event->buttons() & Qt::LeftButton)
         emit clickedLeftButton();
 }
-
-// 99% delete from here
-// Public slots
-//void ClickableLabel::processLeftButtonClick()
-//{
-//    qDebug() << "aaaa";
-//}

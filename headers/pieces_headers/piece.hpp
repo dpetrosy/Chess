@@ -43,41 +43,41 @@ public:
     QString             getImage() const;
 
     // Setters
-    void                setPieceLabel(ClickableLabel* pieceLabel);
-    void                setPiecePath(QString piecePath);
-    void                setPosition(int row, int column);
-    void                setPositionRow(int row);
-    void                setPositionColumn(int column);
-    void                setPieceName(QString pieceName);
-    void                setExtension(QString extension);
-    void                setPieceType(PiecesTypes pieceType);
-    void                setPieceColor(PiecesColors piecesColor);
-    void                setColorString(QString colorString);
-    void                setColoredName(QString coloredName);
-    void                setImage(QString image);
+    void setPieceLabel(ClickableLabel* pieceLabel);
+    void setPiecePath(QString piecePath);
+    void setPosition(int row, int column);
+    void setPositionRow(int row);
+    void setPositionColumn(int column);
+    void setPieceName(QString pieceName);
+    void setExtension(QString extension);
+    void setPieceType(PiecesTypes pieceType);
+    void setPieceColor(PiecesColors piecesColor);
+    void setColorString(QString colorString);
+    void setColoredName(QString coloredName);
+    void setImage(QString image);
 
 protected:
     Piece();
 
     // Init
-    void    init();
+    void init();
 
     // Protected util functions
-    void    makeColored(PiecesColors pieceColor);
+    void makeColored(PiecesColors pieceColor);
 
 protected:
-    ClickableLabel*     _pieceLabel;
-    QString             _piecesPath;
-    Position            _position;
-    QString             _pieceName;
-    QString             _extension;
-    PiecesTypes         _pieceType;
+    ClickableLabel*  _pieceLabel;
+    QString          _piecesPath;
+    Position         _position;
+    QString          _pieceName;
+    QString          _extension;
+    PiecesTypes      _pieceType;
 
     // Piece color attributes
-    PiecesColors        _pieceColor;
-    QString             _colorString;
-    QString             _coloredName;
-    QString             _image;
+    PiecesColors  _pieceColor;
+    QString       _colorString;
+    QString       _coloredName;
+    QString       _image;
 };
 
 #endif // PIECE_HPP

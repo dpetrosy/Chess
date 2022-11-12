@@ -3,7 +3,7 @@
 MovesWidget::MovesWidget(QWidget *parent)
     : QWidget{parent}
 {
-    // Setup
+    // Init
     init();
 
     // Make MovesWidget
@@ -23,7 +23,7 @@ MovesWidget* MovesWidget::GetInstance(QWidget *parent)
     return _movesWidget;
 }
 
-// Setup
+// Init
 void MovesWidget::init()
 {
     // Moves widget attributes

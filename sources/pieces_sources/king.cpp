@@ -3,7 +3,7 @@
 
 King::King()
 {
-    // Setup
+    // Init
     init();
     makeColored(PiecesColors::White);
     setPosition(0, 0);
@@ -14,7 +14,7 @@ King::King(const King& other, PiecesColors pieceColor, int i, int j)
 {
     Q_UNUSED(other)
 
-    // Do setup, for prototype pattern
+    // Do Init, for prototype pattern
     init();
     makeColored(pieceColor);
     setPosition(i, j);
@@ -29,7 +29,7 @@ King *King::Clone(PiecesColors pieceColor, int i, int j) const
    return new King(*this, pieceColor, i, j);
 }
 
-// Setup
+// Init
 void King::init()
 {
     _pieceLabel = new ClickableLabel();

@@ -20,7 +20,7 @@ public:
 
 public:
     // Prototype pattern realization
-    Rook*   Clone(PiecesColors pieceColor, int i, int j) const override;
+    Rook* Clone(PiecesColors pieceColor, int i, int j) const override;
 
 private:
     // Init

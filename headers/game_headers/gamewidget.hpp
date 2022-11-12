@@ -33,31 +33,31 @@ public:
     QuickGames      getQuickGame() const;
 
     // Setters
-    void            setGameData(GameData* gameData);
-    void            setGameVariant(GameVariants gameVariant);
-    void            setIsTimeAvailable(bool isTimeAvailable);
-    void            setGameMinutes(unsigned gameMinutes);
-    void            setIncrementSeconds(unsigned incremetSeconds);
-    void            setBelowPlayerColor(PiecesColors color);
-    void            setQuickGame(QuickGames quickGame);
+    void setGameData(GameData* gameData);
+    void setGameVariant(GameVariants gameVariant);
+    void setIsTimeAvailable(bool isTimeAvailable);
+    void setGameMinutes(unsigned gameMinutes);
+    void setIncrementSeconds(unsigned incremetSeconds);
+    void setBelowPlayerColor(PiecesColors color);
+    void setQuickGame(QuickGames quickGame);
 
 private:
-    explicit        GameWidget(QWidget *parent = nullptr);
+    explicit GameWidget(QWidget *parent = nullptr);
 
     // Init
-    void            init();
+    void init();
 
     // Private util functions
-    void            makeGameWidget();
+    void makeGameWidget();
 
 private:
     // Singlton pattern realization
     static GameWidget*  _gameWidget;
 
     // Game elements
-    GameData*           _gameData;
-    BoardWidget*        _boardWidget;
-    MovesWidget*        _movesWidget;
+    GameData*    _gameData;
+    BoardWidget* _boardWidget;
+    MovesWidget* _movesWidget;
 };
 
 #endif // GAMEWIDGET_HPP

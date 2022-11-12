@@ -38,4 +38,20 @@ enum class BoardWidgetProps
     PieceH = PieceW
 };
 
+
+// PawnProm Dialog
+enum class PawnPromDialogProps
+{
+    windowSizeW = 355,
+    windowSizeH = 100,
+    QueenPosX = 12,
+    QueenPosY = 15,
+    RookPosX = QueenPosX + (int)BoardWidgetProps::PieceW + 15,
+    RookPosY = QueenPosY,
+    BishopPosX = RookPosX + (int)BoardWidgetProps::PieceW + 15,
+    BishopPosY = RookPosY,
+    KnightPosX = BishopPosX + (int)BoardWidgetProps::PieceW + 15,
+    KnightPosY = BishopPosY
+};
+
 #endif // GAME_HELPERS_HPP

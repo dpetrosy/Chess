@@ -11,6 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     sources/game_sources/moveswidget.cpp \
+    sources/game_sources/pawnpromdialog.cpp \
     sources/main.cpp \
     sources/utils.cpp \
     sources/mainwindow.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
 
 
 HEADERS += \
+    headers/game_headers/pawnpromdialog.hpp \
     headers/utils.hpp \
     headers/helpers.hpp \
     headers/mainwindow.hpp \
@@ -76,6 +78,7 @@ RESOURCES += \
     res.qrc \
 
 DISTFILES += \
-    headers/notREADME.txt
+    headers/notREADME.txt \
+    styles/pawn_prom_buttons_style.txt
 
 #define QT_AUTO_SCREEN_SCALE_FACTOR 1

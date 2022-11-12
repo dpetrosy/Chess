@@ -5,7 +5,7 @@
 MainMenu::MainMenu(QWidget *parent) :
     QWidget(parent)
 {
-    // Setup class members
+    // Init class members
     init();
 
     // Make MainMenu
@@ -14,7 +14,7 @@ MainMenu::MainMenu(QWidget *parent) :
 
 MainMenu::~MainMenu() {}
 
-// Setup
+// Init
 void MainMenu::init()
 {
     // Widgets

@@ -37,46 +37,59 @@ public:
     PieceVector2D&  getPiecesVector2D();
     PiecesColors    getTurn() const;
     QString         getPiecesPath() const;
+    bool            getIsChecked() const;
+    Position        getCheckPosition() const;
+
+    // Setters
+    void setCheckPosition(int i, int j);
+    void setPromotedPawnPosition(int i, int j);
 
 public slots:
-    void            processLeftButtonClick(Piece *clickedPiece);
+    void processLeftButtonClick(Piece *clickedPiece);
 
 private:
-    explicit        BoardWidget(QWidget *parent = nullptr);
+    explicit BoardWidget(QWidget *parent = nullptr);
 
     // Init
-    void            init();
+    void init();
 
     // Private util functions
     void            makeBoardWidget();
 
     // Private game functions
-    void            pieceSelected(Piece* clickedPiece);
-    void            doStep(Piece* clickedPiece);
-    void            drawUnderLayer();
-    void            clearStepsVector2D();
-    bool            isPieceSelected();
-    bool            isEmptyClicked(Piece *clickedPiece);
-    bool            isSelectedPieceClicked(Piece *clickedPiece);
-    bool            isOppositePieceClicked(Piece *clickedPiece);
-    bool            isCorrectColoredPieceClicked(Piece *clickedPiece);
-    bool            isAvailableStepClicked(int i, int j);
-    void            markSelectedPieceSquare();
-    void            doStepInSymbolsVector(int iSelected, int jSelected, int iClicked, int jClicked);
-    void            doStepInPiecesVector(int iSelected, int jSelected, int iClicked, int jClicked);
-    void            clearBoardLayout();
-    void            resetBoardLayout();
-    void            switchTurn();
+    void selectPiece(Piece* clickedPiece);
+    void doStep(Piece* clickedPiece);
+    void doStepInSymbolsVector(int iSelected, int jSelected, int iClicked, int jClicked);
+    void doStepInPiecesVector(int iSelected, int jSelected, int iClicked, int jClicked);
+    void drawUnderLayer();
+    void clearBoardLayout();
+    void drawSelectedPieceSquare();
+    void drawCheck();
+    void clearStepsVector2D();
+    void clearStepsVector2DExceptCheck();
+    void resetBoardLayout();
+    void switchTurn();
+    bool isPieceSelected();
+    bool isEmptyClicked(Piece *clickedPiece);
+    bool isSelectedPieceClicked(Piece *clickedPiece);
+    bool isOppositePieceClicked(Piece *clickedPiece);
+    bool isCorrectColoredPieceClicked(Piece *clickedPiece);
+    bool isAvailableStepClicked(int i, int j);
+    bool isChecked();
+    bool isPiece(Piece* piece, PiecesTypes pieceType);
+    void markCurrentPieceAndCheck(Piece* clickedPiece);
+    void checkPawnPromotion(int i, int j);
+    void promotePawn();
 
 private:
     // Singleton pattern realization
-    static          BoardWidget* _boardWidget;
+    static BoardWidget* _boardWidget;
 
     // Prototype pattern factory
-    Factory*        _piecesFactory;
+    Factory* _piecesFactory;
 
     // Board widget attributes
-    Piece*          _selectedPiece;
+    QString         _piecesPath;
     unsigned        _boardSize;
 
     // Under layer attributes
@@ -85,12 +98,19 @@ private:
     PieceVector2D   _underLayerVector2D;
     CharVector2D    _possibleStepsVector2D;
 
-    // Board attributes
+    // Game attributes
     QGridLayout*    _boardLayout;
     CharVector2D    _piecesSymbolsVector2D;
     PieceVector2D   _piecesVector2D;
     PiecesColors    _turn;
-    QString         _piecesPath;
+    bool            _isChecked;
+    bool            _isCheckedKingSelected;
+    Position        _checkPosition;
+    bool            _isPawnPromoted;
+    Position        _promotedPawnPos;
+    Piece*          _selectedPiece;
+    PawnPromDialog* _pawnPromDialog;
+
 };
 
 #endif // BOARDWIDGET_HPP

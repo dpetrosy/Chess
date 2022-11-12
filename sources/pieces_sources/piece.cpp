@@ -5,7 +5,7 @@
 
 Piece::Piece()
 {   
-    // Setup
+    // Init
     init();
     setPosition(0, 0);
     makeColored(PiecesColors::White);
@@ -16,7 +16,7 @@ Piece::~Piece()
     delete _pieceLabel;
 }
 
-// Setup
+// Init
 void Piece::init()
 {
     _pieceLabel = nullptr;
@@ -177,6 +177,9 @@ void Piece::setImage(QString image)
 
 
 
+
+
+
 // Public game functions
 bool Piece::isCanGo(CharVector2D& symbolsVector2D, int i, int j)
 {
@@ -204,7 +207,6 @@ bool Piece::isKing(CharVector2D& symbolsVector2D, int i, int j)
     return (symbolsVector2D[i][j] == (char)PiecesSymbols::WhiteKing || symbolsVector2D[i][j] == (char)PiecesSymbols::BlackKing);
 }
 
-
 bool Piece::isGivingCheck(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn)
 {
     auto boardSize = BoardWidget::GetInstance()->getBoardSize();
@@ -212,11 +214,21 @@ bool Piece::isGivingCheck(CharVector2D& stepsVector2D, CharVector2D& symbolsVect
         for (unsigned j = 0; j < boardSize; ++j)
             if ((stepsVector2D[i][j] == (char)PossibleSteps::CanBeat) && isKing(symbolsVector2D, i, j) && !isSameColoredPiece(symbolsVector2D, i, j, turn))
             {
-                stepsVector2D[i][j] = (char)PossibleSteps::Check;
+                BoardWidget::GetInstance()->setCheckPosition(i, j);
                 return true;
             }
     return false;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

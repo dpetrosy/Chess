@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Set MainWindow size
     this->setFixedSize((int)MainWindowProps::windowSizeW, (int)MainWindowProps::windowSizeH);
 
-    // Setup class members
+    // Init class members
     init();
 
     setBackgroundImage("background.jpg");
@@ -39,7 +39,7 @@ MainWindow *MainWindow::GetInstance(QWidget *parent)
     return _mainWindow;
 }
 
-// Setup
+// Init
 void MainWindow::init()
 {
     // Menus Widgets
@@ -65,7 +65,6 @@ void MainWindow::showGame(QStackedWidget *stackedWidget)
 {
     stackedWidget->hide();
     setCentralWidget(_gameWidget);
-
 
     /***************** Test until make PVP menu *****************/
     _gameWidget->setGameVariant(GameVariants::Standart);

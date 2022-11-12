@@ -12,7 +12,7 @@
 
 Factory::Factory()
 {
-    // Setup
+    // Init
     init();
 }
 
@@ -31,7 +31,7 @@ Piece *Factory::CreatePiece(Pieces piece, PiecesColors pieceColor, int i, int j,
    return temp;
 }
 
-// Setup
+// Init
 void Factory::init()
 {
     _piecesMap[Pieces::Empty] = new Empty();

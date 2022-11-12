@@ -20,7 +20,7 @@ public:
 
 public:
     // Prototype pattern realization
-    Queen*  Clone(PiecesColors pieceColor, int i, int j) const override;
+    Queen* Clone(PiecesColors pieceColor, int i, int j) const override;
 
 private:
     // Init

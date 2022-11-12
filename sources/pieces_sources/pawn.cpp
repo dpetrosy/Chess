@@ -5,7 +5,7 @@
 
 Pawn::Pawn()
 {
-    // Setup
+    // Init
     init();
     makeColored(PiecesColors::White);
     setPosition(0, 0);
@@ -16,7 +16,7 @@ Pawn::Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j)
 {
     Q_UNUSED(other)
 
-    // Do setup, for prototype pattern
+    // Do Init, for prototype pattern
     init();
     makeColored(pieceColor);
     setPosition(i, j);
@@ -31,7 +31,7 @@ Pawn *Pawn::Clone(PiecesColors pieceColor, int i, int j) const
    return new Pawn(*this, pieceColor, i, j);
 }
 
-// Setup
+// Init
 void Pawn::init()
 {
     _pieceLabel = new ClickableLabel();
@@ -49,54 +49,36 @@ void Pawn::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbols
 
     if (turn == belowPlayerColor)
     {
-        if (isCanGo(symbolsVector2D, i - 1, j))
+        if (i != 0 && isCanGo(symbolsVector2D, i - 1, j))
         {
             stepsVector2D[i - 1][j] = canGo;
             if (i == 6 && isCanGo(symbolsVector2D, i - 2, j))
                 stepsVector2D[i - 2][j] = canGo;
         }
 
-        if (j != 7)
+        if (j != 7 && i != 0)
             if(isCanBeat(symbolsVector2D, i - 1, j + 1, turn))
                 stepsVector2D[i - 1][j + 1] = canBeat;
 
-        if (j != 0)
+        if (j != 0 && i != 0)
             if(isCanBeat(symbolsVector2D, i - 1, j - 1, turn))
                 stepsVector2D[i - 1][j - 1] = canBeat;
     }
     else
     {
-        if (isCanGo(symbolsVector2D, i + 1, j))
+        if (i != 7 && isCanGo(symbolsVector2D, i + 1, j))
         {
             stepsVector2D[i + 1][j] = canGo;
             if (i == 1 && isCanGo(symbolsVector2D, i + 2, j))
                 stepsVector2D[i + 2][j] = canGo;
         }
 
-        if (j != 7)
+        if (j != 7 && i != 7)
             if(isCanBeat(symbolsVector2D, i + 1, j + 1, turn))
                 stepsVector2D[i + 1][j + 1] = canBeat;
 
-        if (j != 0)
+        if (j != 0 && i != 7)
             if(isCanBeat(symbolsVector2D, i + 1, j - 1, turn))
                 stepsVector2D[i + 1][j - 1] = canBeat;
     }
-
-
-
-    //************************************************************************
-//        QDebug deb = qDebug();
-//        for (unsigned i = 0; i < 8; ++i)
-//        {
-//            for (unsigned j = 0; j < 8; ++j)
-//            {
-//                deb.nospace() << stepsVector2D[i][j] << " ";
-//            }
-//            deb.nospace() << "\n";
-//        }
-    //**************************************************************************
-
-    // figura darnal@ piti avelacvi, erb hasav 8rd tox
-
-    // shax@ piti avelacvi
 }

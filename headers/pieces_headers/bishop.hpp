@@ -20,11 +20,11 @@ public:
 
 public:
     // Prototype pattern realization
-    Bishop*     Clone(PiecesColors pieceColor, int i, int j) const override;
+    Bishop* Clone(PiecesColors pieceColor, int i, int j) const override;
 
 private:
     // Init
-    void        init();
+    void init();
 };
 
 #endif // BISHOP_HPP

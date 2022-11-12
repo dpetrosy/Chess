@@ -20,11 +20,11 @@ public:
 
 public:
     // Prototype pattern realization
-    Empty*  Clone(PiecesColors pieceColor, int i, int j) const override;
+    Empty* Clone(PiecesColors pieceColor, int i, int j) const override;
 
 private:
     // Init
-    void    init();
+    void init();
 };
 
 #endif // EMPTY_HPP
