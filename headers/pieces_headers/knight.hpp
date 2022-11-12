@@ -22,6 +22,9 @@ public:
     // Prototype pattern realization
     Knight* Clone(PiecesColors pieceColor, int i, int j) const override;
 
+    // Public game functions
+    void findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor = PiecesColors::White) override;
+
 private:
     // Init
     void init();

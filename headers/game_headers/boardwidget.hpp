@@ -46,6 +46,7 @@ public:
 
 public slots:
     void processLeftButtonClick(Piece *clickedPiece);
+    void doPawnProm(PiecesTypes pieceType);
 
 private:
     explicit BoardWidget(QWidget *parent = nullptr);

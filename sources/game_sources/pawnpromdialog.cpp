@@ -1,5 +1,6 @@
 #include "pawnpromdialog.hpp"
 #include "game_helpers.hpp"
+#include "boardwidget.hpp"
 #include "helpers.hpp"
 
 PawnPromDialog::PawnPromDialog(QWidget *parent) :
@@ -18,7 +19,13 @@ PawnPromDialog::PawnPromDialog(QWidget *parent) :
     setWindowIcon(QIcon(ImagesPaths::logosPath + "logo.png"));
 }
 
-PawnPromDialog::~PawnPromDialog() {}
+PawnPromDialog::~PawnPromDialog()
+{
+    delete _queenPushButton;
+    delete _rookPushButton;
+    delete _bishopPushButton;
+    delete _knightPushButton;
+}
 
 // Init
 void PawnPromDialog::init()
@@ -84,4 +91,10 @@ void PawnPromDialog::makePawnPromDialog(PiecesColors turn)
     _knightPushButton->setIconSize(pixmap.rect().size());
     _knightPushButton->setStyleSheet(styleSheet);
     _knightPushButton->move((int)PawnPromDialogProps::KnightPosX, (int)PawnPromDialogProps::KnightPosY);
+
+    // Connects
+    connect(_queenPushButton, &QPushButton::clicked, this, std::bind(&BoardWidget::doPawnProm, BoardWidget::GetInstance(), PiecesTypes::Queen));
+    connect(_rookPushButton, &QPushButton::clicked, this, std::bind(&BoardWidget::doPawnProm, BoardWidget::GetInstance(), PiecesTypes::Rook));
+    connect(_bishopPushButton, &QPushButton::clicked, this, std::bind(&BoardWidget::doPawnProm, BoardWidget::GetInstance(), PiecesTypes::Bishop));
+    connect(_knightPushButton, &QPushButton::clicked, this, std::bind(&BoardWidget::doPawnProm, BoardWidget::GetInstance(), PiecesTypes::Knight));
 }

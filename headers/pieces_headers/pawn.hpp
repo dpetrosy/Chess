@@ -22,7 +22,6 @@ public:
     // Prototype pattern realization
     Pawn* Clone(PiecesColors pieceColor, int i, int j) const override;
 
-public:
     // Public game functions
     void findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor = PiecesColors::White) override;
 

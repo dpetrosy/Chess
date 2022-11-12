@@ -310,7 +310,7 @@ void BoardWidget::makeBoardWidget()
 
 
 
-// Public slots
+// Game functions
 void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
 {
     // No piece selected
@@ -415,17 +415,54 @@ void BoardWidget::promotePawn()
     _pawnPromDialog->setModal(true);
     switchTurn();
     _pawnPromDialog->makePawnPromDialog(_turn);
-    switchTurn();
     _pawnPromDialog->show();
 }
 
+void BoardWidget::doPawnProm(PiecesTypes pieceType)
+{
+    _pawnPromDialog->hide();
+    _isPawnPromoted = false;
 
+    int i = _promotedPawnPos.row;
+    int j = _promotedPawnPos.column;
 
+    PiecesColors color = _piecesVector2D[i][j]->getPieceColor();
 
+    if (color == PiecesColors::White)
+        _piecesSymbolsVector2D[i][j] = toupper((char)pieceType);
+    else
+        _piecesSymbolsVector2D[i][j] = (char)pieceType;
 
+    clearBoardLayout();
+    delete _piecesVector2D[i][j];
+    switch (pieceType)
+    {
+    case PiecesTypes::Queen:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, color, i, j);
+        break;
+    case PiecesTypes::Rook:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook, color, i, j);
+        break;
+    case PiecesTypes::Bishop:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop, color, i, j);
+        break;
+    case PiecesTypes::Knight:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight, color, i, j);
+        break;
+    default:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, color, i, j);
+        break;
+    }
+    resetBoardLayout();
 
+    // Verify check
+//    selectPiece(_selectedPiece);
+//    if(_selectedPiece->isGivingCheck(_possibleStepsVector2D, _piecesSymbolsVector2D, _turn))
+//        _isChecked = true;
+//    clearStepsVector2D();
 
-
+    switchTurn();
+}
 
 void BoardWidget::checkPawnPromotion(int i, int j)
 {

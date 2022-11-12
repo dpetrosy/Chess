@@ -2,6 +2,8 @@
 #include "mainwindow.hpp"
 #include "utils.hpp"
 
+#include <QFile>
+
 MainMenu::MainMenu(QWidget *parent) :
     QWidget(parent)
 {
@@ -49,7 +51,6 @@ QPushButton *MainMenu::getPushButton(MainMenuPushButtons button)
 
 void MainMenu::makeMainMenu()
 {
-
     // Set buttons sizes
     setPushButtonSize(_PVPButton, (int)MainMenuProps::verLayoutButtonsW, (int)MainMenuProps::verLayoutButtonsH);
     setPushButtonSize(_PVCButton, (int)MainMenuProps::verLayoutButtonsW, (int)MainMenuProps::verLayoutButtonsH);
@@ -75,5 +76,5 @@ void MainMenu::makeMainMenu()
     QRect rect((int)MainMenuProps::verLayoutX, (int)MainMenuProps::verLayoutY, (int)MainMenuProps::verLayoutW, (int)MainMenuProps::verLayoutH);
     _widgetForVerLayout->setGeometry(rect);
     rect.setRect((int)MainMenuProps::horLayoutX, (int)MainMenuProps::horLayoutY, (int)MainMenuProps::horLayoutW, (int)MainMenuProps::horLayoutH);
-    _widgetForHorLayout->setGeometry(rect);    
+    _widgetForHorLayout->setGeometry(rect);
 }
