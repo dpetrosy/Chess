@@ -23,7 +23,10 @@ Pawn::Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j)
     _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
 }
 
-Pawn::~Pawn() {}
+Pawn::~Pawn()
+{
+    delete _pieceLabel;
+}
 
 // Prototype pattern realization
 Pawn *Pawn::Clone(PiecesColors pieceColor, int i, int j) const
@@ -81,4 +84,6 @@ void Pawn::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbols
             if(isCanBeat(symbolsVector2D, i + 1, j - 1, turn))
                 stepsVector2D[i + 1][j - 1] = canBeat;
     }
+
+
 }

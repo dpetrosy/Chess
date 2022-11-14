@@ -349,7 +349,7 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
 
     // If pawn promotion exist, pop-up dialog
     if (_isPawnPromoted)
-        promotePawn();
+        showPawnPromDialog();
 
     // If king checked, mark it in stepsVector2D
     if (isChecked())
@@ -387,14 +387,15 @@ void BoardWidget::doStep(Piece* clickedPiece)
     doStepInPiecesVector(iSelected, jSelected, iClicked, jClicked);
     resetBoardLayout();
 
-    // Verify check
-    selectPiece(_selectedPiece);
-    if(_selectedPiece->isGivingCheck(_possibleStepsVector2D, _piecesSymbolsVector2D, _turn))
-        _isChecked = true;
-    clearStepsVector2D();
+    _isChecked = false;
+    if (!isPiece(_selectedPiece, PiecesTypes::King))
+    {
+        // Verify check
+        verifyCheck();
 
-    // Verify pawn promotion
-    checkPawnPromotion(iClicked, jClicked);
+        // Verify pawn promotion
+        checkPawnPromotion(iClicked, jClicked);
+    }
 }
 
 
@@ -410,7 +411,7 @@ void BoardWidget::doStep(Piece* clickedPiece)
 
 
 
-void BoardWidget::promotePawn()
+void BoardWidget::showPawnPromDialog()
 {
     _pawnPromDialog->setModal(true);
     switchTurn();
@@ -438,30 +439,44 @@ void BoardWidget::doPawnProm(PiecesTypes pieceType)
     switch (pieceType)
     {
     case PiecesTypes::Queen:
-        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, color, i, j);
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, color, i, j, this);
         break;
     case PiecesTypes::Rook:
-        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook, color, i, j);
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook, color, i, j, this);
         break;
     case PiecesTypes::Bishop:
-        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop, color, i, j);
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop, color, i, j, this);
         break;
     case PiecesTypes::Knight:
-        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight, color, i, j);
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight, color, i, j, this);
         break;
     default:
-        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, color, i, j);
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, color, i, j, this);
         break;
     }
     resetBoardLayout();
 
     // Verify check
-//    selectPiece(_selectedPiece);
-//    if(_selectedPiece->isGivingCheck(_possibleStepsVector2D, _piecesSymbolsVector2D, _turn))
-//        _isChecked = true;
-//    clearStepsVector2D();
+    _selectedPiece = _piecesVector2D[i][j];
+    verifyCheck();
+
+    // If king checked, mark it in stepsVector2D
+    if (isChecked())
+        drawCheck();
+
+    //if (!isFirstStep)
+        //drawPreviousStep();
+    drawUnderLayer();
 
     switchTurn();
+}
+
+void BoardWidget::verifyCheck()
+{
+    selectPiece(_selectedPiece);
+    if(_selectedPiece->isGivingCheck(_possibleStepsVector2D, _piecesSymbolsVector2D, _turn))
+        _isChecked = true;
+    clearStepsVector2D();
 }
 
 void BoardWidget::checkPawnPromotion(int i, int j)

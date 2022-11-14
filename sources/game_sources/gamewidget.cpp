@@ -41,7 +41,7 @@ void GameWidget::init()
 void GameWidget::showGameElements()
 {
     // Set board as background image
-    MainWindow::GetInstance()->setBackgroundImage("board.jpg");
+    MainWindow::GetInstance()->setBackgroundImage("dark/board1.jpg", Backgrounds::Board);
 }
 
 // Private util functions

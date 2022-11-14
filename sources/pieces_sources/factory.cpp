@@ -16,7 +16,16 @@ Factory::Factory()
     init();
 }
 
-Factory::~Factory() {}
+Factory::~Factory()
+{
+    delete _piecesMap[Pieces::Empty];
+    delete _piecesMap[Pieces::Pawn];
+    delete _piecesMap[Pieces::Knight];
+    delete _piecesMap[Pieces::Bishop];
+    delete _piecesMap[Pieces::Rook];
+    delete _piecesMap[Pieces::Queen];
+    delete _piecesMap[Pieces::King];
+}
 
 // Prototype pattern realization
 Piece *Factory::CreatePiece(Pieces piece, PiecesColors pieceColor, int i, int j, BoardWidget* boardWidget)

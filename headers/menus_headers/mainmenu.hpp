@@ -19,7 +19,7 @@ public:
     virtual ~MainMenu();
 
     // Public util functions
-    QPushButton*    getPushButton(MainMenuPushButtons button);
+    QPushButton* getPushButton(MainMenuPushButtons button);
 
 private:
     // Init

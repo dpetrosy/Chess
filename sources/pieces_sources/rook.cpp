@@ -21,7 +21,10 @@ Rook::Rook(const Rook& other, PiecesColors pieceColor, int i, int j)
     _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
 }
 
-Rook::~Rook() {}
+Rook::~Rook()
+{
+    delete _pieceLabel;
+}
 
 // Prototype pattern realization
 Rook *Rook::Clone(PiecesColors pieceColor, int i, int j) const
@@ -35,4 +38,90 @@ void Rook::init()
     _pieceLabel = new ClickableLabel();
     _pieceName = "rook";
     _pieceType = PiecesTypes::Rook;
+}
+
+// Public game functions
+void Rook::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor)
+{
+    int ipos = _position.row;
+    int jpos = _position.column;
+    char canGo = (char)PossibleSteps::CanGo;
+    char canBeat = (char)PossibleSteps::CanBeat;
+    Q_UNUSED(belowPlayerColor)
+
+    // top
+    int i = ipos;
+    int j = jpos;
+    if (i != 0)
+    {
+        while (--i >= 0)
+        {
+            if (isCanGo(symbolsVector2D, i, j))
+                stepsVector2D[i][j] = canGo;
+            else if (isCanBeat(symbolsVector2D, i, j, turn))
+            {
+                stepsVector2D[i][j] = canBeat;
+                break;
+            }
+            else
+                break;
+        }
+    }
+
+    // down
+    i = ipos;
+    j = jpos;
+    if (i != 7)
+    {
+        while (++i <= 7)
+        {
+            if (isCanGo(symbolsVector2D, i, j))
+                stepsVector2D[i][j] = canGo;
+            else if (isCanBeat(symbolsVector2D, i, j, turn))
+            {
+                stepsVector2D[i][j] = canBeat;
+                break;
+            }
+            else
+                break;
+        }
+    }
+
+    // left
+    i = ipos;
+    j = jpos;
+    if (j != 0)
+    {
+        while (--j >= 0)
+        {
+            if (isCanGo(symbolsVector2D, i, j))
+                stepsVector2D[i][j] = canGo;
+            else if (isCanBeat(symbolsVector2D, i, j, turn))
+            {
+                stepsVector2D[i][j] = canBeat;
+                break;
+            }
+            else
+                break;
+        }
+    }
+
+    // right
+    i = ipos;
+    j = jpos;
+    if (j != 7)
+    {
+        while (++j <= 7)
+        {
+            if (isCanGo(symbolsVector2D, i, j))
+                stepsVector2D[i][j] = canGo;
+            else if (isCanBeat(symbolsVector2D, i, j, turn))
+            {
+                stepsVector2D[i][j] = canBeat;
+                break;
+            }
+            else
+                break;
+        }
+    }
 }

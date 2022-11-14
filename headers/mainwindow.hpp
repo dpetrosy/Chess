@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QStackedWidget>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QPalette>
 #include <QWidget>
@@ -16,17 +17,13 @@
 #include "menus_helpers.hpp"
 #include "game_helpers.hpp"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
-
-// Singlton pattern used
+// Singleton pattern used
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    // Singlton pattern realization
+    // Singleton pattern realization
     MainWindow(MainWindow &other) = delete;
     MainWindow& operator=(const MainWindow&) = delete;
     static MainWindow *GetInstance(QWidget *parent = nullptr);
@@ -34,14 +31,14 @@ public:
 
 public:
     // Public util functions
-    void             setBackgroundImage(const QString& image);
+    void             setBackgroundImage(const QString& image, Backgrounds bkg);
     QStackedWidget*  getStackedWidget(MainMenuStackedWidgets stackedWidget);
 
 public slots:
     void switchMenu(QStackedWidget *stackedWidget, Menus toMenu);
     void showGame(QStackedWidget *stackedWidget);
-    void showQuitDialog();
-    void exitFromProgram();
+    void showQuitWindow();
+    void exitFromProgram(int signal);
 
 private:
     explicit MainWindow(QWidget *parent = nullptr);
@@ -77,12 +74,13 @@ private:
     QPalette _palette;
 
     // Menus Widgets
-    MainMenu*    _mainMenuWidget;
-    PVPMenu*     _PVPMenuWidget;
-    QuitDialog*  _quitDialog;
+    MainMenu*      _MainMenuWidget;
+    PVPMenu*       _PVPMenuWidget;
+    OptionsMenu*   _OptionsMenuWidget;
 
     // StackedWidgets
     QStackedWidget* _PVPStackedWidget;
+    QStackedWidget* _OptionsStackedWidget;
 
     // Chess game Widgets
     GameWidget* _gameWidget;

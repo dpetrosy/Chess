@@ -55,7 +55,7 @@ private:
     void init();
 
     // Private util functions
-    void            makeBoardWidget();
+    void makeBoardWidget();
 
     // Private game functions
     void selectPiece(Piece* clickedPiece);
@@ -80,7 +80,8 @@ private:
     bool isPiece(Piece* piece, PiecesTypes pieceType);
     void markCurrentPieceAndCheck(Piece* clickedPiece);
     void checkPawnPromotion(int i, int j);
-    void promotePawn();
+    void showPawnPromDialog();
+    void verifyCheck();
 
 private:
     // Singleton pattern realization

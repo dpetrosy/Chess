@@ -21,7 +21,10 @@ Knight::Knight(const Knight& other, PiecesColors pieceColor, int i, int j)
     _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
 }
 
-Knight::~Knight() {}
+Knight::~Knight()
+{
+    delete _pieceLabel;
+}
 
 // Prototype pattern realization
 Knight *Knight::Clone(PiecesColors pieceColor, int i, int j) const
@@ -42,82 +45,43 @@ void Knight::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbo
 {
     int i = _position.row;
     int j = _position.column;
-    char canGo = (char)PossibleSteps::CanGo;
-    char canBeat = (char)PossibleSteps::CanBeat;
+    Q_UNUSED(belowPlayerColor)
 
     // top
     if (i >= 2)
     {
         if (j != 0)
-        {
-            if (isCanGo(symbolsVector2D, i - 2, j - 1))
-                stepsVector2D[i - 2][j - 1] = canGo;
-            if (isCanBeat(symbolsVector2D, i - 2, j - 1, turn))
-                stepsVector2D[i - 2][j - 1] = canBeat;
-        }
+            markCanGoOrCanBeat(stepsVector2D, symbolsVector2D, i - 2, j - 1, turn);
         if (j != 7)
-        {
-            if (isCanGo(symbolsVector2D, i - 2, j + 1))
-                stepsVector2D[i - 2][j + 1] = canGo;
-            if (isCanBeat(symbolsVector2D, i - 2, j + 1, turn))
-                stepsVector2D[i - 2][j + 1] = canBeat;
-        }
+             markCanGoOrCanBeat(stepsVector2D, symbolsVector2D, i - 2, j + 1, turn);
     }
 
     // down
     if (i <= 5)
     {
         if (j != 0)
-        {
-            if (isCanGo(symbolsVector2D, i + 2, j - 1))
-                stepsVector2D[i + 2][j - 1] = canGo;
-            if (isCanBeat(symbolsVector2D, i + 2, j - 1, turn))
-                stepsVector2D[i + 2][j - 1] = canBeat;
-        }
+            markCanGoOrCanBeat(stepsVector2D, symbolsVector2D, i + 2, j - 1, turn);
+
         if (j != 7)
-        {
-            if (isCanGo(symbolsVector2D, i + 2, j + 1))
-                stepsVector2D[i + 2][j + 1] = canGo;
-            if (isCanBeat(symbolsVector2D, i + 2, j + 1, turn))
-                stepsVector2D[i + 2][j + 1] = canBeat;
-        }
+            markCanGoOrCanBeat(stepsVector2D, symbolsVector2D, i + 2, j + 1, turn);
     }
 
     // left
     if (j >= 2)
     {
         if (i != 0)
-        {
-            if (isCanGo(symbolsVector2D, i - 1, j - 2))
-                stepsVector2D[i - 1][j - 2] = canGo;
-            if (isCanBeat(symbolsVector2D, i - 1, j - 2, turn))
-                stepsVector2D[i - 1][j - 2] = canBeat;
-        }
+            markCanGoOrCanBeat(stepsVector2D, symbolsVector2D, i - 1, j - 2, turn);
+
         if (i != 7)
-        {
-            if (isCanGo(symbolsVector2D, i + 1, j - 2))
-                stepsVector2D[i + 1][j - 2] = canGo;
-            if (isCanBeat(symbolsVector2D, i + 1, j - 2, turn))
-                stepsVector2D[i + 1][j - 2] = canBeat;
-        }
+             markCanGoOrCanBeat(stepsVector2D, symbolsVector2D, i + 1, j - 2, turn);
     }
 
     // right
     if (j <= 5)
     {
         if (i != 0)
-        {
-            if (isCanGo(symbolsVector2D, i - 1, j + 2))
-                stepsVector2D[i - 1][j + 2] = canGo;
-            if (isCanBeat(symbolsVector2D, i - 1, j + 2, turn))
-                stepsVector2D[i - 1][j + 2] = canBeat;
-        }
+            markCanGoOrCanBeat(stepsVector2D, symbolsVector2D, i - 1, j + 2, turn);
         if (i != 7)
-        {
-            if (isCanGo(symbolsVector2D, i + 1, j + 2))
-                stepsVector2D[i + 1][j + 2] = canGo;
-            if (isCanBeat(symbolsVector2D, i + 1, j + 2, turn))
-                stepsVector2D[i + 1][j + 2] = canBeat;
-        }
+            markCanGoOrCanBeat(stepsVector2D, symbolsVector2D, i + 1, j + 2, turn);
     }
 }

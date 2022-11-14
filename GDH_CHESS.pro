@@ -10,18 +10,18 @@ CONFIG += c++17
 
 
 SOURCES += \
-    sources/game_sources/moveswidget.cpp \
-    sources/game_sources/pawnpromdialog.cpp \
     sources/main.cpp \
+    sources/menus_sources/optionsmenu.cpp \
     sources/utils.cpp \
     sources/mainwindow.cpp \
     sources/namespaces.cpp \
     sources/menus_sources/mainmenu.cpp \
     sources/menus_sources/pvpmenu.cpp \
-    sources/menus_sources/quitdialog.cpp \
     sources/game_sources/gamewidget.cpp \
     sources/game_sources/boardwidget.cpp \
     sources/game_sources/clickablelabel.cpp \
+    sources/game_sources/moveswidget.cpp \
+    sources/game_sources/pawnpromdialog.cpp \
     sources/pieces_sources/factory.cpp \
     sources/pieces_sources/piece.cpp \
     sources/pieces_sources/empty.cpp \
@@ -34,7 +34,6 @@ SOURCES += \
 
 
 HEADERS += \
-    headers/game_headers/pawnpromdialog.hpp \
     headers/utils.hpp \
     headers/helpers.hpp \
     headers/mainwindow.hpp \
@@ -42,11 +41,12 @@ HEADERS += \
     headers/menus_headers/menus_helpers.hpp \
     headers/menus_headers/mainmenu.hpp \
     headers/menus_headers/pvpmenu.hpp \
-    headers/menus_headers/quitdialog.hpp \
+    headers/menus_headers/optionsmenu.hpp \
     headers/game_headers/gamewidget.hpp \
     headers/game_headers/boardwidget.hpp \
     headers/game_headers/moveswidget.hpp \
     headers/game_headers/clickablelabel.hpp \
+    headers/game_headers/pawnpromdialog.hpp \
     headers/game_headers/game_helpers.hpp \
     headers/game_headers/predefined_game_classes.hpp \
     headers/pieces_headers/predefined_pieces_classes.hpp \

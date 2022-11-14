@@ -11,10 +11,7 @@ Piece::Piece()
     makeColored(PiecesColors::White);
 }
 
-Piece::~Piece()
-{
-    delete _pieceLabel;
-}
+Piece::~Piece() {}
 
 // Init
 void Piece::init()
@@ -220,6 +217,16 @@ bool Piece::isGivingCheck(CharVector2D& stepsVector2D, CharVector2D& symbolsVect
     return false;
 }
 
+void Piece::markCanGoOrCanBeat(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, int i, int j, PiecesColors turn)
+{
+    char canGo = (char)PossibleSteps::CanGo;
+    char canBeat = (char)PossibleSteps::CanBeat;
+
+    if (isCanGo(symbolsVector2D, i, j))
+        stepsVector2D[i][j] = canGo;
+    if (isCanBeat(symbolsVector2D, i, j, turn))
+        stepsVector2D[i][j] = canBeat;
+}
 
 
 
@@ -234,5 +241,5 @@ bool Piece::isGivingCheck(CharVector2D& stepsVector2D, CharVector2D& symbolsVect
 
 
 // Delete
-void Piece::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor)
-{}
+//void Piece::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor)
+//{}

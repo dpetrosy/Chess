@@ -4,6 +4,6 @@
 class MainWindow;
 class MainMenu;
 class PVPMenu;
-class QuitDialog;
+class OptionsMenu;
 
 #endif // PREDEFINED_MENU_CLASSES_HPP

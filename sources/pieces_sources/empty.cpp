@@ -19,7 +19,10 @@ Empty::Empty(const Empty& other, PiecesColors pieceColor, int i, int j)
     setPosition(i, j);
 }
 
-Empty::~Empty() {}
+Empty::~Empty()
+{
+    delete _pieceLabel;
+}
 
 // Prototype pattern realization
 Empty *Empty::Clone(PiecesColors pieceColor, int i, int j) const
@@ -33,4 +36,13 @@ void Empty::init()
     _pieceLabel = new ClickableLabel();
     _pieceName = "empty";
     _pieceType = PiecesTypes::Empty;
+}
+
+// Public game functions
+void Empty::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor)
+{
+    Q_UNUSED(stepsVector2D)
+    Q_UNUSED(symbolsVector2D)
+    Q_UNUSED(turn)
+    Q_UNUSED(belowPlayerColor)
 }

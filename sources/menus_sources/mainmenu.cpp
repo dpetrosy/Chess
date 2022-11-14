@@ -2,8 +2,6 @@
 #include "mainwindow.hpp"
 #include "utils.hpp"
 
-#include <QFile>
-
 MainMenu::MainMenu(QWidget *parent) :
     QWidget(parent)
 {

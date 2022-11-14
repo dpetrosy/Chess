@@ -6,9 +6,9 @@
 
 enum class Menus : int
 {
-    QuitMenu = -1,
     MainMenu = 0,
     PVPMenu = 1,
+    OptionsMenu = 0
 };
 
 
@@ -16,19 +16,19 @@ enum class Menus : int
 enum class MainMenuProps
 {
     // Layouts Properties
-    verLayoutX = (int)MainWindowProps::windowSizeW / 2 - 165,
-    verLayoutY = (int)MainWindowProps::windowSizeH / 2 - 150,
-    verLayoutW = (int)MainWindowProps::windowSizeW / 3,
+    verLayoutW = ((int)MainWindowProps::windowSizeW / 10) * 4,
     verLayoutH = (int)MainWindowProps::windowSizeH / 4,
+    verLayoutX = ((int)MainWindowProps::windowSizeW - verLayoutW) / 2,
     horLayoutX = verLayoutX,
-    horLayoutY = verLayoutY + verLayoutH - 10,
     horLayoutW = verLayoutW,
-    horLayoutH = verLayoutH / 3,
+    horLayoutH = verLayoutH / 3 + 2,
+    verLayoutY = ((int)MainWindowProps::windowSizeH - (verLayoutH + horLayoutH + 20)) / 2,
+    horLayoutY = verLayoutY + verLayoutH + 6,
 
     // PushButtons Properties
     verLayoutButtonsW = 0,
     verLayoutButtonsH = 40,
-    verLayoutButtonsFont = 15,
+    verLayoutButtonsFont = 17,
     horLayoutButtonsW = verLayoutButtonsW,
     horLayoutButtonsH = verLayoutButtonsH,
     horLayoutButtonsFont = verLayoutButtonsFont,
@@ -75,21 +75,22 @@ enum class PVPMenuPushButtons
 };
 
 
+// #Delete#
 // QuitDialog
-enum class QuitDialogProps
-{
-    windowSizeW = 430,
-    windowSizeH = 130,
-    quitImageX = (int)windowSizeW - 410,
-    quitImageY = (int)windowSizeH - 106,
-    quitTextX = quitImageX + 122,
-    quitTextY = quitImageY,
-    quitTextW = windowSizeW - 150,
-    quitTextH = 30,
-    quitButtonBoxX = quitTextX + 52,
-    quitButtonBoxY = quitTextY + 55,
-    quitButtonBoxW = windowSizeW / 2,
-    quitButtonBoxH = windowSizeH / 4
-};
+//enum class QuitDialogProps
+//{
+//    windowSizeW = 430,
+//    windowSizeH = 130,
+//    quitImageX = (int)windowSizeW - 410,
+//    quitImageY = (int)windowSizeH - 106,
+//    quitTextX = quitImageX + 122,
+//    quitTextY = quitImageY,
+//    quitTextW = windowSizeW - 150,
+//    quitTextH = 30,
+//    quitButtonBoxX = quitTextX + 52,
+//    quitButtonBoxY = quitTextY + 55,
+//    quitButtonBoxW = windowSizeW / 2,
+//    quitButtonBoxH = windowSizeH / 4
+//};
 
 #endif // MENUS_HELPERS_HPP
