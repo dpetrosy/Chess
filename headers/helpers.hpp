@@ -5,8 +5,8 @@
 
 enum class MainWindowProps
 {
-    windowSizeW = 1005,
-    windowSizeH = 587,
+    windowSizeW = 1225,
+    windowSizeH = 820,
 };
 
 enum class Backgrounds
@@ -22,6 +22,14 @@ namespace ImagesPaths
     extern QString logosPath;
     extern QString backgroundsPath;
     extern QString boardsPath;
+    extern QString optionsPath;
+    extern QString optionsBoardsPath;
+    extern QString optionsPiecesSetsPath;
+}
+
+namespace Paths
+{
+    extern QString stylesPath;
 }
 
 #endif // HELPERS_HPP

@@ -27,8 +27,8 @@ enum class MainMenuProps
 
     // PushButtons Properties
     verLayoutButtonsW = 0,
-    verLayoutButtonsH = 40,
-    verLayoutButtonsFont = 17,
+    verLayoutButtonsH = 55,
+    verLayoutButtonsFont = 24,
     horLayoutButtonsW = verLayoutButtonsW,
     horLayoutButtonsH = verLayoutButtonsH,
     horLayoutButtonsFont = verLayoutButtonsFont,
@@ -74,6 +74,72 @@ enum class PVPMenuPushButtons
     ReturnButton = 2
 };
 
+
+// OptionsMenu
+enum class OptionsMenuProps
+{
+    BkgLabelW = 500,
+    BkgLabelH = 600,
+    BkgLabelX = ((int)MainWindowProps::windowSizeW - BkgLabelW) / 2,
+    BkgLabelY = ((int)MainWindowProps::windowSizeH - BkgLabelH) / 2,
+    BoardLabelX = BkgLabelX + 10,
+    BoardLabelY = BkgLabelY + 10,
+    BoardLabelW = BkgLabelW - 20,
+    BoardLabelH = 150,
+    BkgImageTextLabelX = BoardLabelX,
+    BkgImageTextLabelY = BoardLabelY + BoardLabelH + 15,
+    BkgImageTextLabelW = BoardLabelW / 2,
+    BkgImageTextLabelH = 30,
+    BkgImageComboBoxX = BoardLabelX + (BoardLabelW / 2),
+    BkgImageComboBoxY = BkgImageTextLabelY,
+    BkgImageComboBoxW = BkgImageTextLabelW,
+    BkgImageComboBoxH = BkgImageTextLabelH,
+    PieceSetTextLabelX = BkgImageTextLabelX,
+    PieceSetTextLabelY = BkgImageTextLabelY + BkgImageTextLabelH + 15,
+    PieceSetTextLabelW = BkgImageTextLabelW,
+    PieceSetTextLabelH = BkgImageTextLabelH,
+    PieceSetComboBoxX = BkgImageComboBoxX,
+    PieceSetComboBoxY = PieceSetTextLabelY,
+    PieceSetComboBoxW = BkgImageComboBoxW,
+    PieceSetComboBoxH = BkgImageComboBoxH,
+    BoardTextLabelX = BkgImageTextLabelX,
+    BoardTextLabelY = PieceSetTextLabelY + PieceSetTextLabelH + 15,
+    BoardTextLabelW = BkgImageTextLabelW,
+    BoardTextLabelH = BkgImageTextLabelH,
+    BoardComboBoxX = BkgImageComboBoxX,
+    BoardComboBoxY = BoardTextLabelY,
+    BoardComboBoxW = BkgImageComboBoxW,
+    BoardComboBoxH = BkgImageComboBoxH,
+    LanguageTextLabelX = BkgImageTextLabelX,
+    LanguageTextLabelY = BoardTextLabelY + BoardTextLabelH + 15,
+    LanguageTextLabelW = BkgImageTextLabelW,
+    LanguageTextLabelH = BkgImageTextLabelH,
+    LanguageComboBoxX = BkgImageComboBoxX,
+    LanguageComboBoxY = LanguageTextLabelY,
+    LanguageComboBoxW = BkgImageComboBoxW,
+    LanguageComboBoxH = BkgImageComboBoxH,
+
+    SoundTextLabelX = BkgImageTextLabelX,
+    SoundTextLabelY = LanguageTextLabelY + LanguageTextLabelH + 15,
+    SoundTextLabelW = BkgImageTextLabelW,
+    SoundTextLabelH = BkgImageTextLabelH,
+    SoundToggleSwitchX = BkgImageComboBoxX + 185,
+    SoundToggleSwitchY = SoundTextLabelY,
+
+
+
+
+
+
+};
+
+
+struct OptionsData
+{
+    bool isDarkMode = false;
+    QString boardStr = "1";
+    QString piecesSetsStr = "1";
+};
 
 // #Delete#
 // QuitDialog

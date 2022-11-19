@@ -12,6 +12,7 @@ CONFIG += c++17
 SOURCES += \
     sources/main.cpp \
     sources/menus_sources/optionsmenu.cpp \
+    sources/menus_sources/toggleswitch.cpp \
     sources/utils.cpp \
     sources/mainwindow.cpp \
     sources/namespaces.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
 
 
 HEADERS += \
+    headers/menus_headers/toggleswitch.hpp \
     headers/utils.hpp \
     headers/helpers.hpp \
     headers/mainwindow.hpp \

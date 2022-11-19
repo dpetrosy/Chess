@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QWidget>
 #include <QDebug>
+#include <QLabel>
+#include <QFile>
+#include <QComboBox>
 
 #include "menus_helpers.hpp"
 
@@ -16,6 +19,7 @@ public:
     virtual ~OptionsMenu();
 
     // Public util functions
+    bool isDarkMode();
 
 private:
     // Init
@@ -25,12 +29,30 @@ private:
     void makeOptionsMenu();
 
 private:
-    // Widgets
+    OptionsData   _optionsData;
+    QLabel*       _bkgLabel;
+    QLabel*       _boardLabel;
+    QLabel*       _piecesLabel;
 
-    // Layouts
+    // Background image
+    QLabel*       _bkgImageTextLabel;
+    QComboBox*    _bkgImageComboBox;
 
-    // PushButtons
+    // Piece sets
+    QLabel*       _pieceSetsTextLabel;
+    QComboBox*    _pieceSetsComboBox;
 
+    // Board
+    QLabel*       _boardTextLabel;
+    QComboBox*    _boardComboBox;
+
+    // Language
+    QLabel*       _languageTextLabel;
+    QComboBox*    _languageComboBox;
+
+    // Sound
+    QLabel*       _soundTextLabel;
+    ToggleSwitch* _soundToggleSwitch;
 };
 
 #endif // OPTIONSMENU_HPP

@@ -7,6 +7,14 @@ namespace ImagesPaths
     QString logosPath = imagesPath + "logos/";
     QString backgroundsPath = imagesPath + "backgrounds/";
     QString boardsPath = imagesPath + "boards/";
+    QString optionsPath = imagesPath + "options/";
+    QString optionsBoardsPath = ImagesPaths::optionsPath + "boards/";
+    QString optionsPiecesSetsPath = ImagesPaths::optionsPath + "pieces_sets/";
+}
+
+namespace Paths
+{
+    QString stylesPath = ":/styles/";
 }
 
 namespace StepsImages

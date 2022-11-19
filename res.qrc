@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/images">
-        <file>images/logos/logo.png</file>
+        <file>images/logos/logo1.png</file>
         <file>images/pieces/black_bishop.png</file>
         <file>images/pieces/black_king.png</file>
         <file>images/pieces/black_knight.png</file>
@@ -21,8 +21,12 @@
         <file>images/boards/dark/board1.jpg</file>
         <file>images/backgrounds/background1.jpg</file>
         <file>images/backgrounds/background6.jpg</file>
+        <file>images/options/boards/board1.png</file>
+        <file>images/options/pieces_sets/set1.png</file>
     </qresource>
     <qresource prefix="/">
         <file>styles/pawn_prom_buttons_style.txt</file>
+        <file>styles/dark_mode_bkg_label.txt</file>
+        <file>styles/light_mode_bkg_label.txt</file>
     </qresource>
 </RCC>

@@ -5,6 +5,9 @@
 #include "gamewidget.hpp"
 #include "helpers.hpp"
 
+
+#include "qapplication.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
