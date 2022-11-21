@@ -11,13 +11,13 @@ CONFIG += c++17
 
 SOURCES += \
     sources/main.cpp \
-    sources/menus_sources/optionsmenu.cpp \
-    sources/menus_sources/toggleswitch.cpp \
     sources/utils.cpp \
     sources/mainwindow.cpp \
     sources/namespaces.cpp \
     sources/menus_sources/mainmenu.cpp \
     sources/menus_sources/pvpmenu.cpp \
+    sources/menus_sources/settingsmenu.cpp \
+    sources/menus_sources/toggleswitch.cpp \
     sources/game_sources/gamewidget.cpp \
     sources/game_sources/boardwidget.cpp \
     sources/game_sources/clickablelabel.cpp \
@@ -35,7 +35,6 @@ SOURCES += \
 
 
 HEADERS += \
-    headers/menus_headers/toggleswitch.hpp \
     headers/utils.hpp \
     headers/helpers.hpp \
     headers/mainwindow.hpp \
@@ -43,7 +42,8 @@ HEADERS += \
     headers/menus_headers/menus_helpers.hpp \
     headers/menus_headers/mainmenu.hpp \
     headers/menus_headers/pvpmenu.hpp \
-    headers/menus_headers/optionsmenu.hpp \
+    headers/menus_headers/settingsmenu.hpp \
+    headers/menus_headers/toggleswitch.hpp \
     headers/game_headers/gamewidget.hpp \
     headers/game_headers/boardwidget.hpp \
     headers/game_headers/moveswidget.hpp \
@@ -81,7 +81,6 @@ RESOURCES += \
 
 DISTFILES += \
     headers/notREADME.txt \
-    styles/mainmenu_buttons_style.txt \
-    styles/pawn_prom_buttons_style.txt
+    styles/mainmenu_buttons_style.txt
 
 #define QT_AUTO_SCREEN_SCALE_FACTOR 1

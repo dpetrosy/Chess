@@ -41,7 +41,7 @@ private:
     QPushButton* _PVPButton;
     QPushButton* _PVCButton;
     QPushButton* _InstrButton;
-    QPushButton* _OptionsButton;
+    QPushButton* _SettingsButton;
     QPushButton* _QuitButton;
 };
 

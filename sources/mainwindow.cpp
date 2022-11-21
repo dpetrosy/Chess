@@ -1,12 +1,9 @@
 #include "mainwindow.hpp"
 #include "mainmenu.hpp"
 #include "pvpmenu.hpp"
-#include "optionsmenu.hpp"
+#include "settingsmenu.hpp"
 #include "gamewidget.hpp"
 #include "helpers.hpp"
-
-
-#include "qapplication.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Init class members
     init();
 
-    setBackgroundImage("background1.jpg", Backgrounds::Background);
+    setBackgroundImage(BackgroundImages::TheRook);
 
     // Make stackedWidgets
     makeStackedWidgets();
@@ -29,7 +26,20 @@ MainWindow::MainWindow(QWidget *parent)
     switchMenu(_PVPStackedWidget, Menus::MainMenu);
 }
 
-MainWindow::~MainWindow() {}
+MainWindow::~MainWindow()
+{
+    // Menus Widgets
+    delete _MainMenuWidget;
+    delete _PVPMenuWidget;
+    delete _SettingsMenuWidget;
+
+    // StackedWidgets
+    delete _PVPStackedWidget;
+    delete _SettingsStackedWidget;
+
+    // Chess game attributes
+    delete _gameWidget;
+}
 
 // Singlton pattern realization
 MainWindow *MainWindow::_mainWindow = nullptr;
@@ -48,18 +58,18 @@ void MainWindow::init()
     // Menus Widgets
     _MainMenuWidget = new MainMenu();
     _PVPMenuWidget = new PVPMenu();
-    _OptionsMenuWidget = new OptionsMenu();
+    _SettingsMenuWidget = new SettingsMenu();
 
     // StackedWidgets
     _PVPStackedWidget = new QStackedWidget();
-    _OptionsStackedWidget = new QStackedWidget();
+    _SettingsStackedWidget = new QStackedWidget();
 
     // Chess game attributes
     _gameWidget = GameWidget::GetInstance(this);
 }
 
 // Public slots
-void MainWindow::switchMenu(QStackedWidget *stackedWidget, Menus toMenu)
+void MainWindow::switchMenu(QStackedWidget* stackedWidget, Menus toMenu)
 {
     setCentralWidget(stackedWidget);
     stackedWidget->setCurrentIndex((int)toMenu);
@@ -97,18 +107,15 @@ void MainWindow::exitFromProgram(int signal)
 }
 
 // Public util functions
-void MainWindow::setBackgroundImage(const QString& image, Backgrounds bkg)
+void MainWindow::setBackgroundImage(const QString& image)
 {
-    if (bkg == Backgrounds::Background)
-        _backgroundImage.load(ImagesPaths::backgroundsPath + image);
-    else
-        _backgroundImage.load(ImagesPaths::boardsPath + image);
+    _backgroundImage.load(ImagesPaths::backgroundsPath + image + BackgroundImages::Extencion);
     _backgroundImage = _backgroundImage.scaled(this->size(), Qt::IgnoreAspectRatio);
     _palette.setBrush(QPalette::Window, _backgroundImage);
     this->setPalette(_palette);
 }
 
-QStackedWidget *MainWindow::getStackedWidget(MainMenuStackedWidgets stackedWidget)
+QStackedWidget* MainWindow::getStackedWidget(MainMenuStackedWidgets stackedWidget)
 {
     switch (stackedWidget)
     {
@@ -123,8 +130,8 @@ void MainWindow::makeStackedWidgets()
     // PVP StackedWidget
     makeStackedWidget(_PVPStackedWidget, _MainMenuWidget, _PVPMenuWidget);
 
-    // Options StackedWidget
-    makeStackedWidget(_OptionsStackedWidget, _OptionsMenuWidget);
+    // Settings StackedWidget
+    makeStackedWidget(_SettingsStackedWidget, _SettingsMenuWidget);
 }
 
 void MainWindow::makeConnects()
@@ -132,9 +139,13 @@ void MainWindow::makeConnects()
     // MainMenu connects
     connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::PVPButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, _PVPStackedWidget, Menus::PVPMenu));
     connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::QuitButton), &QPushButton::clicked, this, std::bind(&MainWindow::showQuitWindow, this));
-    connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::OptionsButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, _OptionsStackedWidget, Menus::OptionsMenu));
+    connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::SettingsButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, _SettingsStackedWidget, Menus::SettingsMenu));
 
     // PVPMenu connects
     connect(_PVPMenuWidget->getPushButton(PVPMenuPushButtons::PlayButton), &QPushButton::clicked, this, std::bind(&MainWindow::showGame, this, _PVPStackedWidget));
     connect(_PVPMenuWidget->getPushButton(PVPMenuPushButtons::ReturnButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, _PVPStackedWidget, Menus::MainMenu));
+
+    // Settings connects
+    connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::CancelButton), &QPushButton::clicked, _SettingsMenuWidget, std::bind(&SettingsMenu::cancelButtonClicked, _SettingsMenuWidget));
+    connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::SaveButton), &QPushButton::clicked, _SettingsMenuWidget, std::bind(&SettingsMenu::saveButtonClicked, _SettingsMenuWidget));
 }

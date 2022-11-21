@@ -8,7 +8,7 @@ enum class Menus : int
 {
     MainMenu = 0,
     PVPMenu = 1,
-    OptionsMenu = 0
+    SettingsMenu = 0
 };
 
 
@@ -39,7 +39,7 @@ enum class MainMenuPushButtons
     PVPButton = 1,
     PVCButton = 2,
     InstrButton = 3,
-    OptionsButton = 4,
+    SettingsButton = 4,
     QuitButton = 5
 };
 
@@ -48,7 +48,7 @@ enum class MainMenuStackedWidgets
     PVPStackedWidget = 1,
     PVCStackedWidget = 2,
     InstrStackedWidget = 3,
-    OptionsStackedWidget = 4
+    SettingsStackedWidget = 4
 };
 
 
@@ -75,11 +75,11 @@ enum class PVPMenuPushButtons
 };
 
 
-// OptionsMenu
-enum class OptionsMenuProps
+// SettingsMenu
+enum class SettingsMenuProps
 {
     BkgLabelW = 500,
-    BkgLabelH = 600,
+    BkgLabelH = 520,
     BkgLabelX = ((int)MainWindowProps::windowSizeW - BkgLabelW) / 2,
     BkgLabelY = ((int)MainWindowProps::windowSizeH - BkgLabelH) / 2,
     BoardLabelX = BkgLabelX + 10,
@@ -118,28 +118,76 @@ enum class OptionsMenuProps
     LanguageComboBoxY = LanguageTextLabelY,
     LanguageComboBoxW = BkgImageComboBoxW,
     LanguageComboBoxH = BkgImageComboBoxH,
-
     SoundTextLabelX = BkgImageTextLabelX,
     SoundTextLabelY = LanguageTextLabelY + LanguageTextLabelH + 15,
     SoundTextLabelW = BkgImageTextLabelW,
     SoundTextLabelH = BkgImageTextLabelH,
     SoundToggleSwitchX = BkgImageComboBoxX + 185,
     SoundToggleSwitchY = SoundTextLabelY,
-
-
-
-
-
-
+    ThemeTextLabelX = BkgImageTextLabelX,
+    ThemeTextLabelY = SoundTextLabelY + SoundTextLabelH + 15,
+    ThemeTextLabelW = BkgImageTextLabelW,
+    ThemeTextLabelH = BkgImageTextLabelH,
+    ThemeToggleSwitchX = BkgImageComboBoxX + 185,
+    ThemeToggleSwitchY = ThemeTextLabelY,
+    ButtonsBkgLabelX = BkgLabelX,
+    ButtonsBkgLabelY = ThemeTextLabelY + ThemeTextLabelH + 15,
+    ButtonsBkgLabelW = BkgLabelW,
+    ButtonsBkgLabelH = 90,
+    CancelButtonX = ButtonsBkgLabelX + 16,
+    CancelButtonY = ButtonsBkgLabelY + 15,
+    CancelButtonW = 225,
+    CancelButtonH = 60,
+    SaveButtonX = CancelButtonX + CancelButtonW + 18,
+    SaveButtonY = CancelButtonY,
+    SaveButtonW = CancelButtonW,
+    SaveButtonH = CancelButtonH
 };
 
-
-struct OptionsData
+struct SettingsData
 {
-    bool isDarkMode = false;
+    QString bkgImageStr = "1";
+    QString piecesSetStr = "1";
     QString boardStr = "1";
-    QString piecesSetsStr = "1";
+    QString languageStr = "eng";
+    bool isSoundAvailable = false;
+    bool isDarkTheme = true;
 };
+
+enum class SettingsMenuPushButtons
+{
+    CancelButton = 1,
+    SaveButton = 2,
+};
+
+namespace BackgroundImages
+{
+    extern QString Extencion;
+    extern QString AngelView;
+    extern QString Blacked;
+    extern QString BravePawn;
+    extern QString Checkmate;
+    extern QString Dark_Chess;
+    extern QString Emperors;
+    extern QString FaceToFace;
+    extern QString IAmTheKing;
+    extern QString Lichess;
+    extern QString Shadow;
+    extern QString StrongKnight;
+    extern QString TheBishop;
+    extern QString TheKing;
+    extern QString TheKnight;
+    extern QString TheQueen;
+    extern QString TheRook;
+    extern QString TopView;
+}
+
+namespace Languages
+{
+    extern QString Armenian;
+    extern QString Russian;
+    extern QString English;
+}
 
 // #Delete#
 // QuitDialog

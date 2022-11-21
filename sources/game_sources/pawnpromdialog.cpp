@@ -56,9 +56,10 @@ void PawnPromDialog::makePawnPromDialog(PiecesColors turn)
     if (turn == PiecesColors::Black)
         colorString = "black";
 
-    QFile file(Paths::stylesPath + "pawn_prom_buttons_style.txt");
+    QFile file(Paths::pawnPromButtonsStyle);
     file.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(file.readAll());
+    file.close();
 
     // Queen
     QPixmap pixmap(ImagesPaths::piecesPath + colorString + "_queen.png");

@@ -19,9 +19,9 @@ ToggleSwitch::ToggleSwitch(const QBrush &brush, QWidget *parent)
       _switch(false),
       _opacity(0.000),
       _height(25),
-     _margin(2),
-     _thumb("#d5d5d5"),
-     _anim(new QPropertyAnimation(this, "offset", this))
+      _margin(2),
+      _thumb("#d5d5d5"),
+      _anim(new QPropertyAnimation(this, "offset", this))
 {
     _y = _height / 2;
     setOffset(_height / 2);

@@ -19,14 +19,32 @@
         <file>images/pieces/check.png</file>
         <file>images/pieces/current_piece_and_checked.png</file>
         <file>images/boards/dark/board1.jpg</file>
-        <file>images/backgrounds/background1.jpg</file>
-        <file>images/backgrounds/background6.jpg</file>
-        <file>images/options/boards/board1.png</file>
-        <file>images/options/pieces_sets/set1.png</file>
+        <file>images/settings/boards/board1.png</file>
+        <file>images/settings/pieces_sets/set1.png</file>
+        <file>images/backgrounds/I_am_the_King.jpg</file>
+        <file>images/backgrounds/Lichess.jpg</file>
+        <file>images/backgrounds/The_Bishop.jpg</file>
+        <file>images/backgrounds/The_King.jpg</file>
+        <file>images/backgrounds/The_Knight.jpg</file>
+        <file>images/backgrounds/The_Queen.jpg</file>
+        <file>images/backgrounds/The_Rook.jpg</file>
+        <file>images/backgrounds/Angel_View.jpg</file>
+        <file>images/backgrounds/Blacked.jpg</file>
+        <file>images/backgrounds/Brave_Pawn.jpg</file>
+        <file>images/backgrounds/Checkmate.jpg</file>
+        <file>images/backgrounds/Dark_Chess.jpg</file>
+        <file>images/backgrounds/Emperors.jpg</file>
+        <file>images/backgrounds/Face_to_Face.jpg</file>
+        <file>images/backgrounds/Shadow.jpg</file>
+        <file>images/backgrounds/Strong_Knight.jpg</file>
+        <file>images/backgrounds/Top_View.jpg</file>
     </qresource>
     <qresource prefix="/">
         <file>styles/pawn_prom_buttons_style.txt</file>
-        <file>styles/dark_mode_bkg_label.txt</file>
-        <file>styles/light_mode_bkg_label.txt</file>
+        <file>styles/dark_theme_bkg_label.txt</file>
+        <file>styles/light_theme_bkg_label.txt</file>
+        <file>styles/light_theme_buttons_label.txt</file>
+        <file>styles/settings_menu_cancel_button.txt</file>
+        <file>styles/settings_menu_save_button.txt</file>
     </qresource>
 </RCC>

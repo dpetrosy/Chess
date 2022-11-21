@@ -4,7 +4,7 @@
 class MainWindow;
 class MainMenu;
 class PVPMenu;
-class OptionsMenu;
+class SettingsMenu;
 class ToggleSwitch;
 
 #endif // PREDEFINED_MENU_CLASSES_HPP

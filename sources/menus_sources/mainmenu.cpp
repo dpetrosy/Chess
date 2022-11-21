@@ -29,11 +29,11 @@ void MainMenu::init()
     _PVPButton = new QPushButton("Player vs Player");
     _PVCButton = new QPushButton("Player vs Computer");
     _InstrButton = new QPushButton("Instructions");
-    _OptionsButton = new QPushButton("Options");
+    _SettingsButton = new QPushButton("Settings");
     _QuitButton = new QPushButton("Quit");
 }
 
-// Private util functions
+// Public util functions
 QPushButton *MainMenu::getPushButton(MainMenuPushButtons button)
 {
     switch (button)
@@ -41,33 +41,34 @@ QPushButton *MainMenu::getPushButton(MainMenuPushButtons button)
         case MainMenuPushButtons::PVPButton: return _PVPButton;
         case MainMenuPushButtons::PVCButton: return _PVCButton;
         case MainMenuPushButtons::InstrButton: return _InstrButton;
-        case MainMenuPushButtons::OptionsButton: return _OptionsButton;
+        case MainMenuPushButtons::SettingsButton: return _SettingsButton;
         case MainMenuPushButtons::QuitButton: return _QuitButton;
         default: return _PVPButton;
     }
 }
 
+// Private util functions
 void MainMenu::makeMainMenu()
 {
     // Set buttons sizes
     setPushButtonSize(_PVPButton, (int)MainMenuProps::verLayoutButtonsW, (int)MainMenuProps::verLayoutButtonsH);
     setPushButtonSize(_PVCButton, (int)MainMenuProps::verLayoutButtonsW, (int)MainMenuProps::verLayoutButtonsH);
     setPushButtonSize(_InstrButton, (int)MainMenuProps::verLayoutButtonsW, (int)MainMenuProps::verLayoutButtonsH);
-    setPushButtonSize(_OptionsButton, (int)MainMenuProps::horLayoutButtonsW, (int)MainMenuProps::horLayoutButtonsH);
+    setPushButtonSize(_SettingsButton, (int)MainMenuProps::horLayoutButtonsW, (int)MainMenuProps::horLayoutButtonsH);
     setPushButtonSize(_QuitButton, (int)MainMenuProps::horLayoutButtonsW, (int)MainMenuProps::horLayoutButtonsH);
 
     // Set buttons fonts
     setPushButtonFont(_PVPButton, (int)MainMenuProps::verLayoutButtonsFont);
     setPushButtonFont(_PVCButton, (int)MainMenuProps::verLayoutButtonsFont);
     setPushButtonFont(_InstrButton, (int)MainMenuProps::verLayoutButtonsFont);
-    setPushButtonFont(_OptionsButton, (int)MainMenuProps::horLayoutButtonsFont);
+    setPushButtonFont(_SettingsButton, (int)MainMenuProps::horLayoutButtonsFont);
     setPushButtonFont(_QuitButton, (int)MainMenuProps::horLayoutButtonsFont);
 
     // Add buttons to layouts
     _verLayout->addWidget(_PVPButton);
     _verLayout->addWidget(_PVCButton);
     _verLayout->addWidget(_InstrButton);
-    _horLayout->addWidget(_OptionsButton);
+    _horLayout->addWidget(_SettingsButton);
     _horLayout->addWidget(_QuitButton);
 
     // Set geometry for layouts

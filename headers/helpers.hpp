@@ -9,12 +9,6 @@ enum class MainWindowProps
     windowSizeH = 820,
 };
 
-enum class Backgrounds
-{
-    Background = 0,
-    Board = 1
-};
-
 namespace ImagesPaths
 {
     extern QString imagesPath;
@@ -22,14 +16,22 @@ namespace ImagesPaths
     extern QString logosPath;
     extern QString backgroundsPath;
     extern QString boardsPath;
-    extern QString optionsPath;
-    extern QString optionsBoardsPath;
-    extern QString optionsPiecesSetsPath;
+    extern QString settingsPath;
+    extern QString settingsBoardsPath;
+    extern QString settingsPiecesSetsPath;
 }
 
 namespace Paths
 {
     extern QString stylesPath;
+    extern QString pawnPromButtonsStyle;
+    extern QString darkThemeBkgLabelStyle;
+    extern QString lightThemeBkgLabelStyle;
+
+    extern QString lightThemeButtonsLabelStyle;
+
+    extern QString settingsMenuCancelButtonStyle;
+    extern QString settingsMenuSaveButtonStyle;
 }
 
 #endif // HELPERS_HPP

@@ -31,7 +31,7 @@ public:
 
 public:
     // Public util functions
-    void             setBackgroundImage(const QString& image, Backgrounds bkg);
+    void             setBackgroundImage(const QString& image);
     QStackedWidget*  getStackedWidget(MainMenuStackedWidgets stackedWidget);
 
 public slots:
@@ -70,20 +70,20 @@ private:
     static MainWindow* _mainWindow;
 
     // Images
-    QPixmap  _backgroundImage;
-    QPalette _palette;
+    QPixmap         _backgroundImage;
+    QPalette        _palette;
 
     // Menus Widgets
-    MainMenu*      _MainMenuWidget;
-    PVPMenu*       _PVPMenuWidget;
-    OptionsMenu*   _OptionsMenuWidget;
+    MainMenu*       _MainMenuWidget;
+    PVPMenu*        _PVPMenuWidget;
+    SettingsMenu*   _SettingsMenuWidget;
 
     // StackedWidgets
     QStackedWidget* _PVPStackedWidget;
-    QStackedWidget* _OptionsStackedWidget;
+    QStackedWidget* _SettingsStackedWidget;
 
     // Chess game Widgets
-    GameWidget* _gameWidget;
+    GameWidget*     _gameWidget;
 };
 
 #endif // MAINWINDOW_HPP
