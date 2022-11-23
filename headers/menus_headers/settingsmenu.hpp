@@ -40,6 +40,7 @@ private:
     void    makeSettingsMenu();
     QString getBoardStr(int index);
     QString getLanguageStr(int index);
+    void hideAndShowMenu();
 
 private:
     SettingsData  _settingsData;
@@ -78,6 +79,10 @@ private:
     // Confirm Buttons
     QPushButton*  _cancelPushButton;
     QPushButton*  _savePushButton;
+
+    // Menu hide and show button
+    bool          _isMenuVisible;
+    QPushButton*  _hideAndShowButton;
 };
 
 #endif // SETTINGS_MENU_HPP

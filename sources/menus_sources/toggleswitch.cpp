@@ -1,4 +1,5 @@
 #include "toggleswitch.hpp"
+#include "menus_helpers.hpp"
 
 ToggleSwitch::ToggleSwitch(QWidget *parent)
     : QAbstractButton(parent),
@@ -40,6 +41,7 @@ void ToggleSwitch::paintEvent(QPaintEvent *e)
         p.setOpacity(_switch ? 0.5 : 0.38);
         p.setRenderHint(QPainter::Antialiasing, true);
         p.drawRoundedRect(QRect(_margin, _margin, width() - 2 * _margin, height() - 2 * _margin), 12, 12);
+        p.setBrush(_thumb);
         p.setBrush(_thumb);
         p.setOpacity(50);
         p.drawEllipse(QRectF(offset() - (_height / 2), _y - (_height / 2), height(), height()));

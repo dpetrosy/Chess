@@ -50,6 +50,9 @@ SettingsMenu::~SettingsMenu()
     // Confirm Buttons
     delete _cancelPushButton;
     delete _savePushButton;
+
+    // Menu hide and show button
+    delete _hideAndShowButton;
 }
 
 // Init
@@ -89,6 +92,10 @@ void SettingsMenu::init()
     // Confirm Buttons
     _cancelPushButton = new QPushButton(this);
     _savePushButton = new QPushButton(this);
+
+    // Menu hide and show button
+    _isMenuVisible = true;
+    _hideAndShowButton = new QPushButton(this);
 }
 
 // Public slots
@@ -132,12 +139,13 @@ QPushButton* SettingsMenu::getPushButton(SettingsMenuPushButtons button)
 void SettingsMenu::makeSettingsMenu()
 {
     //if (isDarkTheme())
-    //    file.setFileName(Paths::darkThemeBkgLabelStyle);
+    //    file.setFileName(StylesPaths::darkThemeBkgLabelStyle);
     //else
-    ::setStyleSheet(Paths::lightThemeBkgLabelStyle, _bkgLabel);
+    ::setStyleSheet(StylesPaths::lightThemeBkgLabelStyle, _bkgLabel);
 
     // Background label
     _bkgLabel->setGeometry((int)SettingsMenuProps::BkgLabelX, (int)SettingsMenuProps::BkgLabelY, (int)SettingsMenuProps::BkgLabelW, (int)SettingsMenuProps::BkgLabelH);
+    //_bkgLabel->setStyleSheet("QLabel { background-color: rgb(253, 253, 235); border-radius: 5px; }");
 
     // Board label
     _boardLabel->setPixmap(QPixmap(ImagesPaths::settingsBoardsPath + "board" + _settingsData.boardStr + ".png"));
@@ -150,7 +158,7 @@ void SettingsMenu::makeSettingsMenu()
     // Text for background image
     _bkgImageTextLabel->setGeometry((int)SettingsMenuProps::BkgImageTextLabelX, (int)SettingsMenuProps::BkgImageTextLabelY, (int)SettingsMenuProps::BkgImageTextLabelW, (int)SettingsMenuProps::BkgImageTextLabelH);
     _bkgImageTextLabel->setText("Background Image");
-    setLabelTextFont(_bkgImageTextLabel, 15);
+    setLabelTextFont(_bkgImageTextLabel, 13);
 
     // Background image combobox
     _bkgImageComboBox->setGeometry((int)SettingsMenuProps::BkgImageComboBoxX, (int)SettingsMenuProps::BkgImageComboBoxY, (int)SettingsMenuProps::BkgImageComboBoxW, (int)SettingsMenuProps::BkgImageComboBoxH);
@@ -177,7 +185,7 @@ void SettingsMenu::makeSettingsMenu()
     // Text for piece sets
     _pieceSetsTextLabel->setGeometry((int)SettingsMenuProps::PieceSetTextLabelX, (int)SettingsMenuProps::PieceSetTextLabelY, (int)SettingsMenuProps::PieceSetTextLabelW, (int)SettingsMenuProps::PieceSetTextLabelH);
     _pieceSetsTextLabel->setText("Piece Set");
-    setLabelTextFont(_pieceSetsTextLabel, 15);
+    setLabelTextFont(_pieceSetsTextLabel, 13);
 
     // Piece sets combobox
     _pieceSetsComboBox->setGeometry((int)SettingsMenuProps::PieceSetComboBoxX, (int)SettingsMenuProps::PieceSetComboBoxY, (int)SettingsMenuProps::PieceSetComboBoxW, (int)SettingsMenuProps::PieceSetComboBoxH);
@@ -185,7 +193,7 @@ void SettingsMenu::makeSettingsMenu()
     // Text for board
     _boardTextLabel->setGeometry((int)SettingsMenuProps::BoardTextLabelX, (int)SettingsMenuProps::BoardTextLabelY, (int)SettingsMenuProps::BoardTextLabelW, (int)SettingsMenuProps::BoardTextLabelH);
     _boardTextLabel->setText("Board");
-    setLabelTextFont(_boardTextLabel, 15);
+    setLabelTextFont(_boardTextLabel, 13);
 
     // Board combobox
     _boardComboBox->setGeometry((int)SettingsMenuProps::BoardComboBoxX, (int)SettingsMenuProps::BoardComboBoxY, (int)SettingsMenuProps::BoardComboBoxW, (int)SettingsMenuProps::BoardComboBoxH);
@@ -193,7 +201,7 @@ void SettingsMenu::makeSettingsMenu()
     // Text for language
     _languageTextLabel->setGeometry((int)SettingsMenuProps::LanguageTextLabelX, (int)SettingsMenuProps::LanguageTextLabelY, (int)SettingsMenuProps::LanguageTextLabelW, (int)SettingsMenuProps::LanguageTextLabelH);
     _languageTextLabel->setText("Language");
-    setLabelTextFont(_languageTextLabel, 15);
+    setLabelTextFont(_languageTextLabel, 13);
 
     // Language combobox
     _languageComboBox->setGeometry((int)SettingsMenuProps::LanguageComboBoxX, (int)SettingsMenuProps::LanguageComboBoxY, (int)SettingsMenuProps::LanguageComboBoxW, (int)SettingsMenuProps::LanguageComboBoxH);
@@ -206,7 +214,7 @@ void SettingsMenu::makeSettingsMenu()
     // Text for sound
     _soundTextLabel->setGeometry((int)SettingsMenuProps::SoundTextLabelX, (int)SettingsMenuProps::SoundTextLabelY, (int)SettingsMenuProps::SoundTextLabelW, (int)SettingsMenuProps::SoundTextLabelH);
     _soundTextLabel->setText("Play Sounds");
-    setLabelTextFont(_soundTextLabel, 15);
+    setLabelTextFont(_soundTextLabel, 13);
 
     // Sound toggle switch
     _soundToggleSwitch->setDisabled(false);
@@ -215,25 +223,31 @@ void SettingsMenu::makeSettingsMenu()
     // Text for theme
     _themeTextLabel->setGeometry((int)SettingsMenuProps::ThemeTextLabelX, (int)SettingsMenuProps::ThemeTextLabelY, (int)SettingsMenuProps::ThemeTextLabelW, (int)SettingsMenuProps::ThemeTextLabelH);
     _themeTextLabel->setText("White theme");
-    setLabelTextFont(_themeTextLabel, 15);
+    setLabelTextFont(_themeTextLabel, 13);
 
     // Sound toggle switch
     _themeToggleSwitch->setDisabled(false);
     _themeToggleSwitch->move((int)SettingsMenuProps::ThemeToggleSwitchX, (int)SettingsMenuProps::ThemeToggleSwitchY);
 
     // Buttons background label
-    ::setStyleSheet(Paths::lightThemeButtonsLabelStyle, _buttonsBkgLabel);
+    ::setStyleSheet(StylesPaths::lightThemeButtonsLabelStyle, _buttonsBkgLabel);
     _buttonsBkgLabel->setGeometry((int)SettingsMenuProps::ButtonsBkgLabelX, (int)SettingsMenuProps::ButtonsBkgLabelY, (int)SettingsMenuProps::ButtonsBkgLabelW, (int)SettingsMenuProps::ButtonsBkgLabelH);
 
     // Cancel push button
-    ::setStyleSheet(Paths::settingsMenuCancelButtonStyle, _cancelPushButton);
+    ::setStyleSheet(StylesPaths::settingsMenuCancelButtonStyle, _cancelPushButton);
     _cancelPushButton->setText("Cancel");
     _cancelPushButton->setGeometry((int)SettingsMenuProps::CancelButtonX, (int)SettingsMenuProps::CancelButtonY, (int)SettingsMenuProps::CancelButtonW, (int)SettingsMenuProps::CancelButtonH);
 
     // Save push button
-    ::setStyleSheet(Paths::settingsMenuSaveButtonStyle, _savePushButton);
+    ::setStyleSheet(StylesPaths::settingsMenuSaveButtonStyle, _savePushButton);
     _savePushButton->setText("Save");
     _savePushButton->setGeometry((int)SettingsMenuProps::SaveButtonX, (int)SettingsMenuProps::SaveButtonY, (int)SettingsMenuProps::SaveButtonW, (int)SettingsMenuProps::SaveButtonH);
+
+    // Menu hide and show button
+    ::setStyleSheet(StylesPaths::hideAndShowButtonStyle, _hideAndShowButton);
+    _hideAndShowButton->setText("Hide");
+    _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW, (int)SettingsMenuProps::HideAndShowButtonH);
+    connect(_hideAndShowButton, &QPushButton::clicked, this, &SettingsMenu::hideAndShowMenu);
 }
 
 QString SettingsMenu::getBoardStr(int index)
@@ -291,6 +305,92 @@ QString SettingsMenu::getLanguageStr(int index)
         return Languages::English;
     default:
         return Languages::English;
+    }
+}
+
+void SettingsMenu::hideAndShowMenu()
+{
+    if (_isMenuVisible)
+    {
+        _bkgLabel->hide();
+        _boardLabel->hide();
+        _piecesLabel->hide();
+
+        // Background image
+        _bkgImageTextLabel->hide();
+        _bkgImageComboBox->hide();
+
+        // Piece sets
+        _pieceSetsTextLabel->hide();
+        _pieceSetsComboBox->hide();
+
+        // Board
+        _boardTextLabel->hide();
+        _boardComboBox->hide();
+
+        // Language
+        _languageTextLabel->hide();
+        _languageComboBox->hide();
+
+        // Sound
+        _soundTextLabel->hide();
+        _soundToggleSwitch->hide();
+
+        // Theme
+        _themeTextLabel->hide();
+        _themeToggleSwitch->hide();
+
+        // Buttons background label
+        _buttonsBkgLabel->hide();
+
+        // Confirm Buttons
+        _cancelPushButton->hide();
+        _savePushButton->hide();
+
+        // Menu hide and show button
+        _hideAndShowButton->setText("Show");
+        _isMenuVisible = false;
+    }
+    else
+    {
+        _bkgLabel->show();
+        _boardLabel->show();
+        _piecesLabel->show();
+
+        // Background image
+        _bkgImageTextLabel->show();
+        _bkgImageComboBox->show();
+
+        // Piece sets
+        _pieceSetsTextLabel->show();
+        _pieceSetsComboBox->show();
+
+        // Board
+        _boardTextLabel->show();
+        _boardComboBox->show();
+
+        // Language
+        _languageTextLabel->show();
+        _languageComboBox->show();
+
+        // Sound
+        _soundTextLabel->show();
+        _soundToggleSwitch->show();
+
+        // Theme
+        _themeTextLabel->show();
+        _themeToggleSwitch->show();
+
+        // Buttons background label
+        _buttonsBkgLabel->show();
+
+        // Confirm Buttons
+        _cancelPushButton->show();
+        _savePushButton->show();
+
+        // Menu hide and show button
+        _hideAndShowButton->setText("Hide");
+        _isMenuVisible = true;
     }
 }
 

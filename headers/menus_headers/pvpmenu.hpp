@@ -27,6 +27,20 @@ private:
     void makePVPMenu();
 
 private:
+//    GameData  _settingsData;
+//    SettingsData  _tempData;
+//    QLabel*       _bkgLabel;
+//    QLabel*       _boardLabel;
+//    QLabel*       _piecesLabel;
+
+
+
+
+
+
+
+
+
     // PushButtons
     QPushButton* _PlayButton;
     QPushButton* _ReturnButton;

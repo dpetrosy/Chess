@@ -24,7 +24,7 @@ public:
     void            showGameElements();
 
     // Getters
-    GameData*       getGameData() const;
+    GameData        getGameData() const;
     GameVariants    getGameVariant() const;
     bool            getIsTimeAvailable() const;
     unsigned        getGameMinutes() const;
@@ -33,7 +33,6 @@ public:
     QuickGames      getQuickGame() const;
 
     // Setters
-    void setGameData(GameData* gameData);
     void setGameVariant(GameVariants gameVariant);
     void setIsTimeAvailable(bool isTimeAvailable);
     void setGameMinutes(unsigned gameMinutes);
@@ -55,7 +54,7 @@ private:
     static GameWidget*  _gameWidget;
 
     // Game elements
-    GameData*    _gameData;
+    GameData     _gameData;
     BoardWidget* _boardWidget;
     MovesWidget* _movesWidget;
 };

@@ -32,7 +32,6 @@ GameWidget* GameWidget::GetInstance(QWidget *parent)
 void GameWidget::init()
 {
     // Game elements
-    _gameData = new GameData();
     _boardWidget = BoardWidget::GetInstance(this);
     _movesWidget = MovesWidget::GetInstance(this);
 }
@@ -52,73 +51,68 @@ void GameWidget::makeGameWidget()
 }
 
 // Getters
-GameData *GameWidget::getGameData() const
+GameData GameWidget::getGameData() const
 {
     return _gameData;
 }
 
 GameVariants GameWidget::getGameVariant() const
 {
-    return _gameData->gameVariant;
+    return _gameData.gameVariant;
 }
 
 bool GameWidget::getIsTimeAvailable() const
 {
-    return _gameData->isTimeAvailable;
+    return _gameData.isTimeAvailable;
 }
 
 unsigned GameWidget::getGameMinutes() const
 {
-    return _gameData->gameMinutes;
+    return _gameData.gameMinutes;
 }
 
 unsigned GameWidget::getIncrementSeconds() const
 {
-    return _gameData->incrementSeconds;
+    return _gameData.incrementSeconds;
 }
 
 PiecesColors GameWidget::getBelowPlayerColor() const
 {
-    return _gameData->belowPlayerColor;
+    return _gameData.belowPlayerColor;
 }
 
 QuickGames GameWidget::getQuickGame() const
 {
-    return _gameData->quickGame;
+    return _gameData.quickGame;
 }
 
 // Setters
-void GameWidget::setGameData(GameData *gameData)
-{
-    _gameData = gameData;
-}
-
 void GameWidget::setGameVariant(GameVariants gameVariant)
 {
-    _gameData->gameVariant = gameVariant;
+    _gameData.gameVariant = gameVariant;
 }
 
 void GameWidget::setIsTimeAvailable(bool isTimeAvailable)
 {
-    _gameData->isTimeAvailable = isTimeAvailable;
+    _gameData.isTimeAvailable = isTimeAvailable;
 }
 
 void GameWidget::setGameMinutes(unsigned gameMinutes)
 {
-    _gameData->gameMinutes = gameMinutes;
+    _gameData.gameMinutes = gameMinutes;
 }
 
 void GameWidget::setIncrementSeconds(unsigned incrementSeconds)
 {
-    _gameData->incrementSeconds = incrementSeconds;
+    _gameData.incrementSeconds = incrementSeconds;
 }
 
 void GameWidget::setBelowPlayerColor(PiecesColors color)
 {
-    _gameData->belowPlayerColor = color;
+    _gameData.belowPlayerColor = color;
 }
 
 void GameWidget::setQuickGame(QuickGames quickGame)
 {
-    _gameData->quickGame = quickGame;
+    _gameData.quickGame = quickGame;
 }

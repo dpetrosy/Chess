@@ -27,8 +27,8 @@ enum class MainMenuProps
 
     // PushButtons Properties
     verLayoutButtonsW = 0,
-    verLayoutButtonsH = 55,
-    verLayoutButtonsFont = 24,
+    verLayoutButtonsH = 44,
+    verLayoutButtonsFont = 18,
     horLayoutButtonsW = verLayoutButtonsW,
     horLayoutButtonsH = verLayoutButtonsH,
     horLayoutButtonsFont = verLayoutButtonsFont,
@@ -78,16 +78,16 @@ enum class PVPMenuPushButtons
 // SettingsMenu
 enum class SettingsMenuProps
 {
-    BkgLabelW = 500,
-    BkgLabelH = 520,
+    BkgLabelW = 460,
+    BkgLabelH = 507,
     BkgLabelX = ((int)MainWindowProps::windowSizeW - BkgLabelW) / 2,
     BkgLabelY = ((int)MainWindowProps::windowSizeH - BkgLabelH) / 2,
     BoardLabelX = BkgLabelX + 10,
     BoardLabelY = BkgLabelY + 10,
     BoardLabelW = BkgLabelW - 20,
-    BoardLabelH = 150,
+    BoardLabelH = 137,
     BkgImageTextLabelX = BoardLabelX,
-    BkgImageTextLabelY = BoardLabelY + BoardLabelH + 15,
+    BkgImageTextLabelY = BoardLabelY + BoardLabelH + 13,
     BkgImageTextLabelW = BoardLabelW / 2,
     BkgImageTextLabelH = 30,
     BkgImageComboBoxX = BoardLabelX + (BoardLabelW / 2),
@@ -122,26 +122,30 @@ enum class SettingsMenuProps
     SoundTextLabelY = LanguageTextLabelY + LanguageTextLabelH + 15,
     SoundTextLabelW = BkgImageTextLabelW,
     SoundTextLabelH = BkgImageTextLabelH,
-    SoundToggleSwitchX = BkgImageComboBoxX + 185,
+    SoundToggleSwitchX = BkgImageComboBoxX + 165,
     SoundToggleSwitchY = SoundTextLabelY,
     ThemeTextLabelX = BkgImageTextLabelX,
     ThemeTextLabelY = SoundTextLabelY + SoundTextLabelH + 15,
     ThemeTextLabelW = BkgImageTextLabelW,
     ThemeTextLabelH = BkgImageTextLabelH,
-    ThemeToggleSwitchX = BkgImageComboBoxX + 185,
+    ThemeToggleSwitchX = BkgImageComboBoxX + 165,
     ThemeToggleSwitchY = ThemeTextLabelY,
     ButtonsBkgLabelX = BkgLabelX,
     ButtonsBkgLabelY = ThemeTextLabelY + ThemeTextLabelH + 15,
     ButtonsBkgLabelW = BkgLabelW,
-    ButtonsBkgLabelH = 90,
+    ButtonsBkgLabelH = 80,
     CancelButtonX = ButtonsBkgLabelX + 16,
     CancelButtonY = ButtonsBkgLabelY + 15,
-    CancelButtonW = 225,
-    CancelButtonH = 60,
+    CancelButtonW = (BkgLabelW - 50) / 2,
+    CancelButtonH = ButtonsBkgLabelH - 30,
     SaveButtonX = CancelButtonX + CancelButtonW + 18,
     SaveButtonY = CancelButtonY,
     SaveButtonW = CancelButtonW,
-    SaveButtonH = CancelButtonH
+    SaveButtonH = CancelButtonH,
+    HideAndShowButtonW = 40,
+    HideAndShowButtonH = 40,
+    HideAndShowButtonX = (int)MainWindowProps::windowSizeW - HideAndShowButtonW - 15,
+    HideAndShowButtonY = (int)MainWindowProps::windowSizeH - HideAndShowButtonH - 15
 };
 
 struct SettingsData
@@ -188,23 +192,5 @@ namespace Languages
     extern QString Russian;
     extern QString English;
 }
-
-// #Delete#
-// QuitDialog
-//enum class QuitDialogProps
-//{
-//    windowSizeW = 430,
-//    windowSizeH = 130,
-//    quitImageX = (int)windowSizeW - 410,
-//    quitImageY = (int)windowSizeH - 106,
-//    quitTextX = quitImageX + 122,
-//    quitTextY = quitImageY,
-//    quitTextW = windowSizeW - 150,
-//    quitTextH = 30,
-//    quitButtonBoxX = quitTextX + 52,
-//    quitButtonBoxY = quitTextY + 55,
-//    quitButtonBoxW = windowSizeW / 2,
-//    quitButtonBoxH = windowSizeH / 4
-//};
 
 #endif // MENUS_HELPERS_HPP

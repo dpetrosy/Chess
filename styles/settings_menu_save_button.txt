@@ -1,7 +1,7 @@
 QPushButton
 {
     background-color: rgb(127, 166, 80);
-    font: 700 14pt "Alinea Sans";
+    font: 700 13pt "Alinea Sans";
     color: rgb(244, 247, 240);
     border-radius: 5px;
 }

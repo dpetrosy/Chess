@@ -46,5 +46,6 @@
         <file>styles/light_theme_buttons_label.txt</file>
         <file>styles/settings_menu_cancel_button.txt</file>
         <file>styles/settings_menu_save_button.txt</file>
+        <file>styles/hide_and_show_button.txt</file>
     </qresource>
 </RCC>

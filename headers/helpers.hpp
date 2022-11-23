@@ -5,8 +5,8 @@
 
 enum class MainWindowProps
 {
-    windowSizeW = 1225,
-    windowSizeH = 820,
+    windowSizeW = 1115,
+    windowSizeH = 700,
 };
 
 namespace ImagesPaths
@@ -21,17 +21,16 @@ namespace ImagesPaths
     extern QString settingsPiecesSetsPath;
 }
 
-namespace Paths
+namespace StylesPaths
 {
     extern QString stylesPath;
     extern QString pawnPromButtonsStyle;
     extern QString darkThemeBkgLabelStyle;
     extern QString lightThemeBkgLabelStyle;
-
     extern QString lightThemeButtonsLabelStyle;
-
     extern QString settingsMenuCancelButtonStyle;
     extern QString settingsMenuSaveButtonStyle;
+    extern QString hideAndShowButtonStyle;
 }
 
 #endif // HELPERS_HPP

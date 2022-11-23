@@ -56,7 +56,7 @@ void PawnPromDialog::makePawnPromDialog(PiecesColors turn)
     if (turn == PiecesColors::Black)
         colorString = "black";
 
-    QFile file(Paths::pawnPromButtonsStyle);
+    QFile file(StylesPaths::pawnPromButtonsStyle);
     file.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(file.readAll());
     file.close();

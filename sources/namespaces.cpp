@@ -12,17 +12,16 @@ namespace ImagesPaths
     QString settingsPiecesSetsPath = ImagesPaths::settingsPath + "pieces_sets/";
 }
 
-namespace Paths
+namespace StylesPaths
 {
     QString stylesPath = ":/styles/";
     QString pawnPromButtonsStyle = stylesPath + "pawn_prom_buttons_style.txt";
     QString darkThemeBkgLabelStyle = stylesPath + "dark_theme_bkg_label.txt";
     QString lightThemeBkgLabelStyle = stylesPath + "light_theme_bkg_label.txt";
-
     QString lightThemeButtonsLabelStyle = stylesPath + "light_theme_buttons_label.txt";
-
     QString settingsMenuCancelButtonStyle = stylesPath + "settings_menu_cancel_button.txt";
     QString settingsMenuSaveButtonStyle = stylesPath + "settings_menu_save_button.txt";
+    QString hideAndShowButtonStyle = stylesPath + "hide_and_show_button.txt";
 }
 
 namespace StepsImages

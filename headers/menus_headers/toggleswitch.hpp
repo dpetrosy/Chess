@@ -24,7 +24,7 @@ public:
     int offset() const;
     void setOffset(int o);
 
-protected:
+public slots:
     void paintEvent(QPaintEvent*) override;
     void mouseReleaseEvent(QMouseEvent*) override;
     void enterEvent(QEvent*);
