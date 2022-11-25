@@ -2,27 +2,18 @@
 #define GAME_HELPERS_HPP
 
 #include "pieces_helpers.hpp"
+#include "menus_helpers.hpp"
 #include "predefined_game_classes.hpp"
 
-// Game data
-enum class GameVariants
-{
-    Standart = 1
-};
-
-enum class QuickGames
-{
-    NoSelected = 0
-};
-
+// Game Widget
 struct GameData
 {
-    GameVariants gameVariant = GameVariants::Standart;
-    QuickGames quickGame = QuickGames::NoSelected;
+    PiecesColors belowPlayerColor = PiecesColors::White;
+    QString gameVariant = GameVariants::Standart;
+    QString quickGame = QuickGames::NoSelected;
     bool isTimeAvailable = false;
     unsigned gameMinutes = 0;
     unsigned incrementSeconds = 0;
-    PiecesColors belowPlayerColor = PiecesColors::White;
 };
 
 

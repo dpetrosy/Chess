@@ -12,8 +12,6 @@
 
 #include "menus_helpers.hpp"
 
-#include "toggleswitch.hpp"
-
 class SettingsMenu : public QWidget
 {
     Q_OBJECT
@@ -43,6 +41,8 @@ private:
     QString getBoardStr(int index);
     QString getLanguageStr(int index);
     void    hideAndShowMenu();
+    void    swapMenuTheme();
+    void    changeMenuTheme();
 
 private:
     SettingsData  _settingsData;

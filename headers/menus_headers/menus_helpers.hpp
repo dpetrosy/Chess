@@ -74,6 +74,15 @@ enum class PVPMenuPushButtons
     ReturnButton = 2
 };
 
+namespace GameVariants
+{
+    extern QString Standart;
+};
+
+namespace QuickGames
+{
+    extern QString NoSelected;
+}
 
 // SettingsMenu
 enum class SettingsMenuProps
@@ -175,7 +184,7 @@ namespace BackgroundImages
     extern QString Emperors;
     extern QString FaceToFace;
     extern QString IAmTheKing;
-    extern QString Lichess;
+    extern QString Landscape;
     extern QString Shadow;
     extern QString StrongKnight;
     extern QString TheBishop;

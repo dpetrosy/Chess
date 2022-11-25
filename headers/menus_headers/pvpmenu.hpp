@@ -5,6 +5,8 @@
 #include <QWidget>
 #include <QDebug>
 #include <QPushButton>
+#include <QComboBox>
+#include <QLabel>
 
 #include "menus_helpers.hpp"
 
@@ -27,22 +29,39 @@ private:
     void makePVPMenu();
 
 private:
-//    GameData  _settingsData;
-//    SettingsData  _tempData;
-//    QLabel*       _bkgLabel;
-//    QLabel*       _boardLabel;
-//    QLabel*       _piecesLabel;
+    QLabel*       _bkgLabel;
+    QLabel*       _topTextLabel;
+
+    // Game Variant
+    QLabel*       _gameVariantTextLabel;
+    QComboBox*    _gameVariantComboBox;
+
+    // Time Control
+    QLabel*       _timeControlBkgLabel;
+    QLabel*       _timeControlTextLabel;
+    QComboBox*    _timeControlComboBox;
+    //minutes controler
+    //increment seconds controler
+
+    // Quick Games
+    QPushButton*  _bullet1MPushButton;
+    QPushButton*  _blitz3MPushButton;
+    QPushButton*  _blitz3MInc2SecPushButton;
+    QPushButton*  _blitz5MPushButton;
+    QPushButton*  _blitz10MPushButton;
+    QPushButton*  _rapid15MPushButton;
+
+    // Color buttons
+    QPushButton* _blackColorPushButton;
+    QPushButton* _randomColorPushButton;
+    QPushButton* _whiteColorPushButton;
+
+    // Return button
+    QPushButton* _returnPushButton;
 
 
 
-
-
-
-
-
-
-    // PushButtons
-    QPushButton* _PlayButton;
+    QPushButton*  _PlayButton;
     QPushButton* _ReturnButton;
 };
 

@@ -56,7 +56,7 @@ GameData GameWidget::getGameData() const
     return _gameData;
 }
 
-GameVariants GameWidget::getGameVariant() const
+QString GameWidget::getGameVariant() const
 {
     return _gameData.gameVariant;
 }
@@ -81,13 +81,13 @@ PiecesColors GameWidget::getBelowPlayerColor() const
     return _gameData.belowPlayerColor;
 }
 
-QuickGames GameWidget::getQuickGame() const
+QString GameWidget::getQuickGame() const
 {
     return _gameData.quickGame;
 }
 
 // Setters
-void GameWidget::setGameVariant(GameVariants gameVariant)
+void GameWidget::setGameVariant(QString gameVariant)
 {
     _gameData.gameVariant = gameVariant;
 }
@@ -112,7 +112,7 @@ void GameWidget::setBelowPlayerColor(PiecesColors color)
     _gameData.belowPlayerColor = color;
 }
 
-void GameWidget::setQuickGame(QuickGames quickGame)
+void GameWidget::setQuickGame(QString quickGame)
 {
     _gameData.quickGame = quickGame;
 }

@@ -166,7 +166,7 @@ void SettingsMenu::makeSettingsMenu()
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::Emperors));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::FaceToFace));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::IAmTheKing));
-    _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::Lichess));
+    _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::Landscape));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::Shadow));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::StrongKnight));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheBishop));
@@ -177,7 +177,6 @@ void SettingsMenu::makeSettingsMenu()
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::TopView));
     _bkgImageComboBox->setCurrentIndex(15);
     connect(_bkgImageComboBox, &QComboBox::currentIndexChanged, this, &SettingsMenu::bkgImageComboBoxIndexChanged);
-
 
     // Text for piece sets
     _pieceSetsTextLabel->setGeometry((int)SettingsMenuProps::PieceSetTextLabelX, (int)SettingsMenuProps::PieceSetTextLabelY, (int)SettingsMenuProps::PieceSetTextLabelW, (int)SettingsMenuProps::PieceSetTextLabelH);
@@ -228,6 +227,7 @@ void SettingsMenu::makeSettingsMenu()
     // Theme toggle switch
     _themeToggleSwitch->move((int)SettingsMenuProps::ThemeToggleSwitchX, (int)SettingsMenuProps::ThemeToggleSwitchY);
     _themeToggleSwitch->setChecked(_settingsData.isDarkTheme);
+    connect(_themeToggleSwitch, &QCheckBox::clicked, this, &SettingsMenu::swapMenuTheme);
 
     // Buttons background label
     ::setStyleSheetByTheme(StylesPaths::lightThemeButtonsLabelStyle, StylesPaths::darkThemeButtonsLabelStyle, _buttonsBkgLabel, _settingsData.isDarkTheme);
@@ -271,7 +271,7 @@ QString SettingsMenu::getBoardStr(int index)
     case 7:
         return BackgroundImages::IAmTheKing;
     case 8:
-        return BackgroundImages::Lichess;
+        return BackgroundImages::Landscape;
     case 9:
         return BackgroundImages::Shadow;
     case 10:
@@ -392,6 +392,58 @@ void SettingsMenu::hideAndShowMenu()
         _hideAndShowButton->setText("Hide");
         _isMenuVisible = true;
     }
+}
+
+void SettingsMenu::swapMenuTheme()
+{
+    if (_tempData.isDarkTheme)
+        _tempData.isDarkTheme = false;
+    else
+        _tempData.isDarkTheme = true;
+
+    changeMenuTheme();
+}
+
+void SettingsMenu::changeMenuTheme()
+{
+    // Background label
+    ::setStyleSheetByTheme(StylesPaths::lightThemeBkgLabelStyle, StylesPaths::darkThemeBkgLabelStyle, _bkgLabel, _tempData.isDarkTheme);
+
+    // Text for background image
+    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _bkgImageTextLabel, _tempData.isDarkTheme);
+
+    // Background image combobox
+    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _bkgImageComboBox, _tempData.isDarkTheme);
+
+    // Text for piece sets
+    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _pieceSetsTextLabel, _tempData.isDarkTheme);
+
+    // Piece sets combobox
+    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _pieceSetsComboBox, _tempData.isDarkTheme);
+
+    // Text for board
+    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _boardTextLabel, _tempData.isDarkTheme);
+
+    // Board combobox
+    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _boardComboBox, _tempData.isDarkTheme);
+
+    // Text for language
+    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _languageTextLabel, _tempData.isDarkTheme);
+
+    // Language combobox
+    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _languageComboBox, _tempData.isDarkTheme);
+
+    // Text for sound
+    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _soundTextLabel, _tempData.isDarkTheme);
+
+    // Text for theme
+    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _themeTextLabel, _tempData.isDarkTheme);
+
+    // Buttons background label
+    ::setStyleSheetByTheme(StylesPaths::lightThemeButtonsLabelStyle, StylesPaths::darkThemeButtonsLabelStyle, _buttonsBkgLabel, _tempData.isDarkTheme);
+
+    // Cancel push button
+    ::setStyleSheetByTheme(StylesPaths::settingsMenuLightCancelButtonStyle, StylesPaths::settingsMenuDarkCancelButtonStyle, _cancelPushButton, _tempData.isDarkTheme);
 }
 
 // Private slots

@@ -1,5 +1,6 @@
 #include "helpers.hpp"
 
+// Images
 namespace ImagesPaths
 {
     QString imagesPath = ":/images/images/";
@@ -12,6 +13,20 @@ namespace ImagesPaths
     QString settingsPiecesSetsPath = ImagesPaths::settingsPath + "pieces_sets/";
 }
 
+namespace StepsImages
+{
+    QString CanGo = ImagesPaths::piecesPath + "can_go.png";
+    QString CanBeat = ImagesPaths::piecesPath + "can_beat.png";
+    QString CurrentPiece = ImagesPaths::piecesPath + "current_piece.png";
+    QString LastStepFrom = ImagesPaths::piecesPath + "last_step_from.png";
+    QString LastStepTo = ImagesPaths::piecesPath + "last_step_to.png";
+    QString LastStepFromAndCanGo = ImagesPaths::piecesPath + "last_step_from_can_go.png";
+    QString Check = ImagesPaths::piecesPath + "check.png";
+    QString CurrentPieceAndChecked = ImagesPaths::piecesPath + "current_piece_and_checked.png";
+}
+
+
+// Paths
 namespace StylesPaths
 {
     QString stylesPath = ":/styles/";
@@ -40,17 +55,18 @@ namespace StylesPaths
     //QString pawnPromButtonsStyle = MenusStylesPath + "pawn_prom_buttons_style.txt";
 }
 
-namespace StepsImages
+
+// PVP Menu
+namespace GameVariants
 {
-    QString CanGo = ImagesPaths::piecesPath + "can_go.png";
-    QString CanBeat = ImagesPaths::piecesPath + "can_beat.png";
-    QString CurrentPiece = ImagesPaths::piecesPath + "current_piece.png";
-    QString LastStepFrom = ImagesPaths::piecesPath + "last_step_from.png";
-    QString LastStepTo = ImagesPaths::piecesPath + "last_step_to.png";
-    QString LastStepFromAndCanGo = ImagesPaths::piecesPath + "last_step_from_can_go.png";
-    QString Check = ImagesPaths::piecesPath + "check.png";
-    QString CurrentPieceAndChecked = ImagesPaths::piecesPath + "current_piece_and_checked.png";
+    QString Standart = "Standart";
+};
+
+namespace QuickGames
+{
+    QString NoSelected = "NoSelected";
 }
+
 
 // Settings menu
 namespace BackgroundImages
@@ -64,7 +80,7 @@ namespace BackgroundImages
     QString Emperors = "Emperors";
     QString FaceToFace = "Face_to_Face";
     QString IAmTheKing = "I_am_the_King";
-    QString Lichess = "Lichess";
+    QString Landscape = "Landscape";
     QString Shadow = "Shadow";
     QString StrongKnight = "Strong_Knight";
     QString TheBishop = "The_Bishop";

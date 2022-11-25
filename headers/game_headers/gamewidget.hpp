@@ -25,20 +25,20 @@ public:
 
     // Getters
     GameData        getGameData() const;
-    GameVariants    getGameVariant() const;
+    QString         getGameVariant() const;
     bool            getIsTimeAvailable() const;
     unsigned        getGameMinutes() const;
     unsigned        getIncrementSeconds() const;
     PiecesColors    getBelowPlayerColor() const;
-    QuickGames      getQuickGame() const;
+    QString         getQuickGame() const;
 
     // Setters
-    void setGameVariant(GameVariants gameVariant);
+    void setGameVariant(QString gameVariant);
     void setIsTimeAvailable(bool isTimeAvailable);
     void setGameMinutes(unsigned gameMinutes);
     void setIncrementSeconds(unsigned incremetSeconds);
     void setBelowPlayerColor(PiecesColors color);
-    void setQuickGame(QuickGames quickGame);
+    void setQuickGame(QString quickGame);
 
 private:
     explicit GameWidget(QWidget *parent = nullptr);
