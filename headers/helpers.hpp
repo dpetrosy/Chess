@@ -24,13 +24,24 @@ namespace ImagesPaths
 namespace StylesPaths
 {
     extern QString stylesPath;
-    extern QString pawnPromButtonsStyle;
+
+    // General for menus
+    extern QString MenusStylesPath;
     extern QString darkThemeBkgLabelStyle;
     extern QString lightThemeBkgLabelStyle;
-    extern QString lightThemeButtonsLabelStyle;
-    extern QString settingsMenuCancelButtonStyle;
-    extern QString settingsMenuSaveButtonStyle;
+    extern QString darkThemeTextStyle;
+    extern QString lightThemeTextStyle;
+    extern QString darkComboBoxStyle;
+    extern QString lightComboBoxStyle;
+
+    // Settings menu
+    extern QString SettingsMenuStylesPath;
+    extern QString darkThemeButtonsLabelStyle;
     extern QString hideAndShowButtonStyle;
+    extern QString lightThemeButtonsLabelStyle;
+    extern QString settingsMenuDarkCancelButtonStyle;
+    extern QString settingsMenuLightCancelButtonStyle;
+    extern QString settingsMenuSaveButtonStyle;
 }
 
 #endif // HELPERS_HPP

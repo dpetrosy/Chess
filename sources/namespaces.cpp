@@ -15,13 +15,29 @@ namespace ImagesPaths
 namespace StylesPaths
 {
     QString stylesPath = ":/styles/";
-    QString pawnPromButtonsStyle = stylesPath + "pawn_prom_buttons_style.txt";
-    QString darkThemeBkgLabelStyle = stylesPath + "dark_theme_bkg_label.txt";
-    QString lightThemeBkgLabelStyle = stylesPath + "light_theme_bkg_label.txt";
-    QString lightThemeButtonsLabelStyle = stylesPath + "light_theme_buttons_label.txt";
-    QString settingsMenuCancelButtonStyle = stylesPath + "settings_menu_cancel_button.txt";
-    QString settingsMenuSaveButtonStyle = stylesPath + "settings_menu_save_button.txt";
-    QString hideAndShowButtonStyle = stylesPath + "hide_and_show_button.txt";
+
+    // General for menus
+    QString MenusStylesPath = stylesPath + "menus_styles/";
+    QString darkThemeBkgLabelStyle = MenusStylesPath + "dark_theme_bkg_label.txt";
+    QString lightThemeBkgLabelStyle = MenusStylesPath + "light_theme_bkg_label.txt";
+    QString darkThemeTextStyle = MenusStylesPath + "dark_theme_text.txt";
+    QString lightThemeTextStyle = MenusStylesPath + "light_theme_text.txt";
+    QString darkComboBoxStyle = MenusStylesPath + "dark_combobox.txt";
+    QString lightComboBoxStyle = MenusStylesPath + "light_combobox.txt";
+
+    // Settings menu
+    QString SettingsMenuStylesPath = MenusStylesPath + "settings_menu_styles/";
+    QString darkThemeButtonsLabelStyle = SettingsMenuStylesPath + "dark_theme_buttons_label.txt";
+    QString hideAndShowButtonStyle = SettingsMenuStylesPath + "hide_and_show_button.txt";
+    QString lightThemeButtonsLabelStyle = SettingsMenuStylesPath + "light_theme_buttons_label.txt";
+    QString settingsMenuDarkCancelButtonStyle = SettingsMenuStylesPath + "settings_menu_dark_cancel_button.txt";
+    QString settingsMenuLightCancelButtonStyle = SettingsMenuStylesPath + "settings_menu_light_cancel_button.txt";
+    QString settingsMenuSaveButtonStyle = SettingsMenuStylesPath + "settings_menu_save_button.txt";
+
+
+
+
+    //QString pawnPromButtonsStyle = MenusStylesPath + "pawn_prom_buttons_style.txt";
 }
 
 namespace StepsImages

@@ -44,6 +44,7 @@ HEADERS += \
     headers/menus_headers/pvpmenu.hpp \
     headers/menus_headers/settingsmenu.hpp \
     headers/menus_headers/toggleswitch.hpp \
+    headers/menus_headers/toggle_switch_style.hpp \
     headers/game_headers/gamewidget.hpp \
     headers/game_headers/boardwidget.hpp \
     headers/game_headers/moveswidget.hpp \

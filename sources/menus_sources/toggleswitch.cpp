@@ -1,114 +1,307 @@
 #include "toggleswitch.hpp"
 #include "menus_helpers.hpp"
 
-ToggleSwitch::ToggleSwitch(QWidget *parent)
-    : QAbstractButton(parent),
-     _switch(false),
-     _opacity(0.000),
-     _height(25),
-     _margin(2),
-     _thumb("#d5d5d5"),
-     _anim(new QPropertyAnimation(this, "offset", this))
+Animator::Animator(QObject* target, QObject* parent) : QVariantAnimation(parent)
 {
-    _y = _height / 2;
-    setOffset(_height / 2);
-    setBrush(QColor("#009688"));
+    setTargetObject(target);
 }
 
-ToggleSwitch::ToggleSwitch(const QBrush &brush, QWidget *parent)
-    : QAbstractButton(parent),
-      _switch(false),
-      _opacity(0.000),
-      _height(25),
-      _margin(2),
-      _thumb("#d5d5d5"),
-      _anim(new QPropertyAnimation(this, "offset", this))
+Animator::~Animator()
 {
-    _y = _height / 2;
-    setOffset(_height / 2);
-    setBrush(brush);
+    stop();
 }
 
-void ToggleSwitch::paintEvent(QPaintEvent *e)
+QObject* Animator::targetObject() const
 {
-    Q_UNUSED(e)
-    QPainter p(this);
-    p.setPen(Qt::NoPen);
+    return target.data();
+}
 
-    if (isEnabled())
+void Animator::setTargetObject(QObject* _target)
+{
+    if (target.data() == _target)
+        return;
+
+    if (isRunning())
     {
-        p.setBrush(_switch ? brush() : Qt::black);
-        p.setOpacity(_switch ? 0.5 : 0.38);
-        p.setRenderHint(QPainter::Antialiasing, true);
-        p.drawRoundedRect(QRect(_margin, _margin, width() - 2 * _margin, height() - 2 * _margin), 12, 12);
-        p.setBrush(_thumb);
-        p.setBrush(_thumb);
-        p.setOpacity(50);
-        p.drawEllipse(QRectF(offset() - (_height / 2), _y - (_height / 2), height(), height()));
+        qWarning("Animation::setTargetObject: you can't change the target of a running animation");
+        return;
     }
-    else
+
+    target = _target;
+}
+
+void Animator::updateCurrentValue(const QVariant& value)
+{
+    Q_UNUSED(value);
+
+    if (!target.isNull())
     {
-        p.setBrush(Qt::black);
-        p.setOpacity(0.12);
-        p.drawRoundedRect(QRect(_margin, _margin, width() - 2 * _margin, height() - 2 * _margin), 12, 12);
-        p.setOpacity(1.0);
-        p.setBrush(QColor("#BDBDBD"));
-        p.drawEllipse(QRectF(offset() - (_height / 2), _y - (_height / 2), height(), height()));
+        auto update = QEvent(QEvent::StyleAnimationUpdate);
+        update.setAccepted(false);
+        QCoreApplication::sendEvent(target.data(), &update);
+        if (!update.isAccepted())
+            stop();
     }
 }
 
-void ToggleSwitch::mouseReleaseEvent(QMouseEvent *e)
+void Animator::updateState(QAbstractAnimation::State newState, QAbstractAnimation::State oldState)
 {
-    if (e->button() & Qt::LeftButton)
+    if (target.isNull() && oldState == Stopped)
     {
-        _switch = _switch ? false : true;
-        _thumb = _switch ? _brush : QBrush("#d5d5d5");
-        if (_switch)
-        {
-            _anim->setStartValue(_height / 2);
-            _anim->setEndValue(width() - _height + 8);
-            _anim->setDuration(120);
-            _anim->start();
-        }
-        else
-        {
-            _anim->setStartValue(offset());
-            _anim->setEndValue(_height / 2);
-            _anim->setDuration(120);
-            _anim->start();
-        }
+        qWarning("Animation::updateState: Changing state of an animation without target");
+        return;
     }
-    QAbstractButton::mouseReleaseEvent(e);
+
+    QVariantAnimation::updateState(newState, oldState);
+
+    if (!endValue().isValid() && direction() == Forward)
+        qWarning("Animation::updateState (%s): starting an animation without end value", targetObject()->metaObject()->className());
 }
 
-void ToggleSwitch::enterEvent(QEvent *e)
+void Animator::setup(int duration, QEasingCurve easing)
+{
+    setDuration(duration);
+    setEasingCurve(easing);
+}
+
+void Animator::interpolate(const QVariant& _start, const QVariant& end)
+{
+    setStartValue(_start);
+    setEndValue(end);
+    start();
+}
+
+void Animator::setCurrentValue(const QVariant& value)
+{
+    setStartValue(value);
+    setEndValue(value);
+    updateCurrentValue(currentValue());
+}
+
+SelectionControl::SelectionControl(QWidget* parent) : QAbstractButton(parent)
+{
+    setObjectName("SelectionControl");
+    setCheckable(true);
+}
+
+SelectionControl::~SelectionControl() {}
+
+void SelectionControl::enterEvent(QEvent* e)
 {
     setCursor(Qt::PointingHandCursor);
     QAbstractButton::enterEvent((QEnterEvent*)e);
 }
 
+Qt::CheckState SelectionControl::checkState() const
+{
+    return isChecked() ? Qt::Checked : Qt::Unchecked;
+}
+
+void SelectionControl::checkStateSet()
+{
+    const auto state = checkState();
+    emit stateChanged(state);
+    toggle(state);
+}
+
+void SelectionControl::nextCheckState()
+{
+    QAbstractButton::nextCheckState();
+    SelectionControl::checkStateSet();
+}
+
+void ToggleSwitch::init()
+{
+    setFont(style.font);
+    setObjectName("ToggleSwitch");
+
+    /* setup animations */
+    thumbBrushAnimation = new Animator{ this, this };
+    trackBrushAnimation = new Animator{ this, this };
+    thumbPosAniamtion = new Animator{ this, this };
+    thumbPosAniamtion->setup(style.thumbPosAniamtion.duration, style.thumbPosAniamtion.easing);
+    trackBrushAnimation->setup(style.trackBrushAnimation.duration, style.trackBrushAnimation.easing);
+    thumbBrushAnimation->setup(style.thumbBrushAnimation.duration, style.thumbBrushAnimation.easing);
+
+    /* set init values */
+    trackBrushAnimation->setStartValue(colorFromOpacity(style.trackOffBrush, style.trackOffOpacity));
+    trackBrushAnimation->setEndValue(colorFromOpacity(style.trackOffBrush, style.trackOffOpacity));
+    thumbBrushAnimation->setStartValue(colorFromOpacity(style.thumbOffBrush, style.thumbOffOpacity));
+    thumbBrushAnimation->setEndValue(colorFromOpacity(style.thumbOffBrush, style.thumbOffOpacity));
+
+    /* set standard palettes */
+    auto p = palette();
+    p.setColor(QPalette::Active, QPalette::ButtonText, style.textColor);
+    p.setColor(QPalette::Disabled, QPalette::ButtonText, style.textColor);
+    setPalette(p);
+    setSizePolicy(QSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Fixed));
+}
+
+QRect ToggleSwitch::indicatorRect()
+{
+    const auto w = style.indicatorMargin.left() + style.height + style.indicatorMargin.right();
+    return ltr(this) ? QRect(0, 0, w, style.height) : QRect(width() - w, 0, w, style.height);
+}
+
+QRect ToggleSwitch::textRect()
+{
+    const auto w = style.indicatorMargin.left() + style.height + style.indicatorMargin.right();
+    return ltr(this) ? rect().marginsRemoved(QMargins(w, 0, 0, 0)) : rect().marginsRemoved(QMargins(0, 0, w, 0));
+}
+
+ToggleSwitch::ToggleSwitch(QWidget* parent) : SelectionControl(parent)
+{
+    init();
+}
+
+ToggleSwitch::ToggleSwitch(const QString& text, QWidget* parent) : ToggleSwitch(parent)
+{
+    setText(text);
+}
+
+ToggleSwitch::ToggleSwitch(const QString& text, const QBrush& brush, QWidget* parent) : ToggleSwitch(text, parent)
+{
+    style.thumbOnBrush = brush.color();
+    style.trackOnBrush = brush.color();
+}
+
+ToggleSwitch::~ToggleSwitch() {}
+
 QSize ToggleSwitch::sizeHint() const
 {
-    return QSize(2 * (_height + _margin), _height + 2 * _margin);
+    auto h = style.height;
+    auto w = style.indicatorMargin.left() + style.height + style.indicatorMargin.right();
+
+    return QSize(w, h);
 }
 
-QBrush ToggleSwitch::brush() const
+void ToggleSwitch::paintEvent(QPaintEvent*)
 {
-    return _brush;
+    /* for desktop usage we do not need Radial reaction */
+    QPainter p(this);
+
+    const auto _indicatorRect = indicatorRect();
+    const auto _textRect = textRect();
+    auto trackMargin = style.indicatorMargin;
+    trackMargin.setTop(trackMargin.top() + 2);
+    trackMargin.setBottom(trackMargin.bottom() + 2);
+    QRectF trackRect = _indicatorRect.marginsRemoved(trackMargin);
+
+    if (isEnabled())
+    {
+        p.setOpacity(1.0);
+        p.setPen(Qt::NoPen);
+
+        /* draw track */
+        p.setBrush(trackBrushAnimation->currentValue().value<QColor>());
+        p.setRenderHint(QPainter::Antialiasing, true);
+        p.drawRoundedRect(trackRect, CORNER_RADIUS, CORNER_RADIUS);
+        p.setRenderHint(QPainter::Antialiasing, false);
+
+        /* draw thumb */
+        trackRect.setX(trackRect.x() - trackMargin.left() - trackMargin.right() - 2 + thumbPosAniamtion->currentValue().toInt());
+        auto thumbRect = trackRect;
+
+        if (!shadowPixmap.isNull())
+            p.drawPixmap(thumbRect.center() - QPointF(THUMB_RADIUS, THUMB_RADIUS - 1.0), shadowPixmap);
+
+        p.setBrush(thumbBrushAnimation->currentValue().value<QColor>());
+        p.setRenderHint(QPainter::Antialiasing, true);
+        //        qDebug() << thumbRect << thumbPosAniamtion->currentValue();
+        p.drawEllipse(thumbRect.center(), THUMB_RADIUS - SHADOW_ELEVATION - 1.0 + 3, THUMB_RADIUS - SHADOW_ELEVATION - 1.0 + 3);
+        p.setRenderHint(QPainter::Antialiasing, false);
+
+        /* draw text */
+        if (text().isEmpty())
+            return;
+
+        p.setOpacity(1.0);
+        p.setPen(palette().color(QPalette::Active, QPalette::ButtonText));
+        p.setFont(font());
+        p.drawText(_textRect, Qt::AlignLeft | Qt::AlignVCenter, text());
+    }
+    else
+    {
+        p.setOpacity(style.trackDisabledOpacity);
+        p.setPen(Qt::NoPen);
+
+        // draw track
+        p.setBrush(style.trackDisabled);
+        p.setRenderHint(QPainter::Antialiasing, true);
+        p.drawRoundedRect(trackRect, CORNER_RADIUS, CORNER_RADIUS);
+        p.setRenderHint(QPainter::Antialiasing, false);
+
+        // draw thumb
+        p.setOpacity(1.0);
+        if (!isChecked())
+            trackRect.setX(trackRect.x() - trackMargin.left() - trackMargin.right() - 2);
+        else
+            trackRect.setX(trackRect.x() + trackMargin.left() + trackMargin.right() + 2);
+        auto thumbRect = trackRect;
+
+        if (!shadowPixmap.isNull())
+            p.drawPixmap(thumbRect.center() - QPointF(THUMB_RADIUS, THUMB_RADIUS - 1.0), shadowPixmap);
+
+        p.setOpacity(1.0);
+        p.setBrush(style.thumbDisabled);
+        p.setRenderHint(QPainter::Antialiasing, true);
+        p.drawEllipse(thumbRect.center(), THUMB_RADIUS - SHADOW_ELEVATION - 1.0, THUMB_RADIUS - SHADOW_ELEVATION - 1.0);
+
+        /* draw text */
+        if (text().isEmpty())
+            return;
+
+        p.setOpacity(style.disabledTextOpacity);
+        p.setPen(palette().color(QPalette::Disabled, QPalette::ButtonText));
+        p.setFont(font());
+        p.drawText(_textRect, Qt::AlignLeft | Qt::AlignVCenter, text());
+    }
 }
 
-void ToggleSwitch::setBrush(const QBrush &brsh)
+void ToggleSwitch::resizeEvent(QResizeEvent* e)
 {
-    _brush = brsh;
+    shadowPixmap = Style::drawShadowEllipse(THUMB_RADIUS, SHADOW_ELEVATION, QColor(0, 0, 0, 70));
+    SelectionControl::resizeEvent(e);
 }
 
-int ToggleSwitch::offset() const
+void ToggleSwitch::toggle(Qt::CheckState state)
 {
-    return _x;
-}
+    if (state == Qt::Checked)
+    {
+        const QVariant posEnd = (style.indicatorMargin.left() + style.indicatorMargin.right() + 2) * 2 + 11;
+        const QVariant thumbEnd = colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity);
+        const QVariant trackEnd = colorFromOpacity(style.trackOnBrush, style.trackOnOpacity);
 
-void ToggleSwitch::setOffset(int o)
-{
-    _x = o;
-    update();
+        if (!isVisible())
+        {
+            thumbPosAniamtion->setCurrentValue(posEnd);
+            thumbBrushAnimation->setCurrentValue(thumbEnd);
+            trackBrushAnimation->setCurrentValue(trackEnd);
+        }
+        else
+        {
+            thumbPosAniamtion->interpolate(0, posEnd);
+            thumbBrushAnimation->interpolate(colorFromOpacity(style.thumbOffBrush, style.thumbOffOpacity), thumbEnd);
+            trackBrushAnimation->interpolate(colorFromOpacity(style.trackOffBrush, style.trackOffOpacity), trackEnd);
+        }
+    }
+    else
+    { // Qt::Unchecked
+        const QVariant posEnd = -11;
+        const QVariant thumbEnd = colorFromOpacity(style.thumbOffBrush, style.thumbOffOpacity);
+        const QVariant trackEnd = colorFromOpacity(style.trackOffBrush, style.trackOffOpacity);
+
+        if (!isVisible())
+        {
+            thumbPosAniamtion->setCurrentValue(posEnd);
+            thumbBrushAnimation->setCurrentValue(thumbEnd);
+            trackBrushAnimation->setCurrentValue(trackEnd);
+        }
+        else
+        {
+            thumbPosAniamtion->interpolate(thumbPosAniamtion->currentValue().toInt(), posEnd);
+            thumbBrushAnimation->interpolate(colorFromOpacity(style.thumbOnBrush, style.thumbOnOpacity), thumbEnd);
+            trackBrushAnimation->interpolate(colorFromOpacity(style.trackOnBrush, style.trackOnOpacity), trackEnd);
+        }
+    }
 }

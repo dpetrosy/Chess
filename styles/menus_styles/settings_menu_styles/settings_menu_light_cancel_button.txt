@@ -1,6 +1,6 @@
 QPushButton
 {
-    background-color: rgb(217, 215, 213);
+    background-color: rgb(219, 217, 215);
     font: 700 13pt "Alinea Sans";
     color: rgb(115, 114, 114);
     border-radius: 5px;
@@ -9,5 +9,6 @@ QPushButton
 QPushButton:hover
 {
     background-color: rgb(229, 227, 227);
+    color: rgb(84, 81, 80);
     border-radius: 5px;
 }

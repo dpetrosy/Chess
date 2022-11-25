@@ -12,6 +12,8 @@
 
 #include "menus_helpers.hpp"
 
+#include "toggleswitch.hpp"
+
 class SettingsMenu : public QWidget
 {
     Q_OBJECT
@@ -21,7 +23,7 @@ public:
     virtual ~SettingsMenu();
 
     // Public util functions
-    bool         isDarkTheme();
+    bool         getTheme();
     QPushButton* getPushButton(SettingsMenuPushButtons button);
 
 public slots:
@@ -40,7 +42,7 @@ private:
     void    makeSettingsMenu();
     QString getBoardStr(int index);
     QString getLanguageStr(int index);
-    void hideAndShowMenu();
+    void    hideAndShowMenu();
 
 private:
     SettingsData  _settingsData;

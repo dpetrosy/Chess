@@ -122,14 +122,14 @@ enum class SettingsMenuProps
     SoundTextLabelY = LanguageTextLabelY + LanguageTextLabelH + 15,
     SoundTextLabelW = BkgImageTextLabelW,
     SoundTextLabelH = BkgImageTextLabelH,
-    SoundToggleSwitchX = BkgImageComboBoxX + 165,
-    SoundToggleSwitchY = SoundTextLabelY,
+    SoundToggleSwitchX = BkgImageComboBoxX + 162,
+    SoundToggleSwitchY = SoundTextLabelY - 4,
     ThemeTextLabelX = BkgImageTextLabelX,
     ThemeTextLabelY = SoundTextLabelY + SoundTextLabelH + 15,
     ThemeTextLabelW = BkgImageTextLabelW,
     ThemeTextLabelH = BkgImageTextLabelH,
-    ThemeToggleSwitchX = BkgImageComboBoxX + 165,
-    ThemeToggleSwitchY = ThemeTextLabelY,
+    ThemeToggleSwitchX = SoundToggleSwitchX,
+    ThemeToggleSwitchY = ThemeTextLabelY - 4,
     ButtonsBkgLabelX = BkgLabelX,
     ButtonsBkgLabelY = ThemeTextLabelY + ThemeTextLabelH + 15,
     ButtonsBkgLabelW = BkgLabelW,
@@ -150,12 +150,12 @@ enum class SettingsMenuProps
 
 struct SettingsData
 {
-    QString bkgImageStr = "1";
+    QString bkgImageStr = "The_Rook";
     QString piecesSetStr = "1";
     QString boardStr = "1";
     QString languageStr = "eng";
     bool isSoundAvailable = false;
-    bool isDarkTheme = true;
+    bool isDarkTheme = false;
 };
 
 enum class SettingsMenuPushButtons

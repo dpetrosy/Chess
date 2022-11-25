@@ -38,14 +38,22 @@
         <file>images/backgrounds/Shadow.jpg</file>
         <file>images/backgrounds/Strong_Knight.jpg</file>
         <file>images/backgrounds/Top_View.jpg</file>
+        <file>images/settings/light_theme_arrow.png</file>
+        <file>images/settings/dark_theme_arrow.png</file>
     </qresource>
     <qresource prefix="/">
-        <file>styles/pawn_prom_buttons_style.txt</file>
-        <file>styles/dark_theme_bkg_label.txt</file>
-        <file>styles/light_theme_bkg_label.txt</file>
-        <file>styles/light_theme_buttons_label.txt</file>
-        <file>styles/settings_menu_cancel_button.txt</file>
-        <file>styles/settings_menu_save_button.txt</file>
-        <file>styles/hide_and_show_button.txt</file>
+        <file>styles/pieces_styles/pawn_prom_buttons_style.txt</file>
+        <file>styles/menus_styles/dark_theme_bkg_label.txt</file>
+        <file>styles/menus_styles/light_theme_bkg_label.txt</file>
+        <file>styles/menus_styles/settings_menu_styles/dark_theme_buttons_label.txt</file>
+        <file>styles/menus_styles/settings_menu_styles/hide_and_show_button.txt</file>
+        <file>styles/menus_styles/settings_menu_styles/light_theme_buttons_label.txt</file>
+        <file>styles/menus_styles/settings_menu_styles/settings_menu_dark_cancel_button.txt</file>
+        <file>styles/menus_styles/settings_menu_styles/settings_menu_light_cancel_button.txt</file>
+        <file>styles/menus_styles/settings_menu_styles/settings_menu_save_button.txt</file>
+        <file>styles/menus_styles/dark_theme_text.txt</file>
+        <file>styles/menus_styles/light_theme_text.txt</file>
+        <file>styles/menus_styles/light_combobox.txt</file>
+        <file>styles/menus_styles/dark_combobox.txt</file>
     </qresource>
 </RCC>

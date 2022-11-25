@@ -31,6 +31,21 @@ void setStyleSheet(QString path, QWidget* obj)
     file.close();
 }
 
+void setStyleSheetByTheme(QString lightStylePath, QString darkStylePath, QWidget* obj, bool isDarkTheme)
+{
+    QFile file;
+
+    if (isDarkTheme)
+        file.setFileName(darkStylePath);
+    else
+        file.setFileName(lightStylePath);
+
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(file.readAll());
+    obj->setStyleSheet(styleSheet);
+    file.close();
+}
+
 QString removeUnderscoreInString(QString str)
 {
     for (auto it = str.begin(); it != str.end(); ++it)
