@@ -27,21 +27,34 @@ namespace StylesPaths
 
     // General for menus
     extern QString MenusStylesPath;
-    extern QString darkThemeBkgLabelStyle;
     extern QString lightThemeBkgLabelStyle;
-    extern QString darkThemeTextStyle;
-    extern QString lightThemeTextStyle;
-    extern QString darkComboBoxStyle;
+    extern QString darkThemeBkgLabelStyle;
+    extern QString lightTextStyle;
+    extern QString darkTextStyle;
+    extern QString lightBoldTextStyle;
+    extern QString darkBoldTextStyle;
     extern QString lightComboBoxStyle;
+    extern QString darkComboBoxStyle;
+    extern QString lightSliderStyle;
+    extern QString darkSliderStyle;
+    extern QString lightDimTextStyle;
+    extern QString darkDimTextStyle;
 
     // Settings menu
     extern QString SettingsMenuStylesPath;
-    extern QString darkThemeButtonsLabelStyle;
     extern QString hideAndShowButtonStyle;
     extern QString lightThemeButtonsLabelStyle;
-    extern QString settingsMenuDarkCancelButtonStyle;
+    extern QString darkThemeButtonsLabelStyle;
     extern QString settingsMenuLightCancelButtonStyle;
+    extern QString settingsMenuDarkCancelButtonStyle;
     extern QString settingsMenuSaveButtonStyle;
+
+    // PVP menu
+    extern QString PVPMenuStylesPath;
+    extern QString lightTopTextStyle;
+    extern QString darkTopTextStyle;
+    extern QString lightTimeControlBkgLabelStyle;
+    extern QString darkTimeControlBkgLabelStyle;
 }
 
 #endif // HELPERS_HPP

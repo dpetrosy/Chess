@@ -55,17 +55,56 @@ enum class MainMenuStackedWidgets
 // PVPMenu
 enum class PVPMenuProps
 {
-    // PushButtons Properties
-    PlayButtonX = (int)MainMenuProps::verLayoutX,
-    PlayButtonY = (int)MainMenuProps::verLayoutY,
-    PlayButtonW = (int)MainMenuProps::horLayoutW,
-    PlayButtonH = (int)MainMenuProps::horLayoutH,
-    PlayButtonFont = (int)MainMenuProps::horLayoutButtonsFont,
-    ReturnButtonX = PlayButtonX,
-    ReturnButtonY = PlayButtonY + PlayButtonH + 10,
-    ReturnButtonW = PlayButtonW,
-    ReturnButtonH = PlayButtonH,
-    ReturnButtonFont = PlayButtonFont
+    BkgLabelW = 440,
+    BkgLabelH = 600,
+    BkgLabelX = ((int)MainWindowProps::windowSizeW - BkgLabelW) / 2,
+    BkgLabelY = ((int)MainWindowProps::windowSizeH - BkgLabelH) / 2,
+    TopTextLabelX = BkgLabelX,
+    TopTextLabelY = BkgLabelY + 22,
+    TopTextLabelW = BkgLabelW,
+    TopTextLabelH = 40,
+
+    GameVariantTextLabelX = BkgLabelX + 112,
+    GameVariantTextLabelY = TopTextLabelY + 72,
+
+    GameVariantComboBoxX = GameVariantTextLabelX + 57,
+    GameVariantComboBoxY = GameVariantTextLabelY - 8,
+    GameVariantComboBoxW = 157,
+    GameVariantComboBoxH = 41,
+
+    TimeControlBkgLabelX = BkgLabelX,
+    TimeControlBkgLabelY = GameVariantTextLabelY + 49,
+    TimeControlBkgLabelW = BkgLabelW,
+    TimeControlBkgLabelH = 200,
+
+
+    TimeControlTextLabelX = TimeControlBkgLabelX + 140,
+    TimeControlTextLabelY = TimeControlBkgLabelY + 16,
+
+    TimeControlToggleSwitchX = TimeControlTextLabelX + 94,
+    TimeControlToggleSwitchY = TimeControlTextLabelY - 10,
+
+    MinutesTextLabelX = TimeControlTextLabelX + 5,
+    MinutesTextLabelY = TimeControlTextLabelY + 41,
+
+    MinutesNumberTextLabelX = MinutesTextLabelX + 118,
+    MinutesNumberTextLabelY = MinutesTextLabelY,
+
+    MinutesSliderW = 360,
+    MinutesSliderH = 25,
+    MinutesSliderX = BkgLabelX + (BkgLabelW - MinutesSliderW) / 2,
+    MinutesSliderY = MinutesTextLabelY + 30,
+
+    IncSecondsTextLabelX = MinutesTextLabelX - 10,
+    IncSecondsTextLabelY = MinutesSliderY + 44,
+
+    IncSecondsNumberTextLabelX = IncSecondsTextLabelX + 145,
+    IncSecondsNumberTextLabelY = IncSecondsTextLabelY,
+
+    IncSecondsSliderW = MinutesSliderW,
+    IncSecondsSliderH = MinutesSliderH,
+    IncSecondsSliderX = MinutesSliderX,
+    IncSecondsSliderY = IncSecondsTextLabelY + 31,
 };
 
 enum class PVPMenuPushButtons
@@ -83,6 +122,7 @@ namespace QuickGames
 {
     extern QString NoSelected;
 }
+
 
 // SettingsMenu
 enum class SettingsMenuProps

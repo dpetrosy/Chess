@@ -142,8 +142,8 @@ void MainWindow::makeConnects()
     connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::SettingsButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, _SettingsStackedWidget, Menus::SettingsMenu));
 
     // PVPMenu connects
-    connect(_PVPMenuWidget->getPushButton(PVPMenuPushButtons::PlayButton), &QPushButton::clicked, this, std::bind(&MainWindow::showGame, this, _PVPStackedWidget));
-    connect(_PVPMenuWidget->getPushButton(PVPMenuPushButtons::ReturnButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, _PVPStackedWidget, Menus::MainMenu));
+    //connect(_PVPMenuWidget->getPushButton(PVPMenuPushButtons::PlayButton), &QPushButton::clicked, this, std::bind(&MainWindow::showGame, this, _PVPStackedWidget));
+    //connect(_PVPMenuWidget->getPushButton(PVPMenuPushButtons::ReturnButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, _PVPStackedWidget, Menus::MainMenu));
 
     // Settings connects
     connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::CancelButton), &QPushButton::clicked, _SettingsMenuWidget, std::bind(&SettingsMenu::cancelButtonClicked, _SettingsMenuWidget));

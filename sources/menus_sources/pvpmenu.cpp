@@ -24,9 +24,13 @@ PVPMenu::~PVPMenu()
     // Time Control
     delete _timeControlBkgLabel;
     delete _timeControlTextLabel;
-    delete _timeControlComboBox;
-    //minutes controler
-    //increment seconds controler
+    delete _timeControlToggleSwitch;
+    delete _minutesTextLabel;
+    delete _minutesNumberTextLabel;
+    delete _incSecondsTextLabel;
+    delete _incSecondsNumberTextLabel;
+    delete _minutesSlider;
+    delete _incSecondsSlider;
 
     // Quick Games
     delete _bullet1MPushButton;
@@ -43,73 +47,148 @@ PVPMenu::~PVPMenu()
 
     // Return button
     delete _returnPushButton;
-
-
-
-    // Push Buttons
-    delete _PlayButton;
-    delete _ReturnButton;
 }
 
 // Init
 void PVPMenu::init()
 {
-    _bkgLabel = new QLabel();
-    _topTextLabel = new QLabel();
+    _isDarkTheme = false;
+    _bkgLabel = new QLabel(this);
+    _topTextLabel = new QLabel(this);
 
     // Game Variant
-    _gameVariantTextLabel = new QLabel();
-    _gameVariantComboBox = new QComboBox();
+    _gameVariantTextLabel = new QLabel(this);
+    _gameVariantComboBox = new QComboBox(this);
 
     // Time Control
-    _timeControlBkgLabel = new QLabel();
-    _timeControlTextLabel = new QLabel();
-    _timeControlComboBox = new QComboBox();
-    //minutes controler
-    //increment seconds controler
+    _timeControlBkgLabel = new QLabel(this);
+    _timeControlTextLabel = new QLabel(this);
+    _timeControlToggleSwitch = new ToggleSwitch(this);
+    _minutesTextLabel = new QLabel(this);
+    _minutesNumberTextLabel = new QLabel(this);
+    _incSecondsTextLabel = new QLabel(this);
+    _incSecondsNumberTextLabel = new QLabel(this);
+    _minutesSlider = new QSlider(Qt::Horizontal, this);
+    _incSecondsSlider = new QSlider(Qt::Horizontal, this);
 
     // Quick Games
-    _bullet1MPushButton = new QPushButton();
-    _blitz3MPushButton = new QPushButton();
-    _blitz3MInc2SecPushButton = new QPushButton();
-    _blitz5MPushButton = new QPushButton();
-    _blitz10MPushButton = new QPushButton();
-    _rapid15MPushButton = new QPushButton();
+    _bullet1MPushButton = new QPushButton(this);
+    _blitz3MPushButton = new QPushButton(this);
+    _blitz3MInc2SecPushButton = new QPushButton(this);
+    _blitz5MPushButton = new QPushButton(this);
+    _blitz10MPushButton = new QPushButton(this);
+    _rapid15MPushButton = new QPushButton(this);
 
     // Color buttons
-    _blackColorPushButton = new QPushButton();
-    _randomColorPushButton = new QPushButton();
-    _whiteColorPushButton = new QPushButton();
+    _blackColorPushButton = new QPushButton(this);
+    _randomColorPushButton = new QPushButton(this);
+    _whiteColorPushButton = new QPushButton(this);
 
     // Return button
-    _returnPushButton = new QPushButton();
-
-
-
-    // Push Buttons
-    _PlayButton = new QPushButton("Play", this);
-    _ReturnButton = new QPushButton("Return", this);
+    _returnPushButton = new QPushButton(this);
 }
 
 // Public util functions
-QPushButton *PVPMenu::getPushButton(PVPMenuPushButtons button)
-{
-    switch (button)
-    {
-        case PVPMenuPushButtons::PlayButton: return _PlayButton;
-        case PVPMenuPushButtons::ReturnButton: return _ReturnButton;
-        default: return _ReturnButton;
-    }
-}
+//QPushButton *PVPMenu::getPushButton(PVPMenuPushButtons button)
+//{
+//    switch (button)
+//    {
+
+//    }
+//}
 
 // Private util functions
 void PVPMenu::makePVPMenu()
 {
-    // Set buttons geometry
-    _PlayButton->setGeometry((int)PVPMenuProps::PlayButtonX, (int)PVPMenuProps::PlayButtonY, (int)PVPMenuProps::ReturnButtonW, (int)PVPMenuProps::ReturnButtonH);
-    _ReturnButton->setGeometry((int)PVPMenuProps::ReturnButtonX, (int)PVPMenuProps::ReturnButtonY, (int)PVPMenuProps::ReturnButtonW, (int)PVPMenuProps::ReturnButtonH);
+    // Background label
+    ::setStyleSheetByTheme(StylesPaths::lightThemeBkgLabelStyle, StylesPaths::darkThemeBkgLabelStyle, _bkgLabel, _isDarkTheme);
+    _bkgLabel->setGeometry((int)PVPMenuProps::BkgLabelX, (int)PVPMenuProps::BkgLabelY, (int)PVPMenuProps::BkgLabelW, (int)PVPMenuProps::BkgLabelH);
 
-    // Set buttons fonts
-    setPushButtonFont(_PlayButton, (int)PVPMenuProps::PlayButtonFont);
-    setPushButtonFont(_ReturnButton, (int)PVPMenuProps::ReturnButtonFont);
+    // Top text label
+    _topTextLabel->setGeometry((int)PVPMenuProps::TopTextLabelX, (int)PVPMenuProps::TopTextLabelY, (int)PVPMenuProps::TopTextLabelW, (int)PVPMenuProps::TopTextLabelH);
+    ::setStyleSheetByTheme(StylesPaths::lightTopTextStyle, StylesPaths::darkTopTextStyle, _topTextLabel, _isDarkTheme);
+    _topTextLabel->setText("Play with a friend");
+    _topTextLabel->setAlignment(Qt::AlignCenter);
+
+    // Text for game variant
+    _gameVariantTextLabel->move((int)PVPMenuProps::GameVariantTextLabelX, (int)PVPMenuProps::GameVariantTextLabelY);
+    ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _gameVariantTextLabel, _isDarkTheme);
+    _gameVariantTextLabel->setText("Variant");
+
+    // Game variant combobox
+    _gameVariantComboBox->setGeometry((int)PVPMenuProps::GameVariantComboBoxX, (int)PVPMenuProps::GameVariantComboBoxY, (int)PVPMenuProps::GameVariantComboBoxW, (int)PVPMenuProps::GameVariantComboBoxH);
+    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _gameVariantComboBox, _isDarkTheme);
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::AngelView));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Blacked));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::BravePawn));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Checkmate));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Dark_Chess));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Emperors));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::FaceToFace));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::IAmTheKing));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Landscape));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Shadow));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::StrongKnight));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheBishop));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheKing));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheKnight));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheQueen));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheRook));
+//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TopView));
+//    _gameVariantComboBox->setCurrentIndex(15);
+//    connect(_gameVariantComboBox, &QComboBox::currentIndexChanged, this, &SettingsMenu::bkgImageComboBoxIndexChanged);
+
+    // Time Control background label
+    ::setStyleSheetByTheme(StylesPaths::lightTimeControlBkgLabelStyle, StylesPaths::darkTimeControlBkgLabelStyle, _timeControlBkgLabel, _isDarkTheme);
+    _timeControlBkgLabel->setGeometry((int)PVPMenuProps::TimeControlBkgLabelX, (int)PVPMenuProps::TimeControlBkgLabelY, (int)PVPMenuProps::TimeControlBkgLabelW, (int)PVPMenuProps::TimeControlBkgLabelH);
+
+    // Text for time control
+    _timeControlTextLabel->move((int)PVPMenuProps::TimeControlTextLabelX, (int)PVPMenuProps::TimeControlTextLabelY);
+    ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _timeControlTextLabel, _isDarkTheme);
+    _timeControlTextLabel->setText("Time control");
+
+    // Time control toggle switch
+    _timeControlToggleSwitch->move((int)PVPMenuProps::TimeControlToggleSwitchX, (int)PVPMenuProps::TimeControlToggleSwitchY);
+    _timeControlToggleSwitch->setChecked(false);
+
+    // Text for minutes slider
+    _minutesTextLabel->move((int)PVPMenuProps::MinutesTextLabelX, (int)PVPMenuProps::MinutesTextLabelY);
+    ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _minutesTextLabel, _isDarkTheme);
+    _minutesTextLabel->setText("Minutes per side: ");
+
+    // Text for minutes slider number
+    _minutesNumberTextLabel->move((int)PVPMenuProps::MinutesNumberTextLabelX, (int)PVPMenuProps::MinutesNumberTextLabelY);
+    ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _minutesNumberTextLabel, _isDarkTheme);
+    _minutesNumberTextLabel->setText("0");
+
+    // Minutes slider
+    _minutesSlider->setGeometry((int)PVPMenuProps::MinutesSliderX, (int)PVPMenuProps::MinutesSliderY, (int)PVPMenuProps::MinutesSliderW, (int)PVPMenuProps::MinutesSliderH);
+    ::setStyleSheetByTheme(StylesPaths::lightSliderStyle, StylesPaths::darkSliderStyle, _minutesSlider, _isDarkTheme);
+
+
+
+
+
+    // Text for increment seconds
+    _incSecondsTextLabel->move((int)PVPMenuProps::IncSecondsTextLabelX, (int)PVPMenuProps::IncSecondsTextLabelY);
+    ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _incSecondsTextLabel, _isDarkTheme);
+    _incSecondsTextLabel->setText("Increment in seconds: ");
+
+    // Text for increment seconds number
+    _incSecondsNumberTextLabel->move((int)PVPMenuProps::IncSecondsNumberTextLabelX, (int)PVPMenuProps::IncSecondsNumberTextLabelY);
+    ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _incSecondsNumberTextLabel, _isDarkTheme);
+    _incSecondsNumberTextLabel->setText("0");
+
+    // Increment seconds slider
+    _incSecondsSlider->setGeometry((int)PVPMenuProps::IncSecondsSliderX, (int)PVPMenuProps::IncSecondsSliderY, (int)PVPMenuProps::IncSecondsSliderW, (int)PVPMenuProps::IncSecondsSliderH);
+    ::setStyleSheetByTheme(StylesPaths::lightSliderStyle, StylesPaths::darkSliderStyle, _incSecondsSlider, _isDarkTheme);
+
+
+
+
+
+
+
+
+
 }

@@ -153,7 +153,7 @@ void SettingsMenu::makeSettingsMenu()
     // Text for background image
     _bkgImageTextLabel->setGeometry((int)SettingsMenuProps::BkgImageTextLabelX, (int)SettingsMenuProps::BkgImageTextLabelY, (int)SettingsMenuProps::BkgImageTextLabelW, (int)SettingsMenuProps::BkgImageTextLabelH);
     _bkgImageTextLabel->setText("Background Image");
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _bkgImageTextLabel, _settingsData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _bkgImageTextLabel, _settingsData.isDarkTheme);
 
     // Background image combobox
     _bkgImageComboBox->setGeometry((int)SettingsMenuProps::BkgImageComboBoxX, (int)SettingsMenuProps::BkgImageComboBoxY, (int)SettingsMenuProps::BkgImageComboBoxW, (int)SettingsMenuProps::BkgImageComboBoxH);
@@ -181,7 +181,7 @@ void SettingsMenu::makeSettingsMenu()
     // Text for piece sets
     _pieceSetsTextLabel->setGeometry((int)SettingsMenuProps::PieceSetTextLabelX, (int)SettingsMenuProps::PieceSetTextLabelY, (int)SettingsMenuProps::PieceSetTextLabelW, (int)SettingsMenuProps::PieceSetTextLabelH);
     _pieceSetsTextLabel->setText("Piece Set");
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _pieceSetsTextLabel, _settingsData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _pieceSetsTextLabel, _settingsData.isDarkTheme);
 
     // Piece sets combobox
     _pieceSetsComboBox->setGeometry((int)SettingsMenuProps::PieceSetComboBoxX, (int)SettingsMenuProps::PieceSetComboBoxY, (int)SettingsMenuProps::PieceSetComboBoxW, (int)SettingsMenuProps::PieceSetComboBoxH);
@@ -190,7 +190,7 @@ void SettingsMenu::makeSettingsMenu()
     // Text for board
     _boardTextLabel->setGeometry((int)SettingsMenuProps::BoardTextLabelX, (int)SettingsMenuProps::BoardTextLabelY, (int)SettingsMenuProps::BoardTextLabelW, (int)SettingsMenuProps::BoardTextLabelH);
     _boardTextLabel->setText("Board");
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _boardTextLabel, _settingsData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _boardTextLabel, _settingsData.isDarkTheme);
 
     // Board combobox
     _boardComboBox->setGeometry((int)SettingsMenuProps::BoardComboBoxX, (int)SettingsMenuProps::BoardComboBoxY, (int)SettingsMenuProps::BoardComboBoxW, (int)SettingsMenuProps::BoardComboBoxH);
@@ -199,7 +199,7 @@ void SettingsMenu::makeSettingsMenu()
     // Text for language
     _languageTextLabel->setGeometry((int)SettingsMenuProps::LanguageTextLabelX, (int)SettingsMenuProps::LanguageTextLabelY, (int)SettingsMenuProps::LanguageTextLabelW, (int)SettingsMenuProps::LanguageTextLabelH);
     _languageTextLabel->setText("Language");
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _languageTextLabel, _settingsData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _languageTextLabel, _settingsData.isDarkTheme);
 
     // Language combobox
     _languageComboBox->setGeometry((int)SettingsMenuProps::LanguageComboBoxX, (int)SettingsMenuProps::LanguageComboBoxY, (int)SettingsMenuProps::LanguageComboBoxW, (int)SettingsMenuProps::LanguageComboBoxH);
@@ -213,7 +213,7 @@ void SettingsMenu::makeSettingsMenu()
     // Text for sound
     _soundTextLabel->setGeometry((int)SettingsMenuProps::SoundTextLabelX, (int)SettingsMenuProps::SoundTextLabelY, (int)SettingsMenuProps::SoundTextLabelW, (int)SettingsMenuProps::SoundTextLabelH);
     _soundTextLabel->setText("Play Sounds");
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _soundTextLabel, _settingsData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _soundTextLabel, _settingsData.isDarkTheme);
 
     // Sound toggle switch
     _soundToggleSwitch->move((int)SettingsMenuProps::SoundToggleSwitchX, (int)SettingsMenuProps::SoundToggleSwitchY);
@@ -222,7 +222,7 @@ void SettingsMenu::makeSettingsMenu()
     // Text for theme
     _themeTextLabel->setGeometry((int)SettingsMenuProps::ThemeTextLabelX, (int)SettingsMenuProps::ThemeTextLabelY, (int)SettingsMenuProps::ThemeTextLabelW, (int)SettingsMenuProps::ThemeTextLabelH);
     _themeTextLabel->setText("Black theme");
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _themeTextLabel, _settingsData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _themeTextLabel, _settingsData.isDarkTheme);
 
     // Theme toggle switch
     _themeToggleSwitch->move((int)SettingsMenuProps::ThemeToggleSwitchX, (int)SettingsMenuProps::ThemeToggleSwitchY);
@@ -410,34 +410,34 @@ void SettingsMenu::changeMenuTheme()
     ::setStyleSheetByTheme(StylesPaths::lightThemeBkgLabelStyle, StylesPaths::darkThemeBkgLabelStyle, _bkgLabel, _tempData.isDarkTheme);
 
     // Text for background image
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _bkgImageTextLabel, _tempData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _bkgImageTextLabel, _tempData.isDarkTheme);
 
     // Background image combobox
     ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _bkgImageComboBox, _tempData.isDarkTheme);
 
     // Text for piece sets
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _pieceSetsTextLabel, _tempData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _pieceSetsTextLabel, _tempData.isDarkTheme);
 
     // Piece sets combobox
     ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _pieceSetsComboBox, _tempData.isDarkTheme);
 
     // Text for board
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _boardTextLabel, _tempData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _boardTextLabel, _tempData.isDarkTheme);
 
     // Board combobox
     ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _boardComboBox, _tempData.isDarkTheme);
 
     // Text for language
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _languageTextLabel, _tempData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _languageTextLabel, _tempData.isDarkTheme);
 
     // Language combobox
     ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _languageComboBox, _tempData.isDarkTheme);
 
     // Text for sound
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _soundTextLabel, _tempData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _soundTextLabel, _tempData.isDarkTheme);
 
     // Text for theme
-    ::setStyleSheetByTheme(StylesPaths::lightThemeTextStyle, StylesPaths::darkThemeTextStyle, _themeTextLabel, _tempData.isDarkTheme);
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _themeTextLabel, _tempData.isDarkTheme);
 
     // Buttons background label
     ::setStyleSheetByTheme(StylesPaths::lightThemeButtonsLabelStyle, StylesPaths::darkThemeButtonsLabelStyle, _buttonsBkgLabel, _tempData.isDarkTheme);

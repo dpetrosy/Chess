@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QComboBox>
 #include <QLabel>
+#include <QSlider>
 
 #include "menus_helpers.hpp"
 
@@ -29,6 +30,7 @@ private:
     void makePVPMenu();
 
 private:
+    bool          _isDarkTheme;
     QLabel*       _bkgLabel;
     QLabel*       _topTextLabel;
 
@@ -39,9 +41,13 @@ private:
     // Time Control
     QLabel*       _timeControlBkgLabel;
     QLabel*       _timeControlTextLabel;
-    QComboBox*    _timeControlComboBox;
-    //minutes controler
-    //increment seconds controler
+    ToggleSwitch* _timeControlToggleSwitch;
+    QLabel*       _minutesTextLabel;
+    QLabel*       _minutesNumberTextLabel;
+    QLabel*       _incSecondsTextLabel;
+    QLabel*       _incSecondsNumberTextLabel;
+    QSlider*      _minutesSlider;
+    QSlider*      _incSecondsSlider;
 
     // Quick Games
     QPushButton*  _bullet1MPushButton;
@@ -52,17 +58,12 @@ private:
     QPushButton*  _rapid15MPushButton;
 
     // Color buttons
-    QPushButton* _blackColorPushButton;
-    QPushButton* _randomColorPushButton;
-    QPushButton* _whiteColorPushButton;
+    QPushButton*  _blackColorPushButton;
+    QPushButton*  _randomColorPushButton;
+    QPushButton*  _whiteColorPushButton;
 
     // Return button
-    QPushButton* _returnPushButton;
-
-
-
-    QPushButton*  _PlayButton;
-    QPushButton* _ReturnButton;
+    QPushButton*  _returnPushButton;
 };
 
 #endif // PVPMENU_HPP

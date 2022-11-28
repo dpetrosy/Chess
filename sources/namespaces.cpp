@@ -33,21 +33,34 @@ namespace StylesPaths
 
     // General for menus
     QString MenusStylesPath = stylesPath + "menus_styles/";
-    QString darkThemeBkgLabelStyle = MenusStylesPath + "dark_theme_bkg_label.txt";
     QString lightThemeBkgLabelStyle = MenusStylesPath + "light_theme_bkg_label.txt";
-    QString darkThemeTextStyle = MenusStylesPath + "dark_theme_text.txt";
-    QString lightThemeTextStyle = MenusStylesPath + "light_theme_text.txt";
-    QString darkComboBoxStyle = MenusStylesPath + "dark_combobox.txt";
+    QString darkThemeBkgLabelStyle = MenusStylesPath + "dark_theme_bkg_label.txt";
+    QString lightTextStyle = MenusStylesPath + "light_text.txt";
+    QString darkTextStyle = MenusStylesPath + "dark_text.txt";
+    QString lightBoldTextStyle = MenusStylesPath + "light_bold_text.txt";
+    QString darkBoldTextStyle = MenusStylesPath + "dark_bold_text.txt";
     QString lightComboBoxStyle = MenusStylesPath + "light_combobox.txt";
+    QString darkComboBoxStyle = MenusStylesPath + "dark_combobox.txt";
+    QString lightSliderStyle = MenusStylesPath + "light_slider.txt";
+    QString darkSliderStyle = MenusStylesPath + "dark_slider.txt";
+    QString lightDimTextStyle = MenusStylesPath + "light_dim_text.txt";
+    QString darkDimTextStyle = MenusStylesPath + "dark_dim_text.txt";
 
     // Settings menu
     QString SettingsMenuStylesPath = MenusStylesPath + "settings_menu_styles/";
-    QString darkThemeButtonsLabelStyle = SettingsMenuStylesPath + "dark_theme_buttons_label.txt";
     QString hideAndShowButtonStyle = SettingsMenuStylesPath + "hide_and_show_button.txt";
     QString lightThemeButtonsLabelStyle = SettingsMenuStylesPath + "light_theme_buttons_label.txt";
-    QString settingsMenuDarkCancelButtonStyle = SettingsMenuStylesPath + "settings_menu_dark_cancel_button.txt";
+    QString darkThemeButtonsLabelStyle = SettingsMenuStylesPath + "dark_theme_buttons_label.txt";
     QString settingsMenuLightCancelButtonStyle = SettingsMenuStylesPath + "settings_menu_light_cancel_button.txt";
+    QString settingsMenuDarkCancelButtonStyle = SettingsMenuStylesPath + "settings_menu_dark_cancel_button.txt";
     QString settingsMenuSaveButtonStyle = SettingsMenuStylesPath + "settings_menu_save_button.txt";
+
+    // PVP menu
+    QString PVPMenuStylesPath = MenusStylesPath + "pvp_menu_styles/";
+    QString lightTopTextStyle = PVPMenuStylesPath + "light_top_text.txt";
+    QString darkTopTextStyle = PVPMenuStylesPath + "dark_top_text.txt";
+    QString lightTimeControlBkgLabelStyle = PVPMenuStylesPath + "light_time_control_bkg_label.txt";
+    QString darkTimeControlBkgLabelStyle = PVPMenuStylesPath + "dark_time_control_bkg_label.txt";
 
 
 

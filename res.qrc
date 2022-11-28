@@ -51,9 +51,19 @@
         <file>styles/menus_styles/settings_menu_styles/settings_menu_dark_cancel_button.txt</file>
         <file>styles/menus_styles/settings_menu_styles/settings_menu_light_cancel_button.txt</file>
         <file>styles/menus_styles/settings_menu_styles/settings_menu_save_button.txt</file>
-        <file>styles/menus_styles/dark_theme_text.txt</file>
-        <file>styles/menus_styles/light_theme_text.txt</file>
+        <file>styles/menus_styles/dark_bold_text.txt</file>
+        <file>styles/menus_styles/light_text.txt</file>
         <file>styles/menus_styles/light_combobox.txt</file>
         <file>styles/menus_styles/dark_combobox.txt</file>
+        <file>styles/menus_styles/pvp_menu_styles/light_top_text.txt</file>
+        <file>styles/menus_styles/pvp_menu_styles/light_time_control_bkg_label.txt</file>
+        <file>styles/menus_styles/dark_slider.txt</file>
+        <file>styles/menus_styles/light_slider.txt</file>
+        <file>styles/menus_styles/light_bold_text.txt</file>
+        <file>styles/menus_styles/pvp_menu_styles/dark_time_control_bkg_label.txt</file>
+        <file>styles/menus_styles/pvp_menu_styles/dark_top_text.txt</file>
+        <file>styles/menus_styles/dark_text.txt</file>
+        <file>styles/menus_styles/dark_dim_text.txt</file>
+        <file>styles/menus_styles/light_dim_text.txt</file>
     </qresource>
 </RCC>

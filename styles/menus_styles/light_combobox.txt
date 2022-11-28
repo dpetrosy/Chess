@@ -6,6 +6,11 @@ QComboBox
     border-radius: 4px;
 }
 
+QListView::item:selected
+{
+    color: rgb(240, 240, 240);
+}
+
 QComboBox::drop-down
 {
     border: 0px;
