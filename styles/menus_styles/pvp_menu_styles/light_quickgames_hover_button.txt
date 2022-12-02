@@ -1,0 +1,5 @@
+QLabel
+{
+    border: 1px solid #b7b5ff;
+    border-radius: 6px;
+}

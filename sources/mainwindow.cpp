@@ -17,13 +17,13 @@ MainWindow::MainWindow(QWidget *parent)
     setBackgroundImage(BackgroundImages::TheRook);
 
     // Make stackedWidgets
-    makeStackedWidgets();
+    makeMenusStackedWidget();
 
     // Make connects
     makeConnects();
 
     // Set MainMenu when program start
-    switchMenu(_PVPStackedWidget, Menus::MainMenu);
+    switchMenu(Menus::MainMenu);
 }
 
 MainWindow::~MainWindow()
@@ -34,8 +34,7 @@ MainWindow::~MainWindow()
     delete _SettingsMenuWidget;
 
     // StackedWidgets
-    delete _PVPStackedWidget;
-    delete _SettingsStackedWidget;
+    delete _MenusStackedWidget;
 
     // Chess game attributes
     delete _gameWidget;
@@ -60,24 +59,23 @@ void MainWindow::init()
     _PVPMenuWidget = new PVPMenu();
     _SettingsMenuWidget = new SettingsMenu();
 
-    // StackedWidgets
-    _PVPStackedWidget = new QStackedWidget();
-    _SettingsStackedWidget = new QStackedWidget();
+    // Menus StackedWidget
+    _MenusStackedWidget = new QStackedWidget();
 
     // Chess game attributes
     _gameWidget = GameWidget::GetInstance(this);
 }
 
 // Public slots
-void MainWindow::switchMenu(QStackedWidget* stackedWidget, Menus toMenu)
+void MainWindow::switchMenu(Menus toMenu)
 {
-    setCentralWidget(stackedWidget);
-    stackedWidget->setCurrentIndex((int)toMenu);
+    setCentralWidget(_MenusStackedWidget);
+    _MenusStackedWidget->setCurrentIndex((int)toMenu);
 }
 
-void MainWindow::showGame(QStackedWidget *stackedWidget)
+void MainWindow::showGame()
 {
-    stackedWidget->hide();
+    _MenusStackedWidget->hide();
     setCentralWidget(_gameWidget);
 
     /***************** Test until make PVP menu *****************/
@@ -115,37 +113,26 @@ void MainWindow::setBackgroundImage(const QString& image)
     this->setPalette(_palette);
 }
 
-QStackedWidget* MainWindow::getStackedWidget(MainMenuStackedWidgets stackedWidget)
+QStackedWidget* MainWindow::getStackedWidget()
 {
-    switch (stackedWidget)
-    {
-        case MainMenuStackedWidgets::PVPStackedWidget: return _PVPStackedWidget;
-        default: return _PVPStackedWidget;
-    }
+    return _MenusStackedWidget;
 }
 
 // Private util functions
-void MainWindow::makeStackedWidgets()
+void MainWindow::makeMenusStackedWidget()
 {
-    // PVP StackedWidget
-    makeStackedWidget(_PVPStackedWidget, _MainMenuWidget, _PVPMenuWidget);
-
-    // Settings StackedWidget
-    makeStackedWidget(_SettingsStackedWidget, _SettingsMenuWidget);
+    makeStackedWidget(_MenusStackedWidget, _MainMenuWidget, _PVPMenuWidget, _SettingsMenuWidget);
 }
 
 void MainWindow::makeConnects()
 {
     // MainMenu connects
-    connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::PVPButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, _PVPStackedWidget, Menus::PVPMenu));
+    connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::PVPButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, Menus::PVPMenu));
     connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::QuitButton), &QPushButton::clicked, this, std::bind(&MainWindow::showQuitWindow, this));
-    connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::SettingsButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, _SettingsStackedWidget, Menus::SettingsMenu));
-
-    // PVPMenu connects
-    //connect(_PVPMenuWidget->getPushButton(PVPMenuPushButtons::PlayButton), &QPushButton::clicked, this, std::bind(&MainWindow::showGame, this, _PVPStackedWidget));
-    //connect(_PVPMenuWidget->getPushButton(PVPMenuPushButtons::ReturnButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, _PVPStackedWidget, Menus::MainMenu));
+    connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::SettingsButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, Menus::SettingsMenu));
 
     // Settings connects
     connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::CancelButton), &QPushButton::clicked, _SettingsMenuWidget, std::bind(&SettingsMenu::cancelButtonClicked, _SettingsMenuWidget));
-    connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::SaveButton), &QPushButton::clicked, _SettingsMenuWidget, std::bind(&SettingsMenu::saveButtonClicked, _SettingsMenuWidget));
+    //connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::CancelButton), &QPushButton::clicked, _SettingsMenuWidget, std::bind(&SettingsMenu::cancelButtonClicked, _SettingsMenuWidget));
+    connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::SaveButton), &QPushButton::clicked, _SettingsMenuWidget, &SettingsMenu::saveButtonClicked);
 }

@@ -106,7 +106,7 @@ void SettingsMenu::cancelButtonClicked()
 
     /* ******************************************  CRASH  **************************************** */
     auto mainWindow = MainWindow::GetInstance();
-    mainWindow->switchMenu(mainWindow->getStackedWidget(MainMenuStackedWidgets::SettingsStackedWidget), (Menus)1);
+    mainWindow->switchMenu(Menus::MainMenu);
 }
 
 void SettingsMenu::saveButtonClicked()
@@ -116,7 +116,7 @@ void SettingsMenu::saveButtonClicked()
 
     /* ******************************************  CRASH  **************************************** */
     auto mainWindow = MainWindow::GetInstance();
-    mainWindow->switchMenu(mainWindow->getStackedWidget(MainMenuStackedWidgets::PVPStackedWidget), Menus::MainMenu);
+    //mainWindow->switchMenu(mainWindow->getStackedWidget(MainMenuStackedWidgets::PVPStackedWidget), Menus::MainMenu);
 }
 
 // Public util functions
@@ -397,9 +397,15 @@ void SettingsMenu::hideAndShowMenu()
 void SettingsMenu::swapMenuTheme()
 {
     if (_tempData.isDarkTheme)
+    {
         _tempData.isDarkTheme = false;
+        globalIsDarkTheme = false;
+    }
     else
+    {
         _tempData.isDarkTheme = true;
+        globalIsDarkTheme = true;
+    }
 
     changeMenuTheme();
 }

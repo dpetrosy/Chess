@@ -305,3 +305,10 @@ void ToggleSwitch::toggle(Qt::CheckState state)
         }
     }
 }
+
+void ToggleSwitch::enterEvent(QEnterEvent *event)
+{
+    this->setCursor(Qt::PointingHandCursor);
+
+    QAbstractButton::enterEvent(event);
+}

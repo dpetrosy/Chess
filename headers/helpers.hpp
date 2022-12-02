@@ -3,6 +3,8 @@
 
 #include <QString>
 
+extern bool globalIsDarkTheme;
+
 enum class MainWindowProps
 {
     windowSizeW = 1115,
@@ -16,9 +18,49 @@ namespace ImagesPaths
     extern QString logosPath;
     extern QString backgroundsPath;
     extern QString boardsPath;
+
+    // Menus images
+    extern QString menusPath;
+
+    // Settings images
     extern QString settingsPath;
     extern QString settingsBoardsPath;
     extern QString settingsPiecesSetsPath;
+
+    // PVP menu
+    extern QString pvpPath;
+
+    extern QString LightQuickGamesPath;
+    extern QString LightBullet1MButton;
+    extern QString LightBlitz3MButton;
+    extern QString LightBlitz3MInc2SecButton;
+    extern QString LightBlitz5MButton;
+    extern QString LightBlitz10MButton;
+    extern QString LightRapid15MButton;
+
+    extern QString LightHoverQuickGamesPath;
+    extern QString LightBullet1MHoverButton;
+    extern QString LightBlitz3MHoverButton;
+    extern QString LightBlitz3MInc2SecHoverButton;
+    extern QString LightBlitz5MHoverButton;
+    extern QString LightBlitz10MHoverButton;
+    extern QString LightRapid15MHoverButton;
+
+    extern QString DarkQuickGamesPath;
+    extern QString DarkBullet1MButton;
+    extern QString DarkBlitz3MButton;
+    extern QString DarkBlitz3MInc2SecButton;
+    extern QString DarkBlitz5MButton;
+    extern QString DarkBlitz10MButton;
+    extern QString DarkRapid15MButton;
+
+    extern QString DarkHoverQuickGamesPath;
+    extern QString DarkBullet1MHoverButton;
+    extern QString DarkBlitz3MHoverButton;
+    extern QString DarkBlitz3MInc2SecHoverButton;
+    extern QString DarkBlitz5MHoverButton;
+    extern QString DarkBlitz10MHoverButton;
+    extern QString DarkRapid15MHoverButton;
 }
 
 namespace StylesPaths
@@ -39,6 +81,8 @@ namespace StylesPaths
     extern QString darkSliderStyle;
     extern QString lightDimTextStyle;
     extern QString darkDimTextStyle;
+    extern QString lightBoldDimTextStyle;
+    extern QString darkBoldDimTextStyle;
 
     // Settings menu
     extern QString SettingsMenuStylesPath;
@@ -55,6 +99,12 @@ namespace StylesPaths
     extern QString darkTopTextStyle;
     extern QString lightTimeControlBkgLabelStyle;
     extern QString darkTimeControlBkgLabelStyle;
+    extern QString lightQuickGamesTextStyle;
+    extern QString darkQuickGamesTextStyle;
+    extern QString lightQuickGamesButtonStyle;
+    extern QString darkQuickGamesButtonStyle;
+    extern QString lightQuickGamesHoverButtonStyle;
+    extern QString darkQuickGamesHoverButtonStyle;
 }
 
 #endif // HELPERS_HPP

@@ -69,6 +69,7 @@ public:
     ~ToggleSwitch() override;
 
     QSize sizeHint() const override final;
+    void  enterEvent(QEnterEvent *event) override;
 
 protected:
     void paintEvent(QPaintEvent*) override final;

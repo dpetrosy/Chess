@@ -19,8 +19,6 @@
         <file>images/pieces/check.png</file>
         <file>images/pieces/current_piece_and_checked.png</file>
         <file>images/boards/dark/board1.jpg</file>
-        <file>images/settings/boards/board1.png</file>
-        <file>images/settings/pieces_sets/set1.png</file>
         <file>images/backgrounds/I_am_the_King.jpg</file>
         <file>images/backgrounds/Landscape.jpg</file>
         <file>images/backgrounds/The_Bishop.jpg</file>
@@ -38,8 +36,34 @@
         <file>images/backgrounds/Shadow.jpg</file>
         <file>images/backgrounds/Strong_Knight.jpg</file>
         <file>images/backgrounds/Top_View.jpg</file>
-        <file>images/settings/light_theme_arrow.png</file>
-        <file>images/settings/dark_theme_arrow.png</file>
+        <file>images/menus/settings/boards/board1.png</file>
+        <file>images/menus/settings/pieces_sets/set1.png</file>
+        <file>images/menus/settings/dark_theme_arrow.png</file>
+        <file>images/menus/settings/light_theme_arrow.png</file>
+        <file>images/menus/pvp/light_quick_games/blitz_10M.png</file>
+        <file>images/menus/pvp/light_quick_games/blitz_3M.png</file>
+        <file>images/menus/pvp/light_quick_games/blitz_3M_inc2sec.png</file>
+        <file>images/menus/pvp/light_quick_games/blitz_5M.png</file>
+        <file>images/menus/pvp/light_quick_games/bullet_1M.png</file>
+        <file>images/menus/pvp/light_quick_games/rapid_15M.png</file>
+        <file>images/menus/pvp/light_hover_quick_games/bullet_1M_hover.png</file>
+        <file>images/menus/pvp/light_hover_quick_games/blitz_3M_hover.png</file>
+        <file>images/menus/pvp/light_hover_quick_games/blitz_3M_inc2sec_hover.png</file>
+        <file>images/menus/pvp/light_hover_quick_games/blitz_5M_hover.png</file>
+        <file>images/menus/pvp/light_hover_quick_games/blitz_10M_hover.png</file>
+        <file>images/menus/pvp/light_hover_quick_games/rapid_15M_hover.png</file>
+        <file>images/menus/pvp/dark_quick_games/blitz_10M.png</file>
+        <file>images/menus/pvp/dark_quick_games/blitz_3M.png</file>
+        <file>images/menus/pvp/dark_quick_games/blitz_3M_inc2sec.png</file>
+        <file>images/menus/pvp/dark_quick_games/blitz_5M.png</file>
+        <file>images/menus/pvp/dark_quick_games/bullet_1M.png</file>
+        <file>images/menus/pvp/dark_quick_games/rapid_15M.png</file>
+        <file>images/menus/pvp/dark_hover_quick_games/blitz_10M_hover.png</file>
+        <file>images/menus/pvp/dark_hover_quick_games/blitz_3M_hover.png</file>
+        <file>images/menus/pvp/dark_hover_quick_games/blitz_3M_inc2sec_hover.png</file>
+        <file>images/menus/pvp/dark_hover_quick_games/blitz_5M_hover.png</file>
+        <file>images/menus/pvp/dark_hover_quick_games/bullet_1M_hover.png</file>
+        <file>images/menus/pvp/dark_hover_quick_games/rapid_15M_hover.png</file>
     </qresource>
     <qresource prefix="/">
         <file>styles/pieces_styles/pawn_prom_buttons_style.txt</file>
@@ -65,5 +89,13 @@
         <file>styles/menus_styles/dark_text.txt</file>
         <file>styles/menus_styles/dark_dim_text.txt</file>
         <file>styles/menus_styles/light_dim_text.txt</file>
+        <file>styles/menus_styles/dark_bold_dim_text.txt</file>
+        <file>styles/menus_styles/light_bold_dim_text.txt</file>
+        <file>styles/menus_styles/pvp_menu_styles/dark_quick_games_text.txt</file>
+        <file>styles/menus_styles/pvp_menu_styles/light_quick_games_text.txt</file>
+        <file>styles/menus_styles/pvp_menu_styles/dark_quickgames_button.txt</file>
+        <file>styles/menus_styles/pvp_menu_styles/light_quickgames_button.txt</file>
+        <file>styles/menus_styles/pvp_menu_styles/dark_quickgames_hover_button.txt</file>
+        <file>styles/menus_styles/pvp_menu_styles/light_quickgames_hover_button.txt</file>
     </qresource>
 </RCC>

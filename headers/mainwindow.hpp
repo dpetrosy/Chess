@@ -32,11 +32,11 @@ public:
 public:
     // Public util functions
     void             setBackgroundImage(const QString& image);
-    QStackedWidget*  getStackedWidget(MainMenuStackedWidgets stackedWidget);
+    QStackedWidget*  getStackedWidget();
 
 public slots:
-    void switchMenu(QStackedWidget *stackedWidget, Menus toMenu);
-    void showGame(QStackedWidget *stackedWidget);
+    void switchMenu(Menus toMenu);
+    void showGame();
     void showQuitWindow();
     void exitFromProgram(int signal);
 
@@ -47,7 +47,7 @@ private:
     void init();
 
     // Private util functions
-    void makeStackedWidgets();
+    void makeMenusStackedWidget();
     void makeConnects();
 
     // StackedWidget maker
@@ -78,9 +78,8 @@ private:
     PVPMenu*        _PVPMenuWidget;
     SettingsMenu*   _SettingsMenuWidget;
 
-    // StackedWidgets
-    QStackedWidget* _PVPStackedWidget;
-    QStackedWidget* _SettingsStackedWidget;
+    // Menus StackedWidget
+    QStackedWidget* _MenusStackedWidget;
 
     // Chess game Widgets
     GameWidget*     _gameWidget;

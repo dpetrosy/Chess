@@ -53,3 +53,34 @@ QString removeUnderscoreInString(QString str)
             *it = ' ';
     return str;
 }
+
+//void setPushButtonIconByTheme(QPushButton* button, bool isDarkTheme, QString lightPixmapStr, QString darkPixmapStr)
+//{
+//    QPixmap pixmap;
+
+//    if (isDarkTheme)
+//        pixmap.load(darkPixmapStr);
+//    else
+//        pixmap.load(lightPixmapStr);
+
+//    QIcon buttonIcon(pixmap);
+//    button->setIcon(buttonIcon);
+//    button->setIconSize(pixmap.rect().size());
+//}
+
+//void makeWidgetByTheme(QPushButton* button, bool isDarkTheme, QString lightStylePath, QString darkStylePath, QString lightPixmapStr, QString darkPixmapStr)
+//{
+//    if (!(lightPixmapStr == "" && darkPixmapStr == ""))
+//        setPushButtonIconByTheme(button, isDarkTheme, lightPixmapStr, darkPixmapStr);
+
+//    if (!(lightStylePath == "" && darkStylePath == ""))
+//        setStyleSheetByTheme(lightStylePath, darkStylePath, button, isDarkTheme);
+//}
+
+void setQLabelPictureByTheme(QLabel* label, bool isDarkTheme, QString lightThemePicturePath, QString darkThemePicturePath)
+{
+    if (isDarkTheme)
+        label->setPixmap(QPixmap(darkThemePicturePath));
+    else
+        label->setPixmap(QPixmap(lightThemePicturePath));
+}

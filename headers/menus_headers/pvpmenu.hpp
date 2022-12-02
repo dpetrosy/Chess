@@ -10,6 +10,7 @@
 #include <QSlider>
 
 #include "menus_helpers.hpp"
+#include "quick_game_button.hpp"
 
 class PVPMenu : public QWidget
 {
@@ -30,7 +31,6 @@ private:
     void makePVPMenu();
 
 private:
-    bool          _isDarkTheme;
     QLabel*       _bkgLabel;
     QLabel*       _topTextLabel;
 
@@ -50,12 +50,13 @@ private:
     QSlider*      _incSecondsSlider;
 
     // Quick Games
-    QPushButton*  _bullet1MPushButton;
-    QPushButton*  _blitz3MPushButton;
-    QPushButton*  _blitz3MInc2SecPushButton;
-    QPushButton*  _blitz5MPushButton;
-    QPushButton*  _blitz10MPushButton;
-    QPushButton*  _rapid15MPushButton;
+    QLabel*           _quickGamesTextLabel;
+    QuickGameButton*  _bullet1MPushButton;
+    QuickGameButton*  _blitz3MPushButton;
+    QuickGameButton*  _blitz3MInc2SecPushButton;
+    QuickGameButton*  _blitz5MPushButton;
+    QuickGameButton*  _blitz10MPushButton;
+    QuickGameButton*  _rapid15MPushButton;
 
     // Color buttons
     QPushButton*  _blackColorPushButton;

@@ -17,11 +17,11 @@ public:
     ~ClickableLabel();
 
 signals:
-    void clickedLeftButton();
+    virtual void clickedLeftButton();
 
 private:
     // Mouse press events
-    void mousePressEvent(QMouseEvent* event);
+    virtual void mousePressEvent(QMouseEvent* event);
 };
 
 #endif // CLICKABLELABEL_HPP

@@ -1,5 +1,7 @@
 #include "helpers.hpp"
 
+bool globalIsDarkTheme = false;
+
 // Images
 namespace ImagesPaths
 {
@@ -8,9 +10,49 @@ namespace ImagesPaths
     QString logosPath = imagesPath + "logos/";
     QString backgroundsPath = imagesPath + "backgrounds/";
     QString boardsPath = imagesPath + "boards/";
-    QString settingsPath = imagesPath + "settings/";
-    QString settingsBoardsPath = ImagesPaths::settingsPath + "boards/";
-    QString settingsPiecesSetsPath = ImagesPaths::settingsPath + "pieces_sets/";
+
+    // Menus images
+    QString menusPath = imagesPath + "menus/";
+
+    // Settings menu
+    QString settingsPath = menusPath + "settings/";
+    QString settingsBoardsPath = settingsPath + "boards/";
+    QString settingsPiecesSetsPath = settingsPath + "pieces_sets/";
+
+    // PVP menu
+    QString pvpPath = menusPath + "pvp/";
+
+    QString LightQuickGamesPath = pvpPath + "light_quick_games/";
+    QString LightBullet1MButton = LightQuickGamesPath + "bullet_1M.png";
+    QString LightBlitz3MButton = LightQuickGamesPath + "blitz_3M.png";
+    QString LightBlitz3MInc2SecButton = LightQuickGamesPath + "blitz_3M_inc2sec.png";
+    QString LightBlitz5MButton = LightQuickGamesPath + "blitz_5M.png";
+    QString LightBlitz10MButton = LightQuickGamesPath + "blitz_10M.png";
+    QString LightRapid15MButton = LightQuickGamesPath + "rapid_15M.png";
+
+    QString LightHoverQuickGamesPath = pvpPath + "light_hover_quick_games/";
+    QString LightBullet1MHoverButton = LightHoverQuickGamesPath + "bullet_1M_hover.png";
+    QString LightBlitz3MHoverButton = LightHoverQuickGamesPath + "blitz_3M_hover.png";
+    QString LightBlitz3MInc2SecHoverButton = LightHoverQuickGamesPath + "blitz_3M_inc2sec_hover.png";
+    QString LightBlitz5MHoverButton = LightHoverQuickGamesPath + "blitz_5M_hover.png";
+    QString LightBlitz10MHoverButton = LightHoverQuickGamesPath + "blitz_10M_hover.png";
+    QString LightRapid15MHoverButton = LightHoverQuickGamesPath + "rapid_15M_hover.png";
+
+    QString DarkQuickGamesPath = pvpPath + "dark_quick_games/";
+    QString DarkBullet1MButton = DarkQuickGamesPath + "bullet_1M.png";
+    QString DarkBlitz3MButton = DarkQuickGamesPath + "blitz_3M.png";
+    QString DarkBlitz3MInc2SecButton = DarkQuickGamesPath + "blitz_3M_inc2sec.png";
+    QString DarkBlitz5MButton = DarkQuickGamesPath + "blitz_5M.png";
+    QString DarkBlitz10MButton = DarkQuickGamesPath + "blitz_10M.png";
+    QString DarkRapid15MButton = DarkQuickGamesPath + "rapid_15M.png";
+
+    QString DarkHoverQuickGamesPath = pvpPath + "dark_hover_quick_games/";
+    QString DarkBullet1MHoverButton = DarkHoverQuickGamesPath + "bullet_1M_hover.png";
+    QString DarkBlitz3MHoverButton = DarkHoverQuickGamesPath + "blitz_3M_hover.png";
+    QString DarkBlitz3MInc2SecHoverButton = DarkHoverQuickGamesPath + "blitz_3M_inc2sec_hover.png";
+    QString DarkBlitz5MHoverButton = DarkHoverQuickGamesPath + "blitz_5M_hover.png";
+    QString DarkBlitz10MHoverButton = DarkHoverQuickGamesPath + "blitz_10M_hover.png";
+    QString DarkRapid15MHoverButton = DarkHoverQuickGamesPath + "rapid_15M_hover.png";
 }
 
 namespace StepsImages
@@ -45,6 +87,8 @@ namespace StylesPaths
     QString darkSliderStyle = MenusStylesPath + "dark_slider.txt";
     QString lightDimTextStyle = MenusStylesPath + "light_dim_text.txt";
     QString darkDimTextStyle = MenusStylesPath + "dark_dim_text.txt";
+    QString lightBoldDimTextStyle = MenusStylesPath + "light_bold_dim_text.txt";
+    QString darkBoldDimTextStyle = MenusStylesPath + "dark_bold_dim_text.txt";
 
     // Settings menu
     QString SettingsMenuStylesPath = MenusStylesPath + "settings_menu_styles/";
@@ -61,7 +105,12 @@ namespace StylesPaths
     QString darkTopTextStyle = PVPMenuStylesPath + "dark_top_text.txt";
     QString lightTimeControlBkgLabelStyle = PVPMenuStylesPath + "light_time_control_bkg_label.txt";
     QString darkTimeControlBkgLabelStyle = PVPMenuStylesPath + "dark_time_control_bkg_label.txt";
-
+    QString lightQuickGamesTextStyle = PVPMenuStylesPath + "light_quick_games_text.txt";
+    QString darkQuickGamesTextStyle = PVPMenuStylesPath + "dark_quick_games_text.txt";
+    QString lightQuickGamesButtonStyle = PVPMenuStylesPath + "light_quickgames_button.txt";
+    QString darkQuickGamesButtonStyle = PVPMenuStylesPath + "dark_quickgames_button.txt";
+    QString lightQuickGamesHoverButtonStyle = PVPMenuStylesPath + "light_quickgames_hover_button.txt";
+    QString darkQuickGamesHoverButtonStyle = PVPMenuStylesPath + "dark_quickgames_hover_button.txt";
 
 
 
@@ -78,6 +127,12 @@ namespace GameVariants
 namespace QuickGames
 {
     QString NoSelected = "NoSelected";
+    QString Bullet1M = "Bullet1M";
+    QString Blitz3M = "Blitz3M";
+    QString Blitz3MInc2Sec = "Blitz3MInc2Sec";
+    QString Blitz5M = "Blitz5M";;
+    QString Blitz10M = "Blitz10M";;
+    QString Rapid15M = "Rapid15M";;
 }
 
 

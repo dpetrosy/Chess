@@ -3,12 +3,13 @@
 
 #include "helpers.hpp"
 #include "predefined_menu_classes.hpp"
+#include "predefined_game_classes.hpp"
 
 enum class Menus : int
 {
     MainMenu = 0,
     PVPMenu = 1,
-    SettingsMenu = 0
+    SettingsMenu = 2
 };
 
 
@@ -63,48 +64,52 @@ enum class PVPMenuProps
     TopTextLabelY = BkgLabelY + 22,
     TopTextLabelW = BkgLabelW,
     TopTextLabelH = 40,
-
     GameVariantTextLabelX = BkgLabelX + 112,
     GameVariantTextLabelY = TopTextLabelY + 72,
-
     GameVariantComboBoxX = GameVariantTextLabelX + 57,
     GameVariantComboBoxY = GameVariantTextLabelY - 8,
     GameVariantComboBoxW = 157,
     GameVariantComboBoxH = 41,
-
     TimeControlBkgLabelX = BkgLabelX,
     TimeControlBkgLabelY = GameVariantTextLabelY + 49,
     TimeControlBkgLabelW = BkgLabelW,
-    TimeControlBkgLabelH = 200,
-
-
+    TimeControlBkgLabelH = 323,
     TimeControlTextLabelX = TimeControlBkgLabelX + 140,
     TimeControlTextLabelY = TimeControlBkgLabelY + 16,
-
     TimeControlToggleSwitchX = TimeControlTextLabelX + 94,
     TimeControlToggleSwitchY = TimeControlTextLabelY - 10,
-
     MinutesTextLabelX = TimeControlTextLabelX + 5,
     MinutesTextLabelY = TimeControlTextLabelY + 41,
-
-    MinutesNumberTextLabelX = MinutesTextLabelX + 118,
-    MinutesNumberTextLabelY = MinutesTextLabelY,
-
+    MinutesNumberTextLabelX = MinutesTextLabelX + 117,
+    MinutesNumberTextLabelY = MinutesTextLabelY + 1,
     MinutesSliderW = 360,
     MinutesSliderH = 25,
     MinutesSliderX = BkgLabelX + (BkgLabelW - MinutesSliderW) / 2,
     MinutesSliderY = MinutesTextLabelY + 30,
-
     IncSecondsTextLabelX = MinutesTextLabelX - 10,
     IncSecondsTextLabelY = MinutesSliderY + 44,
-
-    IncSecondsNumberTextLabelX = IncSecondsTextLabelX + 145,
-    IncSecondsNumberTextLabelY = IncSecondsTextLabelY,
-
+    IncSecondsNumberTextLabelX = IncSecondsTextLabelX + 147,
+    IncSecondsNumberTextLabelY = IncSecondsTextLabelY + 1,
     IncSecondsSliderW = MinutesSliderW,
     IncSecondsSliderH = MinutesSliderH,
     IncSecondsSliderX = MinutesSliderX,
     IncSecondsSliderY = IncSecondsTextLabelY + 31,
+    QuickGamesTextLabelX = IncSecondsTextLabelX + 36,
+    QuickGamesTextLabelY = IncSecondsSliderY + 38,
+    Bullet1MPushButtonW = 58,
+    Bullet1MPushButtonH = 74,
+    Bullet1MPushButtonX = BkgLabelX + 15,
+    Bullet1MPushButtonY = QuickGamesTextLabelY + 37,
+    Blitz3MPushButtonX = Bullet1MPushButtonX + Bullet1MPushButtonW + 12,
+    Blitz3MPushButtonY = Bullet1MPushButtonY,
+    Blitz3MInc2SecPushButtonX = Blitz3MPushButtonX + Bullet1MPushButtonW + 13,
+    Blitz3MInc2SecPushButtonY = Bullet1MPushButtonY,
+    Blitz5MPushButtonX = Blitz3MInc2SecPushButtonX + Bullet1MPushButtonW + 13,
+    Blitz5MPushButtonY = Bullet1MPushButtonY,
+    Blitz10MPushButtonX = Blitz5MPushButtonX + Bullet1MPushButtonW + 12,
+    Blitz10MPushButtonY = Bullet1MPushButtonY,
+    Rapid15MPushButtonX = Blitz10MPushButtonX + Bullet1MPushButtonW + 12,
+    Rapid15MPushButtonY = Bullet1MPushButtonY,
 };
 
 enum class PVPMenuPushButtons
@@ -121,6 +126,12 @@ namespace GameVariants
 namespace QuickGames
 {
     extern QString NoSelected;
+    extern QString Bullet1M;
+    extern QString Blitz3M;
+    extern QString Blitz3MInc2Sec;
+    extern QString Blitz5M;
+    extern QString Blitz10M;
+    extern QString Rapid15M;
 }
 
 
@@ -204,7 +215,7 @@ struct SettingsData
     QString boardStr = "1";
     QString languageStr = "eng";
     bool isSoundAvailable = false;
-    bool isDarkTheme = false;
+    bool isDarkTheme = globalIsDarkTheme;
 };
 
 enum class SettingsMenuPushButtons
