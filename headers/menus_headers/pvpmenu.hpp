@@ -8,9 +8,11 @@
 #include <QComboBox>
 #include <QLabel>
 #include <QSlider>
+#include <QRandomGenerator>
 
 #include "menus_helpers.hpp"
-#include "quick_game_button.hpp"
+#include "game_helpers.hpp"
+#include "start_game_button.hpp"
 
 class PVPMenu : public QWidget
 {
@@ -21,7 +23,15 @@ public:
     virtual ~PVPMenu();
 
     // Public util functions
-    QPushButton* getPushButton(PVPMenuPushButtons button);
+    void              makeMenuBeforeSwitch();
+    ClickableLabel*   getReturnButton();
+    StartGameButton*  getStartGameButton(StartGameButtons button);
+    void              setDataBeforeStartGame(double minutes, int incSeconds, PiecesColors color);
+
+public slots:
+    void swapTimeControl();
+    void minutesSliderValueChanged(int x);
+    void incSecondsSliderValueChanged(int x);
 
 private:
     // Init
@@ -48,23 +58,24 @@ private:
     QLabel*       _incSecondsNumberTextLabel;
     QSlider*      _minutesSlider;
     QSlider*      _incSecondsSlider;
+    bool          _isTimeAvailable;
 
     // Quick Games
     QLabel*           _quickGamesTextLabel;
-    QuickGameButton*  _bullet1MPushButton;
-    QuickGameButton*  _blitz3MPushButton;
-    QuickGameButton*  _blitz3MInc2SecPushButton;
-    QuickGameButton*  _blitz5MPushButton;
-    QuickGameButton*  _blitz10MPushButton;
-    QuickGameButton*  _rapid15MPushButton;
+    StartGameButton*  _bullet1MButton;
+    StartGameButton*  _blitz3MButton;
+    StartGameButton*  _blitz3MInc2SecButton;
+    StartGameButton*  _blitz5MButton;
+    StartGameButton*  _blitz10MButton;
+    StartGameButton*  _rapid15MButton;
 
     // Color buttons
-    QPushButton*  _blackColorPushButton;
-    QPushButton*  _randomColorPushButton;
-    QPushButton*  _whiteColorPushButton;
+    StartGameButton*  _blackColorButton;
+    StartGameButton*  _randomColorButton;
+    StartGameButton*  _whiteColorButton;
 
     // Return button
-    QPushButton*  _returnPushButton;
+    ClickableLabel*   _returnButton;
 };
 
 #endif // PVPMENU_HPP

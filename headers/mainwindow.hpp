@@ -14,6 +14,7 @@
 #include <QImage>
 #include <QRect>
 
+#include "mainmenu.hpp"
 #include "menus_helpers.hpp"
 #include "game_helpers.hpp"
 
@@ -36,7 +37,7 @@ public:
 
 public slots:
     void switchMenu(Menus toMenu);
-    void showGame();
+    void showGame(double minutes, int incSeconds, PiecesColors color);
     void showQuitWindow();
     void exitFromProgram(int signal);
 
@@ -82,7 +83,7 @@ private:
     QStackedWidget* _MenusStackedWidget;
 
     // Chess game Widgets
-    GameWidget*     _gameWidget;
+    GameWidget*     _GameWidget;
 };
 
 #endif // MAINWINDOW_HPP

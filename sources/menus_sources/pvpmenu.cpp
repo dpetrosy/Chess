@@ -1,6 +1,7 @@
 #include "pvpmenu.hpp"
 #include "toggleswitch.hpp"
 #include "clickablelabel.hpp"
+#include "gamewidget.hpp"
 #include "utils.hpp"
 
 PVPMenu::PVPMenu(QWidget *parent) :
@@ -35,20 +36,20 @@ PVPMenu::~PVPMenu()
 
     // Quick Games
     delete _quickGamesTextLabel;
-    delete _bullet1MPushButton;
-    delete _blitz3MPushButton;
-    delete _blitz3MInc2SecPushButton;
-    delete _blitz5MPushButton;
-    delete _blitz10MPushButton;
-    delete _rapid15MPushButton;
+    delete _bullet1MButton;
+    delete _blitz3MButton;
+    delete _blitz3MInc2SecButton;
+    delete _blitz5MButton;
+    delete _blitz10MButton;
+    delete _rapid15MButton;
 
     // Color buttons
-    delete _blackColorPushButton;
-    delete _randomColorPushButton;
-    delete _whiteColorPushButton;
+    delete _blackColorButton;
+    delete _randomColorButton;
+    delete _whiteColorButton;
 
     // Return button
-    delete _returnPushButton;
+    delete _returnButton;
 }
 
 // Init
@@ -71,33 +72,220 @@ void PVPMenu::init()
     _incSecondsNumberTextLabel = new QLabel(this);
     _minutesSlider = new QSlider(Qt::Horizontal, this);
     _incSecondsSlider = new QSlider(Qt::Horizontal, this);
+    _isTimeAvailable = true;
 
     // Quick Games
     _quickGamesTextLabel = new QLabel(this);
-    _bullet1MPushButton = new QuickGameButton(this, QuickGames::Bullet1M);
-    _blitz3MPushButton = new QuickGameButton(this, QuickGames::Blitz3M);
-    _blitz3MInc2SecPushButton = new QuickGameButton(this, QuickGames::Blitz3MInc2Sec);
-    _blitz5MPushButton = new QuickGameButton(this, QuickGames::Blitz5M);
-    _blitz10MPushButton = new QuickGameButton(this, QuickGames::Blitz10M);
-    _rapid15MPushButton = new QuickGameButton(this, QuickGames::Rapid15M);
+    _bullet1MButton = new StartGameButton(this, StartGameButtonName::Bullet1M);
+    _blitz3MButton = new StartGameButton(this, StartGameButtonName::Blitz3M);
+    _blitz3MInc2SecButton = new StartGameButton(this, StartGameButtonName::Blitz3MInc2Sec);
+    _blitz5MButton = new StartGameButton(this, StartGameButtonName::Blitz5M);
+    _blitz10MButton = new StartGameButton(this, StartGameButtonName::Blitz10M);
+    _rapid15MButton = new StartGameButton(this, StartGameButtonName::Rapid15M);
 
     // Color buttons
-    _blackColorPushButton = new QPushButton(this);
-    _randomColorPushButton = new QPushButton(this);
-    _whiteColorPushButton = new QPushButton(this);
+    _blackColorButton = new StartGameButton(this, StartGameButtonName::BlackColor);
+    _randomColorButton = new StartGameButton(this, StartGameButtonName::RandomColor);
+    _whiteColorButton = new StartGameButton(this, StartGameButtonName::WhiteColor);
 
     // Return button
-    _returnPushButton = new QPushButton(this);
+    _returnButton = new ClickableLabel(this);
+}
+
+// Public slots
+void PVPMenu::swapTimeControl()
+{
+    if (_isTimeAvailable)
+    {
+        _isTimeAvailable = false;
+        GameWidget::GetInstance()->setIsTimeAvailable(false);
+
+        _minutesSlider->setEnabled(false);
+        _incSecondsSlider->setEnabled(false);
+
+        _minutesSlider->setCursor(Qt::ForbiddenCursor);
+        _incSecondsSlider->setCursor(Qt::ForbiddenCursor);
+    }
+    else
+    {
+        _isTimeAvailable = true;
+        GameWidget::GetInstance()->setIsTimeAvailable(true);
+
+        _minutesSlider->setEnabled(true);
+        _incSecondsSlider->setEnabled(true);
+
+        _minutesSlider->setCursor(Qt::PointingHandCursor);
+        _incSecondsSlider->setCursor(Qt::PointingHandCursor);
+    }
+}
+
+void PVPMenu::minutesSliderValueChanged(int x)
+{
+    double value = 0;
+
+    if (x == 0)
+        value = 0.25;
+    else if (x >= 1 && x < 4)
+        value = 0.25 * (x + 1);
+    else if (x == 3)
+        value = 1;
+    else if (x == 4)
+        value = 1.5;
+    else if (x >= 5 && x <= 23)
+        value = x - 3;
+    else if (x >= 24 && x <= 27)
+        value = ((x % 23) * 5) + 20;
+    else
+        value = ((x % 28) * 15) + 45;
+
+    GameWidget::GetInstance()->setGameMinutes(value);
+    _minutesNumberTextLabel->setText(QString::number(value));
+}
+
+void PVPMenu::incSecondsSliderValueChanged(int x)
+{
+    int value = 0;
+
+    if (x == 0)
+        value = 0;
+    else if (x >= 1 && x <= 20)
+        value = x;
+    else if (x >= 21 && x <= 25)
+        value = ((x % 20) * 5) + 20;
+    else if (x == 26)
+        value = 60;
+    else
+        value = ((x % 26) * 30) + 60;
+
+    GameWidget::GetInstance()->setIncrementSeconds(value);
+    _incSecondsNumberTextLabel->setText(QString::number(value));
 }
 
 // Public util functions
-//QPushButton *PVPMenu::getPushButton(PVPMenuPushButtons button)
-//{
-//    switch (button)
-//    {
+void PVPMenu::makeMenuBeforeSwitch()
+{
+    // Background label
+    ::setStyleSheetByTheme(StylesPaths::lightThemeBkgLabelStyle, StylesPaths::darkThemeBkgLabelStyle, _bkgLabel, globalIsDarkTheme);
 
-//    }
-//}
+    // Top text label
+    ::setStyleSheetByTheme(StylesPaths::lightTopTextStyle, StylesPaths::darkTopTextStyle, _topTextLabel, globalIsDarkTheme);
+
+    // Text for game variant
+    ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _gameVariantTextLabel, globalIsDarkTheme);
+
+    // Game variant combobox
+    ::setStyleSheetByTheme(StylesPaths::lightVariantComboboxStyle, StylesPaths::darkVariantComboboxStyle, _gameVariantComboBox, globalIsDarkTheme);
+
+    // Time Control background label
+    ::setStyleSheetByTheme(StylesPaths::lightTimeControlBkgLabelStyle, StylesPaths::darkTimeControlBkgLabelStyle, _timeControlBkgLabel, globalIsDarkTheme);
+
+    // Text for time control
+    ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _timeControlTextLabel, globalIsDarkTheme);
+
+    // Time control toggle switch
+    _timeControlToggleSwitch->setChecked(true);
+
+    // Text for minutes slider
+    ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _minutesTextLabel, globalIsDarkTheme);
+
+    // Text for minutes slider number
+    ::setStyleSheetByTheme(StylesPaths::lightBoldDimTextStyle, StylesPaths::darkBoldDimTextStyle, _minutesNumberTextLabel, globalIsDarkTheme);
+
+    // Minutes slider
+    ::setStyleSheetByTheme(StylesPaths::lightSliderStyle, StylesPaths::darkSliderStyle, _minutesSlider, globalIsDarkTheme);
+
+    // Text for increment seconds
+    ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _incSecondsTextLabel, globalIsDarkTheme);
+
+    // Text for increment seconds number
+    ::setStyleSheetByTheme(StylesPaths::lightBoldDimTextStyle, StylesPaths::darkBoldDimTextStyle, _incSecondsNumberTextLabel, globalIsDarkTheme);
+
+    // Increment seconds slider
+    ::setStyleSheetByTheme(StylesPaths::lightSliderStyle, StylesPaths::darkSliderStyle, _incSecondsSlider, globalIsDarkTheme);
+
+    // Text for quick games
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesTextStyle, StylesPaths::darkQuickGamesTextStyle, _quickGamesTextLabel, globalIsDarkTheme);
+
+    // Bullet 1M button
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _bullet1MButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_bullet1MButton, globalIsDarkTheme, ImagesPaths::LightBullet1MButton, ImagesPaths::DarkBullet1MButton);
+
+    // Blitz 3M button
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz3MButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_blitz3MButton, globalIsDarkTheme, ImagesPaths::LightBlitz3MButton, ImagesPaths::DarkBlitz3MButton);
+
+    // Blitz 3M increment 2sec button
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz3MInc2SecButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_blitz3MInc2SecButton, globalIsDarkTheme, ImagesPaths::LightBlitz3MInc2SecButton, ImagesPaths::DarkBlitz3MInc2SecButton);
+
+    // Blitz 5M button
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz5MButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_blitz5MButton, globalIsDarkTheme, ImagesPaths::LightBlitz5MButton, ImagesPaths::DarkBlitz5MButton);
+
+    // Blitz 10M button
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz10MButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_blitz10MButton, globalIsDarkTheme, ImagesPaths::LightBlitz10MButton, ImagesPaths::DarkBlitz10MButton);
+
+    // Rapid 15M button
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _rapid15MButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_rapid15MButton, globalIsDarkTheme, ImagesPaths::LightRapid15MButton, ImagesPaths::DarkRapid15MButton);
+
+    // Black color button
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkColorButtonStyle, _blackColorButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_blackColorButton, globalIsDarkTheme, ImagesPaths::LightBlackColorButton, ImagesPaths::DarkBlackColorButton);
+
+    // Random color button
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkColorButtonStyle, _randomColorButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_randomColorButton, globalIsDarkTheme, ImagesPaths::LightRandomColorButton, ImagesPaths::DarkRandomColorButton);
+
+    // Black color button
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkColorButtonStyle, _whiteColorButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_whiteColorButton, globalIsDarkTheme, ImagesPaths::LightWhiteColorButton, ImagesPaths::DarkWhiteColorButton);
+}
+
+ClickableLabel* PVPMenu::getReturnButton()
+{
+    return _returnButton;
+}
+
+StartGameButton* PVPMenu::getStartGameButton(StartGameButtons button)
+{
+    switch (button)
+    {
+        case StartGameButtons::Bullet1M: return _bullet1MButton;
+        case StartGameButtons::Blitz3M: return _blitz3MButton;
+        case StartGameButtons::Blitz3MInc2Sec: return _blitz3MInc2SecButton;
+        case StartGameButtons::Blitz5M: return _blitz5MButton;
+        case StartGameButtons::Blitz10M: return _blitz10MButton;
+        case StartGameButtons::Rapid15M: return _rapid15MButton;
+        case StartGameButtons::BlackColor: return _blackColorButton;
+        case StartGameButtons::RandomColor: return _randomColorButton;
+        case StartGameButtons::WhiteColor: return _whiteColorButton;
+        default: return _randomColorButton;
+    }
+}
+
+void PVPMenu::setDataBeforeStartGame(double minutes, int incSeconds, PiecesColors color)
+{
+    auto gameWidget = GameWidget::GetInstance();
+
+    if (minutes != 0 || incSeconds != 0)
+    {
+        gameWidget->setIsTimeAvailable(true);
+        gameWidget->setGameMinutes(minutes);
+        gameWidget->setIncrementSeconds(incSeconds);
+    }
+
+    if (color == PiecesColors::Random)
+    {
+        if (QRandomGenerator::global()->bounded(0, 2) == 0)
+            color = PiecesColors::Black;
+        else
+            color = PiecesColors::White;
+    }
+
+    gameWidget->setBelowPlayerColor(color);
+}
 
 // Private util functions
 void PVPMenu::makePVPMenu()
@@ -119,25 +307,14 @@ void PVPMenu::makePVPMenu()
 
     // Game variant combobox
     _gameVariantComboBox->setGeometry((int)PVPMenuProps::GameVariantComboBoxX, (int)PVPMenuProps::GameVariantComboBoxY, (int)PVPMenuProps::GameVariantComboBoxW, (int)PVPMenuProps::GameVariantComboBoxH);
-    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _gameVariantComboBox, globalIsDarkTheme);
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::AngelView));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Blacked));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::BravePawn));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Checkmate));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Dark_Chess));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Emperors));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::FaceToFace));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::IAmTheKing));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Landscape));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::Shadow));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::StrongKnight));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheBishop));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheKing));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheKnight));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheQueen));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheRook));
-//    _gameVariantComboBox->addItem(removeUnderscoreInString(BackgroundImages::TopView));
-//    _gameVariantComboBox->setCurrentIndex(15);
+    ::setStyleSheetByTheme(StylesPaths::lightVariantComboboxStyle, StylesPaths::darkVariantComboboxStyle, _gameVariantComboBox, globalIsDarkTheme);
+    _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::Standard));
+    _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::Chess960));
+    _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::KingOfTheHill));
+    _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::ThreeCheck));
+    _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::Horde));
+    _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::FromPosition));
+    _gameVariantComboBox->setCurrentIndex(0);
 //    connect(_gameVariantComboBox, &QComboBox::currentIndexChanged, this, &SettingsMenu::bkgImageComboBoxIndexChanged);
 
     // Time Control background label
@@ -151,7 +328,8 @@ void PVPMenu::makePVPMenu()
 
     // Time control toggle switch
     _timeControlToggleSwitch->move((int)PVPMenuProps::TimeControlToggleSwitchX, (int)PVPMenuProps::TimeControlToggleSwitchY);
-    _timeControlToggleSwitch->setChecked(false);
+    _timeControlToggleSwitch->setChecked(true);
+     connect(_timeControlToggleSwitch, &QCheckBox::clicked, this, &PVPMenu::swapTimeControl);
 
     // Text for minutes slider
     _minutesTextLabel->move((int)PVPMenuProps::MinutesTextLabelX, (int)PVPMenuProps::MinutesTextLabelY);
@@ -159,14 +337,17 @@ void PVPMenu::makePVPMenu()
     _minutesTextLabel->setText("Minutes per side: ");
 
     // Text for minutes slider number
-    _minutesNumberTextLabel->move((int)PVPMenuProps::MinutesNumberTextLabelX, (int)PVPMenuProps::MinutesNumberTextLabelY);
+    _minutesNumberTextLabel->setGeometry((int)PVPMenuProps::MinutesNumberTextLabelX, (int)PVPMenuProps::MinutesNumberTextLabelY, (int)PVPMenuProps::MinutesNumberTextLabelW, (int)PVPMenuProps::MinutesNumberTextLabelH);
     ::setStyleSheetByTheme(StylesPaths::lightBoldDimTextStyle, StylesPaths::darkBoldDimTextStyle, _minutesNumberTextLabel, globalIsDarkTheme);
-    _minutesNumberTextLabel->setText("0.25");
+    _minutesNumberTextLabel->setText("10");
 
     // Minutes slider
     _minutesSlider->setGeometry((int)PVPMenuProps::MinutesSliderX, (int)PVPMenuProps::MinutesSliderY, (int)PVPMenuProps::MinutesSliderW, (int)PVPMenuProps::MinutesSliderH);
     ::setStyleSheetByTheme(StylesPaths::lightSliderStyle, StylesPaths::darkSliderStyle, _minutesSlider, globalIsDarkTheme);
-    _incSecondsSlider->setCursor(Qt::PointingHandCursor);
+    _minutesSlider->setCursor(Qt::PointingHandCursor);
+    connect(_minutesSlider, &QSlider::valueChanged, this, &PVPMenu::minutesSliderValueChanged);
+    _minutesSlider->setRange(0, 37);
+    _minutesSlider->setValue(13);
 
     // Text for increment seconds
     _incSecondsTextLabel->move((int)PVPMenuProps::IncSecondsTextLabelX, (int)PVPMenuProps::IncSecondsTextLabelY);
@@ -174,7 +355,7 @@ void PVPMenu::makePVPMenu()
     _incSecondsTextLabel->setText("Increment in seconds: ");
 
     // Text for increment seconds number
-    _incSecondsNumberTextLabel->move((int)PVPMenuProps::IncSecondsNumberTextLabelX, (int)PVPMenuProps::IncSecondsNumberTextLabelY);
+    _incSecondsNumberTextLabel->setGeometry((int)PVPMenuProps::IncSecondsNumberTextLabelX, (int)PVPMenuProps::IncSecondsNumberTextLabelY, (int)PVPMenuProps::IncSecondsNumberTextLabelW, (int)PVPMenuProps::IncSecondsNumberTextLabelH);
     ::setStyleSheetByTheme(StylesPaths::lightBoldDimTextStyle, StylesPaths::darkBoldDimTextStyle, _incSecondsNumberTextLabel, globalIsDarkTheme);
     _incSecondsNumberTextLabel->setText("0");
 
@@ -182,6 +363,9 @@ void PVPMenu::makePVPMenu()
     _incSecondsSlider->setGeometry((int)PVPMenuProps::IncSecondsSliderX, (int)PVPMenuProps::IncSecondsSliderY, (int)PVPMenuProps::IncSecondsSliderW, (int)PVPMenuProps::IncSecondsSliderH);
     ::setStyleSheetByTheme(StylesPaths::lightSliderStyle, StylesPaths::darkSliderStyle, _incSecondsSlider, globalIsDarkTheme);
     _incSecondsSlider->setCursor(Qt::PointingHandCursor);
+    connect(_incSecondsSlider, &QSlider::valueChanged, this, &PVPMenu::incSecondsSliderValueChanged);
+    _incSecondsSlider->setRange(0, 30);
+    _incSecondsSlider->setValue(0);
 
     // Text for quick games
     _quickGamesTextLabel->move((int)PVPMenuProps::QuickGamesTextLabelX, (int)PVPMenuProps::QuickGamesTextLabelY);
@@ -189,34 +373,56 @@ void PVPMenu::makePVPMenu()
     _quickGamesTextLabel->setText("Quick Games");
 
     // Bullet 1M button
-    _bullet1MPushButton->move((int)PVPMenuProps::Bullet1MPushButtonX, (int)PVPMenuProps::Bullet1MPushButtonY);
-    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _bullet1MPushButton, globalIsDarkTheme);
-    setQLabelPictureByTheme(_bullet1MPushButton, globalIsDarkTheme, ImagesPaths::LightBullet1MButton, ImagesPaths::DarkBullet1MButton);
+    _bullet1MButton->move((int)PVPMenuProps::Bullet1MButtonX, (int)PVPMenuProps::Bullet1MButtonY);
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _bullet1MButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_bullet1MButton, globalIsDarkTheme, ImagesPaths::LightBullet1MButton, ImagesPaths::DarkBullet1MButton);
 
     // Blitz 3M button
-    _blitz3MPushButton->move((int)PVPMenuProps::Blitz3MPushButtonX, (int)PVPMenuProps::Blitz3MPushButtonY);
-    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz3MPushButton, globalIsDarkTheme);
-    setQLabelPictureByTheme(_blitz3MPushButton, globalIsDarkTheme, ImagesPaths::LightBlitz3MButton, ImagesPaths::DarkBlitz3MButton);
+    _blitz3MButton->move((int)PVPMenuProps::Blitz3MButtonX, (int)PVPMenuProps::Blitz3MButtonY);
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz3MButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_blitz3MButton, globalIsDarkTheme, ImagesPaths::LightBlitz3MButton, ImagesPaths::DarkBlitz3MButton);
 
     // Blitz 3M increment 2sec button
-    _blitz3MInc2SecPushButton->move((int)PVPMenuProps::Blitz3MInc2SecPushButtonX, (int)PVPMenuProps::Blitz3MInc2SecPushButtonY);
-    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz3MInc2SecPushButton, globalIsDarkTheme);
-    setQLabelPictureByTheme(_blitz3MInc2SecPushButton, globalIsDarkTheme, ImagesPaths::LightBlitz3MInc2SecButton, ImagesPaths::DarkBlitz3MInc2SecButton);
+    _blitz3MInc2SecButton->move((int)PVPMenuProps::Blitz3MInc2SecButtonX, (int)PVPMenuProps::Blitz3MInc2SecButtonY);
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz3MInc2SecButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_blitz3MInc2SecButton, globalIsDarkTheme, ImagesPaths::LightBlitz3MInc2SecButton, ImagesPaths::DarkBlitz3MInc2SecButton);
 
     // Blitz 5M button
-    _blitz5MPushButton->move((int)PVPMenuProps::Blitz5MPushButtonX, (int)PVPMenuProps::Blitz5MPushButtonY);
-    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz5MPushButton, globalIsDarkTheme);
-    setQLabelPictureByTheme(_blitz5MPushButton, globalIsDarkTheme, ImagesPaths::LightBlitz5MButton, ImagesPaths::DarkBlitz5MButton);
+    _blitz5MButton->move((int)PVPMenuProps::Blitz5MButtonX, (int)PVPMenuProps::Blitz5MButtonY);
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz5MButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_blitz5MButton, globalIsDarkTheme, ImagesPaths::LightBlitz5MButton, ImagesPaths::DarkBlitz5MButton);
 
     // Blitz 10M button
-    _blitz10MPushButton->move((int)PVPMenuProps::Blitz10MPushButtonX, (int)PVPMenuProps::Blitz10MPushButtonY);
-    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz10MPushButton, globalIsDarkTheme);
-    setQLabelPictureByTheme(_blitz10MPushButton, globalIsDarkTheme, ImagesPaths::LightBlitz10MButton, ImagesPaths::DarkBlitz10MButton);
+    _blitz10MButton->move((int)PVPMenuProps::Blitz10MButtonX, (int)PVPMenuProps::Blitz10MButtonY);
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _blitz10MButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_blitz10MButton, globalIsDarkTheme, ImagesPaths::LightBlitz10MButton, ImagesPaths::DarkBlitz10MButton);
 
     // Rapid 15M button
-    _rapid15MPushButton->move((int)PVPMenuProps::Rapid15MPushButtonX, (int)PVPMenuProps::Rapid15MPushButtonY);
-    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _rapid15MPushButton, globalIsDarkTheme);
-    setQLabelPictureByTheme(_rapid15MPushButton, globalIsDarkTheme, ImagesPaths::LightRapid15MButton, ImagesPaths::DarkRapid15MButton);
+    _rapid15MButton->move((int)PVPMenuProps::Rapid15MButtonX, (int)PVPMenuProps::Rapid15MButtonY);
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkQuickGamesButtonStyle, _rapid15MButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_rapid15MButton, globalIsDarkTheme, ImagesPaths::LightRapid15MButton, ImagesPaths::DarkRapid15MButton);
+
+    // Black color button
+    _blackColorButton->move((int)PVPMenuProps::BlackColorButtonX, (int)PVPMenuProps::BlackColorButtonY);
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkColorButtonStyle, _blackColorButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_blackColorButton, globalIsDarkTheme, ImagesPaths::LightBlackColorButton, ImagesPaths::DarkBlackColorButton);
+    _blackColorButton->setCursor(Qt::PointingHandCursor);
+
+    // Random color button
+    _randomColorButton->move((int)PVPMenuProps::RandomColorButtonX, (int)PVPMenuProps::RandomColorButtonY);
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkColorButtonStyle, _randomColorButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_randomColorButton, globalIsDarkTheme, ImagesPaths::LightRandomColorButton, ImagesPaths::DarkRandomColorButton);
+    _randomColorButton->setCursor(Qt::PointingHandCursor);
+
+    // Black color button
+    _whiteColorButton->move((int)PVPMenuProps::WhiteColorButtonX, (int)PVPMenuProps::WhiteColorButtonY);
+    ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkColorButtonStyle, _whiteColorButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_whiteColorButton, globalIsDarkTheme, ImagesPaths::LightWhiteColorButton, ImagesPaths::DarkWhiteColorButton);
+    _whiteColorButton->setCursor(Qt::PointingHandCursor);
+
+    // Return button
+    _returnButton->move((int)PVPMenuProps::ReturnButtonX, (int)PVPMenuProps::ReturnButtonY);
+    //::setStyleSheetByTheme(StylesPaths::lightReturnButtonStyle, StylesPaths::darkColorButtonStyle, _whiteColorButton, globalIsDarkTheme);
+    setQLabelPictureByTheme(_returnButton, globalIsDarkTheme, ImagesPaths::LightReturnButton, ImagesPaths::DarkReturnButton);
+    _returnButton->setCursor(Qt::PointingHandCursor);
 }
-
-

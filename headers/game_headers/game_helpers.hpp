@@ -8,12 +8,12 @@
 // Game Widget
 struct GameData
 {
-    PiecesColors belowPlayerColor = PiecesColors::White;
-    QString gameVariant = GameVariants::Standart;
-    QString quickGame = QuickGames::NoSelected;
+    QString gameVariant = GameVariants::Standard;
     bool isTimeAvailable = false;
-    unsigned gameMinutes = 0;
-    unsigned incrementSeconds = 0;
+    double gameMinutes = 10;
+    int incrementSeconds = 0;
+    QString quickGame = StartGameButtonName::NoSelected;
+    PiecesColors belowPlayerColor = PiecesColors::White;
 };
 
 

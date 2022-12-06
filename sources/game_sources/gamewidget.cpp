@@ -66,12 +66,12 @@ bool GameWidget::getIsTimeAvailable() const
     return _gameData.isTimeAvailable;
 }
 
-unsigned GameWidget::getGameMinutes() const
+double GameWidget::getGameMinutes() const
 {
     return _gameData.gameMinutes;
 }
 
-unsigned GameWidget::getIncrementSeconds() const
+int GameWidget::getIncrementSeconds() const
 {
     return _gameData.incrementSeconds;
 }
@@ -97,12 +97,12 @@ void GameWidget::setIsTimeAvailable(bool isTimeAvailable)
     _gameData.isTimeAvailable = isTimeAvailable;
 }
 
-void GameWidget::setGameMinutes(unsigned gameMinutes)
+void GameWidget::setGameMinutes(double gameMinutes)
 {
     _gameData.gameMinutes = gameMinutes;
 }
 
-void GameWidget::setIncrementSeconds(unsigned incrementSeconds)
+void GameWidget::setIncrementSeconds(int incrementSeconds)
 {
     _gameData.incrementSeconds = incrementSeconds;
 }

@@ -30,37 +30,51 @@ namespace ImagesPaths
     // PVP menu
     extern QString pvpPath;
 
-    extern QString LightQuickGamesPath;
+    extern QString LightStartButtonsPath;
     extern QString LightBullet1MButton;
     extern QString LightBlitz3MButton;
     extern QString LightBlitz3MInc2SecButton;
     extern QString LightBlitz5MButton;
     extern QString LightBlitz10MButton;
     extern QString LightRapid15MButton;
+    extern QString LightBlackColorButton;
+    extern QString LightRandomColorButton;
+    extern QString LightWhiteColorButton;
+    extern QString LightReturnButton;
 
-    extern QString LightHoverQuickGamesPath;
+    extern QString LightHoverStartButtonsPath;
     extern QString LightBullet1MHoverButton;
     extern QString LightBlitz3MHoverButton;
     extern QString LightBlitz3MInc2SecHoverButton;
     extern QString LightBlitz5MHoverButton;
     extern QString LightBlitz10MHoverButton;
     extern QString LightRapid15MHoverButton;
+    extern QString LightBlackColorHoverButton;
+    extern QString LightRandomColorHoverButton;
+    extern QString LightWhiteColorHoverButton;
 
-    extern QString DarkQuickGamesPath;
+    extern QString DarkStartButtonsPath;
     extern QString DarkBullet1MButton;
     extern QString DarkBlitz3MButton;
     extern QString DarkBlitz3MInc2SecButton;
     extern QString DarkBlitz5MButton;
     extern QString DarkBlitz10MButton;
     extern QString DarkRapid15MButton;
+    extern QString DarkBlackColorButton;
+    extern QString DarkRandomColorButton;
+    extern QString DarkWhiteColorButton;
+    extern QString DarkReturnButton;
 
-    extern QString DarkHoverQuickGamesPath;
+    extern QString DarkHoverStartButtonsPath;
     extern QString DarkBullet1MHoverButton;
     extern QString DarkBlitz3MHoverButton;
     extern QString DarkBlitz3MInc2SecHoverButton;
     extern QString DarkBlitz5MHoverButton;
     extern QString DarkBlitz10MHoverButton;
     extern QString DarkRapid15MHoverButton;
+    extern QString DarkBlackColorHoverButton;
+    extern QString DarkRandomColorHoverButton;
+    extern QString DarkWhiteColorHoverButton;
 }
 
 namespace StylesPaths
@@ -105,6 +119,9 @@ namespace StylesPaths
     extern QString darkQuickGamesButtonStyle;
     extern QString lightQuickGamesHoverButtonStyle;
     extern QString darkQuickGamesHoverButtonStyle;
+    extern QString darkColorButtonStyle;
+    extern QString lightVariantComboboxStyle;
+    extern QString darkVariantComboboxStyle;
 }
 
 #endif // HELPERS_HPP

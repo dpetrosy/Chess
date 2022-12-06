@@ -59,7 +59,8 @@ enum class PiecesColors
 {
     NoColored = 0,
     Black = 1,
-    White = 2
+    White = 2,
+    Random = 3
 };
 
 struct Position

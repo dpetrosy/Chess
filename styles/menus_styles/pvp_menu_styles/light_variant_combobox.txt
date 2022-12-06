@@ -1,0 +1,30 @@
+QComboBox
+{
+    border: 1px solid gray;
+    font-size: 11pt;
+    font-family: Segoe UI Black;
+    color: rgb(90, 90, 90);
+    background-color: rgb(246, 246, 246);
+    border-radius: 4px;
+    padding-left: 18px;
+}
+
+QComboBox QAbstractItemView
+{
+    font-size: 11pt;
+    color: rgb(90, 90, 90);
+    padding-left: 18px;
+    background-color: rgb(255, 255, 255);
+    selection-background-color: red;
+    font-family: Segoe UI;
+}
+
+QComboBox::drop-down
+{
+    border: 0px;
+}
+
+QComboBox::down-arrow
+{
+    image: url(:/images/images/settings/light_theme_arrow.png);
+}

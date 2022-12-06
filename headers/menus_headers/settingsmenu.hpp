@@ -23,6 +23,7 @@ public:
     // Public util functions
     bool         getTheme();
     QPushButton* getPushButton(SettingsMenuPushButtons button);
+    void         makeMenuBeforeSwitch();
 
 public slots:
     void cancelButtonClicked();
@@ -31,6 +32,8 @@ public slots:
 private slots:
     void bkgImageComboBoxIndexChanged(int index);
     void languageComboBoxIndexChanged(int index);
+    void swapMenuTheme();
+    void swapSound();
 
 private:
     // Init
@@ -41,7 +44,6 @@ private:
     QString getBoardStr(int index);
     QString getLanguageStr(int index);
     void    hideAndShowMenu();
-    void    swapMenuTheme();
     void    changeMenuTheme();
 
 private:

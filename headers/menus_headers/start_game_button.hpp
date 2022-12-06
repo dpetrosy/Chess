@@ -1,5 +1,5 @@
-#ifndef QUICK_GAME_BUTTON_HPP
-#define QUICK_GAME_BUTTON_HPP
+#ifndef START_GAME_BUTTON_HPP
+#define START_GAME_BUTTON_HPP
 
 #include <QObject>
 #include <QDebug>
@@ -9,15 +9,14 @@
 #include <Qt>
 
 #include "clickablelabel.hpp"
-#include "helpers.hpp"
 
-class QuickGameButton : public ClickableLabel
+class StartGameButton : public ClickableLabel
 {
     Q_OBJECT
 
 public:
-    explicit QuickGameButton(QWidget* parent = nullptr, QString quickGame = "NoSelected", Qt::WindowFlags f = Qt::WindowFlags());
-    ~QuickGameButton();
+    explicit StartGameButton(QWidget* parent = nullptr, QString buttonName = "NoSelected", Qt::WindowFlags f = Qt::WindowFlags());
+    ~StartGameButton();
 
     // Enter and leave events
     using QLabel::enterEvent;
@@ -35,7 +34,7 @@ private:
     void changeImg(QString pixmapPath, QString stylePath);
 
 private:
-    QString _quickGame = "";
+    QString _buttonName;
 };
 
-#endif // QUICK_GAME_BUTTON_HPP
+#endif // START_GAME_BUTTON_HPP

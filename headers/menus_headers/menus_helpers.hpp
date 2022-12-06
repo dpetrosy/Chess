@@ -2,8 +2,8 @@
 #define MENUS_HELPERS_HPP
 
 #include "helpers.hpp"
-#include "predefined_menu_classes.hpp"
 #include "predefined_game_classes.hpp"
+#include "predefined_menu_classes.hpp"
 
 enum class Menus : int
 {
@@ -44,20 +44,11 @@ enum class MainMenuPushButtons
     QuitButton = 5
 };
 
-enum class MainMenuStackedWidgets
-{
-    PVPStackedWidget = 1,
-    PVCStackedWidget = 2,
-    InstrStackedWidget = 3,
-    SettingsStackedWidget = 4
-};
-
-
 // PVPMenu
 enum class PVPMenuProps
 {
     BkgLabelW = 440,
-    BkgLabelH = 600,
+    BkgLabelH = 589,
     BkgLabelX = ((int)MainWindowProps::windowSizeW - BkgLabelW) / 2,
     BkgLabelY = ((int)MainWindowProps::windowSizeH - BkgLabelH) / 2,
     TopTextLabelX = BkgLabelX,
@@ -81,7 +72,9 @@ enum class PVPMenuProps
     MinutesTextLabelX = TimeControlTextLabelX + 5,
     MinutesTextLabelY = TimeControlTextLabelY + 41,
     MinutesNumberTextLabelX = MinutesTextLabelX + 117,
-    MinutesNumberTextLabelY = MinutesTextLabelY + 1,
+    MinutesNumberTextLabelY = MinutesTextLabelY + 3,
+    MinutesNumberTextLabelW = 30,
+    MinutesNumberTextLabelH = 15,
     MinutesSliderW = 360,
     MinutesSliderH = 25,
     MinutesSliderX = BkgLabelX + (BkgLabelW - MinutesSliderW) / 2,
@@ -89,27 +82,44 @@ enum class PVPMenuProps
     IncSecondsTextLabelX = MinutesTextLabelX - 10,
     IncSecondsTextLabelY = MinutesSliderY + 44,
     IncSecondsNumberTextLabelX = IncSecondsTextLabelX + 147,
-    IncSecondsNumberTextLabelY = IncSecondsTextLabelY + 1,
+    IncSecondsNumberTextLabelY = IncSecondsTextLabelY + 3,
+    IncSecondsNumberTextLabelW = MinutesNumberTextLabelW,
+    IncSecondsNumberTextLabelH = MinutesNumberTextLabelH,
     IncSecondsSliderW = MinutesSliderW,
     IncSecondsSliderH = MinutesSliderH,
     IncSecondsSliderX = MinutesSliderX,
     IncSecondsSliderY = IncSecondsTextLabelY + 31,
     QuickGamesTextLabelX = IncSecondsTextLabelX + 36,
     QuickGamesTextLabelY = IncSecondsSliderY + 38,
-    Bullet1MPushButtonW = 58,
-    Bullet1MPushButtonH = 74,
-    Bullet1MPushButtonX = BkgLabelX + 15,
-    Bullet1MPushButtonY = QuickGamesTextLabelY + 37,
-    Blitz3MPushButtonX = Bullet1MPushButtonX + Bullet1MPushButtonW + 12,
-    Blitz3MPushButtonY = Bullet1MPushButtonY,
-    Blitz3MInc2SecPushButtonX = Blitz3MPushButtonX + Bullet1MPushButtonW + 13,
-    Blitz3MInc2SecPushButtonY = Bullet1MPushButtonY,
-    Blitz5MPushButtonX = Blitz3MInc2SecPushButtonX + Bullet1MPushButtonW + 13,
-    Blitz5MPushButtonY = Bullet1MPushButtonY,
-    Blitz10MPushButtonX = Blitz5MPushButtonX + Bullet1MPushButtonW + 12,
-    Blitz10MPushButtonY = Bullet1MPushButtonY,
-    Rapid15MPushButtonX = Blitz10MPushButtonX + Bullet1MPushButtonW + 12,
-    Rapid15MPushButtonY = Bullet1MPushButtonY,
+    Bullet1MButtonW = 58,
+    Bullet1MButtonH = 74,
+    Bullet1MButtonX = BkgLabelX + 15,
+    Bullet1MButtonY = QuickGamesTextLabelY + 37,
+    Blitz3MButtonX = Bullet1MButtonX + Bullet1MButtonW + 12,
+    Blitz3MButtonY = Bullet1MButtonY,
+    Blitz3MInc2SecButtonX = Blitz3MButtonX + Bullet1MButtonW + 13,
+    Blitz3MInc2SecButtonY = Bullet1MButtonY,
+    Blitz5MButtonX = Blitz3MInc2SecButtonX + Bullet1MButtonW + 13,
+    Blitz5MButtonY = Bullet1MButtonY,
+    Blitz10MButtonX = Blitz5MButtonX + Bullet1MButtonW + 12,
+    Blitz10MButtonY = Bullet1MButtonY,
+    Rapid15MButtonX = Blitz10MButtonX + Bullet1MButtonW + 12,
+    Rapid15MButtonY = Bullet1MButtonY,
+    RandomColorButtonW = 90,
+    RandomColorButtonH = RandomColorButtonW,
+    RandomColorButtonX = BkgLabelX + ((BkgLabelW - RandomColorButtonW) / 2),
+    RandomColorButtonY = Bullet1MButtonY + Bullet1MButtonH + 29,
+    BlackColorButtonW = 70,
+    BlackColorButtonH = BlackColorButtonW,
+    BlackColorButtonX = RandomColorButtonX - BlackColorButtonW - 15,
+    BlackColorButtonY = RandomColorButtonY + (RandomColorButtonH - BlackColorButtonH),
+    WhiteColorButtonX = RandomColorButtonX + RandomColorButtonW + 15,
+    WhiteColorButtonY = BlackColorButtonY,
+
+    ReturnButtonW = 25,
+    ReturnButtonH = 20,
+    ReturnButtonX = BkgLabelX + BkgLabelW - ReturnButtonW - 9,
+    ReturnButtonY = BkgLabelY + BkgLabelH - ReturnButtonH - 7,
 };
 
 enum class PVPMenuPushButtons
@@ -120,10 +130,29 @@ enum class PVPMenuPushButtons
 
 namespace GameVariants
 {
-    extern QString Standart;
+    extern QString Standard;
+    extern QString Chess960;
+    extern QString KingOfTheHill;
+    extern QString ThreeCheck;
+    extern QString Horde;
+    extern QString FromPosition;
 };
 
-namespace QuickGames
+enum class StartGameButtons
+{
+    NoSelected = 0,
+    Bullet1M = 1,
+    Blitz3M = 2,
+    Blitz3MInc2Sec = 3,
+    Blitz5M = 4,
+    Blitz10M = 5,
+    Rapid15M = 6,
+    BlackColor = 7,
+    RandomColor = 8,
+    WhiteColor = 9
+};
+
+namespace StartGameButtonName
 {
     extern QString NoSelected;
     extern QString Bullet1M;
@@ -132,6 +161,9 @@ namespace QuickGames
     extern QString Blitz5M;
     extern QString Blitz10M;
     extern QString Rapid15M;
+    extern QString BlackColor;
+    extern QString RandomColor;
+    extern QString WhiteColor;
 }
 
 
@@ -210,12 +242,16 @@ enum class SettingsMenuProps
 
 struct SettingsData
 {
+    int     bkgImageNumber = 15;
     QString bkgImageStr = "The_Rook";
+    int     pieceSetNumber = 0;
     QString piecesSetStr = "1";
+    int     boardNumber = 0;
     QString boardStr = "1";
+    int     languageNumber = 2;
     QString languageStr = "eng";
-    bool isSoundAvailable = false;
-    bool isDarkTheme = globalIsDarkTheme;
+    bool    isSoundAvailable = false;
+    bool    isDarkTheme = globalIsDarkTheme;
 };
 
 enum class SettingsMenuPushButtons

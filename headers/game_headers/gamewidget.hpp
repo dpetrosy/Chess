@@ -6,6 +6,7 @@
 #include <QDebug>
 
 #include "game_helpers.hpp"
+#include "menus_helpers.hpp"
 
 // Singlton pattern used
 class GameWidget : public QWidget
@@ -24,21 +25,21 @@ public:
     void            showGameElements();
 
     // Getters
-    GameData        getGameData() const;
-    QString         getGameVariant() const;
-    bool            getIsTimeAvailable() const;
-    unsigned        getGameMinutes() const;
-    unsigned        getIncrementSeconds() const;
-    PiecesColors    getBelowPlayerColor() const;
-    QString         getQuickGame() const;
+    GameData      getGameData() const;
+    QString       getGameVariant() const;
+    bool          getIsTimeAvailable() const;
+    double        getGameMinutes() const;
+    int           getIncrementSeconds() const;
+    PiecesColors  getBelowPlayerColor() const;
+    QString       getQuickGame() const;
 
     // Setters
     void setGameVariant(QString gameVariant);
     void setIsTimeAvailable(bool isTimeAvailable);
-    void setGameMinutes(unsigned gameMinutes);
-    void setIncrementSeconds(unsigned incremetSeconds);
-    void setBelowPlayerColor(PiecesColors color);
+    void setGameMinutes(double gameMinutes);
+    void setIncrementSeconds(int incremetSeconds);
     void setQuickGame(QString quickGame);
+    void setBelowPlayerColor(PiecesColors color);
 
 private:
     explicit GameWidget(QWidget *parent = nullptr);

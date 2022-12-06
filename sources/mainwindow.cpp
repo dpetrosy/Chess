@@ -37,7 +37,7 @@ MainWindow::~MainWindow()
     delete _MenusStackedWidget;
 
     // Chess game attributes
-    delete _gameWidget;
+    delete _GameWidget;
 }
 
 // Singlton pattern realization
@@ -63,32 +63,45 @@ void MainWindow::init()
     _MenusStackedWidget = new QStackedWidget();
 
     // Chess game attributes
-    _gameWidget = GameWidget::GetInstance(this);
+    _GameWidget = GameWidget::GetInstance(this);
 }
 
 // Public slots
 void MainWindow::switchMenu(Menus toMenu)
 {
     setCentralWidget(_MenusStackedWidget);
+
+    if (toMenu == Menus::PVPMenu)
+        _PVPMenuWidget->makeMenuBeforeSwitch();
+    else if (toMenu == Menus::SettingsMenu)
+        _SettingsMenuWidget->makeMenuBeforeSwitch();
+
     _MenusStackedWidget->setCurrentIndex((int)toMenu);
 }
 
-void MainWindow::showGame()
+void MainWindow::showGame(double minutes, int incSeconds, PiecesColors color)
 {
     _MenusStackedWidget->hide();
-    setCentralWidget(_gameWidget);
+    setCentralWidget(_GameWidget);
 
-    /***************** Test until make PVP menu *****************/
-    _gameWidget->setGameVariant(GameVariants::Standart);
-    _gameWidget->setIsTimeAvailable(false);
-    _gameWidget->setGameMinutes(0);
-    _gameWidget->setIncrementSeconds(0);
-    _gameWidget->setBelowPlayerColor(PiecesColors::White);
-    _gameWidget->setQuickGame(QuickGames::NoSelected);
-    /************************************************************/
+    _PVPMenuWidget->setDataBeforeStartGame(minutes, incSeconds, color);
+    _GameWidget->showGameElements();
 
 
-    _gameWidget->showGameElements();
+
+
+
+
+    // ************************** TEST *************************** //
+    qDebug() << "Time available: " << _GameWidget->getGameData().isTimeAvailable;
+    qDebug() << "Minutes: " << _GameWidget->getGameData().gameMinutes;
+    qDebug() << "Seconds: " << _GameWidget->getGameData().incrementSeconds;
+    if (_GameWidget->getGameData().belowPlayerColor == PiecesColors::Black)
+        qDebug() << "Color: Black";
+    else
+        qDebug() << "Color: White";
+
+    qDebug() << "\n";
 }
 
 void MainWindow::showQuitWindow()
@@ -131,8 +144,26 @@ void MainWindow::makeConnects()
     connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::QuitButton), &QPushButton::clicked, this, std::bind(&MainWindow::showQuitWindow, this));
     connect(_MainMenuWidget->getPushButton(MainMenuPushButtons::SettingsButton), &QPushButton::clicked, this, std::bind(&MainWindow::switchMenu, this, Menus::SettingsMenu));
 
-    // Settings connects
+    // PVPMenu connects
+    connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::Bullet1M), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 1, 0, PiecesColors::Random));
+    connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::Blitz3M), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 3, 0, PiecesColors::Random));
+    connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::Blitz3MInc2Sec), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 3, 2, PiecesColors::Random));
+    connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::Blitz5M), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 5, 0, PiecesColors::Random));
+    connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::Blitz10M), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 10, 0, PiecesColors::Random));
+    connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::Rapid15M), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 15, 0, PiecesColors::Random));
+    connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::BlackColor), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 0, 0, PiecesColors::Black));
+    connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::RandomColor), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 0, 0, PiecesColors::Random));
+    connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::WhiteColor), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 0, 0, PiecesColors::White));
+
+
+
+
+
+
+
+    connect(_PVPMenuWidget->getReturnButton(), &ClickableLabel::clickedLeftButton, this, std::bind(&MainWindow::switchMenu, this, Menus::MainMenu));
+
+    // Settings menu connects
     connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::CancelButton), &QPushButton::clicked, _SettingsMenuWidget, std::bind(&SettingsMenu::cancelButtonClicked, _SettingsMenuWidget));
-    //connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::CancelButton), &QPushButton::clicked, _SettingsMenuWidget, std::bind(&SettingsMenu::cancelButtonClicked, _SettingsMenuWidget));
-    connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::SaveButton), &QPushButton::clicked, _SettingsMenuWidget, &SettingsMenu::saveButtonClicked);
+    connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::SaveButton), &QPushButton::clicked, _SettingsMenuWidget, std::bind(&SettingsMenu::saveButtonClicked, _SettingsMenuWidget));
 }

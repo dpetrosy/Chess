@@ -102,21 +102,21 @@ void SettingsMenu::init()
 void SettingsMenu::cancelButtonClicked()
 {
     _tempData = _settingsData;
+    globalIsDarkTheme = _settingsData.isDarkTheme;
 
-
-    /* ******************************************  CRASH  **************************************** */
     auto mainWindow = MainWindow::GetInstance();
+    mainWindow->setBackgroundImage(_settingsData.bkgImageStr);
     mainWindow->switchMenu(Menus::MainMenu);
 }
 
 void SettingsMenu::saveButtonClicked()
 {
     _settingsData = _tempData;
-    // Write new data in gameWidget data
+    globalIsDarkTheme = _settingsData.isDarkTheme;
 
-    /* ******************************************  CRASH  **************************************** */
     auto mainWindow = MainWindow::GetInstance();
-    //mainWindow->switchMenu(mainWindow->getStackedWidget(MainMenuStackedWidgets::PVPStackedWidget), Menus::MainMenu);
+    mainWindow->setBackgroundImage(_settingsData.bkgImageStr);
+    mainWindow->switchMenu(Menus::MainMenu);
 }
 
 // Public util functions
@@ -133,6 +133,22 @@ QPushButton* SettingsMenu::getPushButton(SettingsMenuPushButtons button)
         case SettingsMenuPushButtons::SaveButton: return _savePushButton;
         default: return _cancelPushButton;
     }
+}
+
+void SettingsMenu::makeMenuBeforeSwitch()
+{
+    // Background image
+    _bkgImageComboBox->setCurrentIndex(_settingsData.bkgImageNumber);
+
+    // Language
+    _languageComboBox->setCurrentIndex(_settingsData.languageNumber);
+
+    // Sound
+    _soundToggleSwitch->setChecked(_settingsData.isSoundAvailable);
+
+    // Theme
+    _themeToggleSwitch->setChecked(globalIsDarkTheme);
+    changeMenuTheme();
 }
 
 // Private util functions
@@ -218,6 +234,7 @@ void SettingsMenu::makeSettingsMenu()
     // Sound toggle switch
     _soundToggleSwitch->move((int)SettingsMenuProps::SoundToggleSwitchX, (int)SettingsMenuProps::SoundToggleSwitchY);
     _soundToggleSwitch->setChecked(false);
+    connect(_soundToggleSwitch, &QCheckBox::clicked, this, &SettingsMenu::swapSound);
 
     // Text for theme
     _themeTextLabel->setGeometry((int)SettingsMenuProps::ThemeTextLabelX, (int)SettingsMenuProps::ThemeTextLabelY, (int)SettingsMenuProps::ThemeTextLabelW, (int)SettingsMenuProps::ThemeTextLabelH);
@@ -394,6 +411,64 @@ void SettingsMenu::hideAndShowMenu()
     }
 }
 
+void SettingsMenu::changeMenuTheme()
+{
+    // Background label
+    ::setStyleSheetByTheme(StylesPaths::lightThemeBkgLabelStyle, StylesPaths::darkThemeBkgLabelStyle, _bkgLabel, globalIsDarkTheme);
+
+    // Text for background image
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _bkgImageTextLabel, globalIsDarkTheme);
+
+    // Background image combobox
+    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _bkgImageComboBox, globalIsDarkTheme);
+
+    // Text for piece sets
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _pieceSetsTextLabel, globalIsDarkTheme);
+
+    // Piece sets combobox
+    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _pieceSetsComboBox, globalIsDarkTheme);
+
+    // Text for board
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _boardTextLabel, globalIsDarkTheme);
+
+    // Board combobox
+    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _boardComboBox, globalIsDarkTheme);
+
+    // Text for language
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _languageTextLabel, globalIsDarkTheme);
+
+    // Language combobox
+    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _languageComboBox, globalIsDarkTheme);
+
+    // Text for sound
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _soundTextLabel, globalIsDarkTheme);
+
+    // Text for theme
+    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _themeTextLabel, globalIsDarkTheme);
+
+    // Buttons background label
+    ::setStyleSheetByTheme(StylesPaths::lightThemeButtonsLabelStyle, StylesPaths::darkThemeButtonsLabelStyle, _buttonsBkgLabel, globalIsDarkTheme);
+
+    // Cancel push button
+    ::setStyleSheetByTheme(StylesPaths::settingsMenuLightCancelButtonStyle, StylesPaths::settingsMenuDarkCancelButtonStyle, _cancelPushButton, globalIsDarkTheme);
+}
+
+// Private slots
+void SettingsMenu::bkgImageComboBoxIndexChanged(int index)
+{
+    _tempData.bkgImageNumber = index;
+    _tempData.bkgImageStr = getBoardStr(index);
+
+    MainWindow::GetInstance()->setBackgroundImage(_tempData.bkgImageStr);
+}
+
+void SettingsMenu::languageComboBoxIndexChanged(int index)
+{
+    _tempData.languageNumber = index;
+    _tempData.languageStr = getLanguageStr(index);
+    // call function to set language
+}
+
 void SettingsMenu::swapMenuTheme()
 {
     if (_tempData.isDarkTheme)
@@ -410,57 +485,10 @@ void SettingsMenu::swapMenuTheme()
     changeMenuTheme();
 }
 
-void SettingsMenu::changeMenuTheme()
+void SettingsMenu::swapSound()
 {
-    // Background label
-    ::setStyleSheetByTheme(StylesPaths::lightThemeBkgLabelStyle, StylesPaths::darkThemeBkgLabelStyle, _bkgLabel, _tempData.isDarkTheme);
-
-    // Text for background image
-    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _bkgImageTextLabel, _tempData.isDarkTheme);
-
-    // Background image combobox
-    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _bkgImageComboBox, _tempData.isDarkTheme);
-
-    // Text for piece sets
-    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _pieceSetsTextLabel, _tempData.isDarkTheme);
-
-    // Piece sets combobox
-    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _pieceSetsComboBox, _tempData.isDarkTheme);
-
-    // Text for board
-    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _boardTextLabel, _tempData.isDarkTheme);
-
-    // Board combobox
-    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _boardComboBox, _tempData.isDarkTheme);
-
-    // Text for language
-    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _languageTextLabel, _tempData.isDarkTheme);
-
-    // Language combobox
-    ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _languageComboBox, _tempData.isDarkTheme);
-
-    // Text for sound
-    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _soundTextLabel, _tempData.isDarkTheme);
-
-    // Text for theme
-    ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _themeTextLabel, _tempData.isDarkTheme);
-
-    // Buttons background label
-    ::setStyleSheetByTheme(StylesPaths::lightThemeButtonsLabelStyle, StylesPaths::darkThemeButtonsLabelStyle, _buttonsBkgLabel, _tempData.isDarkTheme);
-
-    // Cancel push button
-    ::setStyleSheetByTheme(StylesPaths::settingsMenuLightCancelButtonStyle, StylesPaths::settingsMenuDarkCancelButtonStyle, _cancelPushButton, _tempData.isDarkTheme);
-}
-
-// Private slots
-void SettingsMenu::bkgImageComboBoxIndexChanged(int index)
-{
-    _tempData.boardStr = getBoardStr(index);
-    MainWindow::GetInstance()->setBackgroundImage(_tempData.boardStr);
-}
-
-void SettingsMenu::languageComboBoxIndexChanged(int index)
-{
-    _tempData.languageStr = getLanguageStr(index);
-    // call function to set language
+    if (_tempData.isSoundAvailable)
+        _tempData.isSoundAvailable = false;
+    else
+        _tempData.isSoundAvailable = true;
 }

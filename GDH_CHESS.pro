@@ -18,7 +18,7 @@ SOURCES += \
     sources/menus_sources/pvpmenu.cpp \
     sources/menus_sources/settingsmenu.cpp \
     sources/menus_sources/toggleswitch.cpp \
-    sources/menus_sources/quick_game_button.cpp \
+    sources/menus_sources/start_game_button.cpp \
     sources/game_sources/gamewidget.cpp \
     sources/game_sources/boardwidget.cpp \
     sources/game_sources/clickablelabel.cpp \
@@ -46,7 +46,7 @@ HEADERS += \
     headers/menus_headers/settingsmenu.hpp \
     headers/menus_headers/toggleswitch.hpp \
     headers/menus_headers/toggle_switch_style.hpp \
-    headers/menus_headers/quick_game_button.hpp \
+    headers/menus_headers/start_game_button.hpp \
     headers/game_headers/gamewidget.hpp \
     headers/game_headers/boardwidget.hpp \
     headers/game_headers/moveswidget.hpp \
