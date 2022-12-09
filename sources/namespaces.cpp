@@ -1,15 +1,46 @@
 #include "helpers.hpp"
 
-bool globalIsDarkTheme = false;
+bool    globalIsDarkTheme = false;
+QString globalPieceSetPath = ":/images/images/pieces/Cburnett/";
 
 // Images
 namespace ImagesPaths
 {
     QString imagesPath = ":/images/images/";
-    QString piecesPath = imagesPath + "pieces/";
-    QString logosPath = imagesPath + "logos/";
-    QString backgroundsPath = imagesPath + "backgrounds/";
     QString boardsPath = imagesPath + "boards/";
+
+    // Logos images
+    QString logosPath = imagesPath + "logos/";
+
+    // Backgrounds images
+    QString backgroundsPath = imagesPath + "backgrounds/";
+    QString LightThemeGameBkg = "light_theme_game_bkg";
+    QString DarkThemeGameBkg = "dark_theme_game_bkg";
+
+    // Steps images
+    QString stepsPath = imagesPath + "steps/";
+
+
+    // Pieces images
+    QString piecesPath = imagesPath + "pieces/";
+
+    QString AlphaPath = imagesPath + "Alpha";
+    QString CaliforniaPath = imagesPath + "California";
+    QString CardinalPath = imagesPath + "Cardinal";
+    QString CasesPath = imagesPath + "Cases";
+    QString CburnettPath = imagesPath + "Cburnett";
+    QString Chess7Path = imagesPath + "Chess7";
+    QString CondalPath = imagesPath + "Condal";
+    QString FrescaPath = imagesPath + "Fresca";
+    QString GameRoomPath = imagesPath + "Game_Room";
+    QString GlassPath = imagesPath + "Glass";
+    QString ICPiecesPath = imagesPath + "IC_Pieces";
+    QString LolzPath = imagesPath + "Lolz";
+    QString MaestroPath = imagesPath + "Maestro";
+    QString MeridaPath = imagesPath + "Marida";
+    QString NeoPath = imagesPath + "Neo";
+    QString OceanPath = imagesPath + "Ocean";
+
 
     // Menus images
     QString menusPath = imagesPath + "menus/";
@@ -72,14 +103,14 @@ namespace ImagesPaths
 
 namespace StepsImages
 {
-    QString CanGo = ImagesPaths::piecesPath + "can_go.png";
-    QString CanBeat = ImagesPaths::piecesPath + "can_beat.png";
-    QString CurrentPiece = ImagesPaths::piecesPath + "current_piece.png";
-    QString LastStepFrom = ImagesPaths::piecesPath + "last_step_from.png";
-    QString LastStepTo = ImagesPaths::piecesPath + "last_step_to.png";
-    QString LastStepFromAndCanGo = ImagesPaths::piecesPath + "last_step_from_can_go.png";
-    QString Check = ImagesPaths::piecesPath + "check.png";
-    QString CurrentPieceAndChecked = ImagesPaths::piecesPath + "current_piece_and_checked.png";
+    QString CanGo = ImagesPaths::stepsPath + "can_go.png";
+    QString CanBeat = ImagesPaths::stepsPath + "can_beat.png";
+    QString CurrentPiece = ImagesPaths::stepsPath + "current_piece.png";
+    QString LastStepFrom = ImagesPaths::stepsPath + "last_step_from.png";
+    QString LastStepTo = ImagesPaths::stepsPath + "last_step_to.png";
+    QString LastStepFromAndCanGo = ImagesPaths::stepsPath + "last_step_from_can_go.png";
+    QString Check = ImagesPaths::stepsPath + "check.png";
+    QString CurrentPieceAndChecked = ImagesPaths::stepsPath + "current_piece_and_checked.png";
 }
 
 
@@ -145,6 +176,16 @@ namespace GameVariants
     QString ThreeCheck = "Three-check";
     QString Horde = "Horde";
     QString FromPosition = "From_Position";
+
+    QString HordeSymbolsVector2D = \
+    "rnbqkbnr\
+     pppppppp\
+     00000000\
+     0PP00PP0\
+     PPPPPPPP\
+     PPPPPPPP\
+     PPPPPPPP\
+     PPPPPPPP";
 };
 
 namespace StartGameButtonName
@@ -183,6 +224,27 @@ namespace BackgroundImages
     QString TheQueen = "The_Queen";
     QString TheRook = "The_Rook";
     QString TopView = "Top_View";
+}
+
+namespace PieceSets
+{
+    QString Extencion = ".png";
+    QString Alpha = "Alpha";
+    QString California = "California";
+    QString Cardinal = "Cardinal";
+    QString Cases = "Cases";
+    QString Cburnett = "Cburnett";
+    QString Chess7 = "Chess7";
+    QString Condal = "Condal";
+    QString Fresca = "Fresca";
+    QString GameRoom = "Game_Room";
+    QString Glass = "Glass";
+    QString ICPieces = "IC_Pieces";
+    QString Lolz = "Lolz";
+    QString Maestro = "Maestro";
+    QString Merida = "Merida";
+    QString Neo = "Neo";
+    QString Ocean = "Ocean";
 }
 
 namespace Languages

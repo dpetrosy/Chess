@@ -41,7 +41,6 @@ void BoardWidget::init()
     _boardSize = (int)BoardWidgetProps::BoardSquaresCount;
     _selectedPiece = nullptr;
     _turn = PiecesColors::White;
-    _piecesPath = ImagesPaths::piecesPath;
     _isChecked = false;
     _isCheckedKingSelected = false;
     _isPawnPromoted = false;
@@ -112,64 +111,82 @@ void BoardWidget::init()
     }
 
     // Init piecesVector2D
-        _boardLayout = new QGridLayout();
-    PiecesColors white = PiecesColors::White;
-    PiecesColors black = PiecesColors::Black;
+    _boardLayout = new QGridLayout();
 
     _piecesVector2D.reserve(_boardSize);
     for (unsigned i = 0; i < _boardSize; ++i)
         _piecesVector2D.push_back(QVector<Piece *>(_boardSize, nullptr));
 
     for (unsigned i = 0; i < _boardSize ; ++i)
-    {
         for (unsigned j = 0; j < _boardSize; ++j)
-        {
-            switch (_piecesSymbolsVector2D[i][j])
-            {
-            case (char)PiecesSymbols::Empty:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Empty, noColored, i, j);
-                break;
-            case (char)PiecesSymbols::WhitePawn:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, white, i, j);
-                break;
-            case (char)PiecesSymbols::WhiteKnight:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight, white, i, j);
-                break;
-            case (char)PiecesSymbols::WhiteBishop:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop, white, i, j);
-                break;
-            case (char)PiecesSymbols::WhiteRook:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook, white, i, j);
-                break;
-            case (char)PiecesSymbols::WhiteQueen:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, white, i, j);
-                break;
-            case (char)PiecesSymbols::WhiteKing:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::King, white, i, j);
-                break;
-            case (char)PiecesSymbols::BlackPawn:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, black, i, j);
-                break;
-            case (char)PiecesSymbols::BlackKnight:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight, black, i, j);
-                break;
-            case (char)PiecesSymbols::BlackBishop:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop, black, i, j);
-                break;
-            case (char)PiecesSymbols::BlackRook:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook, black, i, j);
-                break;
-            case (char)PiecesSymbols::BlackQueen:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, black, i, j);
-                break;
-            case (char)PiecesSymbols::BlackKing:
-                _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::King, black, i, j);
-                break;
-            default:
-                break;
-            }
-        }
+            makeNewPieceBySymbol(_piecesSymbolsVector2D[i][j], i, j);
+}
+
+// Public util functions
+void BoardWidget::makeNewPieceBySymbol(char symbol, int i, int j)
+{
+    PiecesColors noColored = PiecesColors::NoColored;
+    PiecesColors white = PiecesColors::White;
+    PiecesColors black = PiecesColors::Black;
+
+    switch (symbol)
+    {
+    case (char)PiecesSymbols::Empty:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Empty, noColored, i, j, this);
+        break;
+    case (char)PiecesSymbols::WhitePawn:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, white, i, j, this);
+        break;
+    case (char)PiecesSymbols::WhiteKnight:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight, white, i, j, this);
+        break;
+    case (char)PiecesSymbols::WhiteBishop:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop, white, i, j, this);
+        break;
+    case (char)PiecesSymbols::WhiteRook:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook, white, i, j, this);
+        break;
+    case (char)PiecesSymbols::WhiteQueen:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, white, i, j, this);
+        break;
+    case (char)PiecesSymbols::WhiteKing:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::King, white, i, j, this);
+        break;
+    case (char)PiecesSymbols::BlackPawn:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Pawn, black, i, j, this);
+        break;
+    case (char)PiecesSymbols::BlackKnight:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Knight, black, i, j, this);
+        break;
+    case (char)PiecesSymbols::BlackBishop:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Bishop, black, i, j, this);
+        break;
+    case (char)PiecesSymbols::BlackRook:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Rook, black, i, j, this);
+        break;
+    case (char)PiecesSymbols::BlackQueen:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Queen, black, i, j, this);
+        break;
+    case (char)PiecesSymbols::BlackKing:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::King, black, i, j, this);
+        break;
+    default:
+        break;
     }
+}
+
+void BoardWidget::clearBoardLayout()
+{
+    for (unsigned i = 0; i < _boardSize; ++i)
+        for (unsigned j = 0; j < _boardSize; ++j)
+            _boardLayout->removeWidget(_piecesVector2D[i][j]->getPieceLabel());
+}
+
+void BoardWidget::resetBoardLayout()
+{
+    for (unsigned i = 0; i < _boardSize; ++i)
+        for (unsigned j = 0; j < _boardSize; ++j)
+            _boardLayout->addWidget(_piecesVector2D[i][j]->getPieceLabel(), i, j);
 }
 
 // Getters
@@ -223,11 +240,6 @@ PiecesColors BoardWidget::getTurn() const
     return _turn;
 }
 
-QString BoardWidget::getPiecesPath() const
-{
-    return _piecesPath;
-}
-
 // Setters
 void BoardWidget::setCheckPosition(int i, int j)
 {
@@ -241,11 +253,16 @@ void BoardWidget::setPromotedPawnPosition(int i, int j)
     _promotedPawnPos.column = j;
 }
 
+void BoardWidget::setValueInSymbolsVector2D(int i, int j, char value)
+{
+    _piecesSymbolsVector2D[i][j] = value;
+}
+
 // Private util functions
 void BoardWidget::makeBoardWidget()
 {
     // Set under layer geometry
-    _underLayerWidget->setGeometry(0, 0, (int)BoardWidgetProps::BoardW, (int)BoardWidgetProps::BoardH);
+    _underLayerWidget->setGeometry(0, 0, (int)BoardWidgetProps::BoardWidgetW, (int)BoardWidgetProps::BoardWidgetH);
 
     // Make layouts
     for (unsigned i = 0; i < _boardSize; ++i)
@@ -253,8 +270,8 @@ void BoardWidget::makeBoardWidget()
         for (unsigned j = 0; j < _boardSize; ++j)
         {
             // Make board layout
-            connect(_piecesVector2D[i][j]->getPieceLabel(), &ClickableLabel::clickedLeftButton, this,
-                    std::bind(&BoardWidget::processLeftButtonClick, this, _piecesVector2D[i][j]));
+            //connect(_piecesVector2D[i][j]->getPieceLabel(), &ClickableLabel::clickedLeftButton, this,
+            //        std::bind(&BoardWidget::processLeftButtonClick, this, _piecesVector2D[i][j]));
             _boardLayout->addWidget(_piecesVector2D[i][j]->getPieceLabel(), i, j);
 
             // Make under layer layout
@@ -510,20 +527,6 @@ void BoardWidget::switchTurn()
         _turn = PiecesColors::Black;
     else
         _turn = PiecesColors::White;
-}
-
-void BoardWidget::clearBoardLayout()
-{
-    for (unsigned i = 0; i < _boardSize; ++i)
-        for (unsigned j = 0; j < _boardSize; ++j)
-            _boardLayout->removeWidget(_piecesVector2D[i][j]->getPieceLabel());
-}
-
-void BoardWidget::resetBoardLayout()
-{
-    for (unsigned i = 0; i < _boardSize; ++i)
-        for (unsigned j = 0; j < _boardSize; ++j)
-            _boardLayout->addWidget(_piecesVector2D[i][j]->getPieceLabel(), i, j);
 }
 
 void BoardWidget::clearStepsVector2D()

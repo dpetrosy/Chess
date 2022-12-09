@@ -1,7 +1,7 @@
 #include "gamewidget.hpp"
 #include "boardwidget.hpp"
 #include "moveswidget.hpp"
-
+#include "piece.hpp"
 #include "mainwindow.hpp"
 #include "helpers.hpp"
 
@@ -32,22 +32,171 @@ GameWidget* GameWidget::GetInstance(QWidget *parent)
 void GameWidget::init()
 {
     // Game elements
+    _boardLabel = new QLabel(this);
     _boardWidget = BoardWidget::GetInstance(this);
     _movesWidget = MovesWidget::GetInstance(this);
 }
 
 // Public util functions
-void GameWidget::showGameElements()
+void GameWidget::startGame()
 {
-    // Set board as background image
-    //MainWindow::GetInstance()->setBackgroundImage("dark/board1.jpg");
+    // Set background theme
+    if (globalIsDarkTheme)
+        MainWindow::GetInstance()->setBackgroundImage(ImagesPaths::DarkThemeGameBkg);
+    else
+        MainWindow::GetInstance()->setBackgroundImage(ImagesPaths::LightThemeGameBkg);
+
+    resetBoard();
 }
 
 // Private util functions
 void GameWidget::makeGameWidget()
 {
     // Set BoardWidget geometry
-    _boardWidget->setGeometry((int)BoardWidgetProps::BoardX, (int)BoardWidgetProps::BoardY, (int)BoardWidgetProps::BoardW, (int)BoardWidgetProps::BoardH);
+    _boardWidget->setGeometry((int)BoardWidgetProps::BoardWidgetX, (int)BoardWidgetProps::BoardWidgetY, (int)BoardWidgetProps::BoardWidgetW, (int)BoardWidgetProps::BoardWidgetH);
+
+    // Board label
+    _boardLabel->setPixmap(QPixmap(":/images/images/boards/default.png"));
+    _boardLabel->setGeometry((int)BoardWidgetProps::BoardLabelX, (int)BoardWidgetProps::BoardLabelY, (int)BoardWidgetProps::BoardLabelW, (int)BoardWidgetProps::BoardLabelH);
+}
+
+void GameWidget::resetBoard()
+{
+    resetSymbolsVector2D();
+    resetPiecesVector2D();
+}
+
+void GameWidget::resetSymbolsVector2D()
+{
+    auto variant = _gameData.gameVariant;
+    auto playerColor = _gameData.belowPlayerColor;
+
+    if (variant == GameVariants::Horde)
+        makeSymbolsVector2DForHorde();
+    else if (variant == GameVariants::Chess960)
+        makeSymbolsVector2DForChess960();
+
+    if (playerColor == PiecesColors::Black)
+        reverseSymbolsVector2D();
+}
+
+void GameWidget::reverseSymbolsVector2D()
+{
+    int i1 = 0;
+    int j1 = 0;
+    char temp;
+    auto& vector2D = _boardWidget->getPiecesSymbolsVector2D();
+
+    for (int i = 7; i >= 4; --i, ++i1)
+    {
+        j1 = 0;
+        for (int j = 7; j >= 0; --j, ++j1)
+        {
+            temp = vector2D[i][j];
+            vector2D[i][j] = vector2D[i1][j1];
+            vector2D[i1][j1] = temp;
+        }
+    }
+}
+
+void GameWidget::makeSymbolsVector2DForHorde()
+{
+    QString hordeMatrix = GameVariants::HordeSymbolsVector2D;
+    auto& vector2D = _boardWidget->getPiecesSymbolsVector2D();
+
+    hordeMatrix.remove(' ');
+
+    int k = 0;
+    for (int i = 0; i < 8; ++i)
+        for (int j = 0; j < 8; ++j, ++k)
+            vector2D[i][j] = static_cast<char>(hordeMatrix.at(k).toLatin1());
+}
+
+void GameWidget::makeSymbolsVector2DForChess960()
+{
+    auto& vector2D = _boardWidget->getPiecesSymbolsVector2D();
+    char shuffeledLine[8] = {'0', '0', '0', '0', '0', '0', '0', '0'};
+    int min = 0;
+    int max = 7;
+
+    // King
+    int kingPos = QRandomGenerator::global()->bounded(min + 1, max);
+    shuffeledLine[kingPos] = (char)PiecesSymbols::BlackKing;
+
+    // Rooks
+    int rookPos = QRandomGenerator::global()->bounded(min, kingPos);
+    shuffeledLine[rookPos] = (char)PiecesSymbols::BlackRook;
+    rookPos = QRandomGenerator::global()->bounded(kingPos + 1, max + 1);
+    shuffeledLine[rookPos] = (char)PiecesSymbols::BlackRook;
+
+    // Bishops
+    bool blackSquareBishop = false;
+    bool whiteSquareBishop = false;
+    int pos;
+    while (true)
+    {
+        pos = QRandomGenerator::global()->bounded(min, max + 1);
+
+        if ((pos % 2 != 0) && shuffeledLine[pos] == '0' && !blackSquareBishop)
+        {
+            shuffeledLine[pos] = (char)PiecesSymbols::BlackBishop;
+            blackSquareBishop = true;
+        }
+        else if ((pos % 2 == 0) && shuffeledLine[pos] == '0' && !whiteSquareBishop)
+        {
+            shuffeledLine[pos] = (char)PiecesSymbols::BlackBishop;
+            whiteSquareBishop = true;
+        }
+
+        if (blackSquareBishop && whiteSquareBishop)
+            break;
+    }
+
+    // Queen
+    while (true)
+    {
+        pos = QRandomGenerator::global()->bounded(min, max + 1);
+        if (shuffeledLine[pos] == '0')
+        {
+            shuffeledLine[pos] = (char)PiecesSymbols::BlackQueen;
+            break;
+        }
+    }
+
+    // Knights
+    for (int i = 0; i < 8; ++i)
+        if (shuffeledLine[i] == '0')
+            shuffeledLine[i] = (char)PiecesSymbols::BlackKnight;
+
+    for (int i = 0; i < 8; ++i)
+    {
+        vector2D[0][i] = shuffeledLine[i];
+        vector2D[7][i] = toupper(shuffeledLine[i]);
+    }
+}
+
+void GameWidget::resetPiecesVector2D()
+{
+    auto& piecesVector2D = _boardWidget->getPiecesVector2D();
+    auto& piecesSymbolsVector2D = _boardWidget->getPiecesSymbolsVector2D() ;
+
+    _boardWidget->clearBoardLayout();
+
+    for (int i = 0; i < (int)BoardWidgetProps::BoardSquaresCount; ++i)
+    {
+        for (int j = 0; j < (int)BoardWidgetProps::BoardSquaresCount; ++j)
+        {
+            piecesVector2D[i][j]->changePixmap();
+
+            if (piecesVector2D[i][j]->getPieceSymbol() != piecesSymbolsVector2D[i][j])
+            {
+                delete piecesVector2D[i][j];
+                _boardWidget->makeNewPieceBySymbol(piecesSymbolsVector2D[i][j], i, j);
+            }
+        }
+    }
+
+    _boardWidget->resetBoardLayout();
 }
 
 // Getters
@@ -86,6 +235,11 @@ QString GameWidget::getQuickGame() const
     return _gameData.quickGame;
 }
 
+QString GameWidget::getPieceSet() const
+{
+    return _gameData.pieceSet;
+}
+
 // Setters
 void GameWidget::setGameVariant(QString gameVariant)
 {
@@ -115,4 +269,9 @@ void GameWidget::setBelowPlayerColor(PiecesColors color)
 void GameWidget::setQuickGame(QString quickGame)
 {
     _gameData.quickGame = quickGame;
+}
+
+void GameWidget::setPieceSet(QString set)
+{
+    _gameData.pieceSet = set;
 }

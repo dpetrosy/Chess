@@ -93,6 +93,12 @@ void PVPMenu::init()
 }
 
 // Public slots
+void PVPMenu::variantComboBoxIndexChanged(int index)
+{
+    auto variant = getGameVariantStr(index);
+    GameWidget::GetInstance()->setGameVariant(variant);
+}
+
 void PVPMenu::swapTimeControl()
 {
     if (_isTimeAvailable)
@@ -183,7 +189,10 @@ void PVPMenu::makeMenuBeforeSwitch()
     ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _timeControlTextLabel, globalIsDarkTheme);
 
     // Time control toggle switch
-    _timeControlToggleSwitch->setChecked(true);
+    if (_isTimeAvailable)
+        _timeControlToggleSwitch->setChecked(true);
+    else
+        _timeControlToggleSwitch->setChecked(false);
 
     // Text for minutes slider
     ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _minutesTextLabel, globalIsDarkTheme);
@@ -241,6 +250,9 @@ void PVPMenu::makeMenuBeforeSwitch()
     // Black color button
     ::setStyleSheetByTheme(StylesPaths::lightQuickGamesButtonStyle, StylesPaths::darkColorButtonStyle, _whiteColorButton, globalIsDarkTheme);
     setQLabelPictureByTheme(_whiteColorButton, globalIsDarkTheme, ImagesPaths::LightWhiteColorButton, ImagesPaths::DarkWhiteColorButton);
+
+    // Return button
+    setQLabelPictureByTheme(_returnButton, globalIsDarkTheme, ImagesPaths::LightReturnButton, ImagesPaths::DarkReturnButton);
 }
 
 ClickableLabel* PVPMenu::getReturnButton()
@@ -269,11 +281,13 @@ void PVPMenu::setDataBeforeStartGame(double minutes, int incSeconds, PiecesColor
 {
     auto gameWidget = GameWidget::GetInstance();
 
+    // Quick game button clicked
     if (minutes != 0 || incSeconds != 0)
     {
         gameWidget->setIsTimeAvailable(true);
         gameWidget->setGameMinutes(minutes);
         gameWidget->setIncrementSeconds(incSeconds);
+        gameWidget->setGameVariant(GameVariants::Standard);
     }
 
     if (color == PiecesColors::Random)
@@ -285,6 +299,27 @@ void PVPMenu::setDataBeforeStartGame(double minutes, int incSeconds, PiecesColor
     }
 
     gameWidget->setBelowPlayerColor(color);
+}
+
+QString PVPMenu::getGameVariantStr(int index)
+{
+    switch (index)
+    {
+    case (int)GameVariantsNumber::Standard:
+        return GameVariants::Standard;
+    case (int)GameVariantsNumber::Chess960:
+        return GameVariants::Chess960;
+    case (int)GameVariantsNumber::KingOfTheHill:
+        return GameVariants::KingOfTheHill;
+    case (int)GameVariantsNumber::ThreeCheck:
+        return GameVariants::ThreeCheck;
+    case (int)GameVariantsNumber::Horde:
+        return GameVariants::Horde;
+    case (int)GameVariantsNumber::FromPosition:
+        return GameVariants::FromPosition;
+    default:
+        return GameVariants::Standard;
+    }
 }
 
 // Private util functions
@@ -314,8 +349,8 @@ void PVPMenu::makePVPMenu()
     _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::ThreeCheck));
     _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::Horde));
     _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::FromPosition));
-    _gameVariantComboBox->setCurrentIndex(0);
-//    connect(_gameVariantComboBox, &QComboBox::currentIndexChanged, this, &SettingsMenu::bkgImageComboBoxIndexChanged);
+    _gameVariantComboBox->setCurrentIndex((int)GameVariantsNumber::Standard);
+    connect(_gameVariantComboBox, &QComboBox::currentIndexChanged, this, &PVPMenu::variantComboBoxIndexChanged);
 
     // Time Control background label
     ::setStyleSheetByTheme(StylesPaths::lightTimeControlBkgLabelStyle, StylesPaths::darkTimeControlBkgLabelStyle, _timeControlBkgLabel, globalIsDarkTheme);
@@ -422,7 +457,6 @@ void PVPMenu::makePVPMenu()
 
     // Return button
     _returnButton->move((int)PVPMenuProps::ReturnButtonX, (int)PVPMenuProps::ReturnButtonY);
-    //::setStyleSheetByTheme(StylesPaths::lightReturnButtonStyle, StylesPaths::darkColorButtonStyle, _whiteColorButton, globalIsDarkTheme);
     setQLabelPictureByTheme(_returnButton, globalIsDarkTheme, ImagesPaths::LightReturnButton, ImagesPaths::DarkReturnButton);
     _returnButton->setCursor(Qt::PointingHandCursor);
 }

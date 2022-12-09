@@ -30,18 +30,19 @@ public:
 
 public:
     // Getters
-    ClickableLabel*     getPieceLabel() const;
-    QString             getPiecePath() const;
-    Position            getPosition() const;
-    int                 getPositionRow() const;
-    int                 getPositionColumn() const;
-    QString             getPieceName() const;
-    QString             getExtension() const;
-    PiecesTypes         getPieceType() const;
-    PiecesColors        getPieceColor() const;
-    QString             getColorString() const;
-    QString             getColoredName() const;
-    QString             getImage() const;
+    ClickableLabel*  getPieceLabel() const;
+    QString          getPiecePath() const;
+    Position         getPosition() const;
+    int              getPositionRow() const;
+    int              getPositionColumn() const;
+    QString          getPieceName() const;
+    QString          getExtension() const;
+    PiecesTypes      getPieceType() const;
+    PiecesColors     getPieceColor() const;
+    QString          getColorString() const;
+    QString          getColoredName() const;
+    QString          getImage() const;
+    char             getPieceSymbol() const;
 
     // Setters
     void setPieceLabel(ClickableLabel* pieceLabel);
@@ -56,6 +57,7 @@ public:
     void setColorString(QString colorString);
     void setColoredName(QString coloredName);
     void setImage(QString image);
+    void changePixmap();
 
 protected:
     Piece();
@@ -65,14 +67,16 @@ protected:
 
     // Protected util functions
     void makeColored(PiecesColors pieceColor);
+    void findPieceSymbol();
 
 protected:
     ClickableLabel*  _pieceLabel;
-    QString          _piecesPath;
     Position         _position;
     QString          _pieceName;
     QString          _extension;
     PiecesTypes      _pieceType;
+    QString          _pieceSet;
+    char             _pieceSymbol;
 
     // Piece color attributes
     PiecesColors  _pieceColor;

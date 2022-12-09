@@ -17,7 +17,6 @@ Piece::~Piece() {}
 void Piece::init()
 {
     _pieceLabel = nullptr;
-    _piecesPath = ImagesPaths::piecesPath;
     _pieceName = "piece";
     _extension = ".png";
     _pieceType = PiecesTypes::Empty;
@@ -44,17 +43,35 @@ void Piece::makeColored(PiecesColors pieceColor)
         _coloredName = _pieceName;
         _image = _coloredName;
     }
+
+    findPieceSymbol();
+}
+
+void Piece::findPieceSymbol()
+{
+    if (_pieceName == "pawn")
+        _pieceSymbol = (char)PiecesTypes::Pawn;
+    else if (_pieceName == "knight")
+        _pieceSymbol = (char)PiecesTypes::Knight;
+    else if (_pieceName == "bishop")
+        _pieceSymbol = (char)PiecesTypes::Bishop;
+    else if (_pieceName == "rook")
+        _pieceSymbol = (char)PiecesTypes::Rook;
+    else if (_pieceName == "queen")
+        _pieceSymbol = (char)PiecesTypes::Queen;
+    else if (_pieceName == "king")
+        _pieceSymbol = (char)PiecesTypes::King;
+    else // empty
+        _pieceSymbol = (char)PiecesTypes::Empty;
+
+    if (_colorString == "white")
+        _pieceSymbol = toupper(_pieceSymbol);
 }
 
 // Getters
 ClickableLabel* Piece::getPieceLabel() const
 {
     return _pieceLabel;
-}
-
-QString Piece::getPiecePath() const
-{
-    return _piecesPath;
 }
 
 Position Piece::getPosition() const
@@ -107,15 +124,15 @@ QString Piece::getImage() const
     return _image;
 }
 
+char Piece::getPieceSymbol() const
+{
+    return _pieceSymbol;
+}
+
 // Setters
 void Piece::setPieceLabel(ClickableLabel* pieceLabel)
 {
     _pieceLabel = pieceLabel;
-}
-
-void Piece::setPiecePath(QString piecePath)
-{
-    _piecesPath = piecePath;
 }
 
 void Piece::setPosition(int row, int column)
@@ -167,6 +184,11 @@ void Piece::setColoredName(QString coloredName)
 void Piece::setImage(QString image)
 {
     _image = image;
+}
+
+void Piece::changePixmap()
+{
+    _pieceLabel->setPixmap(QPixmap(globalPieceSetPath + _image));
 }
 
 

@@ -18,7 +18,7 @@ QListView::item
 
 QListView::item:selected
 {
-    background-color: rgb(153,200,255);
+    background-color: rgb(153, 200, 255);
     color: rgb(60, 60, 60);
 }
 
@@ -29,5 +29,5 @@ QComboBox::drop-down
 
 QComboBox::down-arrow
 {
-    image: url(:/images/images/settings/dark_theme_arrow.png);
+    image: url(:/images/images/menus/settings/dark_theme_arrow.png);
 }

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QObject>
 #include <QDebug>
+#include <QLabel>
 #include <QGridLayout>
 #include <QVector>
 #include <QVectorIterator>
@@ -24,6 +25,11 @@ public:
     static BoardWidget *GetInstance(QWidget *parent = nullptr);
     virtual ~BoardWidget();
 
+    // Public util functions
+    void makeNewPieceBySymbol(char symbol, int i, int j);
+    void clearBoardLayout();
+    void resetBoardLayout();
+
 public:
     // Getters
     Piece*          getSelectedPiece() const;
@@ -36,13 +42,13 @@ public:
     CharVector2D&   getPiecesSymbolsVector2D();
     PieceVector2D&  getPiecesVector2D();
     PiecesColors    getTurn() const;
-    QString         getPiecesPath() const;
     bool            getIsChecked() const;
     Position        getCheckPosition() const;
 
     // Setters
     void setCheckPosition(int i, int j);
     void setPromotedPawnPosition(int i, int j);
+    void setValueInSymbolsVector2D(int i, int j, char value);
 
 public slots:
     void processLeftButtonClick(Piece *clickedPiece);
@@ -63,12 +69,10 @@ private:
     void doStepInSymbolsVector(int iSelected, int jSelected, int iClicked, int jClicked);
     void doStepInPiecesVector(int iSelected, int jSelected, int iClicked, int jClicked);
     void drawUnderLayer();
-    void clearBoardLayout();
     void drawSelectedPieceSquare();
     void drawCheck();
     void clearStepsVector2D();
     void clearStepsVector2DExceptCheck();
-    void resetBoardLayout();
     void switchTurn();
     bool isPieceSelected();
     bool isEmptyClicked(Piece *clickedPiece);
@@ -91,7 +95,6 @@ private:
     Factory* _piecesFactory;
 
     // Board widget attributes
-    QString         _piecesPath;
     unsigned        _boardSize;
 
     // Under layer attributes
@@ -112,7 +115,6 @@ private:
     Position        _promotedPawnPos;
     Piece*          _selectedPiece;
     PawnPromDialog* _pawnPromDialog;
-
 };
 
 #endif // BOARDWIDGET_HPP

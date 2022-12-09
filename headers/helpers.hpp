@@ -4,6 +4,7 @@
 #include <QString>
 
 extern bool globalIsDarkTheme;
+extern QString globalPieceSetPath;
 
 enum class MainWindowProps
 {
@@ -14,10 +15,40 @@ enum class MainWindowProps
 namespace ImagesPaths
 {
     extern QString imagesPath;
-    extern QString piecesPath;
-    extern QString logosPath;
-    extern QString backgroundsPath;
     extern QString boardsPath;
+
+    // Logos images
+    extern QString logosPath;
+
+    // Backgrounds images
+    extern QString backgroundsPath;
+    extern QString LightThemeGameBkg;
+    extern QString DarkThemeGameBkg;
+
+    // Steps images
+    extern QString stepsPath;
+
+
+    // Pieces images
+    extern QString piecesPath;
+
+    extern QString AlphaPath;
+    extern QString CaliforniaPath;
+    extern QString CardinalPath;
+    extern QString CasesPath;
+    extern QString CburnettPath;
+    extern QString Chess7Path;
+    extern QString CondalPath;
+    extern QString FrescaPath;
+    extern QString GameRoomPath;
+    extern QString GlassPath;
+    extern QString ICPiecesPath;
+    extern QString LolzPath;
+    extern QString MaestroPath;
+    extern QString MeridaPath;
+    extern QString NeoPath;
+    extern QString OceanPath;
+
 
     // Menus images
     extern QString menusPath;

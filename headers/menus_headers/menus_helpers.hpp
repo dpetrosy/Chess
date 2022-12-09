@@ -115,10 +115,9 @@ enum class PVPMenuProps
     BlackColorButtonY = RandomColorButtonY + (RandomColorButtonH - BlackColorButtonH),
     WhiteColorButtonX = RandomColorButtonX + RandomColorButtonW + 15,
     WhiteColorButtonY = BlackColorButtonY,
-
     ReturnButtonW = 25,
     ReturnButtonH = 20,
-    ReturnButtonX = BkgLabelX + BkgLabelW - ReturnButtonW - 9,
+    ReturnButtonX = BkgLabelX + BkgLabelW - ReturnButtonW - 8,
     ReturnButtonY = BkgLabelY + BkgLabelH - ReturnButtonH - 7,
 };
 
@@ -136,6 +135,17 @@ namespace GameVariants
     extern QString ThreeCheck;
     extern QString Horde;
     extern QString FromPosition;
+    extern QString HordeSymbolsVector2D;
+}
+
+enum class GameVariantsNumber
+{
+    Standard,
+    Chess960,
+    KingOfTheHill,
+    ThreeCheck,
+    Horde,
+    FromPosition,
 };
 
 enum class StartGameButtons
@@ -244,8 +254,8 @@ struct SettingsData
 {
     int     bkgImageNumber = 15;
     QString bkgImageStr = "The_Rook";
-    int     pieceSetNumber = 0;
-    QString piecesSetStr = "1";
+    int     pieceSetNumber = 4;
+    QString piecesSetStr = "Cburnett";
     int     boardNumber = 0;
     QString boardStr = "1";
     int     languageNumber = 2;
@@ -281,6 +291,68 @@ namespace BackgroundImages
     extern QString TheRook;
     extern QString TopView;
 }
+
+enum class BackgroundImagesNumbers
+{
+    AngelView,
+    Blacked,
+    BravePawn,
+    Checkmate,
+    Dark_Chess,
+    Emperors,
+    FaceToFace,
+    IAmTheKing,
+    Landscape,
+    Shadow,
+    StrongKnight,
+    TheBishop,
+    TheKing,
+    TheKnight,
+    TheQueen,
+    TheRook,
+    TopView,
+};
+
+namespace PieceSets
+{
+    extern QString Extencion;
+    extern QString Alpha;
+    extern QString California;
+    extern QString Cardinal;
+    extern QString Cases;
+    extern QString Cburnett;
+    extern QString Chess7;
+    extern QString Condal;
+    extern QString Fresca;
+    extern QString GameRoom;
+    extern QString Glass;
+    extern QString ICPieces;
+    extern QString Lolz;
+    extern QString Maestro;
+    extern QString Merida;
+    extern QString Neo;
+    extern QString Ocean;
+}
+
+enum class PieceSetsNumber
+{
+    Alpha,
+    California,
+    Cardinal,
+    Cases,
+    Cburnett,
+    Chess7,
+    Condal,
+    Fresca,
+    GameRoom,
+    Glass,
+    ICPieces,
+    Lolz,
+    Maestro,
+    Merida,
+    Neo,
+    Ocean,
+};
 
 namespace Languages
 {

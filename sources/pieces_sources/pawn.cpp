@@ -9,7 +9,7 @@ Pawn::Pawn()
     init();
     makeColored(PiecesColors::White);
     setPosition(0, 0);
-    _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
+    _pieceLabel->setPixmap(QPixmap(globalPieceSetPath + _image));
 }
 
 Pawn::Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j)
@@ -20,7 +20,7 @@ Pawn::Pawn(const Pawn& other, PiecesColors pieceColor, int i, int j)
     init();
     makeColored(pieceColor);
     setPosition(i, j);
-    _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
+    _pieceLabel->setPixmap(QPixmap(globalPieceSetPath + _image));
 }
 
 Pawn::~Pawn()
@@ -49,13 +49,14 @@ void Pawn::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbols
     int j = _position.column;
     char canGo = (char)PossibleSteps::CanGo;
     char canBeat = (char)PossibleSteps::CanBeat;
+    bool isHord = (GameWidget::GetInstance()->getGameVariant() == GameVariants::Horde);
 
     if (turn == belowPlayerColor)
     {
         if (i != 0 && isCanGo(symbolsVector2D, i - 1, j))
         {
             stepsVector2D[i - 1][j] = canGo;
-            if (i == 6 && isCanGo(symbolsVector2D, i - 2, j))
+            if ((i == 6 || (i == 7 && isHord)) && isCanGo(symbolsVector2D, i - 2, j))
                 stepsVector2D[i - 2][j] = canGo;
         }
 
@@ -72,7 +73,7 @@ void Pawn::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbols
         if (i != 7 && isCanGo(symbolsVector2D, i + 1, j))
         {
             stepsVector2D[i + 1][j] = canGo;
-            if (i == 1 && isCanGo(symbolsVector2D, i + 2, j))
+            if ((i == 1 || (i == 0 && isHord)) && isCanGo(symbolsVector2D, i + 2, j))
                 stepsVector2D[i + 2][j] = canGo;
         }
 
@@ -84,6 +85,4 @@ void Pawn::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbols
             if(isCanBeat(symbolsVector2D, i + 1, j - 1, turn))
                 stepsVector2D[i + 1][j - 1] = canBeat;
     }
-
-
 }

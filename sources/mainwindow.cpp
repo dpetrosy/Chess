@@ -85,7 +85,7 @@ void MainWindow::showGame(double minutes, int incSeconds, PiecesColors color)
     setCentralWidget(_GameWidget);
 
     _PVPMenuWidget->setDataBeforeStartGame(minutes, incSeconds, color);
-    _GameWidget->showGameElements();
+    _GameWidget->startGame();
 
 
 
@@ -93,6 +93,7 @@ void MainWindow::showGame(double minutes, int incSeconds, PiecesColors color)
 
 
     // ************************** TEST *************************** //
+    qDebug() << "Variant: " << _GameWidget->getGameData().gameVariant;
     qDebug() << "Time available: " << _GameWidget->getGameData().isTimeAvailable;
     qDebug() << "Minutes: " << _GameWidget->getGameData().gameMinutes;
     qDebug() << "Seconds: " << _GameWidget->getGameData().incrementSeconds;
@@ -100,6 +101,7 @@ void MainWindow::showGame(double minutes, int incSeconds, PiecesColors color)
         qDebug() << "Color: Black";
     else
         qDebug() << "Color: White";
+    qDebug() << "Piece Set: " << _GameWidget->getPieceSet();
 
     qDebug() << "\n";
 }
@@ -154,13 +156,6 @@ void MainWindow::makeConnects()
     connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::BlackColor), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 0, 0, PiecesColors::Black));
     connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::RandomColor), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 0, 0, PiecesColors::Random));
     connect(_PVPMenuWidget->getStartGameButton(StartGameButtons::WhiteColor), &StartGameButton::clickedLeftButton, this, std::bind(&MainWindow::showGame, this, 0, 0, PiecesColors::White));
-
-
-
-
-
-
-
     connect(_PVPMenuWidget->getReturnButton(), &ClickableLabel::clickedLeftButton, this, std::bind(&MainWindow::switchMenu, this, Menus::MainMenu));
 
     // Settings menu connects

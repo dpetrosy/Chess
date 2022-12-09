@@ -9,7 +9,7 @@ Queen::Queen()
     init();
     makeColored(PiecesColors::White);
     setPosition(0, 0);
-    _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
+    _pieceLabel->setPixmap(QPixmap(globalPieceSetPath + _image));
 }
 
 Queen::Queen(const Queen& other, PiecesColors pieceColor, int i, int j)
@@ -20,7 +20,7 @@ Queen::Queen(const Queen& other, PiecesColors pieceColor, int i, int j)
     init();
     makeColored(pieceColor);
     setPosition(i, j);
-    _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
+    _pieceLabel->setPixmap(QPixmap(globalPieceSetPath + _image));
 }
 
 Queen::~Queen()

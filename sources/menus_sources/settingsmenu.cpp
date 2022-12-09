@@ -1,6 +1,7 @@
 #include "settingsmenu.hpp"
 #include "mainwindow.hpp"
 #include "toggleswitch.hpp"
+#include "gamewidget.hpp"
 #include "helpers.hpp"
 #include "utils.hpp"
 
@@ -103,6 +104,7 @@ void SettingsMenu::cancelButtonClicked()
 {
     _tempData = _settingsData;
     globalIsDarkTheme = _settingsData.isDarkTheme;
+    globalPieceSetPath = ImagesPaths::piecesPath + _settingsData.piecesSetStr + "/";
 
     auto mainWindow = MainWindow::GetInstance();
     mainWindow->setBackgroundImage(_settingsData.bkgImageStr);
@@ -113,9 +115,14 @@ void SettingsMenu::saveButtonClicked()
 {
     _settingsData = _tempData;
     globalIsDarkTheme = _settingsData.isDarkTheme;
+    globalPieceSetPath = ImagesPaths::piecesPath + _settingsData.piecesSetStr + "/";
 
     auto mainWindow = MainWindow::GetInstance();
+    auto gameWidget = GameWidget::GetInstance();
+
     mainWindow->setBackgroundImage(_settingsData.bkgImageStr);
+    gameWidget->setPieceSet(_settingsData.piecesSetStr);
+
     mainWindow->switchMenu(Menus::MainMenu);
 }
 
@@ -140,6 +147,10 @@ void SettingsMenu::makeMenuBeforeSwitch()
     // Background image
     _bkgImageComboBox->setCurrentIndex(_settingsData.bkgImageNumber);
 
+    // Piece set
+    _piecesLabel->setPixmap(QPixmap(ImagesPaths::settingsPiecesSetsPath + _settingsData.piecesSetStr + PieceSets::Extencion));
+    _pieceSetsComboBox->setCurrentIndex(_settingsData.pieceSetNumber);
+
     // Language
     _languageComboBox->setCurrentIndex(_settingsData.languageNumber);
 
@@ -163,7 +174,7 @@ void SettingsMenu::makeSettingsMenu()
     _boardLabel->move((int)SettingsMenuProps::BoardLabelX, (int)SettingsMenuProps::BoardLabelY);
 
     // Pieces label
-    _piecesLabel->setPixmap(QPixmap(ImagesPaths::settingsPiecesSetsPath + "set" + _settingsData.piecesSetStr + ".png"));
+    _piecesLabel->setPixmap(QPixmap(ImagesPaths::settingsPiecesSetsPath + PieceSets::Cburnett + ".png"));
     _piecesLabel->move((int)SettingsMenuProps::BoardLabelX, (int)SettingsMenuProps::BoardLabelY);
 
     // Text for background image
@@ -191,7 +202,7 @@ void SettingsMenu::makeSettingsMenu()
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheQueen));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheRook));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::TopView));
-    _bkgImageComboBox->setCurrentIndex(15);
+    _bkgImageComboBox->setCurrentIndex((int)BackgroundImagesNumbers::TheRook);
     connect(_bkgImageComboBox, &QComboBox::currentIndexChanged, this, &SettingsMenu::bkgImageComboBoxIndexChanged);
 
     // Text for piece sets
@@ -202,6 +213,24 @@ void SettingsMenu::makeSettingsMenu()
     // Piece sets combobox
     _pieceSetsComboBox->setGeometry((int)SettingsMenuProps::PieceSetComboBoxX, (int)SettingsMenuProps::PieceSetComboBoxY, (int)SettingsMenuProps::PieceSetComboBoxW, (int)SettingsMenuProps::PieceSetComboBoxH);
     ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _pieceSetsComboBox, _settingsData.isDarkTheme);
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Alpha));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::California));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Cardinal));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Cases));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Cburnett));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Chess7));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Condal));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Fresca));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::GameRoom));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Glass));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::ICPieces));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Lolz));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Maestro));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Merida));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Neo));
+    _pieceSetsComboBox->addItem(removeUnderscoreInString(PieceSets::Ocean));
+    _pieceSetsComboBox->setCurrentIndex((int)PieceSetsNumber::Cburnett);
+    connect(_pieceSetsComboBox, &QComboBox::currentIndexChanged, this, &SettingsMenu::pieceSetsComboBoxIndexChanged);
 
     // Text for board
     _boardTextLabel->setGeometry((int)SettingsMenuProps::BoardTextLabelX, (int)SettingsMenuProps::BoardTextLabelY, (int)SettingsMenuProps::BoardTextLabelW, (int)SettingsMenuProps::BoardTextLabelH);
@@ -267,46 +296,87 @@ void SettingsMenu::makeSettingsMenu()
     connect(_hideAndShowButton, &QPushButton::clicked, this, &SettingsMenu::hideAndShowMenu);
 }
 
-QString SettingsMenu::getBoardStr(int index)
+QString SettingsMenu::getBkgStr(int index)
 {
     switch (index)
     {
-    case 0:
+    case (int)BackgroundImagesNumbers::AngelView:
         return BackgroundImages::AngelView;
-    case 1:
+    case (int)BackgroundImagesNumbers::Blacked:
         return BackgroundImages::Blacked;
-    case 2:
+    case (int)BackgroundImagesNumbers::BravePawn:
         return BackgroundImages::BravePawn;
-    case 3:
+    case (int)BackgroundImagesNumbers::Checkmate:
         return BackgroundImages::Checkmate;
-    case 4:
+    case (int)BackgroundImagesNumbers::Dark_Chess:
         return BackgroundImages::Dark_Chess;
-    case 5:
+    case (int)BackgroundImagesNumbers::Emperors:
         return BackgroundImages::Emperors;
-    case 6:
+    case (int)BackgroundImagesNumbers::FaceToFace:
         return BackgroundImages::FaceToFace;
-    case 7:
+    case (int)BackgroundImagesNumbers::IAmTheKing:
         return BackgroundImages::IAmTheKing;
-    case 8:
+    case (int)BackgroundImagesNumbers::Landscape:
         return BackgroundImages::Landscape;
-    case 9:
+    case (int)BackgroundImagesNumbers::Shadow:
         return BackgroundImages::Shadow;
-    case 10:
+    case (int)BackgroundImagesNumbers::StrongKnight:
         return BackgroundImages::StrongKnight;
-    case 11:
+    case (int)BackgroundImagesNumbers::TheBishop:
         return BackgroundImages::TheBishop;
-    case 12:
+    case (int)BackgroundImagesNumbers::TheKing:
         return BackgroundImages::TheKing;
-    case 13:
+    case (int)BackgroundImagesNumbers::TheKnight:
         return BackgroundImages::TheKnight;
-    case 14:
+    case (int)BackgroundImagesNumbers::TheQueen:
         return BackgroundImages::TheQueen;
-    case 15:
+    case (int)BackgroundImagesNumbers::TheRook:
         return BackgroundImages::TheRook;
-    case 16:
+    case (int)BackgroundImagesNumbers::TopView:
         return BackgroundImages::TopView;
     default:
         return BackgroundImages::TheRook;
+    }
+}
+
+QString SettingsMenu::getPieceSetStr(int index)
+{
+    switch (index)
+    {
+    case (int)PieceSetsNumber::Alpha:
+        return PieceSets::Alpha;
+    case (int)PieceSetsNumber::California:
+        return PieceSets::California;
+    case (int)PieceSetsNumber::Cardinal:
+        return PieceSets::Cardinal;
+    case (int)PieceSetsNumber::Cases:
+        return PieceSets::Cases;
+    case (int)PieceSetsNumber::Cburnett:
+        return PieceSets::Cburnett;
+    case (int)PieceSetsNumber::Chess7:
+        return PieceSets::Chess7;
+    case (int)PieceSetsNumber::Condal:
+        return PieceSets::Condal;
+    case (int)PieceSetsNumber::Fresca:
+        return PieceSets::Fresca;
+    case (int)PieceSetsNumber::GameRoom:
+        return PieceSets::GameRoom;
+    case (int)PieceSetsNumber::Glass:
+        return PieceSets::Glass;
+    case (int)PieceSetsNumber::ICPieces:
+        return PieceSets::ICPieces;
+    case (int)PieceSetsNumber::Lolz:
+        return PieceSets::Lolz;
+    case (int)PieceSetsNumber::Maestro:
+        return PieceSets::Maestro;
+    case (int)PieceSetsNumber::Merida:
+        return PieceSets::Merida;
+    case (int)PieceSetsNumber::Neo:
+        return PieceSets::Neo;
+    case (int)PieceSetsNumber::Ocean:
+        return PieceSets::Ocean;
+    default:
+        return PieceSets::Cburnett;
     }
 }
 
@@ -457,9 +527,19 @@ void SettingsMenu::changeMenuTheme()
 void SettingsMenu::bkgImageComboBoxIndexChanged(int index)
 {
     _tempData.bkgImageNumber = index;
-    _tempData.bkgImageStr = getBoardStr(index);
+    _tempData.bkgImageStr = getBkgStr(index);
 
     MainWindow::GetInstance()->setBackgroundImage(_tempData.bkgImageStr);
+}
+
+void SettingsMenu::pieceSetsComboBoxIndexChanged(int index)
+{
+    QString pieceSet = getPieceSetStr(index);;
+
+    _tempData.pieceSetNumber = index;
+    _tempData.piecesSetStr = pieceSet;
+
+    _piecesLabel->setPixmap(QPixmap(ImagesPaths::settingsPiecesSetsPath + pieceSet + PieceSets::Extencion));
 }
 
 void SettingsMenu::languageComboBoxIndexChanged(int index)

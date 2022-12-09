@@ -7,7 +7,7 @@ Bishop::Bishop()
     init();
     makeColored(PiecesColors::White);
     setPosition(0, 0);
-    _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
+    _pieceLabel->setPixmap(QPixmap(globalPieceSetPath + _image));
 }
 
 Bishop::Bishop(const Bishop& other, PiecesColors pieceColor, int i, int j)
@@ -18,7 +18,7 @@ Bishop::Bishop(const Bishop& other, PiecesColors pieceColor, int i, int j)
     init();
     makeColored(pieceColor);
     setPosition(i, j);
-    _pieceLabel->setPixmap(QPixmap(_piecesPath + _image));
+    _pieceLabel->setPixmap(QPixmap(globalPieceSetPath + _image));
 }
 
 Bishop::~Bishop()

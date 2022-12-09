@@ -27,8 +27,10 @@ public:
     ClickableLabel*   getReturnButton();
     StartGameButton*  getStartGameButton(StartGameButtons button);
     void              setDataBeforeStartGame(double minutes, int incSeconds, PiecesColors color);
+    QString           getGameVariantStr(int index);
 
 public slots:
+    void variantComboBoxIndexChanged(int index);
     void swapTimeControl();
     void minutesSliderValueChanged(int x);
     void incSecondsSliderValueChanged(int x);
