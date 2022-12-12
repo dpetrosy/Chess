@@ -85,4 +85,8 @@ void Pawn::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbols
             if(isCanBeat(symbolsVector2D, i + 1, j - 1, turn))
                 stepsVector2D[i + 1][j - 1] = canBeat;
     }
+
+    // Verify if step open check
+    if (gSelectedPiece == this)
+        verifyCheckOpening(stepsVector2D, symbolsVector2D, turn, i, j);
 }

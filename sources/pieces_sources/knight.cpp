@@ -1,4 +1,5 @@
 #include "knight.hpp"
+#include "boardwidget.hpp"
 #include "clickablelabel.hpp"
 
 Knight::Knight()
@@ -84,4 +85,8 @@ void Knight::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbo
         if (i != 7)
             markCanGoOrCanBeat(stepsVector2D, symbolsVector2D, i + 1, j + 2, turn);
     }
+
+    // Verify if step open check
+    if (gSelectedPiece == this)
+        verifyCheckOpening(stepsVector2D, symbolsVector2D, turn, i, j);
 }

@@ -24,7 +24,7 @@ enum class MainMenuProps
     horLayoutW = verLayoutW,
     horLayoutH = verLayoutH / 3 + 2,
     verLayoutY = ((int)MainWindowProps::windowSizeH - (verLayoutH + horLayoutH + 20)) / 2,
-    horLayoutY = verLayoutY + verLayoutH + 6,
+    horLayoutY = verLayoutY + verLayoutH + 0,
 
     // PushButtons Properties
     verLayoutButtonsW = 0,
@@ -33,6 +33,11 @@ enum class MainMenuProps
     horLayoutButtonsW = verLayoutButtonsW,
     horLayoutButtonsH = verLayoutButtonsH,
     horLayoutButtonsFont = verLayoutButtonsFont,
+
+    VersionTextLabelX = (int)MainWindowProps::windowSizeW - 120,
+    VersionTextLabelY = (int)MainWindowProps::windowSizeH - 30,
+    VersionTextLabelW = 140,
+    VersionTextLabelH = 20,
 };
 
 enum class MainMenuPushButtons
@@ -252,7 +257,7 @@ enum class SettingsMenuProps
 
 struct SettingsData
 {
-    int     bkgImageNumber = 15;
+    int     bkgImageNumber = 16;
     QString bkgImageStr = "The_Rook";
     int     pieceSetNumber = 4;
     QString piecesSetStr = "Cburnett";
@@ -282,6 +287,7 @@ namespace BackgroundImages
     extern QString FaceToFace;
     extern QString IAmTheKing;
     extern QString Landscape;
+    extern QString Legends;
     extern QString Shadow;
     extern QString StrongKnight;
     extern QString TheBishop;
@@ -303,6 +309,7 @@ enum class BackgroundImagesNumbers
     FaceToFace,
     IAmTheKing,
     Landscape,
+    Legends,
     Shadow,
     StrongKnight,
     TheBishop,

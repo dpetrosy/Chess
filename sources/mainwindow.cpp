@@ -93,17 +93,17 @@ void MainWindow::showGame(double minutes, int incSeconds, PiecesColors color)
 
 
     // ************************** TEST *************************** //
-    qDebug() << "Variant: " << _GameWidget->getGameData().gameVariant;
-    qDebug() << "Time available: " << _GameWidget->getGameData().isTimeAvailable;
-    qDebug() << "Minutes: " << _GameWidget->getGameData().gameMinutes;
-    qDebug() << "Seconds: " << _GameWidget->getGameData().incrementSeconds;
-    if (_GameWidget->getGameData().belowPlayerColor == PiecesColors::Black)
-        qDebug() << "Color: Black";
-    else
-        qDebug() << "Color: White";
-    qDebug() << "Piece Set: " << _GameWidget->getPieceSet();
+//    qDebug() << "Variant: " << _GameWidget->getGameData().gameVariant;
+//    qDebug() << "Time available: " << _GameWidget->getGameData().isTimeAvailable;
+//    qDebug() << "Minutes: " << _GameWidget->getGameData().gameMinutes;
+//    qDebug() << "Seconds: " << _GameWidget->getGameData().incrementSeconds;
+//    if (_GameWidget->getGameData().belowPlayerColor == PiecesColors::Black)
+//        qDebug() << "Color: Black";
+//    else
+//        qDebug() << "Color: White";
+//    qDebug() << "Piece Set: " << _GameWidget->getPieceSet();
 
-    qDebug() << "\n";
+//    qDebug() << "\n";
 }
 
 void MainWindow::showQuitWindow()

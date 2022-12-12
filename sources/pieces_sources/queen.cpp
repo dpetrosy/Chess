@@ -1,5 +1,6 @@
 #include "queen.hpp"
 #include "bishop.hpp"
+#include "boardwidget.hpp"
 #include "rook.hpp"
 #include "clickablelabel.hpp"
 
@@ -53,8 +54,10 @@ void Queen::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbol
     int i = _position.row;
     int j = _position.column;
 
+    doForQueen = true;
     _bishop->setPosition(i, j);
     _bishop->findAvailableSteps(stepsVector2D, symbolsVector2D, turn, belowPlayerColor);
+    doForQueen = true;
     _rook->setPosition(i, j);
     _rook->findAvailableSteps(stepsVector2D, symbolsVector2D, turn, belowPlayerColor);
 }

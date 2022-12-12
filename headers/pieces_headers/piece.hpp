@@ -7,6 +7,7 @@
 
 #include "game_helpers.hpp"
 #include "pieces_helpers.hpp"
+#include "utils.hpp"
 
 // Prototype pattern used
 class Piece : public QObject
@@ -27,6 +28,8 @@ public:
     bool isKing(CharVector2D& symbolsVector2D, int i, int j);
     bool isGivingCheck(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn);
     void markCanGoOrCanBeat(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, int i, int j, PiecesColors turn);
+    void verifyCheckOpening(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, int pieceI, int pieceJ);
+    void findKingPos(CharVector2D& symbolsVector2D, int& kingI, int& kingJ, char kingSymbol);
 
 public:
     // Getters

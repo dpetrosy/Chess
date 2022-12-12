@@ -15,5 +15,9 @@ int main(int argc, char *argv[])
     w->setWindowIcon(QIcon(logoImagePath));
     w->show();
 
-    return a.exec();
+    auto retValue = a.exec();
+
+    delete w;
+
+    return retValue;
 }

@@ -1,4 +1,5 @@
 #include "bishop.hpp"
+#include "boardwidget.hpp"
 #include "clickablelabel.hpp"
 
 Bishop::Bishop()
@@ -123,5 +124,12 @@ void Bishop::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbo
             else
                 break;
         }
+    }
+
+    // Verify if step open check
+    if (gSelectedPiece == this || doForQueen)
+    {
+        doForQueen = false;
+        verifyCheckOpening(stepsVector2D, symbolsVector2D, turn, ipos, jpos);
     }
 }

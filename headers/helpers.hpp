@@ -129,6 +129,11 @@ namespace StylesPaths
     extern QString lightBoldDimTextStyle;
     extern QString darkBoldDimTextStyle;
 
+    // Main menu
+    extern QString MainMenuStylesPath;
+    extern QString VersionTextStyle;
+    extern QString MainMenuButtonStyle;
+
     // Settings menu
     extern QString SettingsMenuStylesPath;
     extern QString hideAndShowButtonStyle;
@@ -153,6 +158,10 @@ namespace StylesPaths
     extern QString darkColorButtonStyle;
     extern QString lightVariantComboboxStyle;
     extern QString darkVariantComboboxStyle;
+
+    // Pieces styles
+    extern QString PiecesStylesPath;
+    extern QString PawnPromButtonsStyle;
 }
 
 #endif // HELPERS_HPP

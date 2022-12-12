@@ -1,0 +1,6 @@
+QLabel
+{
+    font-size: 12pt;
+    font-family: Segoe UI Black;
+    color: rgb(99, 248, 203);
+}

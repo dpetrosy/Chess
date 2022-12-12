@@ -136,6 +136,11 @@ namespace StylesPaths
     QString lightBoldDimTextStyle = MenusStylesPath + "light_bold_dim_text.txt";
     QString darkBoldDimTextStyle = MenusStylesPath + "dark_bold_dim_text.txt";
 
+    // Main menu
+    QString MainMenuStylesPath = MenusStylesPath + "main_menu_styles/";
+    QString VersionTextStyle = MainMenuStylesPath + "version_text.txt";
+    QString MainMenuButtonStyle = MainMenuStylesPath + "main_menu_button.txt";
+
     // Settings menu
     QString SettingsMenuStylesPath = MenusStylesPath + "settings_menu_styles/";
     QString hideAndShowButtonStyle = SettingsMenuStylesPath + "hide_and_show_button.txt";
@@ -161,9 +166,9 @@ namespace StylesPaths
     QString lightVariantComboboxStyle = PVPMenuStylesPath + "light_variant_combobox.txt";
     QString darkVariantComboboxStyle = PVPMenuStylesPath + "dark_variant_combobox.txt";
 
-
-
-    //QString pawnPromButtonsStyle = MenusStylesPath + "pawn_prom_buttons_style.txt";
+    // Pieces styles
+    QString PiecesStylesPath = stylesPath + "pieces_styles/";
+    QString PawnPromButtonsStyle = PiecesStylesPath + "pawn_prom_buttons_style.txt";
 }
 
 
@@ -216,6 +221,7 @@ namespace BackgroundImages
     QString FaceToFace = "Face_to_Face";
     QString IAmTheKing = "I_am_the_King";
     QString Landscape = "Landscape";
+    QString Legends = "Legends";
     QString Shadow = "Shadow";
     QString StrongKnight = "Strong_Knight";
     QString TheBishop = "The_Bishop";

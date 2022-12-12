@@ -31,6 +31,9 @@ void MainMenu::init()
     _InstrButton = new QPushButton("Instructions");
     _SettingsButton = new QPushButton("Settings");
     _QuitButton = new QPushButton("Quit");
+
+    // Version text label
+    _versionTextLabel = new QLabel(this);
 }
 
 // Public util functions
@@ -64,6 +67,13 @@ void MainMenu::makeMainMenu()
     setPushButtonFont(_SettingsButton, (int)MainMenuProps::horLayoutButtonsFont);
     setPushButtonFont(_QuitButton, (int)MainMenuProps::horLayoutButtonsFont);
 
+    // Set buttons style
+    ::setStyleSheet(StylesPaths::MainMenuButtonStyle, _PVPButton);
+    ::setStyleSheet(StylesPaths::MainMenuButtonStyle, _PVCButton);
+    ::setStyleSheet(StylesPaths::MainMenuButtonStyle, _InstrButton);
+    ::setStyleSheet(StylesPaths::MainMenuButtonStyle, _SettingsButton);
+    ::setStyleSheet(StylesPaths::MainMenuButtonStyle, _QuitButton);
+
     // Add buttons to layouts
     _verLayout->addWidget(_PVPButton);
     _verLayout->addWidget(_PVCButton);
@@ -76,4 +86,9 @@ void MainMenu::makeMainMenu()
     _widgetForVerLayout->setGeometry(rect);
     rect.setRect((int)MainMenuProps::horLayoutX, (int)MainMenuProps::horLayoutY, (int)MainMenuProps::horLayoutW, (int)MainMenuProps::horLayoutH);
     _widgetForHorLayout->setGeometry(rect);
+
+    // Version text label
+    _versionTextLabel->setGeometry((int)MainMenuProps::VersionTextLabelX, (int)MainMenuProps::VersionTextLabelY, (int)MainMenuProps::VersionTextLabelW, (int)MainMenuProps::VersionTextLabelH);
+    ::setStyleSheet(StylesPaths::VersionTextStyle, _versionTextLabel);
+    _versionTextLabel->setText("Version: 1.2.4");
 }

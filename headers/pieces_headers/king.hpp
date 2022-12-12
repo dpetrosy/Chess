@@ -24,6 +24,7 @@ public:
 
     // Public game functions
     void findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor = PiecesColors::White) override;
+    void checkEveryStep(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, int kingI, int kingJ);
 
 private:
     // Init

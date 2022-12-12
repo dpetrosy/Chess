@@ -250,18 +250,61 @@ void Piece::markCanGoOrCanBeat(CharVector2D& stepsVector2D, CharVector2D& symbol
         stepsVector2D[i][j] = canBeat;
 }
 
+void Piece::verifyCheckOpening(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, int pieceI, int pieceJ)
+{
+    char clearedSymbol = '0';
+    char pieceSymbol = symbolsVector2D[pieceI][pieceJ];
+    char kingSymbol;
+    int kingI = 0;
+    int kingJ = 0;
 
+    if (turn == PiecesColors::Black)
+        kingSymbol = 'k';
+    else
+        kingSymbol = 'K';
+    findKingPos(symbolsVector2D, kingI, kingJ, kingSymbol);
 
+    CharVector2D imitationVector2D;
+    imitationVector2D.reserve(8);
+    for (int i = 0; i < 8; ++i)
+        imitationVector2D.push_back(QVector<char>(8, (char)PossibleSteps::Empty));
+    copyVector2D(imitationVector2D, symbolsVector2D, 8);
 
+    CharVector2D allAvailStepsVector2D;
+    allAvailStepsVector2D.reserve(8);
+    for (int i = 0; i < 8; ++i)
+        allAvailStepsVector2D.push_back(QVector<char>(8, (char)PossibleSteps::Empty));
 
+    for (int i = 0; i < 8; ++i)
+    {
+        for (int j = 0; j < 8; ++j)
+        {
+            if (stepsVector2D[i][j] == (char)PossibleSteps::CanGo || stepsVector2D[i][j] == (char)PossibleSteps::CanBeat)
+            {
+                clearedSymbol = symbolsVector2D[i][j];
+                imitationVector2D[pieceI][pieceJ] = (char)PossibleSteps::Empty;
+                imitationVector2D[i][j] = pieceSymbol;
+                BoardWidget::GetInstance()->getAllAvailStepsForColor(allAvailStepsVector2D, imitationVector2D, turn);
 
+                if (allAvailStepsVector2D[kingI][kingJ] == (char)PossibleSteps::CanBeat)
+                    stepsVector2D[i][j] = (char)PossibleSteps::Empty;
 
+                imitationVector2D[pieceI][pieceJ] = pieceSymbol;
+                imitationVector2D[i][j] = clearedSymbol;
+                resetCharVector2D(allAvailStepsVector2D, 8, (char)PossibleSteps::Empty);
+            }
+        }
+    }
+}
 
+void Piece::findKingPos(CharVector2D& symbolsVector2D, int& kingI, int& kingJ, char kingSymbol)
+{
+    for (int i = 0; i < 8; ++i)
+        for (int j = 0; j < 8; ++j)
+            if (symbolsVector2D[i][j] == kingSymbol)
+            {
+                kingI = i;
+                kingJ = j;
+            }
+}
 
-
-
-
-
-// Delete
-//void Piece::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn, PiecesColors belowPlayerColor)
-//{}

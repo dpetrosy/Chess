@@ -194,6 +194,7 @@ void SettingsMenu::makeSettingsMenu()
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::FaceToFace));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::IAmTheKing));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::Landscape));
+    _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::Legends));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::Shadow));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::StrongKnight));
     _bkgImageComboBox->addItem(removeUnderscoreInString(BackgroundImages::TheBishop));
@@ -318,6 +319,8 @@ QString SettingsMenu::getBkgStr(int index)
         return BackgroundImages::IAmTheKing;
     case (int)BackgroundImagesNumbers::Landscape:
         return BackgroundImages::Landscape;
+    case (int)BackgroundImagesNumbers::Legends:
+        return BackgroundImages::Legends;
     case (int)BackgroundImagesNumbers::Shadow:
         return BackgroundImages::Shadow;
     case (int)BackgroundImagesNumbers::StrongKnight:

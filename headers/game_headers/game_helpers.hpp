@@ -38,8 +38,8 @@ enum class BoardWidgetProps
 // PawnProm Dialog
 enum class PawnPromDialogProps
 {
-    windowSizeW = 355,
-    windowSizeH = 100,
+    windowSizeW = 409,
+    windowSizeH = 115,
     QueenPosX = 12,
     QueenPosY = 15,
     RookPosX = QueenPosX + (int)BoardWidgetProps::PieceLabelW + 15,

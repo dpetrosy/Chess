@@ -277,6 +277,7 @@
         <file>images/backgrounds/light_theme_game_bkg.jpg</file>
         <file>images/menus/pvp/dark_theme_arrow.png</file>
         <file>images/menus/pvp/light_theme_arrow.png</file>
+        <file>images/backgrounds/Legends.jpg</file>
     </qresource>
     <qresource prefix="/">
         <file>styles/pieces_styles/pawn_prom_buttons_style.txt</file>
@@ -314,5 +315,7 @@
         <file>styles/menus_styles/pvp_menu_styles/light_color_button.txt</file>
         <file>styles/menus_styles/pvp_menu_styles/dark_variant_combobox.txt</file>
         <file>styles/menus_styles/pvp_menu_styles/light_variant_combobox.txt</file>
+        <file>styles/menus_styles/main_menu_styles/version_text.txt</file>
+        <file>styles/menus_styles/main_menu_styles/main_menu_button.txt</file>
     </qresource>
 </RCC>

@@ -1,4 +1,5 @@
 #include "rook.hpp"
+#include "boardwidget.hpp"
 #include "clickablelabel.hpp"
 
 Rook::Rook()
@@ -123,5 +124,12 @@ void Rook::findAvailableSteps(CharVector2D& stepsVector2D, CharVector2D& symbols
             else
                 break;
         }
+    }
+
+    // Verify if step open check
+    if (gSelectedPiece == this || doForQueen)
+    {
+        doForQueen = false;
+        verifyCheckOpening(stepsVector2D, symbolsVector2D, turn, ipos, jpos);
     }
 }

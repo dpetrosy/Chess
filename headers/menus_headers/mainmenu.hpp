@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QLabel>
 
 #include "menus_helpers.hpp"
 
@@ -43,6 +44,9 @@ private:
     QPushButton* _InstrButton;
     QPushButton* _SettingsButton;
     QPushButton* _QuitButton;
+
+    // Version text label
+    QLabel*      _versionTextLabel;
 };
 
 #endif // MAINMENU_HPP

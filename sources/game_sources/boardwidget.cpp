@@ -8,6 +8,9 @@
 #include "piece.hpp"
 #include "clickablelabel.hpp"
 
+Piece* gSelectedPiece = nullptr;
+bool doForQueen = false;
+
 BoardWidget::BoardWidget(QWidget *parent)
     : QWidget{parent}
 {
@@ -39,7 +42,6 @@ void BoardWidget::init()
 
     // Board widget attributes
     _boardSize = (int)BoardWidgetProps::BoardSquaresCount;
-    _selectedPiece = nullptr;
     _turn = PiecesColors::White;
     _isChecked = false;
     _isCheckedKingSelected = false;
@@ -189,10 +191,34 @@ void BoardWidget::resetBoardLayout()
             _boardLayout->addWidget(_piecesVector2D[i][j]->getPieceLabel(), i, j);
 }
 
+void BoardWidget::getAllAvailStepsForColor(CharVector2D& allAvailStepsVector2D, CharVector2D& imitationVector2D, PiecesColors turn)
+{
+    if (turn == PiecesColors::Black)
+        turn = PiecesColors::White;
+    else
+        turn = PiecesColors::Black;
+
+    for (int i = 0; i < 8; ++i)
+    {
+        for (int j = 0; j < 8; ++j)
+        {
+            if (imitationVector2D[i][j] != (char)PossibleSteps::Empty)
+            {
+                auto belowPlayerColor = GameWidget::GetInstance()->getBelowPlayerColor();
+
+                if (turn == PiecesColors::Black && !isupper(imitationVector2D[i][j]))
+                    _piecesVector2D[i][j]->findAvailableSteps(allAvailStepsVector2D, imitationVector2D, turn, belowPlayerColor);
+                else if (turn == PiecesColors::White && isupper(imitationVector2D[i][j]))
+                    _piecesVector2D[i][j]->findAvailableSteps(allAvailStepsVector2D, imitationVector2D, turn, belowPlayerColor);
+            }
+        }
+    }
+}
+
 // Getters
 Piece* BoardWidget::getSelectedPiece() const
 {
-    return _selectedPiece;
+    return gSelectedPiece;
 }
 
 unsigned BoardWidget::getBoardSize() const
@@ -270,8 +296,6 @@ void BoardWidget::makeBoardWidget()
         for (unsigned j = 0; j < _boardSize; ++j)
         {
             // Make board layout
-            //connect(_piecesVector2D[i][j]->getPieceLabel(), &ClickableLabel::clickedLeftButton, this,
-            //        std::bind(&BoardWidget::processLeftButtonClick, this, _piecesVector2D[i][j]));
             _boardLayout->addWidget(_piecesVector2D[i][j]->getPieceLabel(), i, j);
 
             // Make under layer layout
@@ -352,13 +376,13 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
         // if clicked not available steps
         else if (!isAvailableStepClicked(clickedPiece->getPositionRow(), clickedPiece->getPositionColumn()))
         {
-            _selectedPiece = nullptr;
+            gSelectedPiece = nullptr;
             clearStepsVector2D();
         }
         else // Clicked available step
         {
             doStep(clickedPiece);
-            _selectedPiece = nullptr;
+            gSelectedPiece = nullptr;
             clearStepsVector2D();
             switchTurn();
         }
@@ -380,12 +404,12 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
 // Private game functions
 void BoardWidget::selectPiece(Piece* clickedPiece)
 {
-    _selectedPiece = clickedPiece;
+    gSelectedPiece = clickedPiece;
     drawSelectedPieceSquare();
     auto belowPlayerColor = GameWidget::GetInstance()->getBelowPlayerColor();
-    _selectedPiece->findAvailableSteps(_possibleStepsVector2D, _piecesSymbolsVector2D, _turn, belowPlayerColor);
+    gSelectedPiece->findAvailableSteps(_possibleStepsVector2D, _piecesSymbolsVector2D, _turn, belowPlayerColor);
 
-    if (_selectedPiece->isKing(_piecesSymbolsVector2D, _selectedPiece->getPositionRow(), _selectedPiece->getPositionColumn()) && isChecked())
+    if (gSelectedPiece->isKing(_piecesSymbolsVector2D, gSelectedPiece->getPositionRow(), gSelectedPiece->getPositionColumn()) && isChecked())
         _isCheckedKingSelected = true;
 }
 
@@ -393,8 +417,8 @@ void BoardWidget::doStep(Piece* clickedPiece)
 {
     //MovesWidget::GetInstance()->setLastMove("alo1", "alo2");
 
-    int iSelected = _selectedPiece->getPositionRow();
-    int jSelected = _selectedPiece->getPositionColumn();
+    int iSelected = gSelectedPiece->getPositionRow();
+    int jSelected = gSelectedPiece->getPositionColumn();
     int iClicked = clickedPiece->getPositionRow();
     int jClicked = clickedPiece->getPositionColumn();
 
@@ -405,7 +429,7 @@ void BoardWidget::doStep(Piece* clickedPiece)
     resetBoardLayout();
 
     _isChecked = false;
-    if (!isPiece(_selectedPiece, PiecesTypes::King))
+    if (!isPiece(gSelectedPiece, PiecesTypes::King))
     {
         // Verify check
         verifyCheck();
@@ -474,7 +498,7 @@ void BoardWidget::doPawnProm(PiecesTypes pieceType)
     resetBoardLayout();
 
     // Verify check
-    _selectedPiece = _piecesVector2D[i][j];
+    gSelectedPiece = _piecesVector2D[i][j];
     verifyCheck();
 
     // If king checked, mark it in stepsVector2D
@@ -490,8 +514,8 @@ void BoardWidget::doPawnProm(PiecesTypes pieceType)
 
 void BoardWidget::verifyCheck()
 {
-    selectPiece(_selectedPiece);
-    if(_selectedPiece->isGivingCheck(_possibleStepsVector2D, _piecesSymbolsVector2D, _turn))
+    selectPiece(gSelectedPiece);
+    if(gSelectedPiece->isGivingCheck(_possibleStepsVector2D, _piecesSymbolsVector2D, _turn))
         _isChecked = true;
     clearStepsVector2D();
 }
@@ -550,7 +574,7 @@ void BoardWidget::clearStepsVector2DExceptCheck()
 
 void BoardWidget::drawSelectedPieceSquare()
 {
-    _possibleStepsVector2D[_selectedPiece->getPositionRow()][_selectedPiece->getPositionColumn()] = (char)PossibleSteps::CurrentPiece;
+    _possibleStepsVector2D[gSelectedPiece->getPositionRow()][gSelectedPiece->getPositionColumn()] = (char)PossibleSteps::CurrentPiece;
 }
 
 void BoardWidget::drawCheck()
@@ -587,7 +611,7 @@ void BoardWidget::drawUnderLayer()
 
 bool BoardWidget::isPieceSelected()
 {
-    return (_selectedPiece != nullptr);
+    return (gSelectedPiece != nullptr);
 }
 
 bool BoardWidget::isSelectedPieceClicked(Piece *clickedPiece)

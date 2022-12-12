@@ -56,14 +56,13 @@ void PawnPromDialog::makePawnPromDialog(PiecesColors turn)
     if (turn == PiecesColors::Black)
         colorString = "black";
 
-    //QFile file(StylesPaths::pawnPromButtonsStyle);
-    QFile file("");
+    QFile file(StylesPaths::PawnPromButtonsStyle);
     file.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(file.readAll());
     file.close();
 
     // Queen
-    QPixmap pixmap(ImagesPaths::piecesPath + colorString + "_queen.png");
+    QPixmap pixmap(globalPieceSetPath + colorString + "_queen.png");
     QIcon buttonIcon(pixmap);
     _queenPushButton->setIcon(buttonIcon);
     _queenPushButton->setIconSize(pixmap.rect().size());
@@ -71,7 +70,7 @@ void PawnPromDialog::makePawnPromDialog(PiecesColors turn)
     _queenPushButton->move((int)PawnPromDialogProps::QueenPosX, (int)PawnPromDialogProps::QueenPosY);
 
     // Rook
-    pixmap.load(ImagesPaths::piecesPath + colorString + "_rook.png");
+    pixmap.load(globalPieceSetPath + colorString + "_rook.png");
     buttonIcon.addPixmap(pixmap);
     _rookPushButton->setIcon(buttonIcon);
     _rookPushButton->setIconSize(pixmap.rect().size());
@@ -79,7 +78,7 @@ void PawnPromDialog::makePawnPromDialog(PiecesColors turn)
     _rookPushButton->move((int)PawnPromDialogProps::RookPosX, (int)PawnPromDialogProps::RookPosY);
 
     // Bishop
-    pixmap.load(ImagesPaths::piecesPath + colorString + "_bishop.png");
+    pixmap.load(globalPieceSetPath + colorString + "_bishop.png");
     buttonIcon.addPixmap(pixmap);
     _bishopPushButton->setIcon(buttonIcon);
     _bishopPushButton->setIconSize(pixmap.rect().size());
@@ -87,7 +86,7 @@ void PawnPromDialog::makePawnPromDialog(PiecesColors turn)
     _bishopPushButton->move((int)PawnPromDialogProps::BishopPosX, (int)PawnPromDialogProps::BishopPosY);
 
     // Knight
-    pixmap.load(ImagesPaths::piecesPath + colorString + "_knight.png");
+    pixmap.load(globalPieceSetPath + colorString + "_knight.png");
     buttonIcon.addPixmap(pixmap);
     _knightPushButton->setIcon(buttonIcon);
     _knightPushButton->setIconSize(pixmap.rect().size());

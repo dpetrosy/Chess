@@ -12,6 +12,9 @@
 #include "game_helpers.hpp"
 #include "pieces_helpers.hpp"
 
+extern Piece* gSelectedPiece;
+extern bool doForQueen;
+
 // Singleton pattern used
 // Prototype pattern used
 class BoardWidget : public QWidget
@@ -29,6 +32,7 @@ public:
     void makeNewPieceBySymbol(char symbol, int i, int j);
     void clearBoardLayout();
     void resetBoardLayout();
+    void getAllAvailStepsForColor(CharVector2D& allAvailStepsVector2D, CharVector2D& imitationVector2D, PiecesColors turn);
 
 public:
     // Getters
@@ -113,7 +117,6 @@ private:
     Position        _checkPosition;
     bool            _isPawnPromoted;
     Position        _promotedPawnPos;
-    Piece*          _selectedPiece;
     PawnPromDialog* _pawnPromDialog;
 };
 
