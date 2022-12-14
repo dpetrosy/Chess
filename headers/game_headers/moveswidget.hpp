@@ -11,6 +11,9 @@
 #include "game_helpers.hpp"
 #include "pieces_helpers.hpp"
 
+using std::make_tuple;
+using std::make_pair;
+
 // Singlton pattern used
 class MovesWidget : public QWidget
 {
@@ -23,20 +26,23 @@ public:
     static MovesWidget *GetInstance(QWidget *parent = nullptr);
     virtual ~MovesWidget();
 
-public:
-    // Getters
-    const MovesVector&  getMovesVector() const;
-    const MovePair&     getLastMove() const;
-    const MovePair&     getMove(int index) const;
-    const QString&      getWhitePlayerLastMove() const;
-    const QString&      getBlackPlayerLastMove() const;
+    // Public util functions
+    void addMoveForColor(char pieceSymbol, Position posFrom, Position posTo, bool isCheck, PiecesColors turn);
+    QString getPieceMoveSymbol(char pieceSymbol);
 
-    // Setters
-    void                setLastMove(MovePair movePair);
-    void                setLastMove(const QString& whiteMove, const QString& blackMove);
-    void                setMove(int index, MovePair movePair);
-    void                setWhitePlayerLastMove(const QString& move);
-    void                setBlackPlayerLastMove(const QString& move);
+//    // Getters
+//    const MovesVector&  getMovesVector() const;
+//    const MovePair&     getLastMove() const;
+//    const MovePair&     getMove(int index) const;
+//    const QString&      getWhitePlayerLastMove() const;
+//    const QString&      getBlackPlayerLastMove() const;
+
+//    // Setters
+//    void                setLastMove(MovePair movePair);
+//    void                setLastMove(const QString& whiteMove, const QString& blackMove);
+//    void                setMove(int index, MovePair movePair);
+//    void                setWhitePlayerLastMove(const QString& move);
+//    void                setBlackPlayerLastMove(const QString& move);
 
 private:
     explicit MovesWidget(QWidget *parent = nullptr);

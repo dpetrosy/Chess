@@ -261,8 +261,8 @@ struct SettingsData
     QString bkgImageStr = "The_Rook";
     int     pieceSetNumber = 4;
     QString piecesSetStr = "Cburnett";
-    int     boardNumber = 0;
-    QString boardStr = "1";
+    int     boardNumber = 3;
+    QString boardStr = "Brown";
     int     languageNumber = 2;
     QString languageStr = "eng";
     bool    isSoundAvailable = false;
@@ -318,6 +318,73 @@ enum class BackgroundImagesNumbers
     TheQueen,
     TheRook,
     TopView,
+};
+
+namespace Boards
+{
+    extern QString Extencion;
+    extern QString Bit8;
+    extern QString Bases;
+    extern QString Blue;
+    extern QString Brown;
+    extern QString Bubblegum;
+    extern QString BurledWood;
+    extern QString DarkWood;
+    extern QString Dash;
+    extern QString Glass;
+    extern QString Graffiti;
+    extern QString Green;
+    extern QString IceSea;
+    extern QString Light;
+    extern QString Lolz;
+    extern QString Marble;
+    extern QString Metal;
+    extern QString Neon;
+    extern QString Newspaper;
+    extern QString Orange;
+    extern QString Parchment;
+    extern QString Purple;
+    extern QString Red;
+    extern QString Sand;
+    extern QString Sky;
+    extern QString Stone;
+    extern QString Tan;
+    extern QString Tournament;
+    extern QString Translucent;
+    extern QString Walnut;
+}
+
+enum class BoardsNumber
+{
+    Bit8,
+    Bases,
+    Blue,
+    Brown,
+    Bubblegum,
+    BurledWood,
+    DarkWood,
+    Dash,
+    Glass,
+    Graffiti,
+    Green,
+    IceSea,
+    Light,
+    Lolz,
+    Marble,
+    Metal,
+    Neon,
+    Newspaper,
+    Orange,
+    Parchment,
+    Purple,
+    Red,
+    Sand,
+    Sky,
+    Stone,
+    Tan,
+    Tournament,
+    Translucent,
+    Walnut
 };
 
 namespace PieceSets

@@ -4,14 +4,17 @@
 #include <QVector>
 #include <QString>
 #include <QPair>
+using std::vector;
+using std::pair;
+using std::tuple;
+struct Position;
 
 #include "predefined_pieces_classes.hpp"
 
 // Typedefs
 typedef QVector<QVector<char>> CharVector2D;
 typedef QVector<QVector<Piece *>> PieceVector2D;
-typedef QVector<QPair<QString, QString>> MovesVector;
-typedef QPair<QString, QString> MovePair;
+typedef vector<pair<tuple<char, Position, Position, QString>, tuple<char, Position, Position, QString>>> MovesVector;
 
 enum class Pieces
 {

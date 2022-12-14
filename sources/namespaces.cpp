@@ -1,6 +1,7 @@
 #include "helpers.hpp"
 
 bool    globalIsDarkTheme = false;
+
 QString globalPieceSetPath = ":/images/images/pieces/Cburnett/";
 
 // Images
@@ -19,6 +20,9 @@ namespace ImagesPaths
 
     // Steps images
     QString stepsPath = imagesPath + "steps/";
+
+    // Boards images
+
 
 
     // Pieces images
@@ -232,6 +236,40 @@ namespace BackgroundImages
     QString TopView = "Top_View";
 }
 
+namespace Boards
+{
+    QString Extencion = ".png";
+    QString Bit8 = "8_Bit";
+    QString Bases = "Bases";
+    QString Blue = "Blue";
+    QString Brown = "Brown";
+    QString Bubblegum = "Bubblegum";
+    QString BurledWood = "Burled_Wood";
+    QString DarkWood = "Dark_Wood";
+    QString Dash = "Dash";
+    QString Glass = "Glass";
+    QString Graffiti = "Graffiti";
+    QString Green = "Green";
+    QString IceSea = "Ice_Sea";
+    QString Light = "Light";
+    QString Lolz = "Lolz";
+    QString Marble = "Marble";
+    QString Metal = "Metal";
+    QString Neon = "Neon";
+    QString Newspaper = "Newspaper";
+    QString Orange = "Orange";
+    QString Parchment = "Parchment";
+    QString Purple = "Purple";
+    QString Red = "Red";
+    QString Sand = "Sand";
+    QString Sky = "Sky";
+    QString Stone = "Stone";
+    QString Tan = "Tan";
+    QString Tournament = "Tournament";
+    QString Translucent = "Translucent";
+    QString Walnut = "Walnut";
+}
+
 namespace PieceSets
 {
     QString Extencion = ".png";
@@ -258,4 +296,22 @@ namespace Languages
     QString Armenian = "Հայերեն";
     QString Russian = "Русский";
     QString English = "English (US)";
+}
+
+
+// Moves Widget
+namespace PieceSymbolsForMove
+{
+    QString WhitePawn = "♙";
+    QString WhiteKnight = "♘";
+    QString WhiteBishop = "♗";
+    QString WhiteRook = "♖";
+    QString WhiteQueen = "♕";
+    QString WhiteKing = "♔";
+    QString BlackPawn = "♟︎";
+    QString BlackKinght = "♞";
+    QString BlackBishop = "♝";
+    QString BlackRook = "♜";
+    QString BlackQueen = "♛";
+    QString BlackKing = "♚";
 }

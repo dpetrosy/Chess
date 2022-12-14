@@ -354,6 +354,8 @@ void BoardWidget::makeBoardWidget()
 // Game functions
 void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
 {
+    qDebug() << "♔♕";
+
     // No piece selected
     _isCheckedKingSelected = false;
     if (!isPieceSelected())

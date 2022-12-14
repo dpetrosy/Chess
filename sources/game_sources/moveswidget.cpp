@@ -27,57 +27,65 @@ MovesWidget* MovesWidget::GetInstance(QWidget *parent)
 void MovesWidget::init()
 {
     // Moves widget attributes
-    _movesVector.push_back(qMakePair("placeholder", "placeholder"));
+    Position pos;
+    _movesVector.push_back(make_pair(make_tuple('0', pos, pos, ""), make_tuple('0', pos, pos, "")));
 }
 
-// Getters
-const MovesVector& MovesWidget::getMovesVector() const
+// Public util functions
+//void MovesWidget::addMoveForColor(char pieceSymbol, Position posFrom, Position posTo, bool isCheck, bool isHit, PiecesColors turn)
+//{
+//    Position pos;
+//    QString moveStr = "";
+
+//    moveStr = getPieceMoveSymbol(pieceSymbol);
+
+//    if (isHit)
+//        moveStr += "x";
+
+
+
+
+
+
+
+//    + getMovePosStr(Position posTo);
+
+//    if (turn == PiecesColors::White)
+//         _movesVector.push_back(make_pair(make_tuple(pieceSymbol, posFrom, posTo, moveStr), make_tuple('0', pos, pos, "")));
+//    else
+//        ;
+//}
+
+QString MovesWidget::getPieceMoveSymbol(char pieceSymbol)
 {
-    return _movesVector;
+    switch (pieceSymbol)
+    {
+    case (char)PiecesSymbols::WhitePawn:
+        return PieceSymbolsForMove::WhitePawn;
+    case (char)PiecesSymbols::WhiteKnight:
+        return PieceSymbolsForMove::WhiteKnight;
+    case (char)PiecesSymbols::WhiteBishop:
+        return PieceSymbolsForMove::WhiteBishop;
+    case (char)PiecesSymbols::WhiteRook:
+        return PieceSymbolsForMove::WhiteRook;
+    case (char)PiecesSymbols::WhiteQueen:
+        return PieceSymbolsForMove::WhiteQueen;
+    case (char)PiecesSymbols::WhiteKing:
+        return PieceSymbolsForMove::WhiteKing;
+    case (char)PiecesSymbols::BlackPawn:
+        return PieceSymbolsForMove::BlackPawn;
+    case (char)PiecesSymbols::BlackKnight:
+        return PieceSymbolsForMove::BlackKinght;
+    case (char)PiecesSymbols::BlackBishop:
+        return PieceSymbolsForMove::BlackBishop;
+    case (char)PiecesSymbols::BlackRook:
+        return PieceSymbolsForMove::BlackRook;
+    case (char)PiecesSymbols::BlackQueen:
+        return PieceSymbolsForMove::BlackQueen;
+    case (char)PiecesSymbols::BlackKing:
+        return PieceSymbolsForMove::BlackKing;
+    default:
+        return "";
+    }
 }
 
-const MovePair& MovesWidget::getLastMove() const
-{
-    return _movesVector.back();
-}
-
-const MovePair& MovesWidget::getMove(int index) const
-{
-    return _movesVector[index];
-}
-
-const QString& MovesWidget::getWhitePlayerLastMove() const
-{
-    return _movesVector.back().first;
-}
-
-const QString& MovesWidget::getBlackPlayerLastMove() const
-{
-    return _movesVector.back().first;
-}
-
-// Setters
-void MovesWidget::setLastMove(MovePair movePair)
-{
-    _movesVector.push_back(movePair);
-}
-
-void MovesWidget::setLastMove(const QString& whiteMove, const QString& blackMove)
-{
-    _movesVector.push_back(qMakePair(whiteMove, blackMove));
-}
-
-void MovesWidget::setMove(int index, MovePair movePair)
-{
-    _movesVector.insert(index, movePair);
-}
-
-void MovesWidget::setWhitePlayerLastMove(const QString& move)
-{
-    _movesVector.back().first = move;
-}
-
-void MovesWidget::setBlackPlayerLastMove(const QString& move)
-{
-    _movesVector.back().second = move;
-}

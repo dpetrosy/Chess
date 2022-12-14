@@ -35,6 +35,24 @@ enum class BoardWidgetProps
 };
 
 
+// Moves Widget
+namespace PieceSymbolsForMove
+{
+    extern QString WhitePawn;
+    extern QString WhiteKnight;
+    extern QString WhiteBishop;
+    extern QString WhiteRook;
+    extern QString WhiteQueen;
+    extern QString WhiteKing;
+    extern QString BlackPawn;
+    extern QString BlackKinght;
+    extern QString BlackBishop;
+    extern QString BlackRook;
+    extern QString BlackQueen;
+    extern QString BlackKing;
+}
+
+
 // PawnProm Dialog
 enum class PawnPromDialogProps
 {

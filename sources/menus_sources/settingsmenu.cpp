@@ -151,6 +151,10 @@ void SettingsMenu::makeMenuBeforeSwitch()
     _piecesLabel->setPixmap(QPixmap(ImagesPaths::settingsPiecesSetsPath + _settingsData.piecesSetStr + PieceSets::Extencion));
     _pieceSetsComboBox->setCurrentIndex(_settingsData.pieceSetNumber);
 
+    // Board
+    _boardLabel->setPixmap(QPixmap(ImagesPaths::settingsBoardsPath + _settingsData.boardStr + Boards::Extencion));
+    _boardComboBox->setCurrentIndex(_settingsData.boardNumber);
+
     // Language
     _languageComboBox->setCurrentIndex(_settingsData.languageNumber);
 
@@ -241,6 +245,37 @@ void SettingsMenu::makeSettingsMenu()
     // Board combobox
     _boardComboBox->setGeometry((int)SettingsMenuProps::BoardComboBoxX, (int)SettingsMenuProps::BoardComboBoxY, (int)SettingsMenuProps::BoardComboBoxW, (int)SettingsMenuProps::BoardComboBoxH);
     ::setStyleSheetByTheme(StylesPaths::lightComboBoxStyle, StylesPaths::darkComboBoxStyle, _boardComboBox, _settingsData.isDarkTheme);
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Bit8));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Bases));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Blue));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Brown));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Bubblegum));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::BurledWood));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::DarkWood));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Dash));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Glass));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Graffiti));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Green));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::IceSea));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Light));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Lolz));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Marble));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Metal));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Neon));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Newspaper));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Orange));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Parchment));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Purple));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Red));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Sand));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Sky));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Stone));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Tan));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Tournament));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Translucent));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::Walnut));
+    _boardComboBox->setCurrentIndex((int)BoardsNumber::Brown);
+    connect(_boardComboBox, &QComboBox::currentIndexChanged, this, &SettingsMenu::boardComboBoxIndexChanged);
 
     // Text for language
     _languageTextLabel->setGeometry((int)SettingsMenuProps::LanguageTextLabelX, (int)SettingsMenuProps::LanguageTextLabelY, (int)SettingsMenuProps::LanguageTextLabelW, (int)SettingsMenuProps::LanguageTextLabelH);
@@ -380,6 +415,73 @@ QString SettingsMenu::getPieceSetStr(int index)
         return PieceSets::Ocean;
     default:
         return PieceSets::Cburnett;
+    }
+}
+
+QString SettingsMenu::getBoardStr(int index)
+{
+    switch (index)
+    {
+    case (int)BoardsNumber::Bit8:
+        return Boards::Bit8;
+    case (int)BoardsNumber::Bases:
+        return Boards::Bases;
+    case (int)BoardsNumber::Blue:
+        return Boards::Blue;
+    case (int)BoardsNumber::Brown:
+        return Boards::Brown;
+    case (int)BoardsNumber::Bubblegum:
+        return Boards::Bubblegum;
+    case (int)BoardsNumber::BurledWood:
+        return Boards::BurledWood;
+    case (int)BoardsNumber::DarkWood:
+        return Boards::DarkWood;
+    case (int)BoardsNumber::Dash:
+        return Boards::Dash;
+    case (int)BoardsNumber::Glass:
+        return Boards::Glass;
+    case (int)BoardsNumber::Graffiti:
+        return Boards::Graffiti;
+    case (int)BoardsNumber::Green:
+        return Boards::Green;
+    case (int)BoardsNumber::IceSea:
+        return Boards::IceSea;
+    case (int)BoardsNumber::Light:
+        return Boards::Light;
+    case (int)BoardsNumber::Lolz:
+        return Boards::Lolz;
+    case (int)BoardsNumber::Marble:
+        return Boards::Marble;
+    case (int)BoardsNumber::Metal:
+        return Boards::Metal;
+    case (int)BoardsNumber::Neon:
+        return Boards::Neon;
+    case (int)BoardsNumber::Newspaper:
+        return Boards::Newspaper;
+    case (int)BoardsNumber::Orange:
+        return Boards::Orange;
+    case (int)BoardsNumber::Parchment:
+        return Boards::Parchment;
+    case (int)BoardsNumber::Purple:
+        return Boards::Purple;
+    case (int)BoardsNumber::Red:
+        return Boards::Red;
+    case (int)BoardsNumber::Sand:
+        return Boards::Sand;
+    case (int)BoardsNumber::Sky:
+        return Boards::Sky;
+    case (int)BoardsNumber::Stone:
+        return Boards::Stone;
+    case (int)BoardsNumber::Tan:
+        return Boards::Tan;
+    case (int)BoardsNumber::Tournament:
+        return Boards::Tournament;
+    case (int)BoardsNumber::Translucent:
+        return Boards::Translucent;
+    case (int)BoardsNumber::Walnut:
+        return Boards::Walnut;
+    default:
+        return Boards::Brown;
     }
 }
 
@@ -543,6 +645,16 @@ void SettingsMenu::pieceSetsComboBoxIndexChanged(int index)
     _tempData.piecesSetStr = pieceSet;
 
     _piecesLabel->setPixmap(QPixmap(ImagesPaths::settingsPiecesSetsPath + pieceSet + PieceSets::Extencion));
+}
+
+void SettingsMenu::boardComboBoxIndexChanged(int index)
+{
+    QString board = getBoardStr(index);;
+
+    _tempData.boardNumber = index;
+    _tempData.boardStr = board;
+
+    _boardLabel->setPixmap(QPixmap(ImagesPaths::settingsBoardsPath + board + PieceSets::Extencion));
 }
 
 void SettingsMenu::languageComboBoxIndexChanged(int index)

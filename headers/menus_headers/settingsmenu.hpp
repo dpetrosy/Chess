@@ -32,6 +32,7 @@ public slots:
 private slots:
     void bkgImageComboBoxIndexChanged(int index);
     void pieceSetsComboBoxIndexChanged(int index);
+    void boardComboBoxIndexChanged(int index);
     void languageComboBoxIndexChanged(int index);
     void swapMenuTheme();
     void swapSound();
@@ -44,6 +45,7 @@ private:
     void    makeSettingsMenu();
     QString getBkgStr(int index);
     QString getPieceSetStr(int index);
+    QString getBoardStr(int index);
     QString getLanguageStr(int index);
     void    hideAndShowMenu();
     void    changeMenuTheme();

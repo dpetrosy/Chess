@@ -17,7 +17,6 @@
         <file>images/backgrounds/Shadow.jpg</file>
         <file>images/backgrounds/Strong_Knight.jpg</file>
         <file>images/backgrounds/Top_View.jpg</file>
-        <file>images/menus/settings/boards/board1.png</file>
         <file>images/menus/settings/dark_theme_arrow.png</file>
         <file>images/menus/settings/light_theme_arrow.png</file>
         <file>images/menus/pvp/dark_hover_start_buttons/blitz_10M_hover.png</file>
@@ -278,6 +277,35 @@
         <file>images/menus/pvp/dark_theme_arrow.png</file>
         <file>images/menus/pvp/light_theme_arrow.png</file>
         <file>images/backgrounds/Legends.jpg</file>
+        <file>images/menus/settings/boards/8_Bit.png</file>
+        <file>images/menus/settings/boards/Bases.png</file>
+        <file>images/menus/settings/boards/Blue.png</file>
+        <file>images/menus/settings/boards/Brown.png</file>
+        <file>images/menus/settings/boards/Bubblegum.png</file>
+        <file>images/menus/settings/boards/Burled_Wood.png</file>
+        <file>images/menus/settings/boards/Dark_Wood.png</file>
+        <file>images/menus/settings/boards/Dash.png</file>
+        <file>images/menus/settings/boards/Glass.png</file>
+        <file>images/menus/settings/boards/Graffiti.png</file>
+        <file>images/menus/settings/boards/Green.png</file>
+        <file>images/menus/settings/boards/Icy_Sea.png</file>
+        <file>images/menus/settings/boards/Light.png</file>
+        <file>images/menus/settings/boards/Lolz.png</file>
+        <file>images/menus/settings/boards/Marble.png</file>
+        <file>images/menus/settings/boards/Metal.png</file>
+        <file>images/menus/settings/boards/Neon.png</file>
+        <file>images/menus/settings/boards/Newspaper.png</file>
+        <file>images/menus/settings/boards/Orange.png</file>
+        <file>images/menus/settings/boards/Parchment.png</file>
+        <file>images/menus/settings/boards/Purple.png</file>
+        <file>images/menus/settings/boards/Red.png</file>
+        <file>images/menus/settings/boards/Sand.png</file>
+        <file>images/menus/settings/boards/Sky.png</file>
+        <file>images/menus/settings/boards/Stone.png</file>
+        <file>images/menus/settings/boards/Tan.png</file>
+        <file>images/menus/settings/boards/Tournament.png</file>
+        <file>images/menus/settings/boards/Translucent.png</file>
+        <file>images/menus/settings/boards/Walnut.png</file>
     </qresource>
     <qresource prefix="/">
         <file>styles/pieces_styles/pawn_prom_buttons_style.txt</file>
