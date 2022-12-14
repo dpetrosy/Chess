@@ -23,8 +23,6 @@ namespace ImagesPaths
 
     // Boards images
 
-
-
     // Pieces images
     QString piecesPath = imagesPath + "pieces/";
 
@@ -45,6 +43,10 @@ namespace ImagesPaths
     QString NeoPath = imagesPath + "Neo";
     QString OceanPath = imagesPath + "Ocean";
 
+    // Boards images
+    QString BoardsPath = imagesPath + "boards/";
+    QString WhiteBoardsPath = BoardsPath + "white/";
+    QString BlackBoardsPath = BoardsPath + "black/";
 
     // Menus images
     QString menusPath = imagesPath + "menus/";

@@ -122,6 +122,7 @@ void SettingsMenu::saveButtonClicked()
 
     mainWindow->setBackgroundImage(_settingsData.bkgImageStr);
     gameWidget->setPieceSet(_settingsData.piecesSetStr);
+    gameWidget->setBoard(_settingsData.boardStr);
 
     mainWindow->switchMenu(Menus::MainMenu);
 }

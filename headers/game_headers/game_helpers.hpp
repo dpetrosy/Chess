@@ -16,6 +16,7 @@ struct GameData
     PiecesColors belowPlayerColor = PiecesColors::White;
 
     QString pieceSet = PieceSets::Cburnett;
+    QString board = Boards::Brown;
 };
 
 // Board Widget

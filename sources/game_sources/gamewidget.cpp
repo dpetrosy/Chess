@@ -56,12 +56,22 @@ void GameWidget::makeGameWidget()
     _boardWidget->setGeometry((int)BoardWidgetProps::BoardWidgetX, (int)BoardWidgetProps::BoardWidgetY, (int)BoardWidgetProps::BoardWidgetW, (int)BoardWidgetProps::BoardWidgetH);
 
     // Board label
-    _boardLabel->setPixmap(QPixmap(":/images/images/boards/default.png"));
+    if (_gameData.belowPlayerColor == PiecesColors::Black)
+        _boardLabel->setPixmap(QPixmap(ImagesPaths::BlackBoardsPath + _gameData.board + "_ln" + Boards::Extencion));
+    else
+        _boardLabel->setPixmap(QPixmap(ImagesPaths::WhiteBoardsPath + _gameData.board + Boards::Extencion));
+
+    //_boardLabel->setStyleSheet("QLabel { border-radius: 8px; }");
     _boardLabel->setGeometry((int)BoardWidgetProps::BoardLabelX, (int)BoardWidgetProps::BoardLabelY, (int)BoardWidgetProps::BoardLabelW, (int)BoardWidgetProps::BoardLabelH);
 }
 
 void GameWidget::resetBoard()
 {
+    if (_gameData.belowPlayerColor == PiecesColors::Black)
+        _boardLabel->setPixmap(QPixmap(ImagesPaths::BlackBoardsPath + _gameData.board + "_ln" + Boards::Extencion));
+    else
+        _boardLabel->setPixmap(QPixmap(ImagesPaths::WhiteBoardsPath + _gameData.board + "_ln" + Boards::Extencion));
+
     resetSymbolsVector2D();
     resetPiecesVector2D();
 }
@@ -240,6 +250,11 @@ QString GameWidget::getPieceSet() const
     return _gameData.pieceSet;
 }
 
+QString GameWidget::getBoard() const
+{
+    return _gameData.board;
+}
+
 // Setters
 void GameWidget::setGameVariant(QString gameVariant)
 {
@@ -274,4 +289,9 @@ void GameWidget::setQuickGame(QString quickGame)
 void GameWidget::setPieceSet(QString set)
 {
     _gameData.pieceSet = set;
+}
+
+void GameWidget::setBoard(QString board)
+{
+    _gameData.board = board;
 }

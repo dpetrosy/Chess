@@ -266,7 +266,6 @@
         <file>images/pieces/Ocean/white_pawn.png</file>
         <file>images/pieces/Ocean/white_queen.png</file>
         <file>images/pieces/Ocean/white_rook.png</file>
-        <file>images/boards/default.png</file>
         <file>images/steps/can_beat.png</file>
         <file>images/steps/can_go.png</file>
         <file>images/steps/check.png</file>
@@ -306,6 +305,66 @@
         <file>images/menus/settings/boards/Tournament.png</file>
         <file>images/menus/settings/boards/Translucent.png</file>
         <file>images/menus/settings/boards/Walnut.png</file>
+        <file>images/boards/black/Brown_ln.png</file>
+        <file>images/boards/black/8_Bit_ln.png</file>
+        <file>images/boards/black/Bases_ln.png</file>
+        <file>images/boards/black/Blue_ln.png</file>
+        <file>images/boards/black/Bubblegum_ln.png</file>
+        <file>images/boards/black/Burled_wood_ln.png</file>
+        <file>images/boards/black/Dark_wood_ln.png</file>
+        <file>images/boards/black/Dash_ln.png</file>
+        <file>images/boards/black/Glass_ln.png</file>
+        <file>images/boards/black/Graffiti_ln.png</file>
+        <file>images/boards/black/Green_ln.png</file>
+        <file>images/boards/black/Icy_Sea_ln.png</file>
+        <file>images/boards/black/Light_ln.png</file>
+        <file>images/boards/black/Lolz_ln.png</file>
+        <file>images/boards/black/Marble_ln.png</file>
+        <file>images/boards/black/Metal_ln.png</file>
+        <file>images/boards/black/Neon_ln.png</file>
+        <file>images/boards/black/Newspaper_ln.png</file>
+        <file>images/boards/black/Orange_ln.png</file>
+        <file>images/boards/black/Overlay_ln.png</file>
+        <file>images/boards/black/Parchment_ln.png</file>
+        <file>images/boards/black/Purple_ln.png</file>
+        <file>images/boards/black/Red_ln.png</file>
+        <file>images/boards/black/Sand_ln.png</file>
+        <file>images/boards/black/Sky_ln.png</file>
+        <file>images/boards/black/Stone_ln.png</file>
+        <file>images/boards/black/Tan_ln.png</file>
+        <file>images/boards/black/Tournament_ln.png</file>
+        <file>images/boards/black/Translucent_ln.png</file>
+        <file>images/boards/black/Walnut_ln.png</file>
+        <file>images/boards/white/8_Bit_ln.png</file>
+        <file>images/boards/white/Bases_ln.png</file>
+        <file>images/boards/white/Blue_ln.png</file>
+        <file>images/boards/white/Brown_ln.png</file>
+        <file>images/boards/white/Bubblegum_ln.png</file>
+        <file>images/boards/white/Burled_wood_ln.png</file>
+        <file>images/boards/white/Dark_Wood_ln.png</file>
+        <file>images/boards/white/Dash_ln.png</file>
+        <file>images/boards/white/Glass_ln.png</file>
+        <file>images/boards/white/Graffiti_ln.png</file>
+        <file>images/boards/white/Green_ln.png</file>
+        <file>images/boards/white/Icy_Sea_ln.png</file>
+        <file>images/boards/white/Light_ln.png</file>
+        <file>images/boards/white/Lolz_ln.png</file>
+        <file>images/boards/white/Marble_ln.png</file>
+        <file>images/boards/white/Metal_ln.png</file>
+        <file>images/boards/white/Neon_ln.png</file>
+        <file>images/boards/white/Newspaper_ln.png</file>
+        <file>images/boards/white/Orange_ln.png</file>
+        <file>images/boards/white/Overlay_ln.png</file>
+        <file>images/boards/white/Parchment_ln.png</file>
+        <file>images/boards/white/Purple_ln.png</file>
+        <file>images/boards/white/Red_ln.png</file>
+        <file>images/boards/white/Sand_ln.png</file>
+        <file>images/boards/white/Sky_ln.png</file>
+        <file>images/boards/white/Stone_ln.png</file>
+        <file>images/boards/white/Tan_ln.png</file>
+        <file>images/boards/white/Tournament_ln.png</file>
+        <file>images/boards/white/Translucent_ln.png</file>
+        <file>images/boards/white/Walnut_ln.png</file>
     </qresource>
     <qresource prefix="/">
         <file>styles/pieces_styles/pawn_prom_buttons_style.txt</file>

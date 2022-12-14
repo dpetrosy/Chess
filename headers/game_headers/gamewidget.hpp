@@ -36,6 +36,7 @@ public:
     PiecesColors  getBelowPlayerColor() const;
     QString       getQuickGame() const;
     QString       getPieceSet() const;
+    QString       getBoard() const;
 
     // Setters
     void setGameVariant(QString gameVariant);
@@ -45,6 +46,7 @@ public:
     void setQuickGame(QString quickGame);
     void setBelowPlayerColor(PiecesColors color);
     void setPieceSet(QString set);
+    void setBoard(QString board);
 
 private:
     explicit GameWidget(QWidget *parent = nullptr);

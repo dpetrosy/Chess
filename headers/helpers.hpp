@@ -28,7 +28,6 @@ namespace ImagesPaths
     // Steps images
     extern QString stepsPath;
 
-
     // Pieces images
     extern QString piecesPath;
 
@@ -49,6 +48,10 @@ namespace ImagesPaths
     extern QString NeoPath;
     extern QString OceanPath;
 
+    // Boards images
+    extern QString BoardsPath;
+    extern QString WhiteBoardsPath;
+    extern QString BlackBoardsPath;
 
     // Menus images
     extern QString menusPath;
