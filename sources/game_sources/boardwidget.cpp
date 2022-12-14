@@ -76,14 +76,10 @@ void BoardWidget::init()
     {
         for (unsigned j = 0; j < _boardSize; ++j)
         {
-            // test
-            if (i == 2 && j == 2)
-               _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::WhitePawn;
+            //if (i == 1 || i == 2 || i == 3 || i == 4 || i == 5 || i == 6)
+            //    _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::Empty;
 
-
-
-
-            else if (i == 2 || i == 3 || i == 4 || i == 5)
+            if (i == 2 || i == 3 || i == 4 || i == 5)
                 _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::Empty;
             else if (i == 6)
                 _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::WhitePawn;
@@ -202,7 +198,7 @@ void BoardWidget::getAllAvailStepsForColor(CharVector2D& allAvailStepsVector2D, 
     {
         for (int j = 0; j < 8; ++j)
         {
-            if (imitationVector2D[i][j] != (char)PossibleSteps::Empty)
+            if (imitationVector2D[i][j] != (char)PiecesSymbols::Empty)
             {
                 auto belowPlayerColor = GameWidget::GetInstance()->getBelowPlayerColor();
 
@@ -354,7 +350,11 @@ void BoardWidget::makeBoardWidget()
 // Game functions
 void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
 {
-    qDebug() << "♔♕";
+
+    qDebug() << "asdfasf";
+
+
+    bool isDoStep = false;
 
     // No piece selected
     _isCheckedKingSelected = false;
@@ -386,6 +386,7 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
             doStep(clickedPiece);
             gSelectedPiece = nullptr;
             clearStepsVector2D();
+            isDoStep = true;
             switchTurn();
         }
     }
@@ -401,6 +402,10 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
     //if (!isFirstStep)
         //drawPreviousStep();
     drawUnderLayer();
+
+    // Verify checkmate and stalemate
+    if (isDoStep)
+        verifyCheckmateAndStalemate();
 }
 
 // Private game functions
@@ -453,6 +458,117 @@ void BoardWidget::doStep(Piece* clickedPiece)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+void BoardWidget::verifyCheckmateAndStalemate()
+{
+    CharVector2D allAvailStepsVector2D;
+    allAvailStepsVector2D.reserve(8);
+    for (int i = 0; i < 8; ++i)
+        allAvailStepsVector2D.push_back(QVector<char>(8, (char)PossibleSteps::Empty));
+
+    Piece* selectedPiece = gSelectedPiece;
+    switchTurn();
+
+    CharVector2D stepsVector2D;
+    stepsVector2D.reserve(8);
+    for (int i = 0; i < 8; ++i)
+        stepsVector2D.push_back(QVector<char>(8, (char)PossibleSteps::Empty));
+    copyVector2D(stepsVector2D, _piecesSymbolsVector2D, 8);
+
+    auto turn = getOppositeTurn(_turn);
+    auto belowPlayerColor = GameWidget::GetInstance()->getBelowPlayerColor();
+    for (int i = 0; i < (int)_boardSize; ++i)
+    {
+        for (int j = 0; j < (int)_boardSize; ++j)
+        {
+            if (turn == PiecesColors::Black && !isupper(_piecesSymbolsVector2D[i][j]))
+            {
+                gSelectedPiece = _piecesVector2D[i][j];
+                _piecesVector2D[i][j]->findAvailableSteps(_possibleStepsVector2D, _piecesSymbolsVector2D, turn, belowPlayerColor);
+            }
+            else if (turn == PiecesColors::White && isupper(_piecesSymbolsVector2D[i][j]))
+            {
+                gSelectedPiece = _piecesVector2D[i][j];
+                _piecesVector2D[i][j]->findAvailableSteps(_possibleStepsVector2D, _piecesSymbolsVector2D, turn, belowPlayerColor);
+            }
+
+            addToAllStepsVector2D(allAvailStepsVector2D, _possibleStepsVector2D);
+            resetCharVector2D(_possibleStepsVector2D, 8, (char)PossibleSteps::Empty);
+            gSelectedPiece = selectedPiece;
+        }
+    }
+
+    bool isStepsAvail = false;
+    for (int i = 0; i < (int)_boardSize; ++i)
+    {
+        for (int j = 0; j < (int)_boardSize; ++j)
+        {
+            if (allAvailStepsVector2D[i][j] == (char)PossibleSteps::CanGo || allAvailStepsVector2D[i][j] == (char)PossibleSteps::CanBeat)
+                isStepsAvail = true;
+        }
+    }
+
+    if (isStepsAvail == false)
+    {
+        if (isChecked())
+        {
+            endGame(turn, false);
+            return;
+        }
+
+        endGame(turn, false);
+    }
+
+    switchTurn();
+}
+
+PiecesColors BoardWidget::getOppositeTurn(PiecesColors turn)
+{
+    if (turn == PiecesColors::White)
+        return PiecesColors::Black;
+    else
+        return PiecesColors::White;
+}
+
+void BoardWidget::addToAllStepsVector2D(CharVector2D& allAvailStepsVector2D, CharVector2D& possibleStepsVector2D)
+{
+    for (int i = 0; i < 8; ++i)
+        for (int j = 0; j < 8; ++j)
+            if (possibleStepsVector2D[i][j] != (char)PossibleSteps::Empty && allAvailStepsVector2D[i][j] == (char)PossibleSteps::Empty)
+                allAvailStepsVector2D[i][j] = possibleStepsVector2D[i][j];
+}
+
+void BoardWidget::endGame(PiecesColors turn, bool isStalemate)
+{
+    QString text;
+
+    if (isStalemate)
+        text = "Stalemate!";
+    else
+    {
+        if (turn == PiecesColors::Black)
+            text = "White player win!";
+        else
+            text = "Black player win!";
+    }
+
+    switchTurn();
+    QMessageBox::information(this, "End game", text);
+
+    for (int i = 0; i < (int)_boardSize; ++i)
+        for (int j = 0; j < (int)_boardSize; ++j)
+            _piecesVector2D[i][j]->getPieceLabel()->disconnect();
+}
 
 void BoardWidget::showPawnPromDialog()
 {

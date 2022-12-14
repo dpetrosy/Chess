@@ -84,7 +84,6 @@ RESOURCES += \
 
 DISTFILES += \
     headers/notREADME.txt \
-    images/backgrounds/Legends.jpg \
     styles/mainmenu_buttons_style.txt
 
 #define QT_AUTO_SCREEN_SCALE_FACTOR 1

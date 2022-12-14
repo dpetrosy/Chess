@@ -8,6 +8,7 @@
 #include <QGridLayout>
 #include <QVector>
 #include <QVectorIterator>
+#include <QMessageBox>
 
 #include "game_helpers.hpp"
 #include "pieces_helpers.hpp"
@@ -48,6 +49,7 @@ public:
     PiecesColors    getTurn() const;
     bool            getIsChecked() const;
     Position        getCheckPosition() const;
+    PiecesColors    getOppositeTurn(PiecesColors turn);
 
     // Setters
     void setCheckPosition(int i, int j);
@@ -90,6 +92,9 @@ private:
     void checkPawnPromotion(int i, int j);
     void showPawnPromDialog();
     void verifyCheck();
+    void verifyCheckmateAndStalemate();
+    void addToAllStepsVector2D(CharVector2D& allAvailStepsVector2D, CharVector2D& possibleStepsVector2D);
+    void endGame(PiecesColors turn, bool isStalemate);
 
 private:
     // Singleton pattern realization
