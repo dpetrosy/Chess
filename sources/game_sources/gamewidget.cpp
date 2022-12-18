@@ -60,6 +60,7 @@ void GameWidget::startGame()
     // Return button
     setQLabelPictureByTheme(_returnButton, globalIsDarkTheme, ImagesPaths::GameWidgetLightReturnButton, ImagesPaths::GameWidgetDarkReturnButton);
 
+    gSelectedPiece = nullptr;
     resetBoard();
 }
 
@@ -113,6 +114,7 @@ void GameWidget::resetBoard()
     _boardWidget->setCheckPosition(0, 0);
     _boardWidget->setIsPawnPromoted(false);
     _boardWidget->setPromotedPawnPosition(0, 0);
+    _boardWidget->setHordPiecesCount(36);
 }
 
 void GameWidget::resetSymbolsVector2D()
@@ -223,6 +225,8 @@ void GameWidget::makeSymbolsVector2DForChess960()
     {
         vector2D[0][i] = shuffeledLine[i];
         vector2D[7][i] = toupper(shuffeledLine[i]);
+        vector2D[1][i] = (char)PiecesSymbols::BlackPawn;
+        vector2D[6][i] = (char)PiecesSymbols::WhitePawn;
     }
 }
 
@@ -251,16 +255,17 @@ void GameWidget::resetPiecesVector2D()
         for (int j = 0; j < (int)BoardWidgetProps::BoardSquaresCount; ++j)
         {
             piecesVector2D[i][j]->changePixmap();
+            //piecesVector2D[i][j]->getPieceLabel()->disconnect();
 
             if (piecesVector2D[i][j]->getPieceSymbol() != piecesSymbolsVector2D[i][j])
             {
                 delete piecesVector2D[i][j];
                 _boardWidget->makeNewPieceBySymbol(piecesSymbolsVector2D[i][j], i, j);
-            }
+                //QAction::connect(piecesVector2D[i][j]->getPieceLabel(), &ClickableLabel::clickedLeftButton, _boardWidget,
+                //        std::bind(&BoardWidget::processLeftButtonClick, _boardWidget, piecesVector2D[i][j]));
+             }
         }
     }
-
-    _boardWidget->resetBoardLayout();
 }
 
 // Getters

@@ -61,6 +61,7 @@ public:
     void setIsChecked(bool isChecked);
     void setIsCheckedKingSelected(bool isSelected);
     void setIsPawnPromoted(bool isPromoted);
+    void setHordPiecesCount(int count);
 
 public slots:
     void processLeftButtonClick(Piece *clickedPiece);
@@ -100,6 +101,7 @@ private:
     void verifyCheckmateAndStalemate();
     void addToAllStepsVector2D(CharVector2D& allAvailStepsVector2D, CharVector2D& possibleStepsVector2D);
     void endGame(PiecesColors turn, bool isStalemate);
+    void checkKingOfTheHill();
 
 private:
     // Singleton pattern realization
@@ -128,6 +130,7 @@ private:
     bool            _isPawnPromoted;
     Position        _promotedPawnPos;
     PawnPromDialog* _pawnPromDialog;
+    int             _hordePiecesCount;
 };
 
 #endif // BOARDWIDGET_HPP

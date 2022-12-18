@@ -58,6 +58,7 @@ void BoardWidget::init()
     _isCheckedKingSelected = false;
     _isPawnPromoted = false;
     _pawnPromDialog = new PawnPromDialog();
+    _hordePiecesCount = 36;
 
     // Init under layer attributes
     PiecesColors noColored = PiecesColors::NoColored;
@@ -352,6 +353,11 @@ void BoardWidget::setIsPawnPromoted(bool isPromoted)
     _isPawnPromoted = isPromoted;
 }
 
+void BoardWidget::setHordPiecesCount(int count)
+{
+    _hordePiecesCount = count;
+}
+
 
 
 
@@ -445,7 +451,11 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
             if (clickedPiece->getPieceSymbol() != (char)PiecesSymbols::Empty)
                 isHit = true;
 
-            MovesWidget::GetInstance()->addMoveForColor(pieceSymbol, posFrom, posTo, isCheck, isHit, _turn);
+            if (isHit && GameWidget::GetInstance()->getGameData().gameVariant == GameVariants::Horde
+                    && clickedPiece->getPieceSymbol() == (char)PiecesSymbols::WhitePawn)
+                _hordePiecesCount -= 1;
+
+            //MovesWidget::GetInstance()->addMoveForColor(pieceSymbol, posFrom, posTo, isCheck, isHit, _turn);
             gSelectedPiece = nullptr;
     }
 
@@ -459,7 +469,14 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
 
     // Verify checkmate and stalemate
     if (isDoStep)
+    {
         verifyCheckmateAndStalemate();
+        if (GameWidget::GetInstance()->getGameData().gameVariant == GameVariants::KingOfTheHill)
+            checkKingOfTheHill();
+    }
+
+    if (_hordePiecesCount <= 0)
+        endGame(_turn, false);
 }
 
 // Private game functions
@@ -518,8 +535,21 @@ void BoardWidget::doStep(Piece* clickedPiece)
 
 
 
+void BoardWidget::checkKingOfTheHill()
+{
+    auto symbol1 = _piecesSymbolsVector2D[3][3];
+    auto symbol2 = _piecesSymbolsVector2D[3][4];
+    auto symbol3 = _piecesSymbolsVector2D[4][3];
+    auto symbol4 = _piecesSymbolsVector2D[4][4];
 
+    if (symbol1 == (char)PiecesSymbols::WhiteKing || symbol2 == (char)PiecesSymbols::WhiteKing
+            || symbol3 == (char)PiecesSymbols::WhiteKing || symbol4 == (char)PiecesSymbols::WhiteKing)
+        endGame(_turn, false);
 
+    if (symbol1 == (char)PiecesSymbols::BlackKing || symbol2 == (char)PiecesSymbols::BlackKing
+            || symbol3 == (char)PiecesSymbols::BlackKing || symbol4 == (char)PiecesSymbols::BlackKing)
+        endGame(_turn, false);
+}
 
 void BoardWidget::verifyCheckmateAndStalemate()
 {
@@ -617,9 +647,9 @@ void BoardWidget::endGame(PiecesColors turn, bool isStalemate)
     switchTurn();
     QMessageBox::information(this, "End game", text);
 
-    for (int i = 0; i < (int)_boardSize; ++i)
-        for (int j = 0; j < (int)_boardSize; ++j)
-            _piecesVector2D[i][j]->getPieceLabel()->disconnect();
+    //for (int i = 0; i < (int)_boardSize; ++i)
+        //for (int j = 0; j < (int)_boardSize; ++j)
+            //_piecesVector2D[i][j]->getPieceLabel()->disconnect();
 }
 
 void BoardWidget::showPawnPromDialog()
