@@ -1,5 +1,4 @@
 #include "boardwidget.hpp"
-#include "helpers.hpp"
 #include "moveswidget.hpp"
 #include "gamewidget.hpp"
 #include "pawnpromdialog.hpp"
@@ -7,6 +6,7 @@
 #include "factory.hpp"
 #include "piece.hpp"
 #include "clickablelabel.hpp"
+#include "utils.hpp"
 
 Piece* gSelectedPiece = nullptr;
 bool doForQueen = false;
@@ -21,7 +21,18 @@ BoardWidget::BoardWidget(QWidget *parent)
     makeBoardWidget();
 }
 
-BoardWidget::~BoardWidget() {}
+BoardWidget::~BoardWidget()
+{
+    delete _underLayerLayout;
+    delete _piecesFactory;
+    delete _pawnPromDialog;
+    delete _underLayerWidget;
+    delete _boardLayout;
+
+    for (int i = 0; i < _boardSize; ++i)
+        for (int j = 0; j < _boardSize; ++j)
+            delete _piecesVector2D[i][j];
+}
 
 // Singleton pattern realization
 BoardWidget* BoardWidget::_boardWidget = nullptr;
@@ -55,26 +66,26 @@ void BoardWidget::init()
 
     // Init possibleStepsVector2D
     _possibleStepsVector2D.reserve(_boardSize);
-    for (unsigned i = 0; i < _boardSize; ++i)
+    for (int i = 0; i < _boardSize; ++i)
         _possibleStepsVector2D.push_back(QVector<char>(_boardSize, (char)PossibleSteps::Empty));
 
     // Init underLayerVector2D
     _underLayerVector2D.reserve(_boardSize);
-    for (unsigned i = 0; i < _boardSize; ++i)
+    for (int i = 0; i < _boardSize; ++i)
         _underLayerVector2D.push_back(QVector<Piece *>(_boardSize, nullptr));
 
-    for (unsigned i = 0; i < _boardSize ; ++i)
-        for (unsigned j = 0; j < _boardSize; ++j)
+    for (int i = 0; i < _boardSize ; ++i)
+        for (int j = 0; j < _boardSize; ++j)
             _underLayerVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Empty, noColored, i, j);
 
     // Init symbolsVector2D
     _piecesSymbolsVector2D.reserve(_boardSize);
-    for (unsigned i = 0; i < _boardSize; ++i)
+    for (int i = 0; i < _boardSize; ++i)
         _piecesSymbolsVector2D.push_back(QVector<char>(_boardSize, (char)PiecesSymbols::Placeholder));
 
-    for (unsigned i = 0; i < _boardSize ; ++i)
+    for (int i = 0; i < _boardSize ; ++i)
     {
-        for (unsigned j = 0; j < _boardSize; ++j)
+        for (int j = 0; j < _boardSize; ++j)
         {
             //if (i == 1 || i == 2 || i == 3 || i == 4 || i == 5 || i == 6)
             //    _piecesSymbolsVector2D[i][j] = (char)PiecesSymbols::Empty;
@@ -112,11 +123,11 @@ void BoardWidget::init()
     _boardLayout = new QGridLayout();
 
     _piecesVector2D.reserve(_boardSize);
-    for (unsigned i = 0; i < _boardSize; ++i)
+    for (int i = 0; i < _boardSize; ++i)
         _piecesVector2D.push_back(QVector<Piece *>(_boardSize, nullptr));
 
-    for (unsigned i = 0; i < _boardSize ; ++i)
-        for (unsigned j = 0; j < _boardSize; ++j)
+    for (int i = 0; i < _boardSize ; ++i)
+        for (int j = 0; j < _boardSize; ++j)
             makeNewPieceBySymbol(_piecesSymbolsVector2D[i][j], i, j);
 }
 
@@ -175,17 +186,31 @@ void BoardWidget::makeNewPieceBySymbol(char symbol, int i, int j)
 
 void BoardWidget::clearBoardLayout()
 {
-    for (unsigned i = 0; i < _boardSize; ++i)
-        for (unsigned j = 0; j < _boardSize; ++j)
+    for (int i = 0; i < _boardSize; ++i)
+        for (int j = 0; j < _boardSize; ++j)
             _boardLayout->removeWidget(_piecesVector2D[i][j]->getPieceLabel());
+}
+
+void BoardWidget::clearUnderLayout()
+{
+    for (int i = 0; i < _boardSize; ++i)
+        for (int j = 0; j < _boardSize; ++j)
+            _underLayerLayout->removeWidget(_underLayerVector2D[i][j]->getPieceLabel());
 }
 
 void BoardWidget::resetBoardLayout()
 {
-    for (unsigned i = 0; i < _boardSize; ++i)
-        for (unsigned j = 0; j < _boardSize; ++j)
+    for (int i = 0; i < _boardSize; ++i)
+        for (int j = 0; j < _boardSize; ++j)
             _boardLayout->addWidget(_piecesVector2D[i][j]->getPieceLabel(), i, j);
 }
+
+//void BoardWidget::resetUnderLayerVector2D()
+//{
+//    for (int i = 0; i < _boardSize; ++i)
+//        for (int j = 0; j < _boardSize; ++j)
+//            _underLayerVector2D[i][j] = '0';
+//}
 
 void BoardWidget::getAllAvailStepsForColor(CharVector2D& allAvailStepsVector2D, CharVector2D& imitationVector2D, PiecesColors turn)
 {
@@ -217,7 +242,7 @@ Piece* BoardWidget::getSelectedPiece() const
     return gSelectedPiece;
 }
 
-unsigned BoardWidget::getBoardSize() const
+int BoardWidget::getBoardSize() const
 {
     return _boardSize;
 }
@@ -287,9 +312,9 @@ void BoardWidget::makeBoardWidget()
     _underLayerWidget->setGeometry(0, 0, (int)BoardWidgetProps::BoardWidgetW, (int)BoardWidgetProps::BoardWidgetH);
 
     // Make layouts
-    for (unsigned i = 0; i < _boardSize; ++i)
+    for (int i = 0; i < _boardSize; ++i)
     {
-        for (unsigned j = 0; j < _boardSize; ++j)
+        for (int j = 0; j < _boardSize; ++j)
         {
             // Make board layout
             _boardLayout->addWidget(_piecesVector2D[i][j]->getPieceLabel(), i, j);
@@ -307,7 +332,25 @@ void BoardWidget::makeBoardWidget()
     setLayout(_boardLayout);
 }
 
+void BoardWidget::setTurn(PiecesColors turn)
+{
+    _turn = turn;
+}
 
+void BoardWidget::setIsChecked(bool isChecked)
+{
+    _isChecked = isChecked;
+}
+
+void BoardWidget::setIsCheckedKingSelected(bool isSelected)
+{
+    _isCheckedKingSelected = isSelected;
+}
+
+void BoardWidget::setIsPawnPromoted(bool isPromoted)
+{
+    _isPawnPromoted = isPromoted;
+}
 
 
 
@@ -350,14 +393,11 @@ void BoardWidget::makeBoardWidget()
 // Game functions
 void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
 {
-
-    qDebug() << "asdfasf";
-
-
     bool isDoStep = false;
 
     // No piece selected
     _isCheckedKingSelected = false;
+
     if (!isPieceSelected())
     {
         // if clicked right color piece
@@ -384,7 +424,6 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
         else // Clicked available step
         {
             doStep(clickedPiece);
-            gSelectedPiece = nullptr;
             clearStepsVector2D();
             isDoStep = true;
             switchTurn();
@@ -394,6 +433,21 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
     // If pawn promotion exist, pop-up dialog
     if (_isPawnPromoted)
         showPawnPromDialog();
+
+    if (isDoStep)
+    {
+            auto pieceSymbol = gSelectedPiece->getPieceSymbol();
+            auto posFrom =  gSelectedPiece->getPosition();
+            auto posTo = clickedPiece->getPosition();
+            auto isCheck = isChecked();
+            bool isHit = false;
+
+            if (clickedPiece->getPieceSymbol() != (char)PiecesSymbols::Empty)
+                isHit = true;
+
+            MovesWidget::GetInstance()->addMoveForColor(pieceSymbol, posFrom, posTo, isCheck, isHit, _turn);
+            gSelectedPiece = nullptr;
+    }
 
     // If king checked, mark it in stepsVector2D
     if (isChecked())
@@ -422,8 +476,6 @@ void BoardWidget::selectPiece(Piece* clickedPiece)
 
 void BoardWidget::doStep(Piece* clickedPiece)
 {
-    //MovesWidget::GetInstance()->setLastMove("alo1", "alo2");
-
     int iSelected = gSelectedPiece->getPositionRow();
     int jSelected = gSelectedPiece->getPositionColumn();
     int iClicked = clickedPiece->getPositionRow();
@@ -576,6 +628,7 @@ void BoardWidget::showPawnPromDialog()
     switchTurn();
     _pawnPromDialog->makePawnPromDialog(_turn);
     _pawnPromDialog->show();
+    //_pawnPromDialog->exec();
 }
 
 void BoardWidget::doPawnProm(PiecesTypes pieceType)
@@ -673,15 +726,15 @@ void BoardWidget::switchTurn()
 
 void BoardWidget::clearStepsVector2D()
 {
-    for (unsigned i = 0; i < _boardSize; ++i)
-        for (unsigned j = 0; j < _boardSize; ++j)
+    for (int i = 0; i < _boardSize; ++i)
+        for (int j = 0; j < _boardSize; ++j)
             _possibleStepsVector2D[i][j] = (char)PiecesTypes::Empty;
 }
 
 void BoardWidget::clearStepsVector2DExceptCheck()
 {
-    for (unsigned i = 0; i < _boardSize; ++i)
-        for (unsigned j = 0; j < _boardSize; ++j)
+    for (int i = 0; i < _boardSize; ++i)
+        for (int j = 0; j < _boardSize; ++j)
         {
             if (_possibleStepsVector2D[i][j] == (char)PossibleSteps::Check)
                 continue;
@@ -706,9 +759,9 @@ void BoardWidget::drawCheck()
 void BoardWidget::drawUnderLayer()
 {
     QPixmap temp;
-    for (unsigned i = 0; i < _boardSize; ++i)
+    for (int i = 0; i < _boardSize; ++i)
     {
-        for (unsigned j = 0; j < _boardSize; ++j)
+        for (int j = 0; j < _boardSize; ++j)
         {
             switch (_possibleStepsVector2D[i][j])
             {

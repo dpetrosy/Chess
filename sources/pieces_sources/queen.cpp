@@ -3,6 +3,7 @@
 #include "boardwidget.hpp"
 #include "rook.hpp"
 #include "clickablelabel.hpp"
+#include "helpers.hpp"
 
 Queen::Queen()
 {

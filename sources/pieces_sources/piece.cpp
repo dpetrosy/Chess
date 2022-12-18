@@ -2,6 +2,7 @@
 #include "boardwidget.hpp"
 #include "clickablelabel.hpp"
 #include "helpers.hpp"
+#include "utils.hpp"
 
 Piece::Piece()
 {   
@@ -229,8 +230,8 @@ bool Piece::isKing(CharVector2D& symbolsVector2D, int i, int j)
 bool Piece::isGivingCheck(CharVector2D& stepsVector2D, CharVector2D& symbolsVector2D, PiecesColors turn)
 {
     auto boardSize = BoardWidget::GetInstance()->getBoardSize();
-    for (unsigned i = 0; i < boardSize; ++i)
-        for (unsigned j = 0; j < boardSize; ++j)
+    for (int i = 0; i < boardSize; ++i)
+        for (int j = 0; j < boardSize; ++j)
             if ((stepsVector2D[i][j] == (char)PossibleSteps::CanBeat) && isKing(symbolsVector2D, i, j) && !isSameColoredPiece(symbolsVector2D, i, j, turn))
             {
                 BoardWidget::GetInstance()->setCheckPosition(i, j);

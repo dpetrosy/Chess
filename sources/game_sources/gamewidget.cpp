@@ -3,7 +3,9 @@
 #include "moveswidget.hpp"
 #include "piece.hpp"
 #include "mainwindow.hpp"
+#include "clickablelabel.hpp"
 #include "helpers.hpp"
+#include "utils.hpp"
 
 GameWidget::GameWidget(QWidget *parent)
     : QWidget{parent}
@@ -15,7 +17,13 @@ GameWidget::GameWidget(QWidget *parent)
     makeGameWidget();
 }
 
-GameWidget::~GameWidget() {}
+GameWidget::~GameWidget()
+{
+    delete _boardLabel;
+    delete _boardWidget;
+    delete _movesWidget;
+    delete _returnButton;
+}
 
 // Singlton pattern realization
 GameWidget* GameWidget::_gameWidget = nullptr;
@@ -35,6 +43,9 @@ void GameWidget::init()
     _boardLabel = new QLabel(this);
     _boardWidget = BoardWidget::GetInstance(this);
     _movesWidget = MovesWidget::GetInstance(this);
+
+    // Return button
+    _returnButton = new ClickableLabel(this);
 }
 
 // Public util functions
@@ -45,6 +56,9 @@ void GameWidget::startGame()
         MainWindow::GetInstance()->setBackgroundImage(ImagesPaths::DarkThemeGameBkg);
     else
         MainWindow::GetInstance()->setBackgroundImage(ImagesPaths::LightThemeGameBkg);
+
+    // Return button
+    setQLabelPictureByTheme(_returnButton, globalIsDarkTheme, ImagesPaths::GameWidgetLightReturnButton, ImagesPaths::GameWidgetDarkReturnButton);
 
     resetBoard();
 }
@@ -63,6 +77,11 @@ void GameWidget::makeGameWidget()
 
     //_boardLabel->setStyleSheet("QLabel { border-radius: 8px; }");
     _boardLabel->setGeometry((int)BoardWidgetProps::BoardLabelX, (int)BoardWidgetProps::BoardLabelY, (int)BoardWidgetProps::BoardLabelW, (int)BoardWidgetProps::BoardLabelH);
+
+    // Return button
+    _returnButton->move((int)GamwWidgetProps::ReturnButtonX, (int)GamwWidgetProps::ReturnButtonY);
+    setQLabelPictureByTheme(_returnButton, globalIsDarkTheme, ImagesPaths::GameWidgetLightReturnButton, ImagesPaths::GameWidgetDarkReturnButton);
+    _returnButton->setCursor(Qt::PointingHandCursor);
 }
 
 void GameWidget::resetBoard()
@@ -72,8 +91,28 @@ void GameWidget::resetBoard()
     else
         _boardLabel->setPixmap(QPixmap(ImagesPaths::WhiteBoardsPath + _gameData.board + "_ln" + Boards::Extencion));
 
+    auto& symbolsVector2D = _boardWidget->getPiecesSymbolsVector2D();
+    auto& stepsVector2D = _boardWidget->getPossibleStepsVector2D();
+
+    _boardWidget->clearBoardLayout();
+    _boardWidget->clearUnderLayout();
+
+    resetCharVector2D(symbolsVector2D, 8, (char)PiecesSymbols::Empty);
+    resetCharVector2D(stepsVector2D, 8, (char)PiecesSymbols::Empty);
+
     resetSymbolsVector2D();
+
     resetPiecesVector2D();
+
+    _boardWidget->resetBoardLayout();
+    _boardWidget->drawUnderLayer();
+
+    _boardWidget->setTurn(PiecesColors::White);
+    _boardWidget->setIsChecked(false);
+    _boardWidget->setIsCheckedKingSelected(false);
+    _boardWidget->setCheckPosition(0, 0);
+    _boardWidget->setIsPawnPromoted(false);
+    _boardWidget->setPromotedPawnPosition(0, 0);
 }
 
 void GameWidget::resetSymbolsVector2D()
@@ -85,6 +124,8 @@ void GameWidget::resetSymbolsVector2D()
         makeSymbolsVector2DForHorde();
     else if (variant == GameVariants::Chess960)
         makeSymbolsVector2DForChess960();
+    else
+        makeSymbolsVector2DStandard();
 
     if (playerColor == PiecesColors::Black)
         reverseSymbolsVector2D();
@@ -185,6 +226,19 @@ void GameWidget::makeSymbolsVector2DForChess960()
     }
 }
 
+void GameWidget::makeSymbolsVector2DStandard()
+{
+    QString standartMatrix = GameVariants::StandardSymbolsVector2D;
+    auto& vector2D = _boardWidget->getPiecesSymbolsVector2D();
+
+    standartMatrix.remove(' ');
+
+    int k = 0;
+    for (int i = 0; i < 8; ++i)
+        for (int j = 0; j < 8; ++j, ++k)
+            vector2D[i][j] = static_cast<char>(standartMatrix.at(k).toLatin1());
+}
+
 void GameWidget::resetPiecesVector2D()
 {
     auto& piecesVector2D = _boardWidget->getPiecesVector2D();
@@ -253,6 +307,11 @@ QString GameWidget::getPieceSet() const
 QString GameWidget::getBoard() const
 {
     return _gameData.board;
+}
+
+ClickableLabel* GameWidget::getReturnButton()
+{
+    return _returnButton;
 }
 
 // Setters

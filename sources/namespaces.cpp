@@ -105,6 +105,13 @@ namespace ImagesPaths
     QString DarkBlackColorHoverButton = DarkHoverStartButtonsPath + "black_color_hover.png";
     QString DarkRandomColorHoverButton = DarkHoverStartButtonsPath + "random_color_hover.png";
     QString DarkWhiteColorHoverButton = DarkHoverStartButtonsPath + "white_color_hover.png";
+
+    // GameWidget images
+    QString GameWidgetPath = imagesPath + "game_widget/";
+    QString GameWidgetReturnButtonPath = GameWidgetPath + "return_button/";
+
+    QString GameWidgetLightReturnButton = GameWidgetReturnButtonPath + "light_return_button.png";
+    QString GameWidgetDarkReturnButton = GameWidgetReturnButtonPath + "dark_return_button.png";
 }
 
 namespace StepsImages
@@ -197,6 +204,16 @@ namespace GameVariants
      PPPPPPPP\
      PPPPPPPP\
      PPPPPPPP";
+
+    QString StandardSymbolsVector2D = \
+    "rnbqkbnr\
+     pppppppp\
+     00000000\
+     00000000\
+     00000000\
+     00000000\
+     PPPPPPPP\
+     RNBQKBNR";
 };
 
 namespace StartGameButtonName
@@ -252,7 +269,7 @@ namespace Boards
     QString Glass = "Glass";
     QString Graffiti = "Graffiti";
     QString Green = "Green";
-    QString IceSea = "Ice_Sea";
+    QString IcySea = "Icy_Sea";
     QString Light = "Light";
     QString Lolz = "Lolz";
     QString Marble = "Marble";

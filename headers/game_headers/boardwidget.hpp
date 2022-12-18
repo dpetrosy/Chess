@@ -10,7 +10,7 @@
 #include <QVectorIterator>
 #include <QMessageBox>
 
-#include "game_helpers.hpp"
+#include "predefined_game_classes.hpp"
 #include "pieces_helpers.hpp"
 
 extern Piece* gSelectedPiece;
@@ -32,13 +32,15 @@ public:
     // Public util functions
     void makeNewPieceBySymbol(char symbol, int i, int j);
     void clearBoardLayout();
+    void clearUnderLayout();
     void resetBoardLayout();
+    void drawUnderLayer();
     void getAllAvailStepsForColor(CharVector2D& allAvailStepsVector2D, CharVector2D& imitationVector2D, PiecesColors turn);
 
 public:
     // Getters
     Piece*          getSelectedPiece() const;
-    unsigned        getBoardSize() const;
+    int             getBoardSize() const;
     QWidget*        getUnderLayerWidget() const;
     QGridLayout*    getUnderLayerLayout() const;
     PieceVector2D&  getUnderLayerVector2D();
@@ -55,6 +57,10 @@ public:
     void setCheckPosition(int i, int j);
     void setPromotedPawnPosition(int i, int j);
     void setValueInSymbolsVector2D(int i, int j, char value);
+    void setTurn(PiecesColors turn);
+    void setIsChecked(bool isChecked);
+    void setIsCheckedKingSelected(bool isSelected);
+    void setIsPawnPromoted(bool isPromoted);
 
 public slots:
     void processLeftButtonClick(Piece *clickedPiece);
@@ -74,7 +80,6 @@ private:
     void doStep(Piece* clickedPiece);
     void doStepInSymbolsVector(int iSelected, int jSelected, int iClicked, int jClicked);
     void doStepInPiecesVector(int iSelected, int jSelected, int iClicked, int jClicked);
-    void drawUnderLayer();
     void drawSelectedPieceSquare();
     void drawCheck();
     void clearStepsVector2D();
@@ -104,7 +109,7 @@ private:
     Factory* _piecesFactory;
 
     // Board widget attributes
-    unsigned        _boardSize;
+    int _boardSize;
 
     // Under layer attributes
     QWidget*        _underLayerWidget;

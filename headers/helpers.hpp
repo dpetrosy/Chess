@@ -109,6 +109,13 @@ namespace ImagesPaths
     extern QString DarkBlackColorHoverButton;
     extern QString DarkRandomColorHoverButton;
     extern QString DarkWhiteColorHoverButton;
+
+    // GameWidget images
+    extern QString GameWidgetPath;
+    extern QString GameWidgetReturnButtonPath;
+
+    extern QString GameWidgetLightReturnButton;
+    extern QString GameWidgetDarkReturnButton;
 }
 
 namespace StylesPaths

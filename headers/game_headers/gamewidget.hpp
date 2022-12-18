@@ -10,6 +10,7 @@
 
 #include "game_helpers.hpp"
 #include "menus_helpers.hpp"
+#include "predefined_game_classes.hpp"
 
 // Singlton pattern used
 class GameWidget : public QWidget
@@ -28,15 +29,16 @@ public:
     void startGame();
 
     // Getters
-    GameData      getGameData() const;
-    QString       getGameVariant() const;
-    bool          getIsTimeAvailable() const;
-    double        getGameMinutes() const;
-    int           getIncrementSeconds() const;
-    PiecesColors  getBelowPlayerColor() const;
-    QString       getQuickGame() const;
-    QString       getPieceSet() const;
-    QString       getBoard() const;
+    GameData          getGameData() const;
+    QString           getGameVariant() const;
+    bool              getIsTimeAvailable() const;
+    double            getGameMinutes() const;
+    int               getIncrementSeconds() const;
+    PiecesColors      getBelowPlayerColor() const;
+    QString           getQuickGame() const;
+    QString           getPieceSet() const;
+    QString           getBoard() const;
+    ClickableLabel*   getReturnButton();
 
     // Setters
     void setGameVariant(QString gameVariant);
@@ -58,6 +60,7 @@ private:
     void makeGameWidget();
     void resetBoard();
     void resetSymbolsVector2D();
+    void makeSymbolsVector2DStandard();
     void makeSymbolsVector2DForHorde();
     void makeSymbolsVector2DForChess960();
     void reverseSymbolsVector2D();
@@ -72,6 +75,9 @@ private:
     GameData     _gameData;
     BoardWidget* _boardWidget;
     MovesWidget* _movesWidget;
+
+    // Return button
+    ClickableLabel*   _returnButton;
 };
 
 #endif // GAMEWIDGET_HPP

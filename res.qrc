@@ -310,8 +310,6 @@
         <file>images/boards/black/Bases_ln.png</file>
         <file>images/boards/black/Blue_ln.png</file>
         <file>images/boards/black/Bubblegum_ln.png</file>
-        <file>images/boards/black/Burled_wood_ln.png</file>
-        <file>images/boards/black/Dark_wood_ln.png</file>
         <file>images/boards/black/Dash_ln.png</file>
         <file>images/boards/black/Glass_ln.png</file>
         <file>images/boards/black/Graffiti_ln.png</file>
@@ -340,7 +338,6 @@
         <file>images/boards/white/Blue_ln.png</file>
         <file>images/boards/white/Brown_ln.png</file>
         <file>images/boards/white/Bubblegum_ln.png</file>
-        <file>images/boards/white/Burled_wood_ln.png</file>
         <file>images/boards/white/Dark_Wood_ln.png</file>
         <file>images/boards/white/Dash_ln.png</file>
         <file>images/boards/white/Glass_ln.png</file>
@@ -365,6 +362,11 @@
         <file>images/boards/white/Tournament_ln.png</file>
         <file>images/boards/white/Translucent_ln.png</file>
         <file>images/boards/white/Walnut_ln.png</file>
+        <file>images/game_widget/return_button/dark_return_button.png</file>
+        <file>images/game_widget/return_button/light_return_button.png</file>
+        <file>images/boards/black/Burled_Wood_ln.png</file>
+        <file>images/boards/black/Dark_Wood_ln.png</file>
+        <file>images/boards/white/Burled_Wood_ln.png</file>
     </qresource>
     <qresource prefix="/">
         <file>styles/pieces_styles/pawn_prom_buttons_style.txt</file>

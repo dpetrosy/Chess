@@ -253,6 +253,52 @@ void PVPMenu::makeMenuBeforeSwitch()
 
     // Return button
     setQLabelPictureByTheme(_returnButton, globalIsDarkTheme, ImagesPaths::LightReturnButton, ImagesPaths::DarkReturnButton);
+
+    if (gLanguage == Languages::Armenian)
+    {
+        _topTextLabel->setText("Խաղալ ընկերոջ հետ");
+        _gameVariantTextLabel->setText("Տարբերակ");
+        _gameVariantTextLabel->move((int)PVPMenuProps::GameVariantTextLabelX - 28, (int)PVPMenuProps::GameVariantTextLabelY);
+        _timeControlTextLabel->setText("Ժամակարգ");
+        _minutesTextLabel->setText("Րոպեներ ամեն կողմի համար։ ");
+        _minutesTextLabel->move((int)PVPMenuProps::MinutesTextLabelX - 40, (int)PVPMenuProps::MinutesTextLabelY);
+        _minutesNumberTextLabel->setGeometry((int)PVPMenuProps::MinutesNumberTextLabelX + 60, (int)PVPMenuProps::MinutesNumberTextLabelY, (int)PVPMenuProps::MinutesNumberTextLabelW, (int)PVPMenuProps::MinutesNumberTextLabelH);
+        _incSecondsTextLabel->setText("Ավելացումը ըստ վայրկյանների: ");
+        _incSecondsTextLabel->move((int)PVPMenuProps::IncSecondsTextLabelX - 40, (int)PVPMenuProps::IncSecondsTextLabelY);
+        _incSecondsNumberTextLabel->setGeometry((int)PVPMenuProps::IncSecondsNumberTextLabelX + 45, (int)PVPMenuProps::IncSecondsNumberTextLabelY, (int)PVPMenuProps::IncSecondsNumberTextLabelW, (int)PVPMenuProps::IncSecondsNumberTextLabelH);
+        _quickGamesTextLabel->setText("Արագ սկիզբ");
+    }
+    else if (gLanguage == Languages::Russian)
+    {
+        _topTextLabel->setText("Сыграть с другом");
+        _gameVariantTextLabel->setText("Вариант");
+        _gameVariantTextLabel->move((int)PVPMenuProps::GameVariantTextLabelX - 10, (int)PVPMenuProps::GameVariantTextLabelY);
+        _timeControlTextLabel->setText("Время");
+        _timeControlTextLabel->setGeometry((int)PVPMenuProps::TimeControlTextLabelX + 38, (int)PVPMenuProps::TimeControlTextLabelY, 100, 20);
+        _minutesTextLabel->setText("Минут на партию: ");
+        _minutesTextLabel->move((int)PVPMenuProps::MinutesTextLabelX + 10, (int)PVPMenuProps::MinutesTextLabelY);
+        _minutesNumberTextLabel->setGeometry((int)PVPMenuProps::MinutesNumberTextLabelX + 23, (int)PVPMenuProps::MinutesNumberTextLabelY, (int)PVPMenuProps::MinutesNumberTextLabelW, (int)PVPMenuProps::MinutesNumberTextLabelH);
+        _incSecondsTextLabel->setText("Добавление секунд на ход: ");
+        _incSecondsTextLabel->move((int)PVPMenuProps::IncSecondsTextLabelX - 13, (int)PVPMenuProps::IncSecondsTextLabelY);
+        _incSecondsNumberTextLabel->setGeometry((int)PVPMenuProps::IncSecondsNumberTextLabelX + 33, (int)PVPMenuProps::IncSecondsNumberTextLabelY, (int)PVPMenuProps::IncSecondsNumberTextLabelW, (int)PVPMenuProps::IncSecondsNumberTextLabelH);
+        _quickGamesTextLabel->setText("Быстрый Старт");
+    }
+    else // English US
+    {
+        _topTextLabel->setText("Play with a friend");
+        _gameVariantTextLabel->setText("Variant");
+        _gameVariantTextLabel->move((int)PVPMenuProps::GameVariantTextLabelX, (int)PVPMenuProps::GameVariantTextLabelY);
+        _timeControlTextLabel->setText("Time control");
+        _timeControlTextLabel->setGeometry((int)PVPMenuProps::TimeControlTextLabelX, (int)PVPMenuProps::TimeControlTextLabelY, 100, 20);
+        _timeControlToggleSwitch->move((int)PVPMenuProps::TimeControlToggleSwitchX, (int)PVPMenuProps::TimeControlToggleSwitchY);
+        _minutesTextLabel->setText("Minutes per side: ");
+        _minutesTextLabel->move((int)PVPMenuProps::MinutesTextLabelX, (int)PVPMenuProps::MinutesTextLabelY);
+        _minutesNumberTextLabel->setGeometry((int)PVPMenuProps::MinutesNumberTextLabelX, (int)PVPMenuProps::MinutesNumberTextLabelY, (int)PVPMenuProps::MinutesNumberTextLabelW, (int)PVPMenuProps::MinutesNumberTextLabelH);
+        _incSecondsTextLabel->setText("Increment in seconds: ");
+        _incSecondsTextLabel->move((int)PVPMenuProps::IncSecondsTextLabelX, (int)PVPMenuProps::IncSecondsTextLabelY);
+        _incSecondsNumberTextLabel->setGeometry((int)PVPMenuProps::IncSecondsNumberTextLabelX, (int)PVPMenuProps::IncSecondsNumberTextLabelY, (int)PVPMenuProps::IncSecondsNumberTextLabelW, (int)PVPMenuProps::IncSecondsNumberTextLabelH);
+        _quickGamesTextLabel->setText("Quick Start");
+    }
 }
 
 ClickableLabel* PVPMenu::getReturnButton()
@@ -336,7 +382,7 @@ void PVPMenu::makePVPMenu()
     _topTextLabel->setAlignment(Qt::AlignCenter);
 
     // Text for game variant
-    _gameVariantTextLabel->move((int)PVPMenuProps::GameVariantTextLabelX, (int)PVPMenuProps::GameVariantTextLabelY);
+    _gameVariantTextLabel->setGeometry((int)PVPMenuProps::GameVariantTextLabelX, (int)PVPMenuProps::GameVariantTextLabelY, 200, 20);
     ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _gameVariantTextLabel, globalIsDarkTheme);
     _gameVariantTextLabel->setText("Variant");
 
@@ -357,7 +403,7 @@ void PVPMenu::makePVPMenu()
     _timeControlBkgLabel->setGeometry((int)PVPMenuProps::TimeControlBkgLabelX, (int)PVPMenuProps::TimeControlBkgLabelY, (int)PVPMenuProps::TimeControlBkgLabelW, (int)PVPMenuProps::TimeControlBkgLabelH);
 
     // Text for time control
-    _timeControlTextLabel->move((int)PVPMenuProps::TimeControlTextLabelX, (int)PVPMenuProps::TimeControlTextLabelY);
+    _timeControlTextLabel->setGeometry((int)PVPMenuProps::TimeControlTextLabelX, (int)PVPMenuProps::TimeControlTextLabelY, 100, 20);
     ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _timeControlTextLabel, globalIsDarkTheme);
     _timeControlTextLabel->setText("Time control");
 
@@ -367,7 +413,7 @@ void PVPMenu::makePVPMenu()
      connect(_timeControlToggleSwitch, &QCheckBox::clicked, this, &PVPMenu::swapTimeControl);
 
     // Text for minutes slider
-    _minutesTextLabel->move((int)PVPMenuProps::MinutesTextLabelX, (int)PVPMenuProps::MinutesTextLabelY);
+    _minutesTextLabel->setGeometry((int)PVPMenuProps::MinutesTextLabelX, (int)PVPMenuProps::MinutesTextLabelY, 400, 20);
     ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _minutesTextLabel, globalIsDarkTheme);
     _minutesTextLabel->setText("Minutes per side: ");
 
@@ -385,7 +431,7 @@ void PVPMenu::makePVPMenu()
     _minutesSlider->setValue(13);
 
     // Text for increment seconds
-    _incSecondsTextLabel->move((int)PVPMenuProps::IncSecondsTextLabelX, (int)PVPMenuProps::IncSecondsTextLabelY);
+    _incSecondsTextLabel->setGeometry((int)PVPMenuProps::IncSecondsTextLabelX, (int)PVPMenuProps::IncSecondsTextLabelY, 400, 20);
     ::setStyleSheetByTheme(StylesPaths::lightDimTextStyle, StylesPaths::darkDimTextStyle, _incSecondsTextLabel, globalIsDarkTheme);
     _incSecondsTextLabel->setText("Increment in seconds: ");
 
@@ -403,9 +449,9 @@ void PVPMenu::makePVPMenu()
     _incSecondsSlider->setValue(0);
 
     // Text for quick games
-    _quickGamesTextLabel->move((int)PVPMenuProps::QuickGamesTextLabelX, (int)PVPMenuProps::QuickGamesTextLabelY);
+    _quickGamesTextLabel->setGeometry((int)PVPMenuProps::QuickGamesTextLabelX, (int)PVPMenuProps::QuickGamesTextLabelY, 200, 30);
     ::setStyleSheetByTheme(StylesPaths::lightQuickGamesTextStyle, StylesPaths::darkQuickGamesTextStyle, _quickGamesTextLabel, globalIsDarkTheme);
-    _quickGamesTextLabel->setText("Quick Games");
+    _quickGamesTextLabel->setText("Quick Start");
 
     // Bullet 1M button
     _bullet1MButton->move((int)PVPMenuProps::Bullet1MButtonX, (int)PVPMenuProps::Bullet1MButtonY);

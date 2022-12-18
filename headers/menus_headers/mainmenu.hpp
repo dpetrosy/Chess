@@ -10,6 +10,7 @@
 #include <QLabel>
 
 #include "menus_helpers.hpp"
+#include "predefined_menu_classes.hpp"
 
 class MainMenu : public QWidget
 {
@@ -21,6 +22,7 @@ public:
 
     // Public util functions
     QPushButton* getPushButton(MainMenuPushButtons button);
+    void makeMenuBeforeSwitch(SettingsMenu* settingMenuWidget, MainWindow* mainWindow);
 
 private:
     // Init

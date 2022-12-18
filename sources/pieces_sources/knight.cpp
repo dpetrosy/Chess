@@ -1,6 +1,7 @@
 #include "knight.hpp"
 #include "boardwidget.hpp"
 #include "clickablelabel.hpp"
+#include "helpers.hpp"
 
 Knight::Knight()
 {

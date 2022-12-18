@@ -2,8 +2,6 @@
 #include "menus_helpers.hpp"
 #include "utils.hpp"
 
-#include <QCursor>
-
 StartGameButton::StartGameButton(QWidget* parent, QString buttonName, Qt::WindowFlags f)
     : ClickableLabel(parent)
 {

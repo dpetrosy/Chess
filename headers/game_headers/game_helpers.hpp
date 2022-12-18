@@ -3,9 +3,16 @@
 
 #include "pieces_helpers.hpp"
 #include "menus_helpers.hpp"
-#include "predefined_game_classes.hpp"
 
 // Game Widget
+enum class GamwWidgetProps
+{
+    ReturnButtonW = 35,
+    ReturnButtonH = 28,
+    ReturnButtonX = (int)MainWindowProps::windowSizeW - ReturnButtonW - 13,
+    ReturnButtonY =  (int)MainWindowProps::windowSizeH - ReturnButtonH - 12
+};
+
 struct GameData
 {
     QString gameVariant = GameVariants::Standard;

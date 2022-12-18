@@ -6,6 +6,7 @@
 
 #include "pieces_helpers.hpp"
 #include "game_helpers.hpp"
+#include "predefined_game_classes.hpp"
 
 // Prototype pattern used
 class Factory

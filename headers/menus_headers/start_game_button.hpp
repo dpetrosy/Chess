@@ -7,6 +7,7 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include <Qt>
+#include <QCursor>
 
 #include "clickablelabel.hpp"
 

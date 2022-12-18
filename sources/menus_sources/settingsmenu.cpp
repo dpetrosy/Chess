@@ -5,6 +5,8 @@
 #include "helpers.hpp"
 #include "utils.hpp"
 
+QString gLanguage = Languages::English;
+
 SettingsMenu::SettingsMenu(QWidget *parent) :
     QWidget(parent)
 {
@@ -105,6 +107,7 @@ void SettingsMenu::cancelButtonClicked()
     _tempData = _settingsData;
     globalIsDarkTheme = _settingsData.isDarkTheme;
     globalPieceSetPath = ImagesPaths::piecesPath + _settingsData.piecesSetStr + "/";
+    gLanguage = _settingsData.languageStr;
 
     auto mainWindow = MainWindow::GetInstance();
     mainWindow->setBackgroundImage(_settingsData.bkgImageStr);
@@ -116,6 +119,7 @@ void SettingsMenu::saveButtonClicked()
     _settingsData = _tempData;
     globalIsDarkTheme = _settingsData.isDarkTheme;
     globalPieceSetPath = ImagesPaths::piecesPath + _settingsData.piecesSetStr + "/";
+    gLanguage = _settingsData.languageStr;
 
     auto mainWindow = MainWindow::GetInstance();
     auto gameWidget = GameWidget::GetInstance();
@@ -165,6 +169,46 @@ void SettingsMenu::makeMenuBeforeSwitch()
     // Theme
     _themeToggleSwitch->setChecked(globalIsDarkTheme);
     changeMenuTheme();
+
+    if (gLanguage == Languages::Armenian)
+    {
+        _bkgImageTextLabel->setText("Ետնանկար");
+        _pieceSetsTextLabel->setText("Խաղաքարեր");
+        _boardTextLabel->setText("Խաղատախտակ");
+        _languageTextLabel->setText("Լեզու");
+        _soundTextLabel->setText("Ձայն");
+        _themeTextLabel->setText("Սև ֆոն");
+        _cancelPushButton->setText("Չեղարկել");
+        _savePushButton->setText("Պահպանել");
+        _hideAndShowButton->setText("Թաքցնել");
+        _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX - 18, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW + 18, (int)SettingsMenuProps::HideAndShowButtonH);
+    }
+    else if (gLanguage == Languages::Russian)
+    {
+        _bkgImageTextLabel->setText("Фоновое изображение");
+        _pieceSetsTextLabel->setText("Фигуры");
+        _boardTextLabel->setText("Доска");
+        _languageTextLabel->setText("Язык");
+        _soundTextLabel->setText("Включить звук");
+        _themeTextLabel->setText("Чёрная тема");
+        _cancelPushButton->setText("Отмена");
+        _savePushButton->setText("Сохранить");
+        _hideAndShowButton->setText("Скрыть");
+        _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX - 11, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW + 11, (int)SettingsMenuProps::HideAndShowButtonH);
+    }
+    else // English US
+    {
+        _bkgImageTextLabel->setText("Background Image");
+        _pieceSetsTextLabel->setText("Piece Set");
+        _boardTextLabel->setText("Board");
+        _languageTextLabel->setText("Language");
+        _soundTextLabel->setText("Play Sounds");
+        _themeTextLabel->setText("Dark Theme");
+        _cancelPushButton->setText("Cancel");
+        _savePushButton->setText("Save");
+        _hideAndShowButton->setText("Hide");
+        _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW, (int)SettingsMenuProps::HideAndShowButtonH);
+    }
 }
 
 // Private util functions
@@ -257,7 +301,7 @@ void SettingsMenu::makeSettingsMenu()
     _boardComboBox->addItem(removeUnderscoreInString(Boards::Glass));
     _boardComboBox->addItem(removeUnderscoreInString(Boards::Graffiti));
     _boardComboBox->addItem(removeUnderscoreInString(Boards::Green));
-    _boardComboBox->addItem(removeUnderscoreInString(Boards::IceSea));
+    _boardComboBox->addItem(removeUnderscoreInString(Boards::IcySea));
     _boardComboBox->addItem(removeUnderscoreInString(Boards::Light));
     _boardComboBox->addItem(removeUnderscoreInString(Boards::Lolz));
     _boardComboBox->addItem(removeUnderscoreInString(Boards::Marble));
@@ -304,7 +348,7 @@ void SettingsMenu::makeSettingsMenu()
 
     // Text for theme
     _themeTextLabel->setGeometry((int)SettingsMenuProps::ThemeTextLabelX, (int)SettingsMenuProps::ThemeTextLabelY, (int)SettingsMenuProps::ThemeTextLabelW, (int)SettingsMenuProps::ThemeTextLabelH);
-    _themeTextLabel->setText("Black theme");
+    _themeTextLabel->setText("Dark theme");
     ::setStyleSheetByTheme(StylesPaths::lightTextStyle, StylesPaths::darkBoldTextStyle, _themeTextLabel, _settingsData.isDarkTheme);
 
     // Theme toggle switch
@@ -419,6 +463,11 @@ QString SettingsMenu::getPieceSetStr(int index)
     }
 }
 
+SettingsData&   SettingsMenu::getData()
+{
+    return _settingsData;
+}
+
 QString SettingsMenu::getBoardStr(int index)
 {
     switch (index)
@@ -445,8 +494,8 @@ QString SettingsMenu::getBoardStr(int index)
         return Boards::Graffiti;
     case (int)BoardsNumber::Green:
         return Boards::Green;
-    case (int)BoardsNumber::IceSea:
-        return Boards::IceSea;
+    case (int)BoardsNumber::IcySea:
+        return Boards::IcySea;
     case (int)BoardsNumber::Light:
         return Boards::Light;
     case (int)BoardsNumber::Lolz:
@@ -541,7 +590,21 @@ void SettingsMenu::hideAndShowMenu()
         _savePushButton->hide();
 
         // Menu hide and show button
-        _hideAndShowButton->setText("Show");
+        if (gLanguage == Languages::Armenian)
+        {
+            _hideAndShowButton->setText("Ցուցադրել");
+            _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX - 27, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW + 27, (int)SettingsMenuProps::HideAndShowButtonH);
+        }
+        else if (gLanguage == Languages::Russian)
+        {
+            _hideAndShowButton->setText("Показать");
+            _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX - 18, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW + 18, (int)SettingsMenuProps::HideAndShowButtonH);
+        }
+        else // English US
+        {
+            _hideAndShowButton->setText("Show");
+            _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW, (int)SettingsMenuProps::HideAndShowButtonH);
+        }
         _isMenuVisible = false;
     }
     else
@@ -582,7 +645,21 @@ void SettingsMenu::hideAndShowMenu()
         _savePushButton->show();
 
         // Menu hide and show button
-        _hideAndShowButton->setText("Hide");
+        if (gLanguage == Languages::Armenian)
+        {
+            _hideAndShowButton->setText("Թաքցնել");
+            _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX - 18, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW + 18, (int)SettingsMenuProps::HideAndShowButtonH);
+        }
+        else if (gLanguage == Languages::Russian)
+        {
+            _hideAndShowButton->setText("Скрыть");
+            _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX - 11, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW + 11, (int)SettingsMenuProps::HideAndShowButtonH);
+        }
+        else // English US
+        {
+            _hideAndShowButton->setText("Hide");
+            _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW, (int)SettingsMenuProps::HideAndShowButtonH);
+        }
         _isMenuVisible = true;
     }
 }
@@ -662,7 +739,47 @@ void SettingsMenu::languageComboBoxIndexChanged(int index)
 {
     _tempData.languageNumber = index;
     _tempData.languageStr = getLanguageStr(index);
-    // call function to set language
+    gLanguage = _tempData.languageStr;
+
+    if (gLanguage == Languages::Armenian)
+    {
+        _bkgImageTextLabel->setText("Ետնանկար");
+        _pieceSetsTextLabel->setText("Խաղաքարեր");
+        _boardTextLabel->setText("Խաղատախտակ");
+        _languageTextLabel->setText("Լեզու");
+        _soundTextLabel->setText("Ձայն");
+        _themeTextLabel->setText("Սև ֆոն");
+        _cancelPushButton->setText("Չեղարկել");
+        _savePushButton->setText("Պահպանել");
+        _hideAndShowButton->setText("Թաքցնել");
+        _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX - 18, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW + 18, (int)SettingsMenuProps::HideAndShowButtonH);
+    }
+    else if (gLanguage == Languages::Russian)
+    {
+        _bkgImageTextLabel->setText("Фоновое изображение");
+        _pieceSetsTextLabel->setText("Фигуры");
+        _boardTextLabel->setText("Доска");
+        _languageTextLabel->setText("Язык");
+        _soundTextLabel->setText("Включить звук");
+        _themeTextLabel->setText("Чёрная тема");
+        _cancelPushButton->setText("Отмена");
+        _savePushButton->setText("Сохранить");
+        _hideAndShowButton->setText("Скрыть");
+        _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX - 11, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW + 11, (int)SettingsMenuProps::HideAndShowButtonH);
+    }
+    else // English US
+    {
+        _bkgImageTextLabel->setText("Background Image");
+        _pieceSetsTextLabel->setText("Piece Set");
+        _boardTextLabel->setText("Board");
+        _languageTextLabel->setText("Language");
+        _soundTextLabel->setText("Play Sounds");
+        _themeTextLabel->setText("Dark Theme");
+        _cancelPushButton->setText("Cancel");
+        _savePushButton->setText("Save");
+        _hideAndShowButton->setText("Hide");
+        _hideAndShowButton->setGeometry((int)SettingsMenuProps::HideAndShowButtonX, (int)SettingsMenuProps::HideAndShowButtonY, (int)SettingsMenuProps::HideAndShowButtonW, (int)SettingsMenuProps::HideAndShowButtonH);
+    }
 }
 
 void SettingsMenu::swapMenuTheme()

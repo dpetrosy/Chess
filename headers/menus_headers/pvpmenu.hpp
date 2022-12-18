@@ -13,6 +13,7 @@
 #include "menus_helpers.hpp"
 #include "game_helpers.hpp"
 #include "start_game_button.hpp"
+#include "predefined_menu_classes.hpp"
 
 class PVPMenu : public QWidget
 {

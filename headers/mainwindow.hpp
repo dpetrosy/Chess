@@ -5,6 +5,7 @@
 #include <QStackedWidget>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QCoreApplication>
 #include <QPalette>
 #include <QWidget>
 #include <QPixmap>
@@ -16,7 +17,9 @@
 
 #include "mainmenu.hpp"
 #include "menus_helpers.hpp"
-#include "game_helpers.hpp"
+#include "pieces_helpers.hpp"
+#include "predefined_game_classes.hpp"
+#include "predefined_menu_classes.hpp"
 
 // Singleton pattern used
 class MainWindow : public QMainWindow

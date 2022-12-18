@@ -11,6 +11,7 @@
 #include <QMainWindow>
 
 #include "menus_helpers.hpp"
+#include "predefined_menu_classes.hpp"
 
 class SettingsMenu : public QWidget
 {
@@ -21,9 +22,10 @@ public:
     virtual ~SettingsMenu();
 
     // Public util functions
-    bool         getTheme();
-    QPushButton* getPushButton(SettingsMenuPushButtons button);
-    void         makeMenuBeforeSwitch();
+    bool            getTheme();
+    QPushButton*    getPushButton(SettingsMenuPushButtons button);
+    SettingsData&   getData();
+    void            makeMenuBeforeSwitch();
 
 public slots:
     void cancelButtonClicked();

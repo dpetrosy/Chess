@@ -2,14 +2,15 @@
 #define MENUS_HELPERS_HPP
 
 #include "helpers.hpp"
-#include "predefined_game_classes.hpp"
-#include "predefined_menu_classes.hpp"
+
+extern QString gLanguage;
 
 enum class Menus : int
 {
     MainMenu = 0,
     PVPMenu = 1,
-    SettingsMenu = 2
+    SettingsMenu = 2,
+    GameWidget = 3
 };
 
 
@@ -18,13 +19,13 @@ enum class MainMenuProps
 {
     // Layouts Properties
     verLayoutW = ((int)MainWindowProps::windowSizeW / 10) * 4,
-    verLayoutH = (int)MainWindowProps::windowSizeH / 4,
+    verLayoutH = (int)MainWindowProps::windowSizeH / 4 - 50,
     verLayoutX = ((int)MainWindowProps::windowSizeW - verLayoutW) / 2,
     horLayoutX = verLayoutX,
     horLayoutW = verLayoutW,
-    horLayoutH = verLayoutH / 3 + 2,
+    horLayoutH = verLayoutH / 3 + 20,
     verLayoutY = ((int)MainWindowProps::windowSizeH - (verLayoutH + horLayoutH + 20)) / 2,
-    horLayoutY = verLayoutY + verLayoutH + 0,
+    horLayoutY = verLayoutY + verLayoutH - 5,
 
     // PushButtons Properties
     verLayoutButtonsW = 0,
@@ -141,6 +142,7 @@ namespace GameVariants
     extern QString Horde;
     extern QString FromPosition;
     extern QString HordeSymbolsVector2D;
+    extern QString StandardSymbolsVector2D;
 }
 
 enum class GameVariantsNumber
@@ -334,7 +336,7 @@ namespace Boards
     extern QString Glass;
     extern QString Graffiti;
     extern QString Green;
-    extern QString IceSea;
+    extern QString IcySea;
     extern QString Light;
     extern QString Lolz;
     extern QString Marble;
@@ -367,7 +369,7 @@ enum class BoardsNumber
     Glass,
     Graffiti,
     Green,
-    IceSea,
+    IcySea,
     Light,
     Lolz,
     Marble,

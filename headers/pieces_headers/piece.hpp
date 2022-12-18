@@ -5,9 +5,7 @@
 #include <QObject>
 #include <QLabel>
 
-#include "game_helpers.hpp"
 #include "pieces_helpers.hpp"
-#include "utils.hpp"
 
 // Prototype pattern used
 class Piece : public QObject

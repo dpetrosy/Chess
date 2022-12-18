@@ -23,7 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     makeConnects();
 
     // Set MainMenu when program start
-    switchMenu(Menus::MainMenu);
+    setCentralWidget(this->_MenusStackedWidget);
+    //switchMenu(Menus::MainMenu);
 }
 
 MainWindow::~MainWindow()
@@ -33,11 +34,11 @@ MainWindow::~MainWindow()
     delete _PVPMenuWidget;
     delete _SettingsMenuWidget;
 
-    // StackedWidgets
-    delete _MenusStackedWidget;
-
     // Chess game attributes
     delete _GameWidget;
+
+    // StackedWidgets
+    delete _MenusStackedWidget;
 }
 
 // Singlton pattern realization
@@ -69,20 +70,19 @@ void MainWindow::init()
 // Public slots
 void MainWindow::switchMenu(Menus toMenu)
 {
-    setCentralWidget(_MenusStackedWidget);
-
     if (toMenu == Menus::PVPMenu)
         _PVPMenuWidget->makeMenuBeforeSwitch();
     else if (toMenu == Menus::SettingsMenu)
         _SettingsMenuWidget->makeMenuBeforeSwitch();
+    else if (toMenu == Menus::MainMenu)
+        _MainMenuWidget->makeMenuBeforeSwitch(_SettingsMenuWidget, this);
 
     _MenusStackedWidget->setCurrentIndex((int)toMenu);
 }
 
 void MainWindow::showGame(double minutes, int incSeconds, PiecesColors color)
 {
-    _MenusStackedWidget->hide();
-    setCentralWidget(_GameWidget);
+    switchMenu(Menus::GameWidget);
 
     _PVPMenuWidget->setDataBeforeStartGame(minutes, incSeconds, color);
     _GameWidget->startGame();
@@ -108,15 +108,26 @@ void MainWindow::showGame(double minutes, int incSeconds, PiecesColors color)
 
 void MainWindow::showQuitWindow()
 {
-    if (QMessageBox::question(this, "Quit confirmation", "Are you sure you want to quit?", QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Yes)
-        exitFromProgram(0);
+    if (gLanguage == Languages::Armenian)
+    {
+        if (QMessageBox::question(this, "Լքման հաստատում", "Դուք վստահ եք, որ ցանկանում եք դուրս գալ?", QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Yes)
+            exitFromProgram(0);
+    }
+    else if (gLanguage == Languages::Russian)
+    {
+        if (QMessageBox::question(this, "Подтверждение выхода", "Вы уверены, что хотите выйти?", QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Yes)
+            exitFromProgram(0);
+    }
+    else // Endlish US
+    {
+        if (QMessageBox::question(this, "Quit confirmation", "Are you sure you want to quit?", QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Cancel) == QMessageBox::Yes)
+            exitFromProgram(0);
+    }
 }
 
 void MainWindow::exitFromProgram(int signal)
 {
-    /*******************//*    MUST CHANGE    *//*************************/
-    if (signal == 0)
-        exit(EXIT_SUCCESS);
+    QCoreApplication::exit(signal);
 }
 
 // Public util functions
@@ -136,7 +147,7 @@ QStackedWidget* MainWindow::getStackedWidget()
 // Private util functions
 void MainWindow::makeMenusStackedWidget()
 {
-    makeStackedWidget(_MenusStackedWidget, _MainMenuWidget, _PVPMenuWidget, _SettingsMenuWidget);
+    makeStackedWidget(_MenusStackedWidget, _MainMenuWidget, _PVPMenuWidget, _SettingsMenuWidget, _GameWidget);
 }
 
 void MainWindow::makeConnects()
@@ -161,4 +172,7 @@ void MainWindow::makeConnects()
     // Settings menu connects
     connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::CancelButton), &QPushButton::clicked, _SettingsMenuWidget, std::bind(&SettingsMenu::cancelButtonClicked, _SettingsMenuWidget));
     connect(_SettingsMenuWidget->getPushButton(SettingsMenuPushButtons::SaveButton), &QPushButton::clicked, _SettingsMenuWidget, std::bind(&SettingsMenu::saveButtonClicked, _SettingsMenuWidget));
+
+    // GameWidget connects
+    connect(_GameWidget->getReturnButton(), &ClickableLabel::clickedLeftButton, this, std::bind(&MainWindow::switchMenu, this, Menus::MainMenu));
 }

@@ -165,7 +165,12 @@ ToggleSwitch::ToggleSwitch(const QString& text, const QBrush& brush, QWidget* pa
     style.trackOnBrush = brush.color();
 }
 
-ToggleSwitch::~ToggleSwitch() {}
+ToggleSwitch::~ToggleSwitch()
+{
+    delete thumbBrushAnimation;
+    delete trackBrushAnimation;
+    delete thumbPosAniamtion;
+}
 
 QSize ToggleSwitch::sizeHint() const
 {

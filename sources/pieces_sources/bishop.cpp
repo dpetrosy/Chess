@@ -1,6 +1,7 @@
 #include "bishop.hpp"
 #include "boardwidget.hpp"
 #include "clickablelabel.hpp"
+#include "helpers.hpp"
 
 Bishop::Bishop()
 {

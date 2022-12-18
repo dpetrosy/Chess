@@ -2,6 +2,7 @@
 #include "clickablelabel.hpp"
 #include "boardwidget.hpp"
 #include "utils.hpp"
+#include "helpers.hpp"
 
 King::King()
 {

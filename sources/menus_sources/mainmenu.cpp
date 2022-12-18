@@ -1,5 +1,6 @@
 #include "mainmenu.hpp"
 #include "mainwindow.hpp"
+#include "settingsmenu.hpp"
 #include "utils.hpp"
 
 MainMenu::MainMenu(QWidget *parent) :
@@ -12,7 +13,19 @@ MainMenu::MainMenu(QWidget *parent) :
     makeMainMenu();
 }
 
-MainMenu::~MainMenu() {}
+MainMenu::~MainMenu()
+{
+    delete _PVPButton;
+    delete _PVCButton;
+    delete _InstrButton;
+    delete _SettingsButton;
+    delete _QuitButton;
+    delete _verLayout;
+    delete _horLayout;
+    delete _versionTextLabel;
+    delete _widgetForVerLayout;
+    delete _widgetForHorLayout;
+}
 
 // Init
 void MainMenu::init()
@@ -47,6 +60,43 @@ QPushButton *MainMenu::getPushButton(MainMenuPushButtons button)
         case MainMenuPushButtons::SettingsButton: return _SettingsButton;
         case MainMenuPushButtons::QuitButton: return _QuitButton;
         default: return _PVPButton;
+    }
+}
+
+void MainMenu::makeMenuBeforeSwitch(SettingsMenu* settingMenuWidget, MainWindow* mainWindow)
+{
+    // set bkg image
+    mainWindow->setBackgroundImage(settingMenuWidget->getData().bkgImageStr);
+
+    if (gLanguage == Languages::Armenian)
+    {
+        _PVPButton->setText("Խաղալ ընկերոջ հետ");
+        _PVCButton->setText("Խաղալ համակարգչի հետ");
+        _InstrButton->setText("Կանոններ");
+        _SettingsButton->setText("Կարգավորումներ");
+        _QuitButton->setText("Լքել");
+        _versionTextLabel->setText("Տարբերակ: 1.2.4");
+        _versionTextLabel->move((int)MainMenuProps::VersionTextLabelX - 20, (int)MainMenuProps::VersionTextLabelY);
+    }
+    else if (gLanguage == Languages::Russian)
+    {
+        _PVPButton->setText("Сыграть с Другом");
+        _PVCButton->setText("Сыграть с Компьютером");
+        _InstrButton->setText("Правила");
+        _SettingsButton->setText("Настройки");
+        _QuitButton->setText("Выйти");
+        _versionTextLabel->setText("Версия: 1.2.4");
+        _versionTextLabel->move((int)MainMenuProps::VersionTextLabelX, (int)MainMenuProps::VersionTextLabelY);
+    }
+    else // English US
+    {
+        _PVPButton->setText("Player vs Player");
+        _PVCButton->setText("Player vs Computer");
+        _InstrButton->setText("Instructions");
+        _SettingsButton->setText("Settings");
+        _QuitButton->setText("Quit");
+        _versionTextLabel->setText("Version: 1.2.4");
+        _versionTextLabel->move((int)MainMenuProps::VersionTextLabelX, (int)MainMenuProps::VersionTextLabelY);
     }
 }
 
@@ -91,4 +141,7 @@ void MainMenu::makeMainMenu()
     _versionTextLabel->setGeometry((int)MainMenuProps::VersionTextLabelX, (int)MainMenuProps::VersionTextLabelY, (int)MainMenuProps::VersionTextLabelW, (int)MainMenuProps::VersionTextLabelH);
     ::setStyleSheet(StylesPaths::VersionTextStyle, _versionTextLabel);
     _versionTextLabel->setText("Version: 1.2.4");
+
+    // Hide PVC button
+    _PVCButton->hide();
 }
