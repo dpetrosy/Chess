@@ -8,7 +8,7 @@ extern QString globalPieceSetPath;
 
 enum class MainWindowProps
 {
-    windowSizeW = 1115,
+    windowSizeW = 1050,
     windowSizeH = 700,
 };
 

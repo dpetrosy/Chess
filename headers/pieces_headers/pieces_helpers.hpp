@@ -4,6 +4,7 @@
 #include <QVector>
 #include <QString>
 #include <QPair>
+#include <QLabel>
 using std::vector;
 using std::pair;
 using std::tuple;
@@ -14,6 +15,7 @@ struct Position;
 // Typedefs
 typedef QVector<QVector<char>> CharVector2D;
 typedef QVector<QVector<Piece *>> PieceVector2D;
+typedef QVector<QVector<QLabel *>> LabelVector2D;
 typedef vector<pair<tuple<char, Position, Position, QString>, tuple<char, Position, Position, QString>>> MovesVector;
 
 enum class Pieces

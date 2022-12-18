@@ -59,6 +59,8 @@ void BoardWidget::init()
     _isPawnPromoted = false;
     _pawnPromDialog = new PawnPromDialog();
     _hordePiecesCount = 36;
+    _whiteKingCheckCount = 0;
+    _blackKingCheckCount = 0;
 
     // Init under layer attributes
     PiecesColors noColored = PiecesColors::NoColored;
@@ -224,7 +226,7 @@ void BoardWidget::getAllAvailStepsForColor(CharVector2D& allAvailStepsVector2D, 
     {
         for (int j = 0; j < 8; ++j)
         {
-            if (imitationVector2D[i][j] != (char)PiecesSymbols::Empty)
+            if (imitationVector2D[i][j] != (char)PiecesSymbols::Empty && imitationVector2D[i][j] != 'p' && imitationVector2D[i][j] != 'P')
             {
                 auto belowPlayerColor = GameWidget::GetInstance()->getBelowPlayerColor();
 
@@ -358,7 +360,15 @@ void BoardWidget::setHordPiecesCount(int count)
     _hordePiecesCount = count;
 }
 
+void BoardWidget::setWhiteKingCheckCount(int count)
+{
+    _whiteKingCheckCount = count;
+}
 
+void BoardWidget::setBlackKingCheckCount(int count)
+{
+    _blackKingCheckCount = count;
+}
 
 
 
@@ -448,16 +458,19 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
             auto isCheck = isChecked();
             bool isHit = false;
 
-            if (clickedPiece->getPieceSymbol() != (char)PiecesSymbols::Empty)
+            if (clickedPiece->getPieceSymbol() != (char)PiecesSymbols::Empty || clickedPiece->getPieceSymbol() != 0)
                 isHit = true;
 
             if (isHit && GameWidget::GetInstance()->getGameData().gameVariant == GameVariants::Horde
                     && clickedPiece->getPieceSymbol() == (char)PiecesSymbols::WhitePawn)
                 _hordePiecesCount -= 1;
 
-            //MovesWidget::GetInstance()->addMoveForColor(pieceSymbol, posFrom, posTo, isCheck, isHit, _turn);
+            MovesWidget::GetInstance()->addMoveForColor(pieceSymbol, posFrom, posTo, isCheck,
+                     isHit, _isPawnPromoted, _piecesSymbolsVector2D[_promotedPawnPos.row][_promotedPawnPos.column], _turn);
             gSelectedPiece = nullptr;
     }
+
+    //if (_isPawnPromoted)
 
     // If king checked, mark it in stepsVector2D
     if (isChecked())
@@ -476,6 +489,9 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
     }
 
     if (_hordePiecesCount <= 0)
+        endGame(_turn, false);
+
+    if (_blackKingCheckCount >= 3 || _whiteKingCheckCount >= 3)
         endGame(_turn, false);
 }
 
@@ -710,6 +726,26 @@ void BoardWidget::doPawnProm(PiecesTypes pieceType)
         //drawPreviousStep();
     drawUnderLayer();
 
+    auto& vector2D = MovesWidget::GetInstance()->getMovesVector2d();
+    if (_turn == PiecesColors::White)
+    {
+        auto text = vector2D[vector2D.size() - 1][1]->text();
+        text.chop(1);
+        text += _piecesVector2D[i][j]->getPieceSymbol();
+        if (_isChecked)
+            text += "+";
+        vector2D[vector2D.size() - 1][1]->setText(text);
+    }
+    else
+    {
+        auto text = vector2D[vector2D.size() - 1][2]->text();
+        text.chop(1);
+        text += _piecesVector2D[i][j]->getPieceSymbol();
+        if (_isChecked)
+            text += "+";
+        vector2D[vector2D.size() - 1][1]->setText(text);
+    }
+
     switchTurn();
 }
 
@@ -717,7 +753,18 @@ void BoardWidget::verifyCheck()
 {
     selectPiece(gSelectedPiece);
     if(gSelectedPiece->isGivingCheck(_possibleStepsVector2D, _piecesSymbolsVector2D, _turn))
+    {
         _isChecked = true;
+
+        if (GameWidget::GetInstance()->getGameVariant() == GameVariants::ThreeCheck)
+        {
+            if (_piecesSymbolsVector2D[_checkPosition.row][_checkPosition.column] == (char)PiecesSymbols::BlackKing)
+                _blackKingCheckCount += 1;
+            else
+                _whiteKingCheckCount += 1;
+        }
+    }
+
     clearStepsVector2D();
 }
 

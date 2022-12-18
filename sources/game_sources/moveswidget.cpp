@@ -15,7 +15,10 @@ MovesWidget::MovesWidget(QWidget *parent)
     //makeMovesWidget();
 }
 
-MovesWidget::~MovesWidget() {}
+MovesWidget::~MovesWidget()
+{
+    delete _movesLayout;
+}
 
 // Singlton pattern realization
 MovesWidget* MovesWidget::_movesWidget = nullptr;
@@ -32,22 +35,35 @@ MovesWidget* MovesWidget::GetInstance(QWidget *parent)
 void MovesWidget::init()
 {
     // Moves widget attributes
-    Position pos;
-    _movesVector.push_back(make_pair(make_tuple('0', pos, pos, ""), make_tuple('0', pos, pos, "")));
+    _movesLayout = new QGridLayout(this);
+    _movesLayout->setVerticalSpacing(0);
+    _movesLayout->setHorizontalSpacing(0);
 }
 
 // Public util functions
-void MovesWidget::addMoveForColor(char pieceSymbol, Position posFrom, Position posTo, bool isCheck, bool isHit, PiecesColors turn)
+//void MovesWidget::makeMovesWidget()
+//{
+//    Position pos;
+//    _movesVector2D.push_back(QVector<QLabel *>(3, nullptr));
+//    _movesVector.push_back(make_pair(make_tuple('0', pos, pos, ""), make_tuple('0', pos, pos, "")));
+//}
+
+LabelVector2D& MovesWidget::getMovesVector2d()
+{
+    return _movesVector2D;
+}
+
+void MovesWidget::addMoveForColor(char pieceSymbol, Position posFrom, Position posTo, bool isCheck, bool isHit, bool isPawnPromoted, char promotedPawnSymbol, PiecesColors turn)
 {
     Position pos;
     QString moveStr = "";
     auto boardWidget = BoardWidget::GetInstance();
     auto& pieceVector2D = boardWidget->getPiecesVector2D();
     auto& lastMove = _movesVector.back();
+    static auto height = 45;
 
-
-    //moveStr = getPieceMoveSymbol(pieceSymbol);
-    moveStr += pieceSymbol;
+    moveStr = getPieceMoveSymbol(pieceSymbol);
+    //moveStr += pieceSymbol;
 
     if (isHit)
         moveStr += "x";
@@ -55,23 +71,18 @@ void MovesWidget::addMoveForColor(char pieceSymbol, Position posFrom, Position p
     moveStr += getMovePosStr(posTo);
 
     // pawn prom
-    if ((posTo.row == 0 || posTo.row == 7) && (pieceSymbol == 'p' || pieceSymbol == 'P'))
+    //if ((posTo.row == 0 || posTo.row == 7) && (pieceSymbol == 'p' || pieceSymbol == 'P'))
+    if (isPawnPromoted)
     {
         moveStr += "=";
-        moveStr += pieceVector2D[posTo.row][posTo.column]->getPieceSymbol();
+        moveStr += promotedPawnSymbol;  //pieceVector2D[posTo.row][posTo.column]->getPieceSymbol();
     }
 
     if (isCheck)
         moveStr += "+";
 
-    //qDebug() << moveStr;
-
-
-
-
-
     // Turn rich this function reversed
-    if (turn == PiecesColors::White)
+    if (turn == PiecesColors::White && !isPawnPromoted)
     {
         get<0>(lastMove.second) = pieceSymbol;
         get<1>(lastMove.second).row = posFrom.row;
@@ -79,36 +90,64 @@ void MovesWidget::addMoveForColor(char pieceSymbol, Position posFrom, Position p
         get<2>(lastMove.second).row = posTo.row;
         get<2>(lastMove.second).column = posTo.column;
         get<3>(lastMove.second) = moveStr;
+
+        int line = _movesVector.size() - 1;
+        _movesVector2D[line][2]->setText(moveStr);
     }
     else
+    {
+        this->setGeometry((int)MovesWidgetProps::WidgetX, (int)MovesWidgetProps::WidgetY, (int)MovesWidgetProps::WidgetW, height);
+        height += 28;
         _movesVector.push_back(make_pair(make_tuple(pieceSymbol, posFrom, posTo, moveStr), make_tuple('0', pos, pos, "")));
+        _movesVector2D.push_back(QVector<QLabel *>(3, nullptr));
+
+        int line = _movesVector.size() - 1;
+        QString lineStr = QString::number(line + 1);
+
+        QLabel* lineNumberTextLabel = new QLabel(this);
+        //lineNumberTextLabel->setSizeIncrement(QSize((int)MovesWidgetProps::NumberLabelW, (int)MovesWidgetProps::NumberLabelH));
+        lineNumberTextLabel->setAlignment(Qt::AlignCenter);
+        lineNumberTextLabel->setText(lineStr);
+        QLabel* whiteMoveTextLabel = new QLabel(this);
+        whiteMoveTextLabel->setText(moveStr);
+        QLabel* blackMoveTextLabel = new QLabel(this);
+        blackMoveTextLabel->setText("");
+
+        lineNumberTextLabel->setStyleSheet("QLabel {font-size: 13pt;}");
+        whiteMoveTextLabel->setStyleSheet("QLabel {font-size: 13pt;}");
+        blackMoveTextLabel->setStyleSheet("QLabel {font-size: 13pt;}");
+
+        _movesVector2D[line][0] = lineNumberTextLabel;
+        _movesVector2D[line][1] = whiteMoveTextLabel;
+        _movesVector2D[line][2] = blackMoveTextLabel;
+
+        _movesLayout->addWidget(_movesVector2D[line][0], line, 0);
+        _movesLayout->addWidget(_movesVector2D[line][1], line, 1);
+        _movesLayout->addWidget(_movesVector2D[line][2], line, 2);
+    }
 
 
+    // *************************************************************
+//    lastMove = _movesVector.back();
+//    QDebug deb = qDebug();
+//    deb.nospace() << "Move N" << _movesVector.size() - 1 << "\n";
 
+//    deb.nospace() << "White: \n";
+//    deb.nospace() << "Symbol : " << get<0>(lastMove.first) << "\n";
+//    deb.nospace() << "PosFromI: " << get<1>(lastMove.first).row << "\n";
+//    deb.nospace() << "PosFromJ: " << get<1>(lastMove.first).column << "\n";
+//    deb.nospace() << "PosToI: " << get<2>(lastMove.first).row << "\n";
+//    deb.nospace() << "PosToJ: " << get<2>(lastMove.first).column << "\n";
+//    deb.nospace() << "MoveStr: " << get<3>(lastMove.first) << "\n\n";
 
-    lastMove = _movesVector.back();
-    QDebug deb = qDebug();
-    deb.nospace() << "Move N" << _movesVector.size() - 1 << "\n";
-
-    deb.nospace() << "White: \n";
-    deb.nospace() << "Symbol : " << get<0>(lastMove.first) << "\n";
-    deb.nospace() << "PosFromI: " << get<1>(lastMove.first).row << "\n";
-    deb.nospace() << "PosFromJ: " << get<1>(lastMove.first).column << "\n";
-    deb.nospace() << "PosToI: " << get<2>(lastMove.first).row << "\n";
-    deb.nospace() << "PosToJ: " << get<2>(lastMove.first).column << "\n";
-    deb.nospace() << "MoveStr: " << get<3>(lastMove.first) << "\n\n";
-
-    deb.nospace() << "Black: \n";
-    deb.nospace() << "Symbol : " << get<0>(lastMove.second) << "\n";
-    deb.nospace() << "PosFromI: " << get<1>(lastMove.second).row << "\n";
-    deb.nospace() << "PosFromJ: " << get<1>(lastMove.second).column << "\n";
-    deb.nospace() << "PosToI: " << get<2>(lastMove.second).row << "\n";
-    deb.nospace() << "PosToJ: " << get<2>(lastMove.second).column << "\n";
-    deb.nospace() << "MoveStr: " << get<3>(lastMove.second) << "\n\n";
-
-
-
-
+//    deb.nospace() << "Black: \n";
+//    deb.nospace() << "Symbol : " << get<0>(lastMove.second) << "\n";
+//    deb.nospace() << "PosFromI: " << get<1>(lastMove.second).row << "\n";
+//    deb.nospace() << "PosFromJ: " << get<1>(lastMove.second).column << "\n";
+//    deb.nospace() << "PosToI: " << get<2>(lastMove.second).row << "\n";
+//    deb.nospace() << "PosToJ: " << get<2>(lastMove.second).column << "\n";
+//    deb.nospace() << "MoveStr: " << get<3>(lastMove.second) << "\n\n";
+    // **************************************************************
 }
 
 QString MovesWidget::getPieceMoveSymbol(char pieceSymbol)
@@ -196,12 +235,3 @@ QString MovesWidget::getColumnLetter(int column)
         break;
     }
 }
-
-
-
-
-
-
-
-
-

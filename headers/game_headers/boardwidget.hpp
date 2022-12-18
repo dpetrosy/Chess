@@ -62,6 +62,8 @@ public:
     void setIsCheckedKingSelected(bool isSelected);
     void setIsPawnPromoted(bool isPromoted);
     void setHordPiecesCount(int count);
+    void setWhiteKingCheckCount(int count);
+    void setBlackKingCheckCount(int count);
 
 public slots:
     void processLeftButtonClick(Piece *clickedPiece);
@@ -131,6 +133,8 @@ private:
     Position        _promotedPawnPos;
     PawnPromDialog* _pawnPromDialog;
     int             _hordePiecesCount;
+    int             _whiteKingCheckCount;
+    int             _blackKingCheckCount;
 };
 
 #endif // BOARDWIDGET_HPP

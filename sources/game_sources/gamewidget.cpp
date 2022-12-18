@@ -23,6 +23,7 @@ GameWidget::~GameWidget()
     delete _boardWidget;
     delete _movesWidget;
     delete _returnButton;
+    delete _movesScrollArea;
 }
 
 // Singlton pattern realization
@@ -46,6 +47,8 @@ void GameWidget::init()
 
     // Return button
     _returnButton = new ClickableLabel(this);
+
+    _movesScrollArea = new QScrollArea(this);
 }
 
 // Public util functions
@@ -56,6 +59,11 @@ void GameWidget::startGame()
         MainWindow::GetInstance()->setBackgroundImage(ImagesPaths::DarkThemeGameBkg);
     else
         MainWindow::GetInstance()->setBackgroundImage(ImagesPaths::LightThemeGameBkg);
+
+    if (globalIsDarkTheme)
+        _movesScrollArea->setBackgroundRole(QPalette::Shadow);
+    else
+        _movesScrollArea->setBackgroundRole(QPalette::Midlight);
 
     // Return button
     setQLabelPictureByTheme(_returnButton, globalIsDarkTheme, ImagesPaths::GameWidgetLightReturnButton, ImagesPaths::GameWidgetDarkReturnButton);
@@ -83,6 +91,17 @@ void GameWidget::makeGameWidget()
     _returnButton->move((int)GamwWidgetProps::ReturnButtonX, (int)GamwWidgetProps::ReturnButtonY);
     setQLabelPictureByTheme(_returnButton, globalIsDarkTheme, ImagesPaths::GameWidgetLightReturnButton, ImagesPaths::GameWidgetDarkReturnButton);
     _returnButton->setCursor(Qt::PointingHandCursor);
+
+    // MovesWidget
+    _movesWidget->setGeometry((int)MovesWidgetProps::WidgetX, (int)MovesWidgetProps::WidgetY, (int)MovesWidgetProps::WidgetW, (int)MovesWidgetProps::WidgetH);
+
+    // Scroll area
+    _movesScrollArea->setGeometry((int)MovesWidgetProps::ScrollX, (int)MovesWidgetProps::ScrollY, (int)MovesWidgetProps::ScrollW, (int)MovesWidgetProps::ScrollH);
+    if (globalIsDarkTheme)
+        _movesScrollArea->setBackgroundRole(QPalette::Shadow);
+    else
+        _movesScrollArea->setBackgroundRole(QPalette::Midlight);
+    _movesScrollArea->setWidget(_movesWidget);
 }
 
 void GameWidget::resetBoard()
@@ -115,6 +134,8 @@ void GameWidget::resetBoard()
     _boardWidget->setIsPawnPromoted(false);
     _boardWidget->setPromotedPawnPosition(0, 0);
     _boardWidget->setHordPiecesCount(36);
+    _boardWidget->setWhiteKingCheckCount(0);
+    _boardWidget->setBlackKingCheckCount(0);
 }
 
 void GameWidget::resetSymbolsVector2D()

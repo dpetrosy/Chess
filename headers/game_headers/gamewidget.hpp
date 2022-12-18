@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QChar>
 #include <QRandomGenerator>
+#include <QScrollArea>
 
 #include "game_helpers.hpp"
 #include "menus_helpers.hpp"
@@ -75,6 +76,7 @@ private:
     GameData     _gameData;
     BoardWidget* _boardWidget;
     MovesWidget* _movesWidget;
+    QScrollArea* _movesScrollArea;
 
     // Return button
     ClickableLabel*   _returnButton;

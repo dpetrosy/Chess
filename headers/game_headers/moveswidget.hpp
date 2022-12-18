@@ -7,6 +7,7 @@
 #include <QVector>
 #include <QString>
 #include <QPair>
+#include <QGridLayout>
 
 #include "pieces_helpers.hpp"
 
@@ -26,8 +27,10 @@ public:
     virtual ~MovesWidget();
 
     // Public util functions
-        void addMoveForColor(char pieceSymbol, Position posFrom, Position posTo, bool isCheck, bool isHit, PiecesColors turn);
+    void makeMovesWidget();
+    void addMoveForColor(char pieceSymbol, Position posFrom, Position posTo, bool isCheck, bool isHit, bool isPawnPromoted, char promotedPawnSymbol, PiecesColors turn);
     QString getPieceMoveSymbol(char pieceSymbol);
+    LabelVector2D& getMovesVector2d();
 
 private:
     explicit MovesWidget(QWidget *parent = nullptr);
@@ -46,6 +49,8 @@ private:
 
     // Moves widget attributes
     MovesVector         _movesVector;
+    QGridLayout*        _movesLayout;
+    LabelVector2D       _movesVector2D;
 };
 
 #endif // MOVESWIDGET_HPP

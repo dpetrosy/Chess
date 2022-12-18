@@ -39,11 +39,27 @@ enum class BoardWidgetProps
     BoardWidgetW = 698,
     BoardWidgetH = BoardWidgetW,
     PieceLabelW = BoardWidgetW / 8,
-    PieceLabelH = PieceLabelW
+    PieceLabelH = PieceLabelW,
 };
 
 
 // Moves Widget
+enum class MovesWidgetProps
+{
+    ScrollW = 332,
+    ScrollH = 300,
+    ScrollX = 690 + 14,
+    ScrollY = 200,
+    WidgetW = ScrollW - 20,
+    WidgetH = 0,
+    WidgetX = 0,
+    WidgetY = 0,
+    NumberLabelX = 0,
+    NumberLabelY = 0,
+    NumberLabelW = 60,
+    NumberLabelH = 30
+};
+
 namespace PieceSymbolsForMove
 {
     extern QString WhitePawn;
@@ -64,7 +80,7 @@ namespace PieceSymbolsForMove
 // PawnProm Dialog
 enum class PawnPromDialogProps
 {
-    windowSizeW = 409,
+    windowSizeW = 415,
     windowSizeH = 115,
     QueenPosX = 12,
     QueenPosY = 15,

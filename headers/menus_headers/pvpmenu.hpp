@@ -15,6 +15,7 @@
 #include "start_game_button.hpp"
 #include "predefined_menu_classes.hpp"
 
+// Command pattern used
 class PVPMenu : public QWidget
 {
     Q_OBJECT

@@ -394,7 +394,7 @@ void PVPMenu::makePVPMenu()
     _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::KingOfTheHill));
     _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::ThreeCheck));
     _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::Horde));
-    _gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::FromPosition));
+    //_gameVariantComboBox->addItem(removeUnderscoreInString(GameVariants::FromPosition));
     _gameVariantComboBox->setCurrentIndex((int)GameVariantsNumber::Standard);
     connect(_gameVariantComboBox, &QComboBox::currentIndexChanged, this, &PVPMenu::variantComboBoxIndexChanged);
 
