@@ -65,6 +65,16 @@ void GameWidget::startGame()
     else
         _movesScrollArea->setBackgroundRole(QPalette::Midlight);
 
+    MovesWidget::ResetInstance();
+    _movesWidget = MovesWidget::GetInstance(this);
+    _movesWidget->setGeometry((int)MovesWidgetProps::WidgetX, (int)MovesWidgetProps::WidgetY, (int)MovesWidgetProps::WidgetW, (int)MovesWidgetProps::WidgetH);
+
+    _movesScrollArea->setWidget(_movesWidget);
+    if (globalIsDarkTheme)
+        _movesScrollArea->setBackgroundRole(QPalette::Shadow);
+    else
+        _movesScrollArea->setBackgroundRole(QPalette::Midlight);
+
     // Return button
     setQLabelPictureByTheme(_returnButton, globalIsDarkTheme, ImagesPaths::GameWidgetLightReturnButton, ImagesPaths::GameWidgetDarkReturnButton);
 

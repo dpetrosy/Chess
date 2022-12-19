@@ -458,7 +458,7 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
             auto isCheck = isChecked();
             bool isHit = false;
 
-            if (clickedPiece->getPieceSymbol() != (char)PiecesSymbols::Empty || clickedPiece->getPieceSymbol() != 0)
+            if (clickedPiece->getPieceSymbol() != (char)PiecesSymbols::Empty && clickedPiece->getPieceSymbol() != 0)
                 isHit = true;
 
             if (isHit && GameWidget::GetInstance()->getGameData().gameVariant == GameVariants::Horde

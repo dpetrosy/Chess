@@ -1,7 +1,6 @@
 #include "moveswidget.hpp"
 #include "gamewidget.hpp"
 #include "boardwidget.hpp"
-#include "piece.hpp"
 
 using std::get;
 
@@ -18,6 +17,11 @@ MovesWidget::MovesWidget(QWidget *parent)
 MovesWidget::~MovesWidget()
 {
     delete _movesLayout;
+    for (int i = 0; i < _movesVector2D.size(); ++i)
+    {
+        for (int j = 0; j < 3; ++j)
+            delete _movesVector2D[i][j];
+    }
 }
 
 // Singlton pattern realization
@@ -31,6 +35,12 @@ MovesWidget* MovesWidget::GetInstance(QWidget *parent)
     return _movesWidget;
 }
 
+void MovesWidget::ResetInstance()
+{
+   delete _movesWidget;
+   _movesWidget = nullptr; // so GetInstance will still work.
+}
+
 // Init
 void MovesWidget::init()
 {
@@ -38,6 +48,7 @@ void MovesWidget::init()
     _movesLayout = new QGridLayout(this);
     _movesLayout->setVerticalSpacing(0);
     _movesLayout->setHorizontalSpacing(0);
+    _height = 45;
 }
 
 // Public util functions
@@ -57,10 +68,7 @@ void MovesWidget::addMoveForColor(char pieceSymbol, Position posFrom, Position p
 {
     Position pos;
     QString moveStr = "";
-    auto boardWidget = BoardWidget::GetInstance();
-    auto& pieceVector2D = boardWidget->getPiecesVector2D();
     auto& lastMove = _movesVector.back();
-    static auto height = 45;
 
     moveStr = getPieceMoveSymbol(pieceSymbol);
     //moveStr += pieceSymbol;
@@ -96,8 +104,8 @@ void MovesWidget::addMoveForColor(char pieceSymbol, Position posFrom, Position p
     }
     else
     {
-        this->setGeometry((int)MovesWidgetProps::WidgetX, (int)MovesWidgetProps::WidgetY, (int)MovesWidgetProps::WidgetW, height);
-        height += 28;
+        this->setGeometry((int)MovesWidgetProps::WidgetX, (int)MovesWidgetProps::WidgetY, (int)MovesWidgetProps::WidgetW, _height);
+        _height += 28;
         _movesVector.push_back(make_pair(make_tuple(pieceSymbol, posFrom, posTo, moveStr), make_tuple('0', pos, pos, "")));
         _movesVector2D.push_back(QVector<QLabel *>(3, nullptr));
 

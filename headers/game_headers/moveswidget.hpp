@@ -24,6 +24,7 @@ public:
     MovesWidget(MovesWidget &other) = delete;
     MovesWidget& operator=(const MovesWidget&) = delete;
     static MovesWidget *GetInstance(QWidget *parent = nullptr);
+    static void ResetInstance();
     virtual ~MovesWidget();
 
     // Public util functions
@@ -51,6 +52,7 @@ private:
     MovesVector         _movesVector;
     QGridLayout*        _movesLayout;
     LabelVector2D       _movesVector2D;
+    int                 _height;
 };
 
 #endif // MOVESWIDGET_HPP
