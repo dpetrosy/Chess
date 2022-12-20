@@ -174,4 +174,12 @@ namespace StylesPaths
     extern QString PawnPromButtonsStyle;
 }
 
+namespace Sounds
+{
+    extern QString SoundsPath;
+    extern QString StartGameSound;
+    extern QString Go;
+    extern QString Beat;
+}
+
 #endif // HELPERS_HPP

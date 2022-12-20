@@ -28,6 +28,8 @@ BoardWidget::~BoardWidget()
     delete _pawnPromDialog;
     delete _underLayerWidget;
     delete _boardLayout;
+    delete _mediaPlayer;
+    delete _audioOutput;
 
     for (int i = 0; i < _boardSize; ++i)
         for (int j = 0; j < _boardSize; ++j)
@@ -61,6 +63,8 @@ void BoardWidget::init()
     _hordePiecesCount = 36;
     _whiteKingCheckCount = 0;
     _blackKingCheckCount = 0;
+    _mediaPlayer = new QMediaPlayer();
+    _audioOutput = new QAudioOutput();
 
     // Init under layer attributes
     PiecesColors noColored = PiecesColors::NoColored;
@@ -183,6 +187,7 @@ void BoardWidget::makeNewPieceBySymbol(char symbol, int i, int j)
         _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::King, black, i, j, this);
         break;
     default:
+        _piecesVector2D[i][j] = _piecesFactory->CreatePiece(Pieces::Empty, noColored, i, j, this);
         break;
     }
 }
@@ -290,6 +295,11 @@ PiecesColors BoardWidget::getTurn() const
     return _turn;
 }
 
+QMediaPlayer* BoardWidget::getMediaPlayer()
+{
+    return _mediaPlayer;
+}
+
 // Setters
 void BoardWidget::setCheckPosition(int i, int j)
 {
@@ -311,6 +321,10 @@ void BoardWidget::setValueInSymbolsVector2D(int i, int j, char value)
 // Private util functions
 void BoardWidget::makeBoardWidget()
 {
+    _mediaPlayer->setAudioOutput(_audioOutput);
+    _mediaPlayer->setSource(QUrl::fromLocalFile(Sounds::StartGameSound));
+    _audioOutput->setVolume(50);
+
     // Set under layer geometry
     _underLayerWidget->setGeometry(0, 0, (int)BoardWidgetProps::BoardWidgetW, (int)BoardWidgetProps::BoardWidgetH);
 
@@ -470,8 +484,6 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
             gSelectedPiece = nullptr;
     }
 
-    //if (_isPawnPromoted)
-
     // If king checked, mark it in stepsVector2D
     if (isChecked())
         drawCheck();
@@ -479,6 +491,16 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
     //if (!isFirstStep)
         //drawPreviousStep();
     drawUnderLayer();
+
+    // Sound
+    if (isDoStep && gSound)
+    {
+        if (clickedPiece->getPieceSymbol() != (char)PiecesSymbols::Empty && clickedPiece->getPieceSymbol() != 0 && clickedPiece->getImage() != "")
+            _boardWidget->getMediaPlayer()->setSource(QUrl::fromLocalFile(Sounds::Beat));
+        else
+            _boardWidget->getMediaPlayer()->setSource(QUrl::fromLocalFile(Sounds::Go));
+        _boardWidget->getMediaPlayer()->play();
+    }
 
     // Verify checkmate and stalemate
     if (isDoStep)
@@ -661,11 +683,35 @@ void BoardWidget::endGame(PiecesColors turn, bool isStalemate)
     }
 
     switchTurn();
-    QMessageBox::information(this, "End game", text);
 
-    //for (int i = 0; i < (int)_boardSize; ++i)
-        //for (int j = 0; j < (int)_boardSize; ++j)
-            //_piecesVector2D[i][j]->getPieceLabel()->disconnect();
+//    for (int i = 0; i < (int)_boardSize; ++i)
+//        for (int j = 0; j < (int)_boardSize; ++j)
+//            _piecesVector2D[i][j]->getPieceLabel()->disconnect();
+
+    int i = _promotedPawnPos.row;
+    int j = _promotedPawnPos.column;
+    if (!gIsTimeEnded)
+    {
+        auto& vector2D = MovesWidget::GetInstance()->getMovesVector2d();
+        if (_turn == PiecesColors::Black)
+        {
+            auto text = vector2D[vector2D.size() - 1][1]->text();
+            text.chop(1);
+            //text += _piecesVector2D[i][j]->getPieceSymbol();
+            text += '#';
+            vector2D[vector2D.size() - 1][1]->setText(text);
+        }
+        else
+        {
+            auto text = vector2D[vector2D.size() - 1][2]->text();
+            text.chop(1);
+            //text += _piecesVector2D[i][j]->getPieceSymbol();
+            text += '#';
+            vector2D[vector2D.size() - 1][1]->setText(text);
+        }
+    }
+
+    QMessageBox::information(this, "End game", text);
 }
 
 void BoardWidget::showPawnPromDialog()

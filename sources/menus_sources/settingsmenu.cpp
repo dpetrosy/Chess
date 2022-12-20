@@ -6,6 +6,7 @@
 #include "utils.hpp"
 
 QString gLanguage = Languages::English;
+bool gSound = true;
 
 SettingsMenu::SettingsMenu(QWidget *parent) :
     QWidget(parent)
@@ -108,6 +109,7 @@ void SettingsMenu::cancelButtonClicked()
     globalIsDarkTheme = _settingsData.isDarkTheme;
     globalPieceSetPath = ImagesPaths::piecesPath + _settingsData.piecesSetStr + "/";
     gLanguage = _settingsData.languageStr;
+    gSound = _settingsData.isSoundAvailable;
 
     auto mainWindow = MainWindow::GetInstance();
     mainWindow->setBackgroundImage(_settingsData.bkgImageStr);
@@ -120,6 +122,7 @@ void SettingsMenu::saveButtonClicked()
     globalIsDarkTheme = _settingsData.isDarkTheme;
     globalPieceSetPath = ImagesPaths::piecesPath + _settingsData.piecesSetStr + "/";
     gLanguage = _settingsData.languageStr;
+    gSound = _settingsData.isSoundAvailable;
 
     auto mainWindow = MainWindow::GetInstance();
     auto gameWidget = GameWidget::GetInstance();
@@ -343,7 +346,7 @@ void SettingsMenu::makeSettingsMenu()
 
     // Sound toggle switch
     _soundToggleSwitch->move((int)SettingsMenuProps::SoundToggleSwitchX, (int)SettingsMenuProps::SoundToggleSwitchY);
-    _soundToggleSwitch->setChecked(false);
+    _soundToggleSwitch->setChecked(gSound);
     connect(_soundToggleSwitch, &QCheckBox::clicked, this, &SettingsMenu::swapSound);
 
     // Text for theme

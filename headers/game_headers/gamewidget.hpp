@@ -13,6 +13,8 @@
 #include "menus_helpers.hpp"
 #include "predefined_game_classes.hpp"
 
+extern bool gIsTimeEnded;
+
 // Singlton pattern used
 class GameWidget : public QWidget
 {

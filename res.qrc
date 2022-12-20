@@ -406,5 +406,8 @@
         <file>styles/menus_styles/pvp_menu_styles/light_variant_combobox.txt</file>
         <file>styles/menus_styles/main_menu_styles/version_text.txt</file>
         <file>styles/menus_styles/main_menu_styles/main_menu_button.txt</file>
+        <file>sound/beat.mp3</file>
+        <file>sound/go.mp3</file>
+        <file>sound/startGame.mp3</file>
     </qresource>
 </RCC>

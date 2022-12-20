@@ -4,6 +4,7 @@
 #include "helpers.hpp"
 
 extern QString gLanguage;
+extern bool gSound;
 
 enum class Menus : int
 {
@@ -267,7 +268,7 @@ struct SettingsData
     QString boardStr = "Brown";
     int     languageNumber = 2;
     QString languageStr = "eng";
-    bool    isSoundAvailable = false;
+    bool    isSoundAvailable = gSound;
     bool    isDarkTheme = globalIsDarkTheme;
 };
 

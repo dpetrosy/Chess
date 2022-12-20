@@ -9,6 +9,8 @@
 #include <QVector>
 #include <QVectorIterator>
 #include <QMessageBox>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 
 #include "predefined_game_classes.hpp"
 #include "pieces_helpers.hpp"
@@ -52,6 +54,7 @@ public:
     bool            getIsChecked() const;
     Position        getCheckPosition() const;
     PiecesColors    getOppositeTurn(PiecesColors turn);
+    QMediaPlayer*   getMediaPlayer();
 
     // Setters
     void setCheckPosition(int i, int j);
@@ -135,6 +138,8 @@ private:
     int             _hordePiecesCount;
     int             _whiteKingCheckCount;
     int             _blackKingCheckCount;
+    QMediaPlayer*   _mediaPlayer;
+    QAudioOutput*   _audioOutput;
 };
 
 #endif // BOARDWIDGET_HPP

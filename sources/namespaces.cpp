@@ -334,3 +334,11 @@ namespace PieceSymbolsForMove
     QString BlackQueen = "♛";
     QString BlackKing = "♚";
 }
+
+namespace Sounds
+{
+    QString SoundsPath = "qrc:/sound/";
+    QString StartGameSound = SoundsPath + "startGame.mp3";
+    QString Go = SoundsPath + "go.mp3";
+    QString Beat = SoundsPath + "beat.mp3";
+}

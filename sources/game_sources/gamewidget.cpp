@@ -7,6 +7,8 @@
 #include "helpers.hpp"
 #include "utils.hpp"
 
+bool gIsTimeEnded = false;
+
 GameWidget::GameWidget(QWidget *parent)
     : QWidget{parent}
 {
@@ -65,6 +67,7 @@ void GameWidget::startGame()
     else
         _movesScrollArea->setBackgroundRole(QPalette::Midlight);
 
+    gIsTimeEnded = false;
     MovesWidget::ResetInstance();
     _movesWidget = MovesWidget::GetInstance(this);
     _movesWidget->setGeometry((int)MovesWidgetProps::WidgetX, (int)MovesWidgetProps::WidgetY, (int)MovesWidgetProps::WidgetW, (int)MovesWidgetProps::WidgetH);
@@ -80,6 +83,12 @@ void GameWidget::startGame()
 
     gSelectedPiece = nullptr;
     resetBoard();
+
+    if (gSound)
+    {
+        _boardWidget->getMediaPlayer()->setSource(QUrl::fromLocalFile(Sounds::StartGameSound));
+        _boardWidget->getMediaPlayer()->play();
+    }
 }
 
 // Private util functions
@@ -134,8 +143,9 @@ void GameWidget::resetBoard()
 
     resetPiecesVector2D();
 
-    _boardWidget->resetBoardLayout();
     _boardWidget->drawUnderLayer();
+    _boardWidget->resetBoardLayout();
+
 
     _boardWidget->setTurn(PiecesColors::White);
     _boardWidget->setIsChecked(false);
@@ -279,22 +289,24 @@ void GameWidget::resetPiecesVector2D()
     auto& piecesVector2D = _boardWidget->getPiecesVector2D();
     auto& piecesSymbolsVector2D = _boardWidget->getPiecesSymbolsVector2D() ;
 
-    _boardWidget->clearBoardLayout();
+    //_boardWidget->clearBoardLayout();
 
     for (int i = 0; i < (int)BoardWidgetProps::BoardSquaresCount; ++i)
     {
         for (int j = 0; j < (int)BoardWidgetProps::BoardSquaresCount; ++j)
         {
-            piecesVector2D[i][j]->changePixmap();
+            //delete piecesVector2D[i][j];
             //piecesVector2D[i][j]->getPieceLabel()->disconnect();
 
             if (piecesVector2D[i][j]->getPieceSymbol() != piecesSymbolsVector2D[i][j])
             {
                 delete piecesVector2D[i][j];
                 _boardWidget->makeNewPieceBySymbol(piecesSymbolsVector2D[i][j], i, j);
-                //QAction::connect(piecesVector2D[i][j]->getPieceLabel(), &ClickableLabel::clickedLeftButton, _boardWidget,
-                //        std::bind(&BoardWidget::processLeftButtonClick, _boardWidget, piecesVector2D[i][j]));
+                //connect(piecesVector2D[i][j]->getPieceLabel(), &ClickableLabel::clickedLeftButton, _boardWidget,
+                  //      std::bind(&BoardWidget::processLeftButtonClick, _boardWidget, piecesVector2D[i][j]));
              }
+
+            piecesVector2D[i][j]->changePixmap();
         }
     }
 }
