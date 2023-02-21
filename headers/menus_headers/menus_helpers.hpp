@@ -260,8 +260,8 @@ enum class SettingsMenuProps
 
 struct SettingsData
 {
-    int     bkgImageNumber = 16;
-    QString bkgImageStr = "The_Rook";
+    int     bkgImageNumber = 11;
+    QString bkgImageStr = "Strong_Knight";
     int     pieceSetNumber = 4;
     QString piecesSetStr = "Cburnett";
     int     boardNumber = 3;

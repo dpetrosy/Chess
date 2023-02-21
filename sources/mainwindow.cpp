@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Init class members
     init();
 
-    setBackgroundImage(BackgroundImages::TheRook);
+    setBackgroundImage(BackgroundImages::StrongKnight);
 
     // Make stackedWidgets
     makeMenusStackedWidget();

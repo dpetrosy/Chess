@@ -8,6 +8,7 @@
 #include <QChar>
 #include <QRandomGenerator>
 #include <QScrollArea>
+#include <QTimer>
 
 #include "game_helpers.hpp"
 #include "menus_helpers.hpp"

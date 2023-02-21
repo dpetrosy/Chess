@@ -107,6 +107,7 @@ private:
     void addToAllStepsVector2D(CharVector2D& allAvailStepsVector2D, CharVector2D& possibleStepsVector2D);
     void endGame(PiecesColors turn, bool isStalemate);
     void checkKingOfTheHill();
+    bool isPiece(char symbol);
 
 private:
     // Singleton pattern realization
@@ -140,6 +141,10 @@ private:
     int             _blackKingCheckCount;
     QMediaPlayer*   _mediaPlayer;
     QAudioOutput*   _audioOutput;
+
+    // Time
+    QTimer*         _whitePlayerTimer;
+    QTimer*         _blackPlayerTimer;
 };
 
 #endif // BOARDWIDGET_HPP

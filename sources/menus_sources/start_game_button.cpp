@@ -71,7 +71,6 @@ void StartGameButton::enterEvent(QEnterEvent *event)
             changeImg(ImagesPaths::LightWhiteColorHoverButton, StylesPaths::lightQuickGamesHoverButtonStyle);
         else // RandomColor
             changeImg(ImagesPaths::LightRandomColorHoverButton, StylesPaths::lightQuickGamesHoverButtonStyle);
-
     }
 
     QLabel::enterEvent(event);
@@ -124,5 +123,3 @@ void StartGameButton::leaveEvent(QEvent *event)
 
     QLabel::leaveEvent(event);
 }
-
-

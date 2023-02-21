@@ -30,6 +30,8 @@ BoardWidget::~BoardWidget()
     delete _boardLayout;
     delete _mediaPlayer;
     delete _audioOutput;
+    delete _whitePlayerTimer;
+    delete _blackPlayerTimer;
 
     for (int i = 0; i < _boardSize; ++i)
         for (int j = 0; j < _boardSize; ++j)
@@ -65,6 +67,10 @@ void BoardWidget::init()
     _blackKingCheckCount = 0;
     _mediaPlayer = new QMediaPlayer();
     _audioOutput = new QAudioOutput();
+    _whitePlayerTimer = new QTimer(this);
+    _whitePlayerTimer->setInterval(10 * 60 * 1000);
+    _blackPlayerTimer = new QTimer(this);
+    _blackPlayerTimer->setInterval(10 * 60 * 1000);
 
     // Init under layer attributes
     PiecesColors noColored = PiecesColors::NoColored;
@@ -495,7 +501,7 @@ void BoardWidget::processLeftButtonClick(Piece* clickedPiece)
     // Sound
     if (isDoStep && gSound)
     {
-        if (clickedPiece->getPieceSymbol() != (char)PiecesSymbols::Empty && clickedPiece->getPieceSymbol() != 0 && clickedPiece->getImage() != "")
+        if (isPiece(clickedPiece->getPieceSymbol()))
             _boardWidget->getMediaPlayer()->setSource(QUrl::fromLocalFile(Sounds::Beat));
         else
             _boardWidget->getMediaPlayer()->setSource(QUrl::fromLocalFile(Sounds::Go));
@@ -552,26 +558,6 @@ void BoardWidget::doStep(Piece* clickedPiece)
         checkPawnPromotion(iClicked, jClicked);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void BoardWidget::checkKingOfTheHill()
 {
@@ -688,8 +674,8 @@ void BoardWidget::endGame(PiecesColors turn, bool isStalemate)
 //        for (int j = 0; j < (int)_boardSize; ++j)
 //            _piecesVector2D[i][j]->getPieceLabel()->disconnect();
 
-    int i = _promotedPawnPos.row;
-    int j = _promotedPawnPos.column;
+    //int i = _promotedPawnPos.row;
+    //int j = _promotedPawnPos.column;
     if (!gIsTimeEnded)
     {
         auto& vector2D = MovesWidget::GetInstance()->getMovesVector2d();
@@ -945,4 +931,14 @@ bool BoardWidget::isChecked()
 bool BoardWidget::isPiece(Piece* piece, PiecesTypes pieceType)
 {
     return (piece->getPieceType() == pieceType);
+}
+
+bool BoardWidget::isPiece(char symbol)
+{
+    if (symbol == (char)PiecesSymbols::WhitePawn || symbol == (char)PiecesSymbols::WhiteKnight || symbol == (char)PiecesSymbols::WhiteBishop ||
+        symbol == (char)PiecesSymbols::WhiteRook || symbol == (char)PiecesSymbols::WhiteQueen || symbol == (char)PiecesSymbols::WhiteKing ||
+        symbol == (char)PiecesSymbols::BlackPawn || symbol == (char)PiecesSymbols::BlackKnight || symbol == (char)PiecesSymbols::BlackBishop ||
+        symbol == (char)PiecesSymbols::BlackRook || symbol == (char)PiecesSymbols::BlackQueen || symbol == (char)PiecesSymbols::BlackKing)
+                return true;
+    return false;
 }

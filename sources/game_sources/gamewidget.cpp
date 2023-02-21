@@ -56,6 +56,8 @@ void GameWidget::init()
 // Public util functions
 void GameWidget::startGame()
 {
+
+
     // Set background theme
     if (globalIsDarkTheme)
         MainWindow::GetInstance()->setBackgroundImage(ImagesPaths::DarkThemeGameBkg);

@@ -181,6 +181,7 @@ void PVPMenu::makeMenuBeforeSwitch()
 
     // Game variant combobox
     ::setStyleSheetByTheme(StylesPaths::lightVariantComboboxStyle, StylesPaths::darkVariantComboboxStyle, _gameVariantComboBox, globalIsDarkTheme);
+    //_gameVariantComboBox->GameWidget::GetInstance()->setGameVariant(variant);
 
     // Time Control background label
     ::setStyleSheetByTheme(StylesPaths::lightTimeControlBkgLabelStyle, StylesPaths::darkTimeControlBkgLabelStyle, _timeControlBkgLabel, globalIsDarkTheme);
